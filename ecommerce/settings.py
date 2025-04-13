@@ -9,7 +9,7 @@ SECRET_KEY = 'your-secret-key-here'
 DEBUG = True
 
 # Use environment variable for ALLOWED_HOSTS or default to localhost
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost,ecommerce-backend-77dc.onrender.com').split(',')
 
 # Application definition
 INSTALLED_APPS = [
