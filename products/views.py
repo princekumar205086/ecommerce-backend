@@ -95,10 +95,9 @@ class ProductVariantListCreateView(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['product']
 
-    def perform_create(self, serializer):
-        try:
-            serializer.save()
-        except IntegrityError:
-            raise ValidationError({
-                "detail": "A variant with these exact specifications already exists for this product."
+    def handle_exception(self, exc):
+        if isinstance(exc, IntegrityError) and 'unique_product_variant' in str(exc):
+            exc = ValidationError({
+                'detail': 'A variant with these specifications already exists for this product.'
             })
+        return super().handle_exception(exc)

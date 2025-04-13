@@ -3,6 +3,9 @@ from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.core.exceptions import ValidationError
+from django.urls import reverse
+from django.conf import settings
 
 User = get_user_model()
 
@@ -28,6 +31,9 @@ class Brand(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -37,8 +43,15 @@ class ProductCategory(models.Model):
     is_publish = models.BooleanField(default=False)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
+    class Meta:
+        verbose_name_plural = "Product Categories"
+        ordering = ['-created_at']
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('category-detail', kwargs={'slug': self.slug})
 
 
 class ProductSubCategory(models.Model):
@@ -50,8 +63,15 @@ class ProductSubCategory(models.Model):
     is_publish = models.BooleanField(default=False)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
+    class Meta:
+        verbose_name_plural = "Product Subcategories"
+        ordering = ['-created_at']
+
     def __str__(self):
-        return self.name
+        return f"{self.category.name} > {self.name}"
+
+    def get_absolute_url(self):
+        return reverse('subcategory-detail', kwargs={'slug': self.slug})
 
 
 class Product(models.Model):
@@ -59,44 +79,137 @@ class Product(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    stock = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='products/', null=True, blank=True)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
-    subcategory = models.ForeignKey(ProductSubCategory, on_delete=models.CASCADE, null=True, blank=True)
-    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)
-    type = models.CharField(max_length=20, choices=PRODUCT_TYPE_CHOICES, default='medical')
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    stock = models.PositiveIntegerField(default=0)
+    image = models.ImageField(
+        upload_to='products/',
+        null=True,
+        blank=True,
+        default='products/default.png'
+    )
+    category = models.ForeignKey(
+        ProductCategory,
+        on_delete=models.CASCADE,
+        related_name='products'
+    )
+    subcategory = models.ForeignKey(
+        ProductSubCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='products'
+    )
+    brand = models.ForeignKey(
+        Brand,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='products'
+    )
+    type = models.CharField(
+        max_length=20,
+        choices=PRODUCT_TYPE_CHOICES,
+        default='medical'
+    )
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='products'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     is_publish = models.BooleanField(default=False)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+
+    class Meta:
+        ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['name', 'category'],
+                name='unique_product_name_per_category'
+            )
+        ]
+        indexes = [
+            models.Index(fields=['slug']),
+            models.Index(fields=['status', 'is_publish']),
+        ]
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('product-detail', kwargs={'slug': self.slug})
+
+    def is_in_stock(self):
+        return self.stock > 0
+
+    def clean(self):
+        if self.subcategory and self.subcategory.category != self.category:
+            raise ValidationError(
+                "Subcategory must belong to the selected category"
+            )
+
 
 class ProductVariant(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants')
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='variants'
+    )
     size = models.CharField(max_length=50, blank=True, null=True)
     weight = models.CharField(max_length=50, blank=True, null=True)
-    additional_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    additional_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0.00
+    )
+    stock = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['product', 'size', 'weight', 'additional_price'],
+                fields=['product', 'size', 'weight'],
                 name='unique_product_variant'
             )
         ]
+        ordering = ['-additional_price']
 
     def __str__(self):
-        return f"Variant of {self.product.name}"
+        return f"{self.product.name} - {self.size or ''} {self.weight or ''}".strip()
+
+    def clean(self):
+        if not self.size and not self.weight:
+            raise ValidationError("Either size or weight must be provided")
+
+        if self.stock < 0:
+            raise ValidationError("Stock cannot be negative")
+
+    @property
+    def total_price(self):
+        return float(self.product.price) + float(self.additional_price)
+
+    def is_in_stock(self):
+        return self.stock > 0
 
 
 class ProductReview(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
     rating = models.IntegerField(
-        choices=[(1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'), (5, '5 Stars')]
+        choices=[(i, f'{i} Star{"s" if i > 1 else ""}') for i in range(1, 6)]
     )
     comment = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -111,21 +224,31 @@ class ProductReview(models.Model):
             )
         ]
         ordering = ['-created_at']
+        verbose_name = "Product Review"
+        verbose_name_plural = "Product Reviews"
 
     def __str__(self):
-        return f"{self.get_rating_display()} review by {self.user.email} for {self.product.name}"
+        return f"{self.get_rating_display()} by {self.user.email} for {self.product.name}"
+
+    def clean(self):
+        if self.rating < 1 or self.rating > 5:
+            raise ValidationError("Rating must be between 1 and 5")
 
     def save(self, *args, **kwargs):
-        # Automatically publish reviews with 4+ stars
-        if self.rating >= 4:
-            self.is_published = True
+        self.full_clean()
+        # Auto-publish positive reviews
+        self.is_published = self.rating >= 4
         super().save(*args, **kwargs)
 
 
-# Slug Auto-generation
 @receiver(pre_save, sender=ProductCategory)
 @receiver(pre_save, sender=ProductSubCategory)
 @receiver(pre_save, sender=Product)
 def generate_slug(sender, instance, *args, **kwargs):
     if not instance.slug:
-        instance.slug = slugify(instance.name)
+        base_slug = slugify(instance.name)
+        instance.slug = base_slug
+        counter = 1
+        while sender.objects.filter(slug=instance.slug).exists():
+            instance.slug = f"{base_slug}-{counter}"
+            counter += 1
