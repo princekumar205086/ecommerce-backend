@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'cart',
     'core',
     'coupon',
-    'django_filters',
     'orders',
     # 'payments',
     # 'notifications',
