@@ -1,15 +1,37 @@
 from rest_framework import serializers
-from .models import Product, ProductCategory
+from .models import (
+    ProductCategory, ProductSubCategory, Product, ProductReview,
+    Brand, ProductVariant
+)
+
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = '__all__'
 
 class ProductCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductCategory
-        fields = ['id', 'name']
+        exclude = ['slug']
+
+class ProductSubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductSubCategory
+        exclude = ['slug']
+
+class ProductVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductVariant
+        fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = ProductCategorySerializer(read_only=True)
-    category_id = serializers.PrimaryKeyRelatedField(queryset=ProductCategory.objects.all(), source='category', write_only=True)
-
+    variants = ProductVariantSerializer(many=True, read_only=True)
     class Meta:
         model = Product
-        fields = ['id', 'name', 'description', 'price', 'stock', 'image', 'category', 'category_id', 'type', 'created_at']
+        exclude = ['slug']
+
+class ProductReviewSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = ProductReview
+        fields = '__all__'

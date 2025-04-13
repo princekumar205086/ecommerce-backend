@@ -32,18 +32,18 @@ urlpatterns = [
     # JWT auth endpoints
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    path('api/wishlist/', include('wishlist.urls')),
+    path('api/coupons/', include('coupon.urls')),
     # App routes (you can update these when you build the apps)
     path('api/accounts/', include('accounts.urls')),
     # path('api/adminpanel/', include('adminpanel.urls')),
     # path('api/analytics/', include('analytics.urls')),
-    # path('api/cart/', include('cart.urls')),
+    path('api/cart/', include('cart.urls')),
     # path('api/cms/', include('cms.urls')),
     # path('api/common/', include('common.urls')),
-    # path('api/core/', include('core.urls')),
     # path('api/inventory/', include('inventory.urls')),
     # path('api/notifications/', include('notifications.urls')),
-    # path('api/orders/', include('orders.urls')),
+    path('api/orders/', include('orders.urls')),
     # path('api/payments/', include('payments.urls')),
     path('api/products/', include('products.urls')),
     # path('api/reviews/', include('reviews.urls')),

@@ -7,6 +7,8 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.generics import ListAPIView
+
+from cart.models import Cart, CartItem
 from .models import User
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer
 
@@ -92,6 +94,10 @@ class LoginView(APIView):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+
+        # Sync guest cart to user's cart
+        sync_guest_cart_to_user(request, user)
+
         refresh = RefreshToken.for_user(user)
         return Response({
             'user': UserSerializer(user).data,
@@ -99,6 +105,21 @@ class LoginView(APIView):
             'access': str(refresh.access_token),
         })
 
+
+# Function to sync guest cart to user's cart
+def sync_guest_cart_to_user(request, user):
+    session_cart = request.session.get('guest_cart')
+    if session_cart:
+        cart, _ = Cart.objects.get_or_create(user=user)
+        for item in session_cart:
+            product_id = item['product_id']
+            quantity = item['quantity']
+            obj, created = CartItem.objects.get_or_create(cart=cart, product_id=product_id)
+            if not created:
+                obj.quantity += quantity
+                obj.save()
+        del request.session['guest_cart']
+        request.session.modified = True
 
 class ProfileView(APIView):
     authentication_classes = [JWTAuthentication]

@@ -27,9 +27,11 @@ INSTALLED_APPS = [
     # Local apps
     'accounts',
     'products',
-    # 'cart',
-    'core'
-    # 'orders',
+    'cart',
+    'core',
+    'coupon',
+    'django_filters',
+    'orders',
     # 'payments',
     # 'reviews',
     # 'notifications',
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     # 'common',
     # 'analytics',
     # 'support',
+    'wishlist',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +111,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 # JWT Settings
