@@ -8,7 +8,8 @@ SECRET_KEY = 'your-secret-key-here'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Use environment variable for ALLOWED_HOSTS or default to localhost
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -33,7 +34,6 @@ INSTALLED_APPS = [
     'django_filters',
     'orders',
     # 'payments',
-    # 'reviews',
     # 'notifications',
     # 'adminpanel',
     # 'cms',
