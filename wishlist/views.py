@@ -31,6 +31,10 @@ class WishlistDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = WishlistSerializer
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Wishlist.objects.none()  # Return an empty queryset for schema generation
+        if not self.request.user.is_authenticated:
+            return Wishlist.objects.none()
         return Wishlist.objects.filter(user=self.request.user)
 
     def get_serializer_class(self):
@@ -81,9 +85,6 @@ class WishlistItemCreateView(generics.CreateAPIView):
 class WishlistItemDeleteView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_queryset(self):
-        return WishlistItem.objects.filter(wishlist__user=self.request.user)
-
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
@@ -91,6 +92,13 @@ class WishlistItemDeleteView(generics.DestroyAPIView):
             {'detail': 'Item removed from wishlist'},
             status=status.HTTP_204_NO_CONTENT
         )
+
+    def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Wishlist.objects.none()
+        if not self.request.user.is_authenticated:
+            return Wishlist.objects.none()
+        return Wishlist.objects.filter(user=self.request.user)
 
 
 class DefaultWishlistView(generics.RetrieveAPIView):

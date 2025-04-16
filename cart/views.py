@@ -81,6 +81,9 @@ class UpdateCartItemView(generics.UpdateAPIView):
     lookup_url_kwarg = 'pk'
 
     def get_queryset(self):
+        # Return an empty queryset during schema generation
+        if getattr(self, 'swagger_fake_view', False):
+            return CartItem.objects.none()
         return CartItem.objects.filter(cart__user=self.request.user)
 
     def update(self, request, *args, **kwargs):
@@ -113,6 +116,9 @@ class RemoveFromCartView(generics.DestroyAPIView):
     lookup_url_kwarg = 'pk'
 
     def get_queryset(self):
+        # Return an empty queryset during schema generation
+        if getattr(self, 'swagger_fake_view', False):
+            return CartItem.objects.none()
         return CartItem.objects.filter(cart__user=self.request.user)
 
     def destroy(self, request, *args, **kwargs):

@@ -1,10 +1,18 @@
+# coupon/utils.py
 from .models import Coupon
-from django.utils import timezone
+from django.core.exceptions import ValidationError
 
-def apply_coupon(code, total):
+def apply_coupon(code, user, cart_total):
+    """
+    Apply coupon to cart and return discount amount
+    """
     try:
-        coupon = Coupon.objects.get(code=code, active=True, valid_until__gte=timezone.now())
-        discount = total * (coupon.discount_percent / 100)
-        return total - discount, discount
+        coupon = Coupon.objects.get(code=code)
     except Coupon.DoesNotExist:
-        return total, 0
+        raise ValidationError("Invalid coupon code")
+
+    is_valid, message = coupon.is_valid(user, cart_total)
+    if not is_valid:
+        raise ValidationError(message)
+
+    return coupon.apply_discount(cart_total)
