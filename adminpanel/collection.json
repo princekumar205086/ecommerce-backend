@@ -1,0 +1,464 @@
+{
+    "info": {
+        "_postman_id": "YOUR_COLLECTION_ID",
+        "name": "MediCommerce E-Commerce API",
+        "description": "Complete API collection for the MediCommerce e-commerce platform.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "Authentication endpoints for users and admins.",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"securepassword\",\n    \"full_name\": \"John Doe\",\n    \"contact\": \"1234567890\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{mediCommerce_url}}/api/accounts/register/",
+                            "host": [
+                                "{{mediCommerce_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "accounts",
+                                "register",
+                                ""
+                            ]
+                        },
+                        "description": "Register a new user account."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"securepassword\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{mediCommerce_url}}/api/accounts/login/",
+                            "host": [
+                                "{{mediCommerce_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "accounts",
+                                "login",
+                                ""
+                            ]
+                        },
+                        "description": "Login with email and password to get JWT tokens."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Refresh Token",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"refresh\": \"your_refresh_token_here\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{mediCommerce_url}}/api/token/refresh/",
+                            "host": [
+                                "{{mediCommerce_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "token",
+                                "refresh",
+                                ""
+                            ]
+                        },
+                        "description": "Get a new access token using the refresh token."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get User Profile",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{medi_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{mediCommerce_url}}/api/accounts/profile/",
+                            "host": [
+                                "{{mediCommerce_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "accounts",
+                                "profile",
+                                ""
+                            ]
+                        },
+                        "description": "Get the current user's profile information."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Admin Panel",
+            "description": "Endpoints for managing the admin panel.",
+            "item": [
+                {
+                    "name": "Dashboard",
+                    "item": [
+                        {
+                            "name": "Admin Dashboard",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/api/adminpanel/dashboard/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "adminpanel",
+                                        "dashboard",
+                                        ""
+                                    ]
+                                },
+                                "description": "Get overview metrics and recent activity for the admin dashboard."
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "System Settings",
+                    "item": [
+                        {
+                            "name": "List System Settings",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/api/adminpanel/settings/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "adminpanel",
+                                        "settings",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "search",
+                                            "value": "site_name",
+                                            "description": "(Optional) Search by key or description",
+                                            "disabled": true
+                                        },
+                                        {
+                                            "key": "setting_type",
+                                            "value": "string",
+                                            "description": "(Optional) Filter by setting type (string, number, boolean, json)",
+                                            "disabled": true
+                                        },
+                                        {
+                                            "key": "is_public",
+                                            "value": "true",
+                                            "description": "(Optional) Filter by public visibility",
+                                            "disabled": true
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve a list of all system settings. Supports filtering and searching."
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create System Setting",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"key\": \"new_setting_key\",\n    \"value\": \"some value\",\n    \"setting_type\": \"string\",\n    \"description\": \"Description for the new setting\",\n    \"is_public\": false\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/api/adminpanel/settings/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "adminpanel",
+                                        "settings",
+                                        ""
+                                    ]
+                                },
+                                "description": "Create a new system setting."
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get System Setting Details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/api/adminpanel/settings/:setting_key/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "adminpanel",
+                                        "settings",
+                                        ":setting_key",
+                                        ""
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "setting_key",
+                                            "value": "site_name",
+                                            "description": "The unique key of the system setting"
+                                        }
+                                    ]
+                                },
+                                "description": "Retrieve details of a specific system setting by its key."
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Update System Setting",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"value\": \"updated value\",\n    \"setting_type\": \"string\",\n    \"description\": \"Updated description\",\n    \"is_public\": false\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/api/adminpanel/settings/:setting_key/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "adminpanel",
+                                        "settings",
+                                        ":setting_key",
+                                        ""
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "setting_key",
+                                            "value": "site_name",
+                                            "description": "The unique key of the system setting to update"
+                                        }
+                                    ]
+                                },
+                                "description": "Update an existing system setting (full update)."
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Partial Update System Setting",
+                            "request": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"value\": \"partially updated value\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/api/adminpanel/settings/:setting_key/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "adminpanel",
+                                        "settings",
+                                        ":setting_key",
+                                        ""
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "setting_key",
+                                            "value": "site_name",
+                                            "description": "The unique key of the system setting to partially update"
+                                        }
+                                    ]
+                                },
+                                "description": "Partially update an existing system setting."
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Delete System Setting",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/api/adminpanel/settings/:setting_key/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "api",
+                                        "adminpanel",
+                                        "settings",
+                                        ":setting_key",
+                                        ""
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "setting_key",
+                                            "value": "setting_to_delete",
+                                            "description": "The unique key of the system setting to delete"
+                                        }
+                                    ]
+                                },
+                                "description": "Delete a system setting by its key."
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "mediCommerce_url",
+            "value": "http://localhost:8000",
+            "type": "string",
+            "description": "Base URL for the MediCommerce API"
+        },
+        {
+            "key": "medi_token",
+            "value": "YOUR_AUTH_TOKEN_HERE",
+            "type": "string",
+            "description": "Authentication token for API access (e.g., Bearer token)"
+        }
+    ]
+}

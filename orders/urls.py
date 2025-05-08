@@ -1,8 +1,16 @@
 from django.urls import path
-from .views import CreateOrderView, OrderListView, OrderDetailView
+from .views import (
+    OrderListView,
+    OrderDetailView,
+    CartCheckoutView,
+    ApplyCouponView,
+    OrderStatsView
+)
 
 urlpatterns = [
-    path('create/', CreateOrderView.as_view(), name='create-order'),
+    path('checkout/', CartCheckoutView.as_view(), name='cart-checkout'),
     path('', OrderListView.as_view(), name='order-list'),
-    path('<int:id>/', OrderDetailView.as_view(), name='order-detail'),
+    path('<int:pk>/', OrderDetailView.as_view(), name='order-detail'),
+    path('<int:order_id>/apply-coupon/', ApplyCouponView.as_view(), name='apply-coupon'),
+    path('stats/', OrderStatsView.as_view(), name='order-stats'),
 ]

@@ -1,0 +1,390 @@
+{
+    "info": {
+        "name": "Analytics API",
+        "description": "Collection for Analytics API endpoints",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Track Event",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"event_type\": \"page_view\",\n    \"path\": \"/products/category/electronics\",\n    \"data\": {\n        \"page_name\": \"Electronics Category\"\n    }\n}"
+                },
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/track/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "track",
+                        ""
+                    ]
+                },
+                "description": "Track user events like page views, product views, etc."
+            },
+            "response": []
+        },
+        {
+            "name": "Track Product View",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"event_type\": \"product_view\",\n    \"product_id\": 1,\n    \"path\": \"/products/1\",\n    \"data\": {\n        \"product_name\": \"Sample Product\"\n    }\n}"
+                },
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/track/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "track",
+                        ""
+                    ]
+                },
+                "description": "Track product view events"
+            },
+            "response": []
+        },
+        {
+            "name": "Analytics Dashboard",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/dashboard/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "dashboard",
+                        ""
+                    ]
+                },
+                "description": "Get analytics dashboard data"
+            },
+            "response": []
+        },
+        {
+            "name": "Sales Reports List",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/reports/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "reports",
+                        ""
+                    ]
+                },
+                "description": "List all generated sales reports"
+            },
+            "response": []
+        },
+        {
+            "name": "Generate Sales Report",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"start_date\": \"2025-01-01\",\n    \"end_date\": \"2025-01-31\"\n}"
+                },
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/reports/generate/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "reports",
+                        "generate",
+                        ""
+                    ]
+                },
+                "description": "Generate a new sales report for a given date range"
+            },
+            "response": []
+        },
+        {
+            "name": "Product Analytics",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/products/?start_date=2025-01-01&end_date=2025-04-24",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "products",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "start_date",
+                            "value": "2025-01-01"
+                        },
+                        {
+                            "key": "end_date",
+                            "value": "2025-04-24"
+                        }
+                    ]
+                },
+                "description": "Get analytics data for products"
+            },
+            "response": []
+        },
+        {
+            "name": "Category Analytics",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/categories/?start_date=2025-01-01&end_date=2025-04-24",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "categories",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "start_date",
+                            "value": "2025-01-01"
+                        },
+                        {
+                            "key": "end_date",
+                            "value": "2025-04-24"
+                        }
+                    ]
+                },
+                "description": "Get analytics data for product categories"
+            },
+            "response": []
+        },
+        {
+            "name": "User Activity",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/user-activity/1/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "user-activity",
+                        "1",
+                        ""
+                    ]
+                },
+                "description": "Get detailed activity for a specific user"
+            },
+            "response": []
+        },
+        {
+            "name": "Inventory Alerts",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/inventory-alerts/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "inventory-alerts",
+                        ""
+                    ]
+                },
+                "description": "Get list of unresolved inventory alerts"
+            },
+            "response": []
+        },
+        {
+            "name": "Resolve Inventory Alert",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/inventory-alerts/1/resolve/",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "inventory-alerts",
+                        "1",
+                        "resolve",
+                        ""
+                    ]
+                },
+                "description": "Mark an inventory alert as resolved"
+            },
+            "response": []
+        },
+        {
+            "name": "Event Log",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{medi_token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{mediCommerce_url}}/api/analytics/events/?event_type=product_view&start_date=2025-01-01&end_date=2025-04-24",
+                    "host": [
+                        "{{mediCommerce_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "analytics",
+                        "events",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "event_type",
+                            "value": "product_view"
+                        },
+                        {
+                            "key": "start_date",
+                            "value": "2025-01-01"
+                        },
+                        {
+                            "key": "end_date",
+                            "value": "2025-04-24"
+                        }
+                    ]
+                },
+                "description": "View event log with optional filtering"
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "mediCommerce_url",
+            "value": "http://localhost:8000",
+            "type": "string",
+            "description": "Base URL for the MediCommerce API"
+        },
+        {
+            "key": "medi_token",
+            "value": "your_auth_token_here",
+            "type": "string",
+            "description": "Authentication token for API access"
+        }
+    ]
+}

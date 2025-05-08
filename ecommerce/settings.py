@@ -32,14 +32,23 @@ INSTALLED_APPS = [
     'core',
     'coupon',
     'orders',
-    # 'payments',
-    # 'notifications',
-    # 'adminpanel',
-    # 'cms',
-    # 'common',
-    # 'analytics',
-    # 'support',
+    'payments',
+    'notifications',
+    'adminpanel',
+    'cms',
+    'analytics',
+    'invoice',
+    'support',
     'wishlist',
+    'inventory',
+    'reviews',
+    'corsheaders'
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.1:3000',
+    'https://medixmall.vercel.app/'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -125,3 +135,9 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Razorpay Configuration
+RAZORPAY_API_KEY = 'rzp_test_hZpYcGhumUM4Z2'
+RAZORPAY_API_SECRET = '9ge230isKnELfyR3QN2o5SXF'
+RAZORPAY_WEBHOOK_SECRET = 'your_webhook_secret_here'
+APP_NAME = 'Ecommerce'

@@ -1,0 +1,1593 @@
+{
+    "info": {
+        "_postman_id": "a2c5e1e5-9e8f-4c0b-8f15-d7e89fa47f2b",
+        "name": "MediCommerce CMS API",
+        "description": "API collection for the MediCommerce CMS module",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Public Endpoints",
+            "item": [
+                {
+                    "name": "Pages",
+                    "item": [
+                        {
+                            "name": "List Pages",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/pages/?status=published&is_featured=true&show_in_nav=true&search=medical",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "pages",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "status",
+                                            "value": "published",
+                                            "description": "Filter by status (published, draft, archived)"
+                                        },
+                                        {
+                                            "key": "is_featured",
+                                            "value": "true",
+                                            "description": "Filter by featured status"
+                                        },
+                                        {
+                                            "key": "show_in_nav",
+                                            "value": "true",
+                                            "description": "Filter by navigation visibility"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "medical",
+                                            "description": "Search in title and content"
+                                        }
+                                    ]
+                                },
+                                "description": "List all published pages with optional filters"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Page by Slug",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/pages/about-us/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "pages",
+                                        "about-us",
+                                        ""
+                                    ]
+                                },
+                                "description": "Get page details by slug"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Public endpoints for pages"
+                },
+                {
+                    "name": "Banners",
+                    "item": [
+                        {
+                            "name": "List Active Banners",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/banners/?position=home_top",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "banners",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "position",
+                                            "value": "home_top",
+                                            "description": "Filter by position (home_top, home_middle, home_bottom, etc.)"
+                                        }
+                                    ]
+                                },
+                                "description": "List all active banners with optional position filter"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Public endpoints for banners"
+                },
+                {
+                    "name": "Blog",
+                    "item": [
+                        {
+                            "name": "List Blog Posts",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/blog/?status=published&is_featured=true&categories=1&tags=2&search=health&ordering=-published_at",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "blog",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "status",
+                                            "value": "published",
+                                            "description": "Filter by status (published, draft, archived)"
+                                        },
+                                        {
+                                            "key": "is_featured",
+                                            "value": "true",
+                                            "description": "Filter by featured status"
+                                        },
+                                        {
+                                            "key": "categories",
+                                            "value": "1",
+                                            "description": "Filter by category ID"
+                                        },
+                                        {
+                                            "key": "tags",
+                                            "value": "2",
+                                            "description": "Filter by tag ID"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "health",
+                                            "description": "Search in title, content, and excerpt"
+                                        },
+                                        {
+                                            "key": "ordering",
+                                            "value": "-published_at",
+                                            "description": "Order by field (published_at, view_count)"
+                                        }
+                                    ]
+                                },
+                                "description": "List all published blog posts with optional filters"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Blog Post by Slug",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/blog/health-benefits-of-exercise/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "blog",
+                                        "health-benefits-of-exercise",
+                                        ""
+                                    ]
+                                },
+                                "description": "Get blog post details by slug (also increments view count)"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "List Blog Categories",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/blog/categories/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "blog",
+                                        "categories",
+                                        ""
+                                    ]
+                                },
+                                "description": "List all blog categories"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "List Blog Tags",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/blog/tags/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "blog",
+                                        "tags",
+                                        ""
+                                    ]
+                                },
+                                "description": "List all blog tags"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Public endpoints for blog posts, categories, and tags"
+                },
+                {
+                    "name": "FAQs",
+                    "item": [
+                        {
+                            "name": "List FAQs",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/faqs/?category=medical",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "faqs",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "category",
+                                            "value": "medical",
+                                            "description": "Filter by category (general, ordering, payments, etc.)"
+                                        }
+                                    ]
+                                },
+                                "description": "List all active FAQs with optional category filter"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Public endpoints for FAQs"
+                },
+                {
+                    "name": "Testimonials",
+                    "item": [
+                        {
+                            "name": "List Testimonials",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/testimonials/?is_featured=true",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "testimonials",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "is_featured",
+                                            "value": "true",
+                                            "description": "Filter by featured status"
+                                        }
+                                    ]
+                                },
+                                "description": "List all active testimonials with optional featured filter"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Public endpoints for testimonials"
+                }
+            ],
+            "description": "Public endpoints for the CMS API"
+        },
+        {
+            "name": "Admin Endpoints",
+            "item": [
+                {
+                    "name": "Pages",
+                    "item": [
+                        {
+                            "name": "List Pages (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/pages/?status=draft&is_featured=false&show_in_nav=false&search=product",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "pages",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "status",
+                                            "value": "draft",
+                                            "description": "Filter by status (published, draft, archived)"
+                                        },
+                                        {
+                                            "key": "is_featured",
+                                            "value": "false",
+                                            "description": "Filter by featured status"
+                                        },
+                                        {
+                                            "key": "show_in_nav",
+                                            "value": "false",
+                                            "description": "Filter by navigation visibility"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "product",
+                                            "description": "Search in title and content"
+                                        }
+                                    ]
+                                },
+                                "description": "Admin endpoint to list all pages with optional filters"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create Page",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"title\": \"About Medical Products\",\n    \"content\": \"<p>This is the content of the about medical products page.</p>\",\n    \"excerpt\": \"Learn about our medical products and services.\",\n    \"status\": \"published\",\n    \"template\": \"medical\",\n    \"seo_title\": \"About Medical Products - MediCommerce\",\n    \"seo_description\": \"Learn about our high-quality medical products and services.\",\n    \"seo_keywords\": \"medical products, medical services, healthcare\",\n    \"is_featured\": true,\n    \"show_in_nav\": true,\n    \"parent\": null,\n    \"order\": 3\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/pages/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "pages",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to create a new page"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Page by Slug (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/pages/about-medical-products/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "pages",
+                                        "about-medical-products",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to get page details by slug"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Update Page",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"title\": \"About Medical Products (Updated)\",\n    \"content\": \"<p>This is the updated content of the about medical products page.</p>\",\n    \"excerpt\": \"Learn about our premium medical products and services.\",\n    \"status\": \"published\",\n    \"template\": \"medical\",\n    \"seo_title\": \"About Medical Products - MediCommerce\",\n    \"seo_description\": \"Learn about our high-quality medical products and services.\",\n    \"seo_keywords\": \"medical products, medical services, healthcare, equipment\",\n    \"is_featured\": true,\n    \"show_in_nav\": true,\n    \"parent\": null,\n    \"order\": 3\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/pages/about-medical-products/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "pages",
+                                        "about-medical-products",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to update a page"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Partial Update Page",
+                            "request": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"status\": \"published\",\n    \"is_featured\": true\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/pages/about-medical-products/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "pages",
+                                        "about-medical-products",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to partially update a page"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Delete Page",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/pages/about-medical-products/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "pages",
+                                        "about-medical-products",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to delete a page"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Admin endpoints for managing pages"
+                },
+                {
+                    "name": "Banners",
+                    "item": [
+                        {
+                            "name": "List Banners (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/banners/?position=home_top&is_active=true",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "banners",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "position",
+                                            "value": "home_top",
+                                            "description": "Filter by position"
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": "true",
+                                            "description": "Filter by active status"
+                                        }
+                                    ]
+                                },
+                                "description": "Admin endpoint to list all banners with optional filters"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create Banner",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "title",
+                                            "value": "Spring Sale Banner",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "image",
+                                            "type": "file",
+                                            "src": []
+                                        },
+                                        {
+                                            "key": "mobile_image",
+                                            "type": "file",
+                                            "src": []
+                                        },
+                                        {
+                                            "key": "link",
+                                            "value": "/products/sale/",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "text",
+                                            "value": "Save up to 30% on all medical supplies",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "button_text",
+                                            "value": "Shop Now",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "position",
+                                            "value": "home_top",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": "true",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "start_date",
+                                            "value": "2025-04-25T00:00:00Z",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "end_date",
+                                            "value": "2025-05-25T23:59:59Z",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "order",
+                                            "value": "1",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/banners/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "banners",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to create a new banner"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Banner (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/banners/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "banners",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to get banner details by ID"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Update Banner",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "title",
+                                            "value": "Spring Sale Banner (Updated)",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "image",
+                                            "type": "file",
+                                            "src": []
+                                        },
+                                        {
+                                            "key": "mobile_image",
+                                            "type": "file",
+                                            "src": []
+                                        },
+                                        {
+                                            "key": "link",
+                                            "value": "/products/spring-sale/",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "text",
+                                            "value": "Save up to 40% on all medical supplies",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "button_text",
+                                            "value": "Shop Now",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "position",
+                                            "value": "home_top",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": "true",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "start_date",
+                                            "value": "2025-04-25T00:00:00Z",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "end_date",
+                                            "value": "2025-05-30T23:59:59Z",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "order",
+                                            "value": "1",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/banners/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "banners",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to update a banner"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Partial Update Banner",
+                            "request": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "is_active",
+                                            "value": "false",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/banners/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "banners",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to partially update a banner"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Delete Banner",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/banners/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "banners",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to delete a banner"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Admin endpoints for managing banners"
+                },
+                {
+                    "name": "Blog",
+                    "item": [
+                        {
+                            "name": "List Blog Posts (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/?status=draft&is_featured=false&categories=1&tags=2&search=health&ordering=-published_at",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "status",
+                                            "value": "draft",
+                                            "description": "Filter by status (published, draft, archived)"
+                                        },
+                                        {
+                                            "key": "is_featured",
+                                            "value": "false",
+                                            "description": "Filter by featured status"
+                                        },
+                                        {
+                                            "key": "categories",
+                                            "value": "1",
+                                            "description": "Filter by category ID"
+                                        },
+                                        {
+                                            "key": "tags",
+                                            "value": "2",
+                                            "description": "Filter by tag ID"
+                                        },
+                                        {
+                                            "key": "search",
+                                            "value": "",
+                                            "description": "Search in title, content, and excerpt"
+                                        },
+                                        {
+                                            "key": "ordering",
+                                            "value": "-published_at",
+                                            "description": "Order by field (published_at, view_count)"
+                                        }
+                                    ]
+                                },
+                                "description": "Admin endpoint to list all blog posts with optional filters"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create Blog Post",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"title\": \"Health Benefits of Exercise\",\n    \"content\": \"<p>Exercise is essential for maintaining good health.</p>\",\n    \"excerpt\": \"Discover the numerous health benefits of regular exercise.\",\n    \"status\": \"published\",\n    \"is_featured\": true,\n    \"categories\": [1],\n    \"tags\": [2],\n    \"seo_title\": \"Health Benefits of Exercise - MediCommerce\",\n    \"seo_description\": \"Learn about the health benefits of regular exercise.\",\n    \"seo_keywords\": \"exercise, health, fitness\"\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to create a new blog post"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Blog Post by Slug (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/health-benefits-of-exercise/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        ""
+                                    ]
+                                },
+                                "description": "(Admin) Get blog post details by slug (also increments view count)"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "(Admin) Update Blog Post",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"title\": \"Health Benefits of Exercise (Updated)\",\n    \"content\": \"<p>Exercise is essential for maintaining good health and well-being.</p>\",\n    \"excerpt\": \"Discover the numerous health benefits of regular exercise and fitness.\",\n    \"status\": \"published\",\n    \"is_featured\": true,\n    \"categories\": [1],\n    \"tags\": [2],\n    \"seo_title\": \"Health Benefits of Exercise - MediCommerce\",\n    \"seo_description\": \"Learn about the health benefits of regular exercise and fitness.\",\n    \"seo_keywords\": \"exercise, health, fitness\"\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/health-benefits-of-exercise/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        "health-benefits-of-exercise",
+                                        ""
+                                    ]
+                                },
+                                "description": "(Admin) Update blog post details by slug"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "(Admin) Partial Update Blog Post",
+                            "request": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"status\": \"published\",\n    \"is_featured\": true\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/health-benefits-of-exercise/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        ""
+                                    ]
+                                },
+                                "description": "(Admin) Partially update blog post details by slug"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "(Admin) Delete Blog Post",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/health-benefits-of-exercise/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        ""
+                                    ]
+                                },
+                                "description": "(Admin) Delete blog post by slug"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Blog Tag (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/tags/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        "tags",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to get blog tag details by ID"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Update Blog Tag",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"name\": \"Wellness (Updated)\"\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/blog/tags/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "blog",
+                                        "tags",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to update a blog tag"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Admin endpoints for managing blog posts"
+                },
+                {
+                    "name": "FAQs",
+                    "item": [
+                        {
+                            "name": "List FAQs (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/faqs/?category=medical&is_active=true",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "faqs",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "category",
+                                            "value": "medical",
+                                            "description": "Filter by category"
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": "true",
+                                            "description": "Filter by active status"
+                                        }
+                                    ]
+                                },
+                                "description": "Admin endpoint to list all FAQs with optional filters"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create FAQ",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"question\": \"How do I return a product?\",\n    \"answer\": \"You can return a product within 30 days of receiving it by contacting our customer support.\",\n    \"category\": \"returns\",\n    \"order\": 1,\n    \"is_active\": true\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/faqs/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "faqs",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to create a new FAQ"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get FAQ",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/faqs/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "faqs",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to get FAQ details by ID"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Update FAQ",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"question\": \"How do I return a product? (Updated)\",\n    \"answer\": \"Updated answer about returning products.\",\n    \"category\": \"returns\",\n    \"order\": 1,\n    \"is_active\": true\n}"
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/faqs/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "faqs",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to update a FAQ"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Delete FAQ",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/faqs/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "faqs",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to delete a FAQ"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Admin endpoints for managing FAQs"
+                },
+                {
+                    "name": "Testimonials",
+                    "item": [
+                        {
+                            "name": "List Testimonials (Admin)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/testimonials/?is_featured=true&is_active=true",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "testimonials",
+                                        ""
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "is_featured",
+                                            "value": "true",
+                                            "description": "Filter by featured status"
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": "true",
+                                            "description": "Filter by active status"
+                                        }
+                                    ]
+                                },
+                                "description": "Admin endpoint to list all testimonials with optional filters"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create Testimonial",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "author_name",
+                                            "value": "Jane Doe",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "author_title",
+                                            "value": "Regular Customer",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "content",
+                                            "value": "I've been using MediCommerce products for years and they've always been top quality.",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "image",
+                                            "type": "file",
+                                            "src": []
+                                        },
+                                        {
+                                            "key": "rating",
+                                            "value": "5",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "is_featured",
+                                            "value": "true",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": "true",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/testimonials/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "testimonials",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to create a new testimonial"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Testimonial",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/testimonials/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "testimonials",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to get testimonial details by ID"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Update Testimonial",
+                            "request": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "author_name",
+                                            "value": "Jane Doe (Updated)",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "author_title",
+                                            "value": "Loyal Customer",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "content",
+                                            "value": "Updated testimonial content.",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "image",
+                                            "type": "file",
+                                            "src": []
+                                        },
+                                        {
+                                            "key": "rating",
+                                            "value": "5",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "is_featured",
+                                            "value": "true",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "is_active",
+                                            "value": "true",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/testimonials/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "testimonials",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to update a testimonial"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Partial Update Testimonial",
+                            "request": {
+                                "method": "PATCH",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "is_featured",
+                                            "value": "false",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "rating",
+                                            "value": "4",
+                                            "type": "text"
+                                        }
+                                    ]
+                                },
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/testimonials/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "testimonials",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to partially update a testimonial"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Delete Testimonial",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{medi_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{mediCommerce_url}}/cms/admin/testimonials/1/",
+                                    "host": [
+                                        "{{mediCommerce_url}}"
+                                    ],
+                                    "path": [
+                                        "cms",
+                                        "admin",
+                                        "testimonials",
+                                        "1",
+                                        ""
+                                    ]
+                                },
+                                "description": "Admin endpoint to delete a testimonial"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "description": "Admin endpoints for managing testimonials"
+                }
+            ]
+        }
+    ]
+}
