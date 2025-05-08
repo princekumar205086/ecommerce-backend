@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
@@ -78,7 +80,11 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal('0.00')  # Explicit Decimal default
+    )
     stock = models.PositiveIntegerField(default=0)
     image = models.ImageField(
         upload_to='products/',
@@ -204,9 +210,9 @@ class ProductReview(models.Model):
         related_name='reviews'
     )
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='reviews'
+        related_name="product_reviews"
     )
     rating = models.IntegerField(
         choices=[(i, f'{i} Star{"s" if i > 1 else ""}') for i in range(1, 6)]

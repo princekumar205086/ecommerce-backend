@@ -1,10 +1,13 @@
 # coupons/models.py
+from decimal import Decimal
+
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from accounts.models import User
 from django.utils.timezone import now, timedelta
+
 
 def default_valid_to():
     return now() + timedelta(days=30)
@@ -189,11 +192,11 @@ class Coupon(models.Model):
             Decimal - the discount amount
         """
         if self.coupon_type == 'percentage':
-            discount = (amount * self.discount_value) / 100
+            discount = (amount * Decimal(self.discount_value) / Decimal('100')).quantize(Decimal('0.00'))
             if self.max_discount:
                 return min(discount, self.max_discount)
             return discount
-        return min(self.discount_value, amount)
+        return min(Decimal(self.discount_value), amount).quantize(Decimal('0.00'))
 
     def record_usage(self, user, order_id=None, discount_amount=0):
         """

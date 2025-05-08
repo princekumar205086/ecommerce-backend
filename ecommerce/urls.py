@@ -1,17 +1,15 @@
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from core import views as core_views
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from rest_framework import permissions
-
+# Swagger Schema View
 schema_view = get_schema_view(
     openapi.Info(
         title="Medical eCommerce API",
@@ -26,34 +24,38 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+
+    # 🌐 Core Routes
     path('', core_views.home, name='home'),
     path('admin/', admin.site.urls),
 
-    # JWT auth endpoints
+    # 🔐 JWT Authentication
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/wishlist/', include('wishlist.urls')),
-    path('api/coupons/', include('coupon.urls')),
-    # App routes (you can update these when you build the apps)
-    path('api/accounts/', include('accounts.urls')),
-    # path('api/adminpanel/', include('adminpanel.urls')),
-    # path('api/analytics/', include('analytics.urls')),
-    path('api/cart/', include('cart.urls')),
-    # path('api/cms/', include('cms.urls')),
-    # path('api/common/', include('common.urls')),
-    # path('api/inventory/', include('inventory.urls')),
-    # path('api/notifications/', include('notifications.urls')),
-    path('api/orders/', include('orders.urls')),
-    # path('api/payments/', include('payments.urls')),
-    path('api/products/', include('products.urls')),
-    # path('api/reviews/', include('reviews.urls')),
-    # path('api/support/', include('support.urls')),
 
-    # Swagger docs
+    # 📦 App Routes
+    path('api/accounts/', include('accounts.urls')),
+    path('api/adminpanel/', include('adminpanel.urls')),
+    path('api/analytics/', include('analytics.urls')),
+    path('api/cart/', include('cart.urls')),
+    path('api/cms/', include('cms.urls')),
+    path('api/coupons/', include('coupon.urls')),
+    path('api/inventory/', include('inventory.urls')),
+    path('api/invoice/', include('invoice.urls')),
+    path('api/notifications/', include('notifications.urls')),
+    path('api/orders/', include('orders.urls')),
+    path('api/payments/', include('payments.urls')),
+    path('api/products/', include('products.urls')),
+    path('api/reviews/', include('reviews.urls')),
+    path('api/support/', include('support.urls')),
+    path('api/wishlist/', include('wishlist.urls')),
+    # path('api/common/', include('common.urls')),  # Uncomment if used
+
+    # 📘 API Documentation
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
-# Static & media files
+# 🖼️ Media/Static files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
