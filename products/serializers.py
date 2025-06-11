@@ -1,13 +1,16 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import (
-    ProductCategory, ProductSubCategory, Product, ProductReview,
-    Brand, ProductVariant
+    Brand, ProductCategory, Product, ProductImage,
+    ProductVariant, SupplierProductPrice,
+    ProductReview, ProductAuditLog
 )
 
 User = get_user_model()
 
-
+# ----------------------------
+# Brand Serializer
+# ----------------------------
 class BrandSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
@@ -15,102 +18,142 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         fields = '__all__'
         read_only_fields = ('created_at',)
-        extra_kwargs = {
-            'name': {'required': True}
-        }
+        extra_kwargs = {'name': {'required': True}}
 
-
+# ----------------------------
+# Product Category Serializer
+# ----------------------------
 class ProductCategorySerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    parent = serializers.PrimaryKeyRelatedField(
+        queryset=ProductCategory.objects.all(), required=False, allow_null=True
+    )
 
     class Meta:
         model = ProductCategory
-        exclude = ['slug']
+        fields = [
+            'id', 'name', 'parent', 'description', 'created_by',
+            'created_at', 'status', 'is_publish'
+        ]
         read_only_fields = ('created_at', 'status', 'is_publish')
-        extra_kwargs = {
-            'name': {'required': True}
-        }
 
-
-class ProductSubCategorySerializer(serializers.ModelSerializer):
-    created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    category = serializers.PrimaryKeyRelatedField(queryset=ProductCategory.objects.all())
-
+# ----------------------------
+# Product Image Serializer
+# ----------------------------
+class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductSubCategory
-        exclude = ['slug']
-        read_only_fields = ('created_at', 'status', 'is_publish')
-        extra_kwargs = {
-            'name': {'required': True},
-            'category': {'required': True}
-        }
+        model = ProductImage
+        fields = ['id', 'image', 'alt_text']
 
-
+# ----------------------------
+# Product Variant Serializer
+# ----------------------------
 class ProductVariantSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = ProductVariant
-        fields = ['id', 'product', 'size', 'weight', 'additional_price', 'total_price', 'created_at']
+        fields = [
+            'id', 'product', 'size', 'weight',
+            'additional_price', 'total_price',
+            'stock', 'created_at'
+        ]
         read_only_fields = ('created_at', 'total_price')
-        extra_kwargs = {
-            'product': {'required': True},
-            'additional_price': {'min_value': 0}
-        }
 
     def get_total_price(self, obj):
-        return obj.total_price
+        return obj.product.price + obj.additional_price
 
     def validate(self, data):
-        # Check if variant with same attributes already exists
         if ProductVariant.objects.filter(
-                product=data['product'],
-                size=data.get('size'),
-                weight=data.get('weight')
+            product=data['product'],
+            size=data.get('size'),
+            weight=data.get('weight')
         ).exists():
-            raise serializers.ValidationError(
-                "A product variant with these specifications already exists",
-                code='unique'
-            )
+            raise serializers.ValidationError("Variant with these specifications already exists.")
         return data
 
-
-class ProductSerializer(serializers.ModelSerializer):
-    variants = ProductVariantSerializer(many=True, read_only=True)
+# ----------------------------
+# Base Product Serializer
+# ----------------------------
+class BaseProductSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    variants = ProductVariantSerializer(many=True, read_only=True)
+    images = ProductImageSerializer(many=True, read_only=True)
     category = serializers.PrimaryKeyRelatedField(queryset=ProductCategory.objects.all())
-    subcategory = serializers.PrimaryKeyRelatedField(
-        queryset=ProductSubCategory.objects.all(),
-        required=False,
-        allow_null=True
-    )
-    brand = serializers.PrimaryKeyRelatedField(
-        queryset=Brand.objects.all(),
-        required=False,
-        allow_null=True
-    )
+    brand = serializers.PrimaryKeyRelatedField(queryset=Brand.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = Product
-        exclude = ['slug']
-        read_only_fields = ('created_at', 'status', 'is_publish')
+        fields = [
+            'id', 'name', 'description', 'category', 'brand',
+            'price', 'stock', 'product_type', 'created_by',
+            'created_at', 'updated_at', 'status', 'is_publish',
+            'variants', 'images'
+        ]
+        read_only_fields = ('created_at', 'updated_at', 'status', 'is_publish')
         extra_kwargs = {
             'price': {'min_value': 0},
             'stock': {'min_value': 0}
         }
 
-    def validate(self, data):
-        """Validate subcategory belongs to category"""
-        category = data.get('category')
-        subcategory = data.get('subcategory')
+# ----------------------------
+# Product Type Specific Serializers
+# ----------------------------
+class MedicineBaseProductSerializer(BaseProductSerializer):
+    class Meta(BaseProductSerializer.Meta):
+        fields = BaseProductSerializer.Meta.fields + [
+            'composition', 'quantity', 'manufacturer',
+            'expiry_date', 'batch_number', 'prescription_required',
+            'form', 'pack_size'
+        ]
 
-        if subcategory and subcategory.category != category:
-            raise serializers.ValidationError({
-                'subcategory': 'Subcategory must belong to the selected category'
-            })
+
+class EquipmentBaseProductSerializer(BaseProductSerializer):
+    class Meta(BaseProductSerializer.Meta):
+        fields = BaseProductSerializer.Meta.fields + [
+            'model_number', 'warranty_period', 'usage_type',
+            'technical_specifications', 'power_requirement',
+            'equipment_type', 'compatible_tests',
+            'chemical_composition', 'storage_condition'
+        ]
+
+# ----------------------------
+# Pathology Equipment Product Serializer
+# ----------------------------
+
+class PathologyBaseProductSerializer(BaseProductSerializer):
+    class Meta(BaseProductSerializer.Meta):
+        fields = BaseProductSerializer.Meta.fields + [
+            'test_type', 'collection_method', 'sample_required',
+            'processing_time', 'lab_certification'
+        ]
+
+
+# ----------------------------
+# Supplier Product Price Serializer
+# ----------------------------
+class SupplierProductPriceSerializer(serializers.ModelSerializer):
+    supplier = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = SupplierProductPrice
+        fields = '__all__'
+        read_only_fields = ('created_at',)
+
+    def validate(self, data):
+        user = self.context['request'].user
+        if SupplierProductPrice.objects.filter(
+            supplier=user,
+            product=data['product'],
+            pincode=data.get('pincode'),
+            district=data.get('district')
+        ).exists():
+            raise serializers.ValidationError("Price already exists for this product in the specified region.")
         return data
 
-
+# ----------------------------
+# Product Review Serializer
+# ----------------------------
 class ProductReviewSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
@@ -121,18 +164,25 @@ class ProductReviewSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_published', 'user')
 
     def validate_rating(self, value):
-        """Validate rating is between 1 and 5"""
-        if value < 1 or value > 5:
+        if not (1 <= value <= 5):
             raise serializers.ValidationError("Rating must be between 1 and 5")
         return value
 
     def validate(self, data):
-        """Validate user hasn't already reviewed this product"""
         request = self.context.get('request')
-        if request and self.instance is None:  # Only for create operations
-            if ProductReview.objects.filter(
-                    product=data['product'],
-                    user=request.user
-            ).exists():
-                raise serializers.ValidationError("You have already reviewed this product")
+        if request and not self.instance:
+            if ProductReview.objects.filter(product=data['product'], user=request.user).exists():
+                raise serializers.ValidationError("You have already reviewed this product.")
         return data
+
+# ----------------------------
+# Product Audit Log Serializer
+# ----------------------------
+class ProductAuditLogSerializer(serializers.ModelSerializer):
+    changed_by = serializers.StringRelatedField(read_only=True)
+    product = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = ProductAuditLog
+        fields = '__all__'
+

@@ -2,10 +2,10 @@ from rest_framework import serializers
 
 from products.models import Product, ProductVariant
 from .models import Wishlist, WishlistItem
-from products.serializers import ProductSerializer, ProductVariantSerializer
+from products.serializers import BaseProductSerializer, ProductVariantSerializer
 
 class WishlistItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
+    product = BaseProductSerializer(read_only=True)
     variant = ProductVariantSerializer(read_only=True, required=False)
     product_id = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(),

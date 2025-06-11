@@ -4,14 +4,14 @@ from rest_framework.exceptions import ValidationError
 from cart.models import Cart
 from coupon.models import Coupon
 from .models import Order, OrderItem, OrderStatusChange
-from products.serializers import ProductSerializer, ProductVariantSerializer
+from products.serializers import BaseProductSerializer, ProductVariantSerializer
 from coupon.serializers import CouponSerializer
 from accounts.serializers import UserSerializer
 from decimal import Decimal
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
+    product = BaseProductSerializer(read_only=True)
     variant = ProductVariantSerializer(read_only=True)
     total_price = serializers.SerializerMethodField()
 

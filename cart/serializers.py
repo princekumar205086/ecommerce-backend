@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Cart, CartItem
-from products.serializers import ProductSerializer, ProductVariantSerializer
+from products.serializers import BaseProductSerializer, ProductVariantSerializer
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
+    product = BaseProductSerializer(read_only=True)
     variant = ProductVariantSerializer(read_only=True)
     total_price = serializers.SerializerMethodField()
 

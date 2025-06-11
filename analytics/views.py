@@ -131,7 +131,7 @@ class AnalyticsDashboardView(APIView):
                 'recent_revenue': recent_revenue,
                 'active_users': active_users,
             },
-            'top_products': ProductSerializer(top_products, many=True).data,
+            'top_products': BaseProductSerializer(top_products, many=True).data,
             'sales_trends': sales_trends,
         }
 

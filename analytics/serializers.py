@@ -4,7 +4,7 @@ from .models import (
     AnalyticsEvent, ProductView, SalesReport,
     UserActivity, InventoryAlert
 )
-from products.serializers import ProductSerializer
+from products.serializers import BaseProductSerializer
 from accounts.serializers import UserSerializer
 from orders.serializers import OrderSerializer
 
@@ -34,7 +34,7 @@ class AnalyticsEventSerializer(serializers.ModelSerializer):
 
 
 class ProductViewSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
+    product = BaseProductSerializer(read_only=True)
     user = UserSerializer(read_only=True)
 
     class Meta:
@@ -118,7 +118,7 @@ class InventoryAlertSerializer(serializers.ModelSerializer):
         source='get_alert_type_display',
         read_only=True
     )
-    product = ProductSerializer(read_only=True)
+    product = BaseProductSerializer(read_only=True)
     resolved_by = UserSerializer(read_only=True)
 
     class Meta:
@@ -161,7 +161,7 @@ class DateRangeSerializer(serializers.Serializer):
 
 
 class ProductAnalyticsSerializer(serializers.Serializer):
-    product = ProductSerializer()
+    product = BaseProductSerializer()
     total_views = serializers.IntegerField()
     total_adds_to_cart = serializers.IntegerField()
     total_purchases = serializers.IntegerField()

@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 from datetime import timedelta
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'wishlist',
     'inventory',
     'reviews',
-    'corsheaders'
+    'corsheaders',
+    'taggit'
 ]
 
 CORS_ALLOWED_ORIGINS = [
