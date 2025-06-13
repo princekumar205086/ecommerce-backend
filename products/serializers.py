@@ -1,5 +1,6 @@
-from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from rest_framework import serializers
+
 from .models import (
     Brand, ProductCategory, Product, ProductImage,
     ProductVariant, SupplierProductPrice,
@@ -8,9 +9,8 @@ from .models import (
 
 User = get_user_model()
 
-# ----------------------------
-# Brand Serializer
-# ----------------------------
+
+# Brand
 class BrandSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
@@ -18,11 +18,9 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         fields = '__all__'
         read_only_fields = ('created_at',)
-        extra_kwargs = {'name': {'required': True}}
 
-# ----------------------------
-# Product Category Serializer
-# ----------------------------
+
+# Category
 class ProductCategorySerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
     parent = serializers.PrimaryKeyRelatedField(
@@ -32,22 +30,20 @@ class ProductCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductCategory
         fields = [
-            'id', 'name', 'parent', 'description', 'created_by',
+            'id', 'name', 'parent', 'created_by',
             'created_at', 'status', 'is_publish'
         ]
         read_only_fields = ('created_at', 'status', 'is_publish')
 
-# ----------------------------
-# Product Image Serializer
-# ----------------------------
+
+# Product Image
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = ['id', 'image', 'alt_text']
 
-# ----------------------------
-# Product Variant Serializer
-# ----------------------------
+
+# Product Variant
 class ProductVariantSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
 
@@ -65,16 +61,15 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if ProductVariant.objects.filter(
-            product=data['product'],
-            size=data.get('size'),
-            weight=data.get('weight')
+                product=data['product'],
+                size=data.get('size'),
+                weight=data.get('weight')
         ).exists():
             raise serializers.ValidationError("Variant with these specifications already exists.")
         return data
 
-# ----------------------------
+
 # Base Product Serializer
-# ----------------------------
 class BaseProductSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
     variants = ProductVariantSerializer(many=True, read_only=True)
@@ -91,14 +86,9 @@ class BaseProductSerializer(serializers.ModelSerializer):
             'variants', 'images'
         ]
         read_only_fields = ('created_at', 'updated_at', 'status', 'is_publish')
-        extra_kwargs = {
-            'price': {'min_value': 0},
-            'stock': {'min_value': 0}
-        }
 
-# ----------------------------
-# Product Type Specific Serializers
-# ----------------------------
+
+# Medicine Product Serializer
 class MedicineBaseProductSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         fields = BaseProductSerializer.Meta.fields + [
@@ -108,30 +98,27 @@ class MedicineBaseProductSerializer(BaseProductSerializer):
         ]
 
 
+# Equipment Product Serializer
 class EquipmentBaseProductSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         fields = BaseProductSerializer.Meta.fields + [
             'model_number', 'warranty_period', 'usage_type',
             'technical_specifications', 'power_requirement',
-            'equipment_type', 'compatible_tests',
-            'chemical_composition', 'storage_condition'
+            'equipment_type'
         ]
 
-# ----------------------------
-# Pathology Equipment Product Serializer
-# ----------------------------
 
+# Pathology Product Serializer (fixed)
 class PathologyBaseProductSerializer(BaseProductSerializer):
     class Meta(BaseProductSerializer.Meta):
         fields = BaseProductSerializer.Meta.fields + [
-            'test_type', 'collection_method', 'sample_required',
-            'processing_time', 'lab_certification'
+            'compatible_tests',
+            'chemical_composition',
+            'storage_condition'
         ]
 
 
-# ----------------------------
-# Supplier Product Price Serializer
-# ----------------------------
+# Supplier Price
 class SupplierProductPriceSerializer(serializers.ModelSerializer):
     supplier = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
@@ -143,20 +130,18 @@ class SupplierProductPriceSerializer(serializers.ModelSerializer):
     def validate(self, data):
         user = self.context['request'].user
         if SupplierProductPrice.objects.filter(
-            supplier=user,
-            product=data['product'],
-            pincode=data.get('pincode'),
-            district=data.get('district')
+                supplier=user,
+                product=data['product'],
+                pincode=data.get('pincode'),
+                district=data.get('district')
         ).exists():
             raise serializers.ValidationError("Price already exists for this product in the specified region.")
         return data
 
-# ----------------------------
-# Product Review Serializer
-# ----------------------------
+
+# Review
 class ProductReviewSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
-    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
 
     class Meta:
         model = ProductReview
@@ -175,9 +160,8 @@ class ProductReviewSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("You have already reviewed this product.")
         return data
 
-# ----------------------------
-# Product Audit Log Serializer
-# ----------------------------
+
+# Audit Log
 class ProductAuditLogSerializer(serializers.ModelSerializer):
     changed_by = serializers.StringRelatedField(read_only=True)
     product = serializers.StringRelatedField(read_only=True)
@@ -185,4 +169,3 @@ class ProductAuditLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductAuditLog
         fields = '__all__'
-

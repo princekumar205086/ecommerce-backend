@@ -14,14 +14,13 @@ from .serializers import (
     MedicineBaseProductSerializer, EquipmentBaseProductSerializer, PathologyBaseProductSerializer
 )
 
+
 def get_product_serializer_class(product_type):
     return {
         'medicine': MedicineBaseProductSerializer,
         'doctor_equipment': EquipmentBaseProductSerializer,
         'pathology': PathologyBaseProductSerializer,
     }.get(product_type, BaseProductSerializer)
-
-
 
 
 class ProductCategoryListCreateView(generics.ListCreateAPIView):
@@ -66,17 +65,22 @@ class ProductListCreateView(generics.ListCreateAPIView):
                 "detail": "An error occurred while creating the product."
             })
 
+
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.prefetch_related('variants', 'images', 'supplier_prices').all()
     permission_classes = [IsSupplierOrAdmin]
 
     def get_serializer_class(self):
+        # Prevent errors during schema generation
+        if getattr(self, 'swagger_fake_view', False):
+            return BaseProductSerializer  # Use your default serializer here
         instance = self.get_object()
         return get_product_serializer_class(instance.product_type)
 
     def perform_update(self, serializer):
         instance = serializer.save()
         instance._changed_by = self.request.user  # Used in audit logging
+
 
 class ProductVariantListCreateView(generics.ListCreateAPIView):
     queryset = ProductVariant.objects.select_related('product').all()
@@ -92,6 +96,7 @@ class ProductVariantListCreateView(generics.ListCreateAPIView):
             raise ValidationError({
                 'detail': 'A variant with these specifications already exists for this product.'
             }) if 'unique' in str(e).lower() else e
+
 
 class SupplierProductPriceListCreateView(generics.ListCreateAPIView):
     queryset = SupplierProductPrice.objects.select_related('product', 'supplier').all()

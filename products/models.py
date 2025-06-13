@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
@@ -31,8 +31,6 @@ class Brand(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = "Brand"
-        verbose_name_plural = "Brands"
 
     def __str__(self):
         return self.name
@@ -48,7 +46,6 @@ class ProductCategory(models.Model):
     status = models.CharField(max_length=20, choices=PRODUCT_STATUSES, default='pending')
 
     class Meta:
-        verbose_name_plural = "Product Categories"
         ordering = ['-created_at']
 
     def __str__(self):
@@ -67,14 +64,12 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_publish = models.BooleanField(default=False)
     status = models.CharField(max_length=20, choices=PRODUCT_STATUSES, default='pending')
-
-    # Key Field
     product_type = models.CharField(max_length=20, choices=PRODUCT_TYPES, default='medicine')
 
     price = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
     stock = models.PositiveIntegerField(default=0)
 
-    # --- Fields for Medicines ---
+    # Medicine fields
     composition = models.CharField(max_length=255, blank=True)
     quantity = models.CharField(max_length=50, blank=True)
     manufacturer = models.CharField(max_length=255, blank=True)
@@ -84,7 +79,7 @@ class Product(models.Model):
     form = models.CharField(max_length=50, blank=True)
     pack_size = models.CharField(max_length=50, blank=True)
 
-    # --- Fields for Doctor Equipment ---
+    # Equipment fields
     model_number = models.CharField(max_length=100, blank=True)
     warranty_period = models.CharField(max_length=50, blank=True)
     usage_type = models.CharField(max_length=100, blank=True)
@@ -92,12 +87,11 @@ class Product(models.Model):
     power_requirement = models.CharField(max_length=100, blank=True)
     equipment_type = models.CharField(max_length=100, blank=True)
 
-    # --- Fields for Pathology Products ---
+    # Pathology fields
     compatible_tests = models.TextField(blank=True)
     chemical_composition = models.TextField(blank=True)
     storage_condition = models.TextField(blank=True)
 
-    # Common
     specifications = models.JSONField(default=dict, blank=True)
     tags = TaggableManager(blank=True)
 
@@ -134,10 +128,6 @@ class SupplierProductPrice(models.Model):
 
     class Meta:
         unique_together = ('supplier', 'product', 'pincode', 'district')
-        indexes = [
-            models.Index(fields=['product', 'pincode']),
-            models.Index(fields=['product', 'district']),
-        ]
 
 
 class ProductVariant(models.Model):
@@ -151,7 +141,6 @@ class ProductVariant(models.Model):
 
     class Meta:
         unique_together = ('product', 'size', 'weight')
-        ordering = ['-additional_price']
 
     def __str__(self):
         return f"{self.product.name} - {self.size or ''} {self.weight or ''}".strip()
@@ -172,9 +161,6 @@ class ProductReview(models.Model):
 
     class Meta:
         unique_together = ('product', 'user')
-        ordering = ['-created_at']
-        verbose_name = "Product Review"
-        verbose_name_plural = "Product Reviews"
 
     def __str__(self):
         return f"{self.get_rating_display()} by {self.user} for {self.product.name}"
@@ -192,23 +178,17 @@ class ProductAuditLog(models.Model):
     new_value = models.TextField(blank=True, null=True)
     changed_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        ordering = ['-changed_at']
-        verbose_name = "Product Audit Log"
-        verbose_name_plural = "Product Audit Logs"
-
     def __str__(self):
         return f"{self.product.name} - {self.field_name} changed"
 
 
-# Slug Generator
+# ---------- Signal Handlers ----------
+
 @receiver(pre_save, sender=ProductCategory)
 @receiver(pre_save, sender=Product)
 def generate_slug(sender, instance, **kwargs):
     if not instance.slug:
         base_slug = slugify(instance.name or "")
-        if not base_slug:
-            base_slug = f"{sender.__name__.lower()}-{instance.pk or ''}"
         slug = base_slug
         counter = 1
         while sender.objects.filter(slug=slug).exclude(pk=instance.pk).exists():
@@ -217,16 +197,14 @@ def generate_slug(sender, instance, **kwargs):
         instance.slug = slug
 
 
-# Track field changes
 @receiver(pre_save, sender=Product)
 def track_product_changes(sender, instance, **kwargs):
     if not instance.pk:
-        return  # Skip new instances
+        return
     try:
         old = Product.objects.get(pk=instance.pk)
     except Product.DoesNotExist:
         return
-
     tracked_fields = ['price', 'stock', 'status']
     for field in tracked_fields:
         old_val = getattr(old, field)
