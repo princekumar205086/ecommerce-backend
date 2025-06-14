@@ -18,7 +18,7 @@ from .serializers import (
 def get_product_serializer_class(product_type):
     return {
         'medicine': MedicineBaseProductSerializer,
-        'doctor_equipment': EquipmentBaseProductSerializer,
+        'equipment': EquipmentBaseProductSerializer,
         'pathology': PathologyBaseProductSerializer,
     }.get(product_type, BaseProductSerializer)
 

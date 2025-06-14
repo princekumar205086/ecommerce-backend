@@ -142,3 +142,18 @@ RAZORPAY_API_KEY = 'rzp_test_hZpYcGhumUM4Z2'
 RAZORPAY_API_SECRET = '9ge230isKnELfyR3QN2o5SXF'
 RAZORPAY_WEBHOOK_SECRET = 'your_webhook_secret_here'
 APP_NAME = 'Ecommerce'
+
+# imagekitio configuration
+
+IMAGEKIT_URL_ENDPOINT = os.environ.get('IMAGEKIT_URL_ENDPOINT')
+IMAGEKIT_PUBLIC_KEY = os.environ.get('IMAGEKIT_PUBLIC_KEY')
+IMAGEKIT_PRIVATE_KEY = os.environ.get('IMAGEKIT_PRIVATE_KEY')
+
+# Email smtp Configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
