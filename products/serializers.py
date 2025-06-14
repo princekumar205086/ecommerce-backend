@@ -6,6 +6,7 @@ from .models import (
     ProductVariant, SupplierProductPrice,
     ProductReview, ProductAuditLog
 )
+from products.utils.imagekit import upload_image
 
 User = get_user_model()
 
@@ -13,11 +14,24 @@ User = get_user_model()
 # Brand
 class BrandSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    image_file = serializers.ImageField(write_only=True, required=False)
 
     class Meta:
         model = Brand
         fields = '__all__'
         read_only_fields = ('created_at',)
+
+    def create(self, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        if image_file:
+            validated_data['image'] = upload_image(image_file, image_file.name)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        if image_file:
+            validated_data['image'] = upload_image(image_file, image_file.name)
+        return super().update(instance, validated_data)
 
 
 # Category
@@ -26,21 +40,48 @@ class ProductCategorySerializer(serializers.ModelSerializer):
     parent = serializers.PrimaryKeyRelatedField(
         queryset=ProductCategory.objects.all(), required=False, allow_null=True
     )
+    icon_file = serializers.ImageField(write_only=True, required=False)
 
     class Meta:
         model = ProductCategory
         fields = [
             'id', 'name', 'parent', 'created_by',
-            'created_at', 'status', 'is_publish'
+            'created_at', 'status', 'is_publish', 'icon', 'icon_file'
         ]
         read_only_fields = ('created_at', 'status', 'is_publish')
+
+    def create(self, validated_data):
+        icon_file = validated_data.pop('icon_file', None)
+        if icon_file:
+            validated_data['icon'] = upload_image(icon_file, icon_file.name)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        icon_file = validated_data.pop('icon_file', None)
+        if icon_file:
+            validated_data['icon'] = upload_image(icon_file, icon_file.name)
+        return super().update(instance, validated_data)
 
 
 # Product Image
 class ProductImageSerializer(serializers.ModelSerializer):
+    image_file = serializers.ImageField(write_only=True, required=False)
+
     class Meta:
         model = ProductImage
-        fields = ['id', 'image', 'alt_text']
+        fields = ['id', 'image', 'alt_text', 'image_file']
+
+    def create(self, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        if image_file:
+            validated_data['image'] = upload_image(image_file, image_file.name)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        if image_file:
+            validated_data['image'] = upload_image(image_file, image_file.name)
+        return super().update(instance, validated_data)
 
 
 # Product Variant
@@ -76,6 +117,7 @@ class BaseProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
     category = serializers.PrimaryKeyRelatedField(queryset=ProductCategory.objects.all())
     brand = serializers.PrimaryKeyRelatedField(queryset=Brand.objects.all(), required=False, allow_null=True)
+    image_file = serializers.ImageField(write_only=True, required=False)
 
     class Meta:
         model = Product
@@ -83,9 +125,21 @@ class BaseProductSerializer(serializers.ModelSerializer):
             'id', 'name', 'description', 'category', 'brand',
             'price', 'stock', 'product_type', 'created_by',
             'created_at', 'updated_at', 'status', 'is_publish',
-            'variants', 'images'
+            'variants', 'images', 'image', 'image_file'
         ]
         read_only_fields = ('created_at', 'updated_at', 'status', 'is_publish')
+
+    def create(self, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        if image_file:
+            validated_data['image'] = upload_image(image_file, image_file.name)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        if image_file:
+            validated_data['image'] = upload_image(image_file, image_file.name)
+        return super().update(instance, validated_data)
 
 
 # Medicine Product Serializer

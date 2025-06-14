@@ -92,7 +92,8 @@ class ProductAPITests(BaseSetupMixin, TestCase):
             'price': 150.00,
             'stock': 5,
             'category': self.category.id,
-            'brand': self.brand.id
+            'brand': self.brand.id,
+            'image': 'https://ik.imagekit.io/demo/sample.jpg'  # Use a sample URL
         }
         response = self.client.post('/api/products/products/', payload)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
