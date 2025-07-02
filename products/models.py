@@ -1,3 +1,4 @@
+import uuid
 from decimal import Decimal
 
 from django.conf import settings
@@ -7,7 +8,8 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
 
-# Constants
+# ---------- Constants ----------
+
 PRODUCT_STATUSES = (
     ('pending', 'Pending'),
     ('reviewed', 'Reviewed'),
@@ -24,9 +26,11 @@ PRODUCT_TYPES = (
 RATING_CHOICES = [(i, f"{i} Star{'s' if i > 1 else ''}") for i in range(1, 6)]
 
 
+# ---------- Models ----------
+
 class Brand(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    image = models.URLField(default='', blank=True, null=True)  
+    image = models.URLField(default='', blank=True, null=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -39,7 +43,7 @@ class Brand(models.Model):
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    icon = models.URLField(default='', blank=True, null=True)  # Changed from ImageField
+    icon = models.URLField(default='', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True)
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -57,10 +61,11 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
+    sku = models.CharField(max_length=100, unique=True, blank=True, null=True)  # ✅ SKU field added
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
     category = models.ForeignKey(ProductCategory, on_delete=models.PROTECT, related_name='products')
     description = models.TextField(blank=True)
-    image = models.URLField(default='', blank=True, null=True)  # Changed from ImageField
+    image = models.URLField(default='', blank=True, null=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='products')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -113,7 +118,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.URLField()  # Changed from ImageField
+    image = models.URLField()
     alt_text = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
@@ -197,6 +202,19 @@ def generate_slug(sender, instance, **kwargs):
             slug = f"{base_slug}-{counter}"
             counter += 1
         instance.slug = slug
+
+
+@receiver(pre_save, sender=Product)
+def generate_sku(sender, instance, **kwargs):
+    if not instance.sku:
+        base_sku = slugify(instance.name)[:20].upper()
+        unique_suffix = str(uuid.uuid4())[:8].upper()
+        sku = f"{base_sku}-{unique_suffix}"
+        counter = 1
+        while Product.objects.filter(sku=sku).exclude(pk=instance.pk).exists():
+            sku = f"{base_sku}-{unique_suffix}-{counter}"
+            counter += 1
+        instance.sku = sku
 
 
 @receiver(pre_save, sender=Product)
