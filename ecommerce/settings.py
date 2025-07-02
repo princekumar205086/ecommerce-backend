@@ -59,6 +59,14 @@ CORS_ALLOWED_ORIGINS = [
     'https://medixmall.vercel.app'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://backend.okpuja.in',
+    'https://medixmall.vercel.app',
+    'http://127.0.1:3000',
+    'https://127.0.0.1:8000/',
+    'http://localhost:3000'
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
