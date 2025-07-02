@@ -1,62 +1,126 @@
-from rest_framework import generics, permissions
-from rest_framework import filters
-from rest_framework.exceptions import ValidationError
-from django.db import transaction
-import django_filters
-from .models import Warehouse, Supplier, InventoryItem, InventoryTransaction
-from .serializers import (
-    WarehouseSerializer, SupplierSerializer,
-    InventoryItemSerializer, InventoryTransactionSerializer
-)
-from ecommerce.permissions import IsSupplierOrAdmin
+# inventory/views.py
 
-# views.py
+from rest_framework import generics, permissions, filters, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework.exceptions import ValidationError
+from django.db import transaction, models
+import django_filters.rest_framework as django_filters
+
+from .models import Warehouse, Supplier, InventoryItem, InventoryTransaction
+from .serializers import (
+    WarehouseSerializer,
+    SupplierSerializer,
+    InventoryItemSerializer,
+    InventoryTransactionSerializer,
+)
 from .utils import export_inventory_pdf
-from django.db import models
+from ecommerce.permissions import IsSupplierOrAdmin
 
-DEFAULT_LOW_STOCK_THRESHOLD = 10  # Extracted constant for readability
+DEFAULT_LOW_STOCK_THRESHOLD = 10
 
+
+# ----------------------------
+# Warehouse Views
+# ----------------------------
 class WarehouseListCreateView(generics.ListCreateAPIView):
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
     permission_classes = [IsSupplierOrAdmin]
 
+
+# ----------------------------
+# Supplier Views
+# ----------------------------
 class SupplierListCreateView(generics.ListCreateAPIView):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
     permission_classes = [IsSupplierOrAdmin]
 
+
+# ----------------------------
+# Inventory Filter
+# ----------------------------
 class InventoryItemFilter(django_filters.FilterSet):
-    is_low_stock = django_filters.BooleanFilter(method='filter_is_low_stock')
+    is_low_stock = django_filters.BooleanFilter(method='filter_low_stock')
 
     class Meta:
         model = InventoryItem
-        fields = ["supplier", "warehouse", "product"]  # do NOT include 'is_low_stock' here
+        fields = ['product', 'variant', 'warehouse', 'supplier']
 
-    def filter_is_low_stock(self, queryset, name, value):
-        if value:
-            return queryset.filter(quantity__lte=models.F("low_stock_threshold"))
-        else:
-            return queryset.filter(quantity__gt=models.F("low_stock_threshold"))
+    def filter_low_stock(self, queryset, name, value):
+        return queryset.filter(quantity__lte=models.F("low_stock_threshold") if value else models.F("low_stock_threshold") + 1)
 
-# In your view:
-from rest_framework import generics
-from .serializers import InventoryItemSerializer
 
+# ----------------------------
+# Inventory Item Views
+# ----------------------------
 class InventoryItemListCreateView(generics.ListCreateAPIView):
-    queryset = InventoryItem.objects.all()
+    queryset = InventoryItem.objects.select_related('product', 'variant', 'warehouse', 'supplier')
     serializer_class = InventoryItemSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filter_backends = [django_filters.DjangoFilterBackend]
     filterset_class = InventoryItemFilter
+    permission_classes = [IsSupplierOrAdmin]
+
 
 class InventoryItemDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = InventoryItem.objects.select_related('product', 'variant', 'warehouse', 'supplier')
     serializer_class = InventoryItemSerializer
     permission_classes = [IsSupplierOrAdmin]
 
+
+# ----------------------------
+# Inventory ViewSet (With Search + Export)
+# ----------------------------
+class InventoryItemViewSet(viewsets.ModelViewSet):
+    queryset = InventoryItem.objects.select_related('product', 'variant', 'warehouse', 'supplier')
+    serializer_class = InventoryItemSerializer
+    permission_classes = [IsSupplierOrAdmin]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter, django_filters.DjangoFilterBackend]
+    filterset_class = InventoryItemFilter
+    search_fields = ['product__name', 'variant__size', 'variant__weight', 'warehouse__name', 'supplier__name']
+    ordering_fields = ['last_updated', 'quantity']
+    ordering = ['-last_updated']
+
+    def perform_create(self, serializer):
+        self._create_or_update(serializer)
+
+    def _create_or_update(self, serializer):
+        data = serializer.validated_data
+        product = data['product']
+        variant = data.get('variant')
+        warehouse = data['warehouse']
+        quantity = data['quantity']
+        low_stock_threshold = data.get('low_stock_threshold', DEFAULT_LOW_STOCK_THRESHOLD)
+
+        with transaction.atomic():
+            item, created = InventoryItem.objects.select_for_update().get_or_create(
+                product=product, variant=variant, warehouse=warehouse,
+                defaults={
+                    'quantity': quantity,
+                    'low_stock_threshold': low_stock_threshold,
+                    'supplier': data.get('supplier'),
+                    'batch_number': data.get('batch_number', ''),
+                    'expiry_date': data.get('expiry_date')
+                }
+            )
+            if not created:
+                item.quantity += quantity
+                item.save()
+
+            if created:
+                serializer.save()
+            else:
+                serializer.instance = item  # Assign for consistency
+
+    @action(detail=False, methods=['get'], permission_classes=[IsSupplierOrAdmin])
+    def export_pdf(self, request):
+        return export_inventory_pdf()
+
+
+# ----------------------------
+# Inventory Transaction Views
+# ----------------------------
 class InventoryTransactionListCreateView(generics.ListCreateAPIView):
     queryset = InventoryTransaction.objects.select_related('inventory_item', 'performed_by')
     serializer_class = InventoryTransactionSerializer
@@ -65,56 +129,12 @@ class InventoryTransactionListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         with transaction.atomic():
-            txn_type = serializer.validated_data['txn_type']
             inv_item = serializer.validated_data['inventory_item']
+            txn_type = serializer.validated_data['txn_type']
             qty = serializer.validated_data['quantity']
-            if txn_type == InventoryTransaction.OUT:
-                if inv_item.quantity < qty:
-                    raise ValidationError({'detail': 'Insufficient stock for this transaction'})
-                inv_item.quantity -= qty
-            else:
-                inv_item.quantity += qty
-            inv_item.save()
+
+            if txn_type == InventoryTransaction.OUT and inv_item.quantity < qty:
+                raise ValidationError({'detail': 'Insufficient stock for this transaction'})
+
             serializer.save(performed_by=self.request.user)
-
-class InventoryItemViewSet(viewsets.ModelViewSet):
-    queryset = InventoryItem.objects.select_related('product', 'variant', 'warehouse', 'supplier')
-    serializer_class = InventoryItemSerializer
-    permission_classes = [IsSupplierOrAdmin]
-    filterset_fields = ['product', 'variant', 'warehouse', 'is_low_stock', 'supplier']
-    ordering_fields = ['last_updated', 'quantity']
-    ordering = ['-last_updated']
-    search_fields = ['product__name', 'variant__name', 'warehouse__name', 'supplier__name']
-    pagination_class = None  # Disable pagination for this viewset
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        low_stock_param = self.request.query_params.get('low_stock', None)
-        if low_stock_param is not None:
-            # Convert query param to boolean and filter accordingly
-            queryset = queryset.filter(is_low_stock=low_stock_param.lower() == 'true')
-        return queryset
-
-    def perform_create(self, serializer):
-        with transaction.atomic():
-            self._create_or_update_inventory_item(serializer)
-
-    def _create_or_update_inventory_item(self, serializer):
-        """
-        Handles inventory item creation or quantity update if item already exists.
-        """
-        product = serializer.validated_data['product']
-        variant = serializer.validated_data.get('variant')
-        warehouse = serializer.validated_data['warehouse']
-        quantity = serializer.validated_data['quantity']
-        low_stock_threshold = serializer.validated_data.get('low_stock_threshold', DEFAULT_LOW_STOCK_THRESHOLD)
-        try:
-            inventory_item = InventoryItem.objects.get(product=product, variant=variant, warehouse=warehouse)
-            inventory_item.quantity += quantity
-            inventory_item.save()
-        except InventoryItem.DoesNotExist:
-            serializer.save(low_stock_threshold=low_stock_threshold)
-    @action(detail=False, methods=['get'], permission_classes=[IsSupplierOrAdmin])
-    def export_pdf(self, request):
-        return export_inventory_pdf()
+            serializer.instance.apply_transaction()
