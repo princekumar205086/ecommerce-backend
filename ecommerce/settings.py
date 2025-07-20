@@ -122,7 +122,7 @@ USE_TZ = True
 
 # Static and media files
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = '/srv/backend/static/'
 
 # Only include STATICFILES_DIRS if the static directory exists
 static_dir = BASE_DIR / "static"
