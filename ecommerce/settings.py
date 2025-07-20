@@ -8,20 +8,13 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key-here'
+SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key-here')
 
 # Environment-based DEBUG setting
-DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true', '1', 'yes']
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # Use environment variable for ALLOWED_HOSTS or default to localhost
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'ecommerce-backend-77dc.onrender.com',
-    'backend.okpuja.in',
-    '157.173.221.192'
-
-]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend.okpuja.in,ecommerce-backend-77dc.onrender.com,157.173.221.192').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -60,21 +53,22 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'http://127.0.1:3000',
-    'https://medixmall.vercel.app'
+    'http://127.0.0.1:3000',
+    'https://medixmall.vercel.app',
+    'https://backend.okpuja.in',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     'https://backend.okpuja.in',
     'https://medixmall.vercel.app',
-    'http://127.0.1:3000',
-    'https://127.0.0.1:8000/',
+    'http://127.0.0.1:3000',
     'http://localhost:3000'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,19 +135,6 @@ else:
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Static files configuration for production
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Additional staticfiles finders
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
-
-# WhiteNoise configuration
-WHITENOISE_USE_FINDERS = True
-WHITENOISE_AUTOREFRESH = DEBUG
-
 # DRF Configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -199,19 +180,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-
-SECURE_SSL_REDIRECT = False
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
 # Additional security settings for production
 if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = 'SAMEORIGIN'  # Changed from DENY to SAMEORIGIN for admin
-    # Commented out HSTS settings that might cause issues
-    # SECURE_HSTS_SECONDS = 3600
-    # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    # SECURE_HSTS_PRELOAD = True
+    X_FRAME_OPTIONS = 'SAMEORIGIN'
 else:
     # Development settings
     X_FRAME_OPTIONS = 'SAMEORIGIN'
