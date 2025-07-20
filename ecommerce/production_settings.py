@@ -10,12 +10,10 @@ import os
 DEBUG = os.environ.get('DEBUG', 'False').lower() in ['true', '1', 'yes']
 
 # Static files configuration for production
+# WhiteNoise is already configured in main settings.py
+
+# Security settings for production
 if not DEBUG:
-    # Use WhiteNoise for static files
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
-    # Security settings for production
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'SAMEORIGIN'
