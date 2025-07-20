@@ -1,20 +1,22 @@
 import os
 from datetime import timedelta
 from pathlib import Path
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key-here')
+SECRET_KEY = 'your-secret-key-here'
 
-# Environment-based DEBUG setting
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = True
 
 # Use environment variable for ALLOWED_HOSTS or default to localhost
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,backend.okpuja.in,ecommerce-backend-77dc.onrender.com,157.173.221.192').split(',')
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'ecommerce-backend-77dc.onrender.com',
+    'backend.okpuja.in',
+    '157.173.221.192'
+
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -53,17 +55,15 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'https://medixmall.vercel.app',
-    'https://backend.okpuja.in',
+    'http://127.0.1:3000',
+    'https://medixmall.vercel.app'
 ]
-
-CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     'https://backend.okpuja.in',
     'https://medixmall.vercel.app',
-    'http://127.0.0.1:3000',
+    'http://127.0.1:3000',
+    'https://127.0.0.1:8000/',
     'http://localhost:3000'
 ]
 
@@ -122,16 +122,8 @@ USE_TZ = True
 
 # Static and media files
 STATIC_URL = '/static/'
-STATIC_ROOT = '/srv/backend/static/'
-
-# Only include STATICFILES_DIRS if the static directory exists
-static_dir = BASE_DIR / "static"
-if static_dir.exists():
-    STATICFILES_DIRS = [static_dir]
-else:
-    STATICFILES_DIRS = []
-
-# Media files
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -180,39 +172,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-# Additional security settings for production
-if not DEBUG:
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = 'SAMEORIGIN'
-else:
-    # Development settings
-    X_FRAME_OPTIONS = 'SAMEORIGIN'
-
-# Swagger/API Documentation settings
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'Bearer': {
-            'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header'
-        }
-    },
-    'USE_SESSION_AUTH': False,
-    'JSON_EDITOR': True,
-    'SUPPORTED_SUBMIT_METHODS': [
-        'get',
-        'post',
-        'put',
-        'delete',
-        'patch'
-    ],
-    'OPERATIONS_SORTER': 'alpha',
-    'TAGS_SORTER': 'alpha',
-    'DOC_EXPANSION': 'none',
-    'DEEP_LINKING': True,
-    'SHOW_EXTENSIONS': True,
-    'SHOW_COMMON_EXTENSIONS': True,
-}
+SECURE_SSL_REDIRECT = False
