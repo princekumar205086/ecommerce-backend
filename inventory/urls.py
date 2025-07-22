@@ -10,6 +10,16 @@ from .views import (
     InventoryTransactionListCreateView,
     InventoryItemViewSet,
 )
+from .offline_views import (
+    CreateOfflineSaleView,
+    OfflineSaleListView,
+    OfflineSaleDetailView,
+    CancelOfflineSaleView,
+    VendorInventoryView,
+    OfflineSalesReportView,
+    real_time_stock_check,
+    vendor_dashboard_stats,
+)
 
 # Use DRF router for InventoryItemViewSet
 router = DefaultRouter()
@@ -26,6 +36,22 @@ urlpatterns = [
 
     # Inventory Transactions (Stock IN/OUT logs)
     path('transactions/', InventoryTransactionListCreateView.as_view(), name='inventorytransaction-list-create'),
+
+    # Offline Sales Management
+    path('offline-sales/create/', CreateOfflineSaleView.as_view(), name='offline-sale-create'),
+    path('offline-sales/', OfflineSaleListView.as_view(), name='offline-sale-list'),
+    path('offline-sales/<int:pk>/', OfflineSaleDetailView.as_view(), name='offline-sale-detail'),
+    path('offline-sales/<int:sale_id>/cancel/', CancelOfflineSaleView.as_view(), name='offline-sale-cancel'),
+    
+    # Vendor-specific endpoints
+    path('vendor/inventory/', VendorInventoryView.as_view(), name='vendor-inventory'),
+    path('vendor/dashboard/', vendor_dashboard_stats, name='vendor-dashboard'),
+    
+    # Real-time stock management
+    path('stock/check/', real_time_stock_check, name='stock-check'),
+    
+    # Reports
+    path('reports/offline-sales/', OfflineSalesReportView.as_view(), name='offline-sales-report'),
 
     # ViewSet-based with export PDF and filters
     path('', include(router.urls)),
