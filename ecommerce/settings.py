@@ -185,7 +185,7 @@ SWAGGER_SETTINGS = {
 
 # ReDoc settings
 REDOC_SETTINGS = {
-   'LAZY_RENDERING': False,
+    'LAZY_RENDERING': False,
 }
 
 # Default primary key field type
