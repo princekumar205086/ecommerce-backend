@@ -155,11 +155,11 @@ class Invoice(models.Model):
         self.subtotal = self.order.subtotal
         self.tax_amount = self.order.tax
         self.shipping_charge = self.order.shipping_charge
-        self.discount_amount = self.order.discount + self.order.coupon_discount
+        self.discount_amount = Decimal(str(self.order.discount)) + Decimal(str(self.order.coupon_discount))
         self.total_amount = self.order.total
 
         # Calculate balance due
-        self.balance_due = self.total_amount - self.amount_paid
+        self.balance_due = self.total_amount - Decimal(str(self.amount_paid))
 
     def is_overdue(self):
         """Check if invoice is overdue"""
