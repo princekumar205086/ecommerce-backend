@@ -14,8 +14,9 @@ ALLOWED_HOSTS = [
     'localhost',
     'ecommerce-backend-77dc.onrender.com',
     'backend.okpuja.in',
-    '157.173.221.192'
-
+    '157.173.221.192',
+    'https://medixmall.com',
+    'https://www.medixmall.com'
 ]
 
 # Application definition
@@ -56,9 +57,7 @@ INSTALLED_APPS = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.1:3000',
-    'https://medixmall.vercel.app'
-    'http://medixmall.com',
-    'http://www.medixmall.com',
+    'https://medixmall.vercel.app',
     'https://medixmall.com',
     'https://www.medixmall.com'
 ]
