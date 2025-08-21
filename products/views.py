@@ -3,7 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters, permissions
 from rest_framework.exceptions import ValidationError
 
-from ecommerce.permissions import IsSupplierOrAdmin
+from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly
 from .models import (
     ProductCategory, Product, ProductReview,
     Brand, ProductVariant, SupplierProductPrice
@@ -24,11 +24,21 @@ def get_product_serializer_class(product_type):
 
 
 class ProductCategoryListCreateView(generics.ListCreateAPIView):
-    queryset = ProductCategory.objects.all()
     serializer_class = ProductCategorySerializer
-    permission_classes = [IsSupplierOrAdmin]
+    permission_classes = [IsAdminOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['name']
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        Anonymous users see only published categories, admins see all.
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return ProductCategory.objects.all()
+        else:
+            # For anonymous users and non-admin users, show only published categories
+            return ProductCategory.objects.filter(status='published', is_publish=True)
 
     def perform_create(self, serializer):
         serializer.save(status='pending', is_publish=False)
@@ -37,18 +47,31 @@ class ProductCategoryListCreateView(generics.ListCreateAPIView):
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-    permission_classes = [IsSupplierOrAdmin]
+    permission_classes = [IsAdminOrReadOnly]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
 
 
 class ProductListCreateView(generics.ListCreateAPIView):
-    queryset = Product.objects.prefetch_related('variants', 'images', 'supplier_prices').all()
-    permission_classes = [IsSupplierOrAdmin]
+    permission_classes = [IsAdminOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'brand', 'status', 'is_publish', 'product_type']
     search_fields = ['name', 'description']
     ordering_fields = ['price', 'created_at']
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        Anonymous users see only published products, admins see all.
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return Product.objects.prefetch_related('variants', 'images', 'supplier_prices').all()
+        else:
+            # For anonymous users and non-admin users, show only published products
+            return Product.objects.filter(
+                status='published',
+                is_publish=True
+            ).prefetch_related('variants', 'images', 'supplier_prices').all()
 
     def get_serializer_class(self):
         product_type = self.request.data.get('product_type') or self.request.query_params.get('product_type')
@@ -67,8 +90,21 @@ class ProductListCreateView(generics.ListCreateAPIView):
 
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Product.objects.prefetch_related('variants', 'images', 'supplier_prices').all()
-    permission_classes = [IsSupplierOrAdmin]
+    permission_classes = [IsAdminOrReadOnly]
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        Anonymous users see only published products, admins see all.
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return Product.objects.prefetch_related('variants', 'images', 'supplier_prices').all()
+        else:
+            # For anonymous users and non-admin users, show only published products
+            return Product.objects.filter(
+                status='published',
+                is_publish=True
+            ).prefetch_related('variants', 'images', 'supplier_prices').all()
 
     def get_serializer_class(self):
         # Prevent errors during schema generation
@@ -85,7 +121,7 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
 class ProductVariantListCreateView(generics.ListCreateAPIView):
     queryset = ProductVariant.objects.select_related('product').all()
     serializer_class = ProductVariantSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAdminOrReadOnly]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['product']
 
@@ -110,9 +146,20 @@ class SupplierProductPriceListCreateView(generics.ListCreateAPIView):
 class ProductReviewListCreateView(generics.ListCreateAPIView):
     queryset = ProductReview.objects.select_related('product', 'user').all()
     serializer_class = ProductReviewSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['product', 'rating']
+
+    def get_permissions(self):
+        """
+        Override permissions based on request method.
+        GET requests are allowed for everyone, POST requires authentication.
+        """
+        if self.request.method == 'GET':
+            self.permission_classes = [permissions.AllowAny]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
 
     def perform_create(self, serializer):
         try:
