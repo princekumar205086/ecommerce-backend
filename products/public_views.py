@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from django.db.models import Q, Avg, Count, Min, Max
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 from .models import (
     ProductCategory, Product, ProductReview, Brand, ProductVariant
@@ -27,6 +29,20 @@ class PublicProductCategoryListView(generics.ListAPIView):
     search_fields = ['name', 'description']
     ordering = ['name']
 
+    @swagger_auto_schema(
+        operation_description="Get list of all published product categories",
+        operation_summary="List Product Categories (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('search', openapi.IN_QUERY, description="Search categories by name or description", type=openapi.TYPE_STRING),
+        ],
+        responses={
+            200: openapi.Response('Success', ProductCategorySerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
 
 class PublicBrandListView(generics.ListAPIView):
     """
@@ -38,6 +54,20 @@ class PublicBrandListView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
     ordering = ['name']
+
+    @swagger_auto_schema(
+        operation_description="Get list of all brands",
+        operation_summary="List Brands (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('search', openapi.IN_QUERY, description="Search brands by name", type=openapi.TYPE_STRING),
+        ],
+        responses={
+            200: openapi.Response('Success', BrandSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 
 class PublicProductListView(generics.ListAPIView):
@@ -51,6 +81,24 @@ class PublicProductListView(generics.ListAPIView):
     search_fields = ['name', 'description']
     ordering_fields = ['price', 'created_at', 'name']
     ordering = ['-created_at']
+
+    @swagger_auto_schema(
+        operation_description="Get list of all published products in stock",
+        operation_summary="List Products (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('search', openapi.IN_QUERY, description="Search products by name or description", type=openapi.TYPE_STRING),
+            openapi.Parameter('category', openapi.IN_QUERY, description="Filter by category ID", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('brand', openapi.IN_QUERY, description="Filter by brand ID", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('product_type', openapi.IN_QUERY, description="Filter by product type", type=openapi.TYPE_STRING, enum=['medicine', 'equipment', 'pathology']),
+            openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['price', '-price', 'created_at', '-created_at', 'name', '-name']),
+        ],
+        responses={
+            200: openapi.Response('Success', BaseProductSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Product.objects.filter(
@@ -67,6 +115,18 @@ class PublicProductDetailView(generics.RetrieveAPIView):
     serializer_class = BaseProductSerializer
     permission_classes = [permissions.AllowAny]
     lookup_field = 'pk'
+
+    @swagger_auto_schema(
+        operation_description="Get detailed information about a specific product including reviews and related products",
+        operation_summary="Product Detail (Public)",
+        tags=['Public - Products'],
+        responses={
+            200: openapi.Response('Success', BaseProductSerializer),
+            404: 'Product not found'
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Product.objects.filter(
@@ -131,6 +191,36 @@ class PublicProductSearchView(APIView):
     Advanced product search with filters, sorting, and pagination
     """
     permission_classes = [permissions.AllowAny]
+
+    @swagger_auto_schema(
+        operation_description="Advanced product search with multiple filters and sorting options",
+        operation_summary="Advanced Product Search (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('q', openapi.IN_QUERY, description="Search query", type=openapi.TYPE_STRING),
+            openapi.Parameter('category', openapi.IN_QUERY, description="Category ID", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('brand', openapi.IN_QUERY, description="Brand ID", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('product_type', openapi.IN_QUERY, description="Product type", type=openapi.TYPE_STRING, enum=['medicine', 'equipment', 'pathology']),
+            openapi.Parameter('min_price', openapi.IN_QUERY, description="Minimum price", type=openapi.TYPE_NUMBER),
+            openapi.Parameter('max_price', openapi.IN_QUERY, description="Maximum price", type=openapi.TYPE_NUMBER),
+            openapi.Parameter('sort_by', openapi.IN_QUERY, description="Sort by field", type=openapi.TYPE_STRING, enum=['price', '-price', 'name', '-name', 'created_at', '-created_at']),
+            openapi.Parameter('page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER, default=1),
+            openapi.Parameter('page_size', openapi.IN_QUERY, description="Items per page", type=openapi.TYPE_INTEGER, default=20),
+        ],
+        responses={
+            200: openapi.Response(
+                'Success',
+                openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'results': openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Schema(type=openapi.TYPE_OBJECT)),
+                        'pagination': openapi.Schema(type=openapi.TYPE_OBJECT),
+                        'filters': openapi.Schema(type=openapi.TYPE_OBJECT),
+                    }
+                )
+            ),
+        }
+    )
 
     def get(self, request):
         # Get query parameters
