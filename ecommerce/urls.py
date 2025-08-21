@@ -52,6 +52,9 @@ urlpatterns = [
     path('api/wishlist/', include('wishlist.urls')),
     # path('api/common/', include('common.urls')),  # Uncomment if used
 
+    # 🌐 Public API Routes
+    path('api/public/products/', include('products.public_urls')),
+
     # 📘 API Documentation
     path('swagger/', schema_view.with_ui('swagger',
          cache_timeout=0), name='schema-swagger-ui'),

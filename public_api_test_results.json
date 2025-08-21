@@ -1,0 +1,109 @@
+{
+  "passed": 13,
+  "failed": 4,
+  "total": 17,
+  "details": [
+    {
+      "test": "Auth Token for admin",
+      "status": "FAIL",
+      "details": "Status: 401",
+      "timestamp": "2025-08-21T19:26:15.725989"
+    },
+    {
+      "test": "GET /api/public/products/categories/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.739664"
+    },
+    {
+      "test": "GET /api/public/products/brands/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.784906"
+    },
+    {
+      "test": "GET /api/public/products/products/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.818995"
+    },
+    {
+      "test": "GET /api/public/products/search/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.842562"
+    },
+    {
+      "test": "GET /api/public/products/featured/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.860342"
+    },
+    {
+      "test": "GET /api/cms/pages/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.882536"
+    },
+    {
+      "test": "GET /api/cms/banners/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.909208"
+    },
+    {
+      "test": "GET /api/cms/blog/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.932067"
+    },
+    {
+      "test": "GET /api/cms/blog/categories/",
+      "status": "FAIL",
+      "details": "Status: 404, Response: {\"detail\":\"No BlogPost matches the given query.\"}",
+      "timestamp": "2025-08-21T19:26:15.950956"
+    },
+    {
+      "test": "GET /api/cms/blog/tags/",
+      "status": "FAIL",
+      "details": "Status: 404, Response: {\"detail\":\"No BlogPost matches the given query.\"}",
+      "timestamp": "2025-08-21T19:26:15.968303"
+    },
+    {
+      "test": "GET /api/cms/faqs/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:15.991802"
+    },
+    {
+      "test": "GET /api/cms/testimonials/",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:16.010145"
+    },
+    {
+      "test": "POST /api/analytics/track/",
+      "status": "FAIL",
+      "details": "Status: 500",
+      "timestamp": "2025-08-21T19:26:16.416930"
+    },
+    {
+      "test": "Swagger UI",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:16.485356"
+    },
+    {
+      "test": "ReDoc UI",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:16.521373"
+    },
+    {
+      "test": "Swagger JSON",
+      "status": "PASS",
+      "details": "",
+      "timestamp": "2025-08-21T19:26:16.970651"
+    }
+  ]
+}

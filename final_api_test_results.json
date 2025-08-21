@@ -1,0 +1,130 @@
+{
+  "total_tests": 20,
+  "passed": 19,
+  "failed": 1,
+  "endpoints": {
+    "Product Categories": {
+      "status": "PASS",
+      "info": {
+        "count": 4,
+        "results_count": 4
+      }
+    },
+    "Brands": {
+      "status": "PASS",
+      "info": {
+        "count": 6,
+        "results_count": 6
+      }
+    },
+    "Products List": {
+      "status": "PASS",
+      "info": {
+        "count": 4,
+        "results_count": 4
+      }
+    },
+    "Product Search": {
+      "status": "PASS",
+      "info": {
+        "results_count": 4
+      }
+    },
+    "Featured Products": {
+      "status": "PASS",
+      "info": {
+        "count": 4,
+        "results_count": 4
+      }
+    },
+    "Product Detail": {
+      "status": "PASS",
+      "info": {}
+    },
+    "Products by Category": {
+      "status": "PASS",
+      "info": {
+        "count": 1,
+        "results_count": 1
+      }
+    },
+    "Products by Brand": {
+      "status": "PASS",
+      "info": {
+        "count": 1,
+        "results_count": 1
+      }
+    },
+    "CMS Pages": {
+      "status": "PASS",
+      "info": {
+        "count": 4,
+        "results_count": 4
+      }
+    },
+    "Banners": {
+      "status": "PASS",
+      "info": {
+        "count": 0,
+        "results_count": 0
+      }
+    },
+    "Blog Posts": {
+      "status": "PASS",
+      "info": {
+        "count": 2,
+        "results_count": 2
+      }
+    },
+    "Blog Categories": {
+      "status": "PASS",
+      "info": {
+        "count": 4,
+        "results_count": 4
+      }
+    },
+    "Blog Tags": {
+      "status": "PASS",
+      "info": {
+        "count": 4,
+        "results_count": 4
+      }
+    },
+    "FAQs": {
+      "status": "PASS",
+      "info": {
+        "count": 3,
+        "results_count": 3
+      }
+    },
+    "Testimonials": {
+      "status": "PASS",
+      "info": {
+        "count": 2,
+        "results_count": 2
+      }
+    },
+    "Analytics Tracking": {
+      "status": "FAIL",
+      "reason": "HTTP 500"
+    },
+    "Swagger UI": {
+      "status": "PASS"
+    },
+    "ReDoc UI": {
+      "status": "PASS"
+    },
+    "Search with Query": {
+      "status": "PASS",
+      "info": {
+        "results_count": 3
+      }
+    },
+    "Search with Filters": {
+      "status": "PASS",
+      "info": {
+        "results_count": 2
+      }
+    }
+  }
+}
