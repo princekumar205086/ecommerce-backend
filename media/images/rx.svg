@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <!-- Background Elements -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EEF2FF" />
+      <stop offset="100%" stop-color="#E0F2FE" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Subtle Background Circle -->
+  <circle cx="400" cy="300" r="250" fill="url(#bgGradient)" opacity="0.6" />
+  
+  <!-- Document with Rx Symbol -->
+  <g filter="url(#shadow)">
+    <!-- Main Prescription Paper -->
+    <rect x="250" y="150" width="220" height="300" rx="15" ry="15" fill="#FFFFFF" stroke="#4F46E5" stroke-width="3" />
+    
+    <!-- Document Lines -->
+    <line x1="270" y1="200" x2="450" y2="200" stroke="#E5E7EB" stroke-width="2" />
+    <line x1="270" y1="240" x2="450" y2="240" stroke="#E5E7EB" stroke-width="2" />
+    <line x1="270" y1="280" x2="450" y2="280" stroke="#E5E7EB" stroke-width="2" />
+    <line x1="270" y1="320" x2="450" y2="320" stroke="#E5E7EB" stroke-width="2" />
+    <line x1="270" y1="360" x2="450" y2="360" stroke="#E5E7EB" stroke-width="2" />
+    
+    <!-- Rx Symbol -->
+    <text x="280" y="190" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#4F46E5">℞</text>
+  </g>
+  
+  <!-- Cloud with Upload Arrow -->
+  <g transform="translate(350, 120)">
+    <!-- Cloud Base -->
+    <path d="M70,50 C70,30 60,15 40,15 C20,15 0,30 0,50 C0,50 0,50 0,50 C-20,50 -35,65 -35,85 C-35,105 -20,120 0,120 L80,120 C100,120 115,105 115,85 C115,65 100,50 80,50 C80,50 80,50 80,50 C80,50 75,50 70,50" 
+          fill="#FFFFFF" stroke="#4F46E5" stroke-width="3" />
+    
+    <!-- Upload Arrow -->
+    <path d="M40,100 L40,50 L25,65 M40,50 L55,65 M40,100" stroke="#4F46E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  
+  <!-- Shield/Security Symbol -->
+  <g transform="translate(400, 400)">
+    <path d="M0,-40 C20,-30 40,-35 60,-40 C60,0 50,30 0,60 C-50,30 -60,0 -60,-40 C-40,-35 -20,-30 0,-40" fill="none" stroke="#60A5FA" stroke-width="3" />
+    <path d="M-15,10 L-5,20 L15,0" stroke="#60A5FA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  
+  <!-- Mobile Device Showing Upload -->
+  <g transform="translate(550, 300)">
+    <rect x="-40" y="-70" width="80" height="140" rx="10" ry="10" fill="#FFFFFF" stroke="#4F46E5" stroke-width="3" />
+    <rect x="-35" y="-65" width="70" height="110" rx="5" ry="5" fill="#EEF2FF" />
+    <circle cx="0" cy="60" r="8" fill="#FFFFFF" stroke="#4F46E5" stroke-width="2" />
+    <path d="M0,30 L0,-10 L-10,0 M0,-10 L10,0" stroke="#60A5FA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <path d="M-20,-30 L20,-30 M-20,-40 L0,-40" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+  </g>
+  
+  <!-- Medication Bottle (Subtle) -->
+  <g transform="translate(200, 350)">
+    <path d="M-30,-20 L-20,-50 L20,-50 L30,-20 C30,20 30,30 30,40 C30,50 -30,50 -30,40 C-30,30 -30,20 -30,-20" fill="#FFFFFF" stroke="#60A5FA" stroke-width="2" />
+    <line x1="-20" y1="-35" x2="20" y2="-35" stroke="#60A5FA" stroke-width="2" />
+  </g>
+</svg>

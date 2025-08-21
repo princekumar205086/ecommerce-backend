@@ -52,23 +52,35 @@ class RegisterView(APIView):
             ),
             400: "Invalid input",
         },
-        operation_description="Register a new user account"
+        operation_description="Register a new user account. Role can be 'user' or 'supplier'."
     )
     def post(self, request, role=None):
+        # Set default role to 'user' if not provided
+        if not role:
+            role = 'user'
+        
+        # Validate role - only allow 'user' and 'supplier'
+        if role not in ['user', 'supplier']:
+            return Response(
+                {"error": "Invalid role. Only 'user' and 'supplier' are allowed."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
         serializer = UserRegisterSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-
-        if role:
+        
+        if serializer.is_valid():
+            user = serializer.save()
             user.role = role
             user.save()
 
-        refresh = RefreshToken.for_user(user)
-        return Response({
-            'user': UserSerializer(user).data,
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        }, status=status.HTTP_201_CREATED)
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'user': UserSerializer(user).data,
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(APIView):
