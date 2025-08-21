@@ -44,6 +44,28 @@ class ProductCategoryListCreateView(generics.ListCreateAPIView):
         serializer.save(status='pending', is_publish=False)
 
 
+class ProductCategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProductCategorySerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        Anonymous users see only published categories, admins see all.
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return ProductCategory.objects.all()
+        else:
+            # For anonymous users and non-admin users, show only published categories
+            return ProductCategory.objects.filter(status='published', is_publish=True)
+
+
+class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
@@ -168,3 +190,32 @@ class ProductReviewListCreateView(generics.ListCreateAPIView):
             raise ValidationError({
                 "detail": "You have already reviewed this product or another integrity error occurred."
             })
+
+
+class ProductVariantDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductVariant.objects.select_related('product').all()
+    serializer_class = ProductVariantSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+
+class SupplierProductPriceDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SupplierProductPrice.objects.select_related('product', 'supplier').all()
+    serializer_class = SupplierProductPriceSerializer
+    permission_classes = [permissions.IsAuthenticated, IsSupplierOrAdmin]
+
+
+class ProductReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductReview.objects.select_related('product', 'user').all()
+    serializer_class = ProductReviewSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_permissions(self):
+        """
+        Override permissions based on request method.
+        GET requests are allowed for everyone, POST/PUT/PATCH/DELETE require authentication.
+        """
+        if self.request.method == 'GET':
+            self.permission_classes = [permissions.AllowAny]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()

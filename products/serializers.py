@@ -101,12 +101,19 @@ class ProductVariantSerializer(serializers.ModelSerializer):
         return obj.product.price + obj.additional_price
 
     def validate(self, data):
-        if ProductVariant.objects.filter(
+        # Only validate uniqueness if we have the required fields
+        if 'product' in data and ('size' in data or 'weight' in data):
+            query = ProductVariant.objects.filter(
                 product=data['product'],
                 size=data.get('size'),
                 weight=data.get('weight')
-        ).exists():
-            raise serializers.ValidationError("Variant with these specifications already exists.")
+            )
+            # Exclude current instance during update
+            if self.instance:
+                query = query.exclude(pk=self.instance.pk)
+            
+            if query.exists():
+                raise serializers.ValidationError("Variant with these specifications already exists.")
         return data
 
 
@@ -183,13 +190,21 @@ class SupplierProductPriceSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         user = self.context['request'].user
-        if SupplierProductPrice.objects.filter(
+        
+        # Only validate uniqueness if we have the required fields
+        if 'product' in data:
+            query = SupplierProductPrice.objects.filter(
                 supplier=user,
                 product=data['product'],
                 pincode=data.get('pincode'),
                 district=data.get('district')
-        ).exists():
-            raise serializers.ValidationError("Price already exists for this product in the specified region.")
+            )
+            # Exclude current instance during update
+            if self.instance:
+                query = query.exclude(pk=self.instance.pk)
+                
+            if query.exists():
+                raise serializers.ValidationError("Price already exists for this product in the specified region.")
         return data
 
 
