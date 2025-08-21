@@ -20,6 +20,7 @@ from .serializers import (
 
 class PageListView(generics.ListAPIView):
     serializer_class = PageSerializer
+    permission_classes = [permissions.AllowAny]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     search_fields = ['title', 'content']
     filterset_fields = ['status', 'is_featured', 'show_in_nav']
@@ -36,6 +37,7 @@ class PageListView(generics.ListAPIView):
 
 class PageDetailView(generics.RetrieveAPIView):
     serializer_class = PageSerializer
+    permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
 
     def get_queryset(self):
@@ -50,6 +52,7 @@ class PageDetailView(generics.RetrieveAPIView):
 
 class BannerListView(generics.ListAPIView):
     serializer_class = BannerSerializer
+    permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['position', 'is_active']
 
@@ -72,6 +75,7 @@ class BannerListView(generics.ListAPIView):
 
 class BlogPostListView(generics.ListAPIView):
     serializer_class = BlogPostSerializer
+    permission_classes = [permissions.AllowAny]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
     search_fields = ['title', 'content', 'excerpt']
     filterset_fields = ['status', 'is_featured', 'categories', 'tags']
@@ -90,6 +94,7 @@ class BlogPostListView(generics.ListAPIView):
 
 class BlogPostDetailView(generics.RetrieveAPIView):
     serializer_class = BlogPostSerializer
+    permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
 
     def get_queryset(self):
@@ -115,16 +120,19 @@ class BlogPostDetailView(generics.RetrieveAPIView):
 
 class BlogCategoryListView(generics.ListAPIView):
     serializer_class = BlogCategorySerializer
+    permission_classes = [permissions.AllowAny]
     queryset = BlogCategory.objects.all().order_by('name')
 
 
 class BlogTagListView(generics.ListAPIView):
     serializer_class = BlogTagSerializer
+    permission_classes = [permissions.AllowAny]
     queryset = BlogTag.objects.all().order_by('name')
 
 
 class FAQListView(generics.ListAPIView):
     serializer_class = FAQSerializer
+    permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category', 'is_active']
 
@@ -134,6 +142,7 @@ class FAQListView(generics.ListAPIView):
 
 class TestimonialListView(generics.ListAPIView):
     serializer_class = TestimonialSerializer
+    permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['is_featured', 'is_active']
 
@@ -222,10 +231,7 @@ class BlogCategoryAdminView(generics.ListCreateAPIView):
 class BlogCategoryAdminDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BlogCategorySerializer
     permission_classes = [permissions.IsAdminUser]
-    lookup_field = 'slug'
-
-    def get_queryset(self):
-        return BlogCategory.objects.all()
+    queryset = BlogCategory.objects.all()
 
 
 class BlogTagAdminView(generics.ListCreateAPIView):
