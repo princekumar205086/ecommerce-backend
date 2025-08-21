@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.utils import timezone
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 from .models import (
     Page, Banner, BlogPost, BlogCategory,
@@ -25,6 +27,22 @@ class PageListView(generics.ListAPIView):
     search_fields = ['title', 'content']
     filterset_fields = ['status', 'is_featured', 'show_in_nav']
 
+    @swagger_auto_schema(
+        operation_description="Get list of published pages",
+        operation_summary="List Pages (Public)",
+        tags=['Public - CMS'],
+        manual_parameters=[
+            openapi.Parameter('search', openapi.IN_QUERY, description="Search pages by title or content", type=openapi.TYPE_STRING),
+            openapi.Parameter('status', openapi.IN_QUERY, description="Filter by status", type=openapi.TYPE_STRING, enum=['draft', 'published', 'archived']),
+            openapi.Parameter('is_featured', openapi.IN_QUERY, description="Filter by featured status", type=openapi.TYPE_BOOLEAN),
+        ],
+        responses={
+            200: openapi.Response('Success', PageSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         queryset = Page.objects.all()
 
@@ -39,6 +57,18 @@ class PageDetailView(generics.RetrieveAPIView):
     serializer_class = PageSerializer
     permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
+
+    @swagger_auto_schema(
+        operation_description="Get detailed view of a page",
+        operation_summary="Get Page Details (Public)",
+        tags=['Public - CMS'],
+        responses={
+            200: openapi.Response('Success', PageSerializer),
+            404: openapi.Response('Not Found'),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = Page.objects.all()
@@ -55,6 +85,21 @@ class BannerListView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['position', 'is_active']
+
+    @swagger_auto_schema(
+        operation_description="Get list of active banners",
+        operation_summary="List Banners (Public)",
+        tags=['Public - CMS'],
+        manual_parameters=[
+            openapi.Parameter('position', openapi.IN_QUERY, description="Filter by position", type=openapi.TYPE_STRING, enum=['home_top', 'home_middle', 'home_bottom', 'category_top', 'product_top']),
+            openapi.Parameter('is_active', openapi.IN_QUERY, description="Filter by active status", type=openapi.TYPE_BOOLEAN),
+        ],
+        responses={
+            200: openapi.Response('Success', BannerSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         now = timezone.now()
@@ -82,6 +127,24 @@ class BlogPostListView(generics.ListAPIView):
     ordering_fields = ['published_at', 'view_count']
     ordering = ['-published_at']
 
+    @swagger_auto_schema(
+        operation_description="Get list of published blog posts",
+        operation_summary="List Blog Posts (Public)",
+        tags=['Public - CMS'],
+        manual_parameters=[
+            openapi.Parameter('search', openapi.IN_QUERY, description="Search blog posts by title, content, or excerpt", type=openapi.TYPE_STRING),
+            openapi.Parameter('is_featured', openapi.IN_QUERY, description="Filter by featured status", type=openapi.TYPE_BOOLEAN),
+            openapi.Parameter('categories', openapi.IN_QUERY, description="Filter by category ID", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('tags', openapi.IN_QUERY, description="Filter by tag ID", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['published_at', '-published_at', 'view_count', '-view_count']),
+        ],
+        responses={
+            200: openapi.Response('Success', BlogPostSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         queryset = BlogPost.objects.all()
 
@@ -96,6 +159,18 @@ class BlogPostDetailView(generics.RetrieveAPIView):
     serializer_class = BlogPostSerializer
     permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
+
+    @swagger_auto_schema(
+        operation_description="Get detailed view of a blog post",
+        operation_summary="Get Blog Post Details (Public)",
+        tags=['Public - CMS'],
+        responses={
+            200: openapi.Response('Success', BlogPostSerializer),
+            404: openapi.Response('Not Found'),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = BlogPost.objects.all()
@@ -123,11 +198,33 @@ class BlogCategoryListView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = BlogCategory.objects.all().order_by('name')
 
+    @swagger_auto_schema(
+        operation_description="Get list of blog categories",
+        operation_summary="List Blog Categories (Public)",
+        tags=['Public - CMS'],
+        responses={
+            200: openapi.Response('Success', BlogCategorySerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
 
 class BlogTagListView(generics.ListAPIView):
     serializer_class = BlogTagSerializer
     permission_classes = [permissions.AllowAny]
     queryset = BlogTag.objects.all().order_by('name')
+
+    @swagger_auto_schema(
+        operation_description="Get list of blog tags",
+        operation_summary="List Blog Tags (Public)",
+        tags=['Public - CMS'],
+        responses={
+            200: openapi.Response('Success', BlogTagSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 
 class FAQListView(generics.ListAPIView):
@@ -135,6 +232,21 @@ class FAQListView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category', 'is_active']
+
+    @swagger_auto_schema(
+        operation_description="Get list of frequently asked questions",
+        operation_summary="List FAQs (Public)",
+        tags=['Public - CMS'],
+        manual_parameters=[
+            openapi.Parameter('category', openapi.IN_QUERY, description="Filter by category", type=openapi.TYPE_STRING),
+            openapi.Parameter('is_active', openapi.IN_QUERY, description="Filter by active status", type=openapi.TYPE_BOOLEAN),
+        ],
+        responses={
+            200: openapi.Response('Success', FAQSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         return FAQ.objects.filter(is_active=True).order_by('category', 'order')
@@ -145,6 +257,21 @@ class TestimonialListView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['is_featured', 'is_active']
+
+    @swagger_auto_schema(
+        operation_description="Get list of testimonials",
+        operation_summary="List Testimonials (Public)",
+        tags=['Public - CMS'],
+        manual_parameters=[
+            openapi.Parameter('is_featured', openapi.IN_QUERY, description="Filter by featured status", type=openapi.TYPE_BOOLEAN),
+            openapi.Parameter('is_active', openapi.IN_QUERY, description="Filter by active status", type=openapi.TYPE_BOOLEAN),
+        ],
+        responses={
+            200: openapi.Response('Success', TestimonialSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Testimonial.objects.filter(is_active=True).order_by('-is_featured', '-created_at')

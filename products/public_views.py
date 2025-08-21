@@ -179,6 +179,21 @@ class PublicProductReviewListView(generics.ListAPIView):
     ordering_fields = ['created_at', 'rating']
     ordering = ['-created_at']
 
+    @swagger_auto_schema(
+        operation_description="Get reviews for a specific product",
+        operation_summary="Product Reviews (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('rating', openapi.IN_QUERY, description="Filter by rating", type=openapi.TYPE_INTEGER, enum=[1, 2, 3, 4, 5]),
+            openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['created_at', '-created_at', 'rating', '-rating']),
+        ],
+        responses={
+            200: openapi.Response('Success', ProductReviewSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         product_id = self.kwargs.get('product_id')
         return ProductReview.objects.filter(
@@ -310,6 +325,17 @@ class PublicFeaturedProductsView(generics.ListAPIView):
     serializer_class = BaseProductSerializer
     permission_classes = [permissions.AllowAny]
 
+    @swagger_auto_schema(
+        operation_description="Get featured/trending products (most reviewed products)",
+        operation_summary="Featured Products (Public)",
+        tags=['Public - Products'],
+        responses={
+            200: openapi.Response('Success', BaseProductSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         # You can implement your own logic for featured products
         # For now, we'll show most reviewed products
@@ -332,6 +358,20 @@ class PublicProductsByCategory(generics.ListAPIView):
     ordering_fields = ['price', 'created_at', 'name']
     ordering = ['-created_at']
 
+    @swagger_auto_schema(
+        operation_description="Get all products in a specific category",
+        operation_summary="Products by Category (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['price', '-price', 'created_at', '-created_at', 'name', '-name']),
+        ],
+        responses={
+            200: openapi.Response('Success', BaseProductSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         category_id = self.kwargs.get('category_id')
         return Product.objects.filter(
@@ -351,6 +391,20 @@ class PublicProductsByBrand(generics.ListAPIView):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['price', 'created_at', 'name']
     ordering = ['-created_at']
+
+    @swagger_auto_schema(
+        operation_description="Get all products by a specific brand",
+        operation_summary="Products by Brand (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['price', '-price', 'created_at', '-created_at', 'name', '-name']),
+        ],
+        responses={
+            200: openapi.Response('Success', BaseProductSerializer(many=True)),
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         brand_id = self.kwargs.get('brand_id')
