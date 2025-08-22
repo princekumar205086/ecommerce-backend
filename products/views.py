@@ -2,6 +2,7 @@ from django.db import IntegrityError
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters, permissions
 from rest_framework.exceptions import ValidationError
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly
 from .models import (
@@ -26,6 +27,7 @@ def get_product_serializer_class(product_type):
 class ProductCategoryListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductCategorySerializer
     permission_classes = [IsAdminOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['name']
 
@@ -47,6 +49,7 @@ class ProductCategoryListCreateView(generics.ListCreateAPIView):
 class ProductCategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductCategorySerializer
     permission_classes = [IsAdminOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_queryset(self):
         """
@@ -64,18 +67,21 @@ class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     permission_classes = [IsAdminOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
 
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     permission_classes = [IsAdminOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
 
 
 class ProductListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAdminOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'brand', 'status', 'is_publish', 'product_type']
     search_fields = ['name', 'description']
@@ -113,6 +119,7 @@ class ProductListCreateView(generics.ListCreateAPIView):
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_queryset(self):
         """
@@ -144,6 +151,7 @@ class ProductVariantListCreateView(generics.ListCreateAPIView):
     queryset = ProductVariant.objects.select_related('product').all()
     serializer_class = ProductVariantSerializer
     permission_classes = [IsAdminOrReadOnly]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['product']
 
@@ -160,6 +168,7 @@ class SupplierProductPriceListCreateView(generics.ListCreateAPIView):
     queryset = SupplierProductPrice.objects.select_related('product', 'supplier').all()
     serializer_class = SupplierProductPriceSerializer
     permission_classes = [permissions.IsAuthenticated, IsSupplierOrAdmin]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def perform_create(self, serializer):
         serializer.save(supplier=self.request.user)
@@ -169,6 +178,7 @@ class ProductReviewListCreateView(generics.ListCreateAPIView):
     queryset = ProductReview.objects.select_related('product', 'user').all()
     serializer_class = ProductReviewSerializer
     permission_classes = [permissions.AllowAny]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['product', 'rating']
 

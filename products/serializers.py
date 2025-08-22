@@ -1,12 +1,16 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from PIL import Image
+from io import BytesIO
+import os
+import uuid
 
 from .models import (
     Brand, ProductCategory, Product, ProductImage,
     ProductVariant, SupplierProductPrice,
     ProductReview, ProductAuditLog
 )
-from products.utils.imagekit import upload_image
+from accounts.models import upload_to_imagekit
 
 User = get_user_model()
 
@@ -24,13 +28,83 @@ class BrandSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)
         if image_file:
-            validated_data['image'] = upload_image(image_file, image_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'image_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'brand.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'image_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"brand_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/brands")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'image_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['image'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'image_file': f'Error processing image: {str(e)}'})
+        
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         image_file = validated_data.pop('image_file', None)
         if image_file:
-            validated_data['image'] = upload_image(image_file, image_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'image_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'brand.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'image_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"brand_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/brands")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'image_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['image'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'image_file': f'Error processing image: {str(e)}'})
+        
         return super().update(instance, validated_data)
 
 
@@ -53,13 +127,83 @@ class ProductCategorySerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         icon_file = validated_data.pop('icon_file', None)
         if icon_file:
-            validated_data['icon'] = upload_image(icon_file, icon_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(icon_file, 'read'):
+                    icon_file.seek(0)
+                    file_bytes = icon_file.read()
+                else:
+                    with open(icon_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'icon_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(icon_file, 'name', 'category.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'icon_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"category_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/categories")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'icon_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['icon'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'icon_file': f'Error processing image: {str(e)}'})
+        
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         icon_file = validated_data.pop('icon_file', None)
         if icon_file:
-            validated_data['icon'] = upload_image(icon_file, icon_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(icon_file, 'read'):
+                    icon_file.seek(0)
+                    file_bytes = icon_file.read()
+                else:
+                    with open(icon_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'icon_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(icon_file, 'name', 'category.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'icon_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"category_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/categories")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'icon_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['icon'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'icon_file': f'Error processing image: {str(e)}'})
+        
         return super().update(instance, validated_data)
 
 
@@ -74,13 +218,83 @@ class ProductImageSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)
         if image_file:
-            validated_data['image'] = upload_image(image_file, image_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'image_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'product.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'image_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"product_image_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/images")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'image_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['image'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'image_file': f'Error processing image: {str(e)}'})
+        
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         image_file = validated_data.pop('image_file', None)
         if image_file:
-            validated_data['image'] = upload_image(image_file, image_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'image_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'product.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'image_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"product_image_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/images")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'image_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['image'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'image_file': f'Error processing image: {str(e)}'})
+        
         return super().update(instance, validated_data)
 
 
@@ -139,13 +353,83 @@ class BaseProductSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)
         if image_file:
-            validated_data['image'] = upload_image(image_file, image_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'image_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'product.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'image_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"product_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/main")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'image_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['image'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'image_file': f'Error processing image: {str(e)}'})
+        
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         image_file = validated_data.pop('image_file', None)
         if image_file:
-            validated_data['image'] = upload_image(image_file, image_file.name)
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Validate image using PIL
+                try:
+                    Image.open(BytesIO(file_bytes)).verify()
+                except Exception as e:
+                    raise serializers.ValidationError({'image_file': f'Invalid image file: {str(e)}'})
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'product.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.webp']:
+                    raise serializers.ValidationError({'image_file': 'Unsupported image format. Please upload JPG, JPEG, PNG, GIF, or WEBP.'})
+                
+                filename = f"product_{uuid.uuid4()}{ext}"
+                
+                # Upload using universal function
+                image_url = upload_to_imagekit(file_bytes, filename, folder="products/main")
+                
+                if not image_url or not isinstance(image_url, str) or not image_url.startswith('http'):
+                    raise serializers.ValidationError({'image_file': 'Image upload to ImageKit failed. Please try again.'})
+                
+                validated_data['image'] = image_url
+                
+            except serializers.ValidationError:
+                raise
+            except Exception as e:
+                raise serializers.ValidationError({'image_file': f'Error processing image: {str(e)}'})
+        
         return super().update(instance, validated_data)
 
 
