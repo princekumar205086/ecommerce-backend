@@ -105,6 +105,28 @@ class VerifyPaymentSerializer(serializers.Serializer):
     razorpay_signature = serializers.CharField(required=False)
 
 
+class ConfirmRazorpaySerializer(serializers.Serializer):
+    """Confirm Razorpay payment with complete data"""
+    payment_id = serializers.IntegerField()
+    razorpay_order_id = serializers.CharField()
+    razorpay_payment_id = serializers.CharField()
+    razorpay_signature = serializers.CharField()
+    
+    def validate_payment_id(self, value):
+        """Validate payment exists and belongs to user"""
+        request = self.context.get('request')
+        if not request:
+            raise serializers.ValidationError("Request context missing")
+        
+        try:
+            payment = Payment.objects.get(id=value, user=request.user)
+            if payment.payment_method != 'razorpay':
+                raise serializers.ValidationError("Payment is not Razorpay")
+            return value
+        except Payment.DoesNotExist:
+            raise serializers.ValidationError("Payment not found or doesn't belong to you")
+
+
 class ConfirmCODSerializer(serializers.Serializer):
     """Confirm COD payment"""
     payment_id = serializers.IntegerField()

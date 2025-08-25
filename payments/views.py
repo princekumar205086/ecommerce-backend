@@ -339,6 +339,81 @@ class VerifyPaymentView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ConfirmRazorpayView(APIView):
+    """Confirm Razorpay payment and create order"""
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from .serializers import ConfirmRazorpaySerializer
+        
+        serializer = ConfirmRazorpaySerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            try:
+                payment_id = serializer.validated_data['payment_id']
+                payment = Payment.objects.get(id=payment_id, user=request.user)
+                
+                # Verify the signature
+                if payment.verify_payment(serializer.validated_data['razorpay_signature']):
+                    # Update payment with Razorpay data
+                    payment.razorpay_payment_id = serializer.validated_data['razorpay_payment_id']
+                    payment.razorpay_signature = serializer.validated_data['razorpay_signature']
+                    payment.status = 'successful'
+                    payment.save()
+
+                    # Create order if this was a cart-first payment
+                    if payment.cart_data and not payment.order:
+                        order = payment.create_order_from_cart_data()
+                        if order:
+                            return Response({
+                                'status': 'Payment successful',
+                                'message': f'Payment successful. Order created: #{order.order_number}',
+                                'order_created': True,
+                                'order_id': order.id,
+                                'order_number': order.order_number,
+                                'payment': {
+                                    'id': payment.id,
+                                    'status': payment.status,
+                                    'amount': str(payment.amount),
+                                    'razorpay_payment_id': payment.razorpay_payment_id
+                                }
+                            }, status=status.HTTP_200_OK)
+                        else:
+                            return Response({
+                                'status': 'Payment successful but order creation failed',
+                                'order_created': False
+                            }, status=status.HTTP_400_BAD_REQUEST)
+                    
+                    # Update existing order status (legacy flow)
+                    elif payment.order:
+                        payment.order.payment_status = 'paid'
+                        payment.order.save()
+                        return Response({
+                            'status': 'Payment successful',
+                            'order_updated': True,
+                            'order_id': payment.order.id
+                        }, status=status.HTTP_200_OK)
+                    
+                    return Response({
+                        'status': 'Payment successful',
+                        'payment_id': payment.id
+                    }, status=status.HTTP_200_OK)
+                else:
+                    return Response({
+                        'error': 'Payment verification failed'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                    
+            except Payment.DoesNotExist:
+                return Response({
+                    'error': 'Payment not found'
+                }, status=status.HTTP_404_NOT_FOUND)
+            except Exception as e:
+                return Response({
+                    'error': f'Payment confirmation failed: {str(e)}'
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 class RazorpayWebhookView(APIView):
     def post(self, request):

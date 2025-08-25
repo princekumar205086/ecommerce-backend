@@ -3,6 +3,7 @@ from .views import (
     CreatePaymentView,
     CreatePaymentFromCartView,
     VerifyPaymentView,
+    ConfirmRazorpayView,
     RazorpayWebhookView,
     PaymentListView,
     PaymentDetailView,
@@ -17,6 +18,7 @@ urlpatterns = [
     path('create/', CreatePaymentView.as_view(), name='create-payment'),  # Legacy: from order
     path('create-from-cart/', CreatePaymentFromCartView.as_view(), name='create-payment-from-cart'),  # NEW: from cart
     path('verify/', VerifyPaymentView.as_view(), name='verify-payment'),
+    path('confirm-razorpay/', ConfirmRazorpayView.as_view(), name='confirm-razorpay'),  # NEW: Razorpay confirmation
     path('confirm-cod/', ConfirmCODView.as_view(), name='confirm-cod'),  # NEW: COD confirmation
     
     # Pathlog Wallet endpoints
