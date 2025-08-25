@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Integration Test</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #3f51b5;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #303f9f;
+        }
+        .success {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        .response {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .step {
+            margin: 15px 0;
+            padding: 10px;
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Razorpay Integration Test</h1>
+        <p>This page tests the complete Razorpay integration with your Django backend.</p>
+        
+        <div class="test-section">
+            <h2>📋 Test Configuration</h2>
+            <div class="step">
+                <strong>Backend URL:</strong> <span id="backendUrl">http://localhost:8000</span><br>
+                <strong>Test User:</strong> razorpayuser@example.com<br>
+                <strong>Password:</strong> testpass123
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔐 Step 1: Authentication</h2>
+            <button onclick="authenticate()">Login</button>
+            <div id="authResult" class="response"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🛒 Step 2: Cart Management</h2>
+            <button onclick="checkCart()">Check Cart</button>
+            <button onclick="addToCart()">Add Item to Cart</button>
+            <div id="cartResult" class="response"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>💳 Step 3: Create Razorpay Payment</h2>
+            <button onclick="createPayment()">Create Payment</button>
+            <div id="paymentResult" class="response"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Step 4: Launch Razorpay Checkout</h2>
+            <button onclick="launchRazorpay()" id="razorpayBtn" disabled>Launch Razorpay</button>
+            <div id="razorpayResult" class="response"></div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:8000';
+        let authToken = '';
+        let currentPayment = null;
+
+        async function authenticate() {
+            try {
+                document.getElementById('authResult').innerHTML = 'Authenticating...';
+                
+                const response = await fetch(`${BASE_URL}/api/accounts/login/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'razorpayuser@example.com',
+                        password: 'testpass123'
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    authToken = data.access;
+                    document.getElementById('authResult').innerHTML = `✅ Authentication successful!\nUser ID: ${data.user.id}\nToken: ${authToken.substring(0, 20)}...`;
+                    document.getElementById('authResult').className = 'response success';
+                } else {
+                    document.getElementById('authResult').innerHTML = `❌ Authentication failed:\n${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('authResult').className = 'response error';
+                }
+            } catch (error) {
+                document.getElementById('authResult').innerHTML = `❌ Error: ${error.message}`;
+                document.getElementById('authResult').className = 'response error';
+            }
+        }
+
+        async function checkCart() {
+            if (!authToken) {
+                alert('Please authenticate first');
+                return;
+            }
+
+            try {
+                document.getElementById('cartResult').innerHTML = 'Checking cart...';
+                
+                const response = await fetch(`${BASE_URL}/api/cart/`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('cartResult').innerHTML = `✅ Cart fetched successfully!\n${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('cartResult').className = 'response success';
+                } else {
+                    document.getElementById('cartResult').innerHTML = `❌ Cart fetch failed:\n${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('cartResult').className = 'response error';
+                }
+            } catch (error) {
+                document.getElementById('cartResult').innerHTML = `❌ Error: ${error.message}`;
+                document.getElementById('cartResult').className = 'response error';
+            }
+        }
+
+        async function addToCart() {
+            if (!authToken) {
+                alert('Please authenticate first');
+                return;
+            }
+
+            try {
+                document.getElementById('cartResult').innerHTML = 'Adding item to cart...';
+                
+                const response = await fetch(`${BASE_URL}/api/cart/add/`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: 1,
+                        quantity: 1
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('cartResult').innerHTML = `✅ Item added to cart!\n${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('cartResult').className = 'response success';
+                } else {
+                    document.getElementById('cartResult').innerHTML = `❌ Add to cart failed:\n${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('cartResult').className = 'response error';
+                }
+            } catch (error) {
+                document.getElementById('cartResult').innerHTML = `❌ Error: ${error.message}`;
+                document.getElementById('cartResult').className = 'response error';
+            }
+        }
+
+        async function createPayment() {
+            if (!authToken) {
+                alert('Please authenticate first');
+                return;
+            }
+
+            try {
+                document.getElementById('paymentResult').innerHTML = 'Creating Razorpay payment...';
+                
+                const response = await fetch(`${BASE_URL}/api/payments/create-from-cart/`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        payment_method: 'razorpay',
+                        shipping_address: {
+                            full_name: 'Test User',
+                            address_line_1: '123 Test Street',
+                            city: 'Mumbai',
+                            state: 'Maharashtra',
+                            postal_code: '400001',
+                            country: 'India'
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    currentPayment = data;
+                    document.getElementById('paymentResult').innerHTML = `✅ Payment created successfully!\n${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('paymentResult').className = 'response success';
+                    
+                    // Enable Razorpay button if we have the key
+                    if (data.razorpay_key || data.key) {
+                        document.getElementById('razorpayBtn').disabled = false;
+                        document.getElementById('razorpayResult').innerHTML = `✅ Ready to launch Razorpay!\nRazorpay Key: ${data.razorpay_key || data.key}\nOrder ID: ${data.razorpay_order_id}`;
+                        document.getElementById('razorpayResult').className = 'response success';
+                    } else {
+                        document.getElementById('razorpayResult').innerHTML = `❌ Razorpay key not found in response!`;
+                        document.getElementById('razorpayResult').className = 'response error';
+                    }
+                } else {
+                    document.getElementById('paymentResult').innerHTML = `❌ Payment creation failed:\n${JSON.stringify(data, null, 2)}`;
+                    document.getElementById('paymentResult').className = 'response error';
+                }
+            } catch (error) {
+                document.getElementById('paymentResult').innerHTML = `❌ Error: ${error.message}`;
+                document.getElementById('paymentResult').className = 'response error';
+            }
+        }
+
+        function launchRazorpay() {
+            if (!currentPayment) {
+                alert('Please create a payment first');
+                return;
+            }
+
+            const options = {
+                key: currentPayment.razorpay_key || currentPayment.key,
+                amount: currentPayment.amount * 100, // Convert to paise
+                currency: currentPayment.currency,
+                order_id: currentPayment.razorpay_order_id,
+                name: currentPayment.app_name || 'Test Store',
+                description: currentPayment.description || 'Test Payment',
+                prefill: currentPayment.prefill || {
+                    name: 'Test User',
+                    email: 'test@example.com'
+                },
+                handler: function(response) {
+                    document.getElementById('razorpayResult').innerHTML = `🎉 Payment Success!\nPayment ID: ${response.razorpay_payment_id}\nOrder ID: ${response.razorpay_order_id}\nSignature: ${response.razorpay_signature}`;
+                    document.getElementById('razorpayResult').className = 'response success';
+                    
+                    // Now confirm payment with backend
+                    confirmPayment(response);
+                },
+                modal: {
+                    ondismiss: function() {
+                        document.getElementById('razorpayResult').innerHTML = '❌ Payment cancelled by user';
+                        document.getElementById('razorpayResult').className = 'response error';
+                    }
+                }
+            };
+
+            try {
+                const rzp = new Razorpay(options);
+                rzp.open();
+                document.getElementById('razorpayResult').innerHTML = '🚀 Razorpay checkout opened...';
+            } catch (error) {
+                document.getElementById('razorpayResult').innerHTML = `❌ Razorpay error: ${error.message}`;
+                document.getElementById('razorpayResult').className = 'response error';
+            }
+        }
+
+        async function confirmPayment(razorpayResponse) {
+            try {
+                const response = await fetch(`${BASE_URL}/api/payments/confirm-razorpay/`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        payment_id: currentPayment.payment_id,
+                        razorpay_order_id: razorpayResponse.razorpay_order_id,
+                        razorpay_payment_id: razorpayResponse.razorpay_payment_id,
+                        razorpay_signature: razorpayResponse.razorpay_signature
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('razorpayResult').innerHTML += `\n\n✅ Payment confirmed with backend!\n${JSON.stringify(data, null, 2)}`;
+                } else {
+                    document.getElementById('razorpayResult').innerHTML += `\n\n❌ Payment confirmation failed:\n${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                document.getElementById('razorpayResult').innerHTML += `\n\n❌ Confirmation error: ${error.message}`;
+            }
+        }
+
+        // Auto-load on page load
+        window.onload = function() {
+            document.getElementById('authResult').innerHTML = 'Click "Login" to start the test...';
+        };
+    </script>
+</body>
+</html>

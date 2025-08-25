@@ -20,7 +20,7 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 class CreatePaymentFromCartSerializer(serializers.Serializer):
     """Create payment directly from cart - NEW FLOW with COD support"""
-    cart_id = serializers.IntegerField()
+    cart_id = serializers.IntegerField(required=False)  # Make optional
     shipping_address = serializers.JSONField(required=False)
     payment_method = serializers.ChoiceField(
         choices=[
