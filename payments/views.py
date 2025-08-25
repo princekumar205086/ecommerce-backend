@@ -352,11 +352,13 @@ class ConfirmRazorpayView(APIView):
                 payment_id = serializer.validated_data['payment_id']
                 payment = Payment.objects.get(id=payment_id, user=request.user)
                 
+                # First update payment with Razorpay data so verification can work
+                payment.razorpay_payment_id = serializer.validated_data['razorpay_payment_id']
+                payment.razorpay_signature = serializer.validated_data['razorpay_signature']
+                
                 # Verify the signature
                 if payment.verify_payment(serializer.validated_data['razorpay_signature']):
-                    # Update payment with Razorpay data
-                    payment.razorpay_payment_id = serializer.validated_data['razorpay_payment_id']
-                    payment.razorpay_signature = serializer.validated_data['razorpay_signature']
+                    # Mark payment as successful
                     payment.status = 'successful'
                     payment.save()
 
