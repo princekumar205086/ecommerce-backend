@@ -27,7 +27,16 @@ class CreatePaymentFromCartView(APIView):
         serializer.is_valid(raise_exception=True)
 
         # Get cart and calculate totals
-        cart = get_object_or_404(Cart, id=serializer.validated_data['cart_id'], user=request.user)
+        # Get cart - either from cart_id or user's active cart
+        cart_id = serializer.validated_data.get('cart_id')
+        if cart_id:
+            cart = get_object_or_404(Cart, id=cart_id, user=request.user)
+        else:
+            # Get user's active cart
+            try:
+                cart = Cart.objects.get(user=request.user)
+            except Cart.DoesNotExist:
+                return Response({'error': 'No active cart found'}, status=status.HTTP_400_BAD_REQUEST)
         
         # Calculate order totals (same logic as Order.create_from_cart)
         subtotal = Decimal(str(sum(item.total_price for item in cart.items.all())))
@@ -199,11 +208,15 @@ class CreatePaymentFromCartView(APIView):
             )
 
             return Response({
-                'order_id': razorpay_order['id'],
-                'amount': razorpay_order['amount'],
-                'currency': razorpay_order['currency'],
-                'key': settings.RAZORPAY_API_KEY,
-                'name': settings.APP_NAME,
+                'payment_method': 'razorpay',
+                'payment_id': payment.id,
+                'amount': float(total),
+                'currency': serializer.validated_data['currency'],
+                'razorpay_order_id': razorpay_order['id'],
+                'razorpay_key': settings.RAZORPAY_API_KEY,
+                'key': settings.RAZORPAY_API_KEY,  # For backward compatibility
+                'message': 'Razorpay order created successfully',
+                'app_name': settings.APP_NAME,
                 'description': f'Payment for Cart {cart.id}',
                 'prefill': {
                     'name': request.user.full_name,
@@ -212,6 +225,13 @@ class CreatePaymentFromCartView(APIView):
                 'notes': {
                     'cart_id': cart.id,
                     'payment_id': payment.id
+                },
+                'order_summary': {
+                    'subtotal': float(subtotal),
+                    'tax': float(tax),
+                    'shipping': float(shipping_charge),
+                    'discount': float(coupon_discount),
+                    'total': float(total)
                 }
             })
         except Exception as e:
