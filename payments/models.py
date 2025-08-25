@@ -204,13 +204,14 @@ class Payment(models.Model):
             self.order = order
             self.save()
             
-            # Clear cart
-            cart.items.all().delete()
+            # Note: Cart is cleared in Order.create_from_cart method
             
             return order
             
         except Exception as e:
+            import traceback
             print(f"Error creating order from cart data: {e}")
+            print(f"Traceback: {traceback.format_exc()}")
             return None
 
     def process_webhook(self, event, payload):

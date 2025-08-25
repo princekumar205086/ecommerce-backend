@@ -103,6 +103,11 @@ class Order(models.Model):
     shipping_address = models.JSONField()
     billing_address = models.JSONField()
     notes = models.TextField(blank=True)
+    
+    # New fields for admin management
+    shipping_partner = models.CharField(max_length=100, blank=True, null=True)
+    tracking_id = models.CharField(max_length=100, blank=True, null=True)
+    delivered_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -168,6 +173,7 @@ class Order(models.Model):
                     self.coupon_discount
             ).quantize(Decimal('0.00'))
 
+    @staticmethod
     def create_from_cart(cart, shipping_address, billing_address, payment_method=None):
         """
         Create an order from a cart with stock validation
@@ -229,6 +235,70 @@ class Order(models.Model):
 
     def get_status_history(self):
         return self.status_changes.order_by('-created_at')
+
+    def accept_order(self):
+        """Accept order (admin only)"""
+        if self.status == 'pending':
+            self.status = 'processing'
+            self.save()
+            # Create status change record
+            OrderStatusChange.objects.create(
+                order=self,
+                status='processing',
+                changed_by=None,  # Will be set by the view
+                notes='Order accepted by admin'
+            )
+            return True
+        return False
+
+    def reject_order(self, reason=""):
+        """Reject order (admin only)"""
+        if self.status in ['pending', 'processing']:
+            self.status = 'cancelled'
+            self.save()
+            # Create status change record
+            OrderStatusChange.objects.create(
+                order=self,
+                status='cancelled',
+                changed_by=None,  # Will be set by the view
+                notes=f'Order rejected by admin. Reason: {reason}'
+            )
+            return True
+        return False
+
+    def assign_shipping(self, shipping_partner, tracking_id=""):
+        """Assign shipping partner and tracking (admin only)"""
+        if self.status == 'processing':
+            self.status = 'shipped'
+            self.shipping_partner = shipping_partner
+            self.tracking_id = tracking_id
+            self.save()
+            # Create status change record
+            OrderStatusChange.objects.create(
+                order=self,
+                status='shipped',
+                changed_by=None,  # Will be set by the view
+                notes=f'Order shipped via {shipping_partner}. Tracking: {tracking_id}'
+            )
+            return True
+        return False
+
+    def mark_delivered(self):
+        """Mark order as delivered (admin only)"""
+        if self.status == 'shipped':
+            self.status = 'delivered'
+            self.delivered_at = timezone.now()
+            self.payment_status = 'paid'
+            self.save()
+            # Create status change record
+            OrderStatusChange.objects.create(
+                order=self,
+                status='delivered',
+                changed_by=None,  # Will be set by the view
+                notes='Order marked as delivered'
+            )
+            return True
+        return False
 
 
 class OrderItem(models.Model):
