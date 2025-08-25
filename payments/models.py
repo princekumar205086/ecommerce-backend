@@ -12,11 +12,18 @@ class Payment(models.Model):
         ('successful', 'Successful'),
         ('failed', 'Failed'),
         ('refunded', 'Refunded'),
+        ('cod_confirmed', 'COD Confirmed'),  # New status for COD
+    ]
+    
+    PAYMENT_METHOD_CHOICES = [
+        ('razorpay', 'Razorpay (Online)'),
+        ('cod', 'Cash on Delivery'),
+        ('pathlog_wallet', 'Pathlog Wallet'),
     ]
 
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='payments')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='payments', null=True, blank=True)
     razorpay_payment_id = models.CharField(max_length=100, blank=True, null=True)
-    razorpay_order_id = models.CharField(max_length=100)
+    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)  # Not required for COD
     razorpay_signature = models.CharField(max_length=200, blank=True, null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, default='INR')
@@ -24,12 +31,35 @@ class Payment(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     webhook_verified = models.BooleanField(default=False)
+    
+    # New fields for cart-first payment flow
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, null=True, blank=True)
+    cart_data = models.JSONField(null=True, blank=True, help_text="Stored cart data for order creation after payment")
+    shipping_address = models.JSONField(null=True, blank=True)
+    billing_address = models.JSONField(null=True, blank=True)
+    payment_method = models.CharField(max_length=50, choices=PAYMENT_METHOD_CHOICES, default='razorpay')
+    coupon_code = models.CharField(max_length=50, null=True, blank=True)
+    
+    # COD specific fields
+    cod_confirmed_at = models.DateTimeField(null=True, blank=True, help_text="When COD order was confirmed")
+    cod_notes = models.TextField(blank=True, null=True, help_text="Special notes for COD delivery")
+    
+    # Pathlog Wallet specific fields
+    pathlog_wallet_mobile = models.CharField(max_length=15, blank=True, null=True, help_text="Registered mobile number for Pathlog Wallet")
+    pathlog_wallet_otp = models.CharField(max_length=10, blank=True, null=True, help_text="OTP for wallet verification")
+    pathlog_wallet_verified = models.BooleanField(default=False, help_text="Whether wallet is verified")
+    pathlog_wallet_balance = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text="Available wallet balance")
+    pathlog_transaction_id = models.CharField(max_length=100, blank=True, null=True, help_text="Pathlog wallet transaction ID")
+    pathlog_verified_at = models.DateTimeField(null=True, blank=True, help_text="When wallet was verified")
 
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Payment {self.razorpay_payment_id or 'pending'} for Order {self.order.order_number}"
+        if self.order:
+            return f"Payment {self.razorpay_payment_id or 'pending'} for Order {self.order.order_number}"
+        else:
+            return f"Payment {self.razorpay_payment_id or 'pending'} for Cart (Order pending)"
 
     def verify_payment(self, signature):
         client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZORPAY_API_SECRET))
@@ -55,6 +85,134 @@ class Payment(models.Model):
         except:
             return False
 
+    def confirm_cod(self, notes=None):
+        """Confirm COD payment and create order"""
+        if self.payment_method != 'cod':
+            return False, "Not a COD payment"
+        
+        self.status = 'cod_confirmed'
+        self.cod_confirmed_at = timezone.now()
+        if notes:
+            self.cod_notes = notes
+        self.save()
+        
+        # Create order if this was a cart-first payment
+        if self.cart_data and not self.order:
+            order = self.create_order_from_cart_data()
+            if order:
+                order.payment_status = 'pending'  # COD orders remain pending until delivery
+                order.save()
+                return True, f"COD order created: #{order.order_number}"
+            else:
+                return False, "Failed to create order from cart data"
+        
+        return True, "COD payment confirmed"
+
+    def verify_pathlog_wallet(self, mobile_number, otp):
+        """Verify Pathlog Wallet mobile and OTP"""
+        if self.payment_method != 'pathlog_wallet':
+            return False, "Not a Pathlog Wallet payment"
+        
+        # Demo verification logic - replace with actual Pathlog API
+        if otp == "123456":  # Demo OTP
+            self.pathlog_wallet_mobile = mobile_number
+            self.pathlog_wallet_verified = True
+            self.pathlog_verified_at = timezone.now()
+            # Demo balance - replace with actual API call
+            from decimal import Decimal
+            self.pathlog_wallet_balance = 1302.00  # As shown in screenshot
+            self.save()
+            return True, "Wallet verified successfully"
+        else:
+            return False, "Invalid OTP"
+    
+    def process_pathlog_wallet_payment(self):
+        """Process payment through Pathlog Wallet"""
+        if self.payment_method != 'pathlog_wallet':
+            return False, "Not a Pathlog Wallet payment"
+        
+        if not self.pathlog_wallet_verified:
+            return False, "Wallet not verified"
+        
+        # Convert both to Decimal for comparison
+        from decimal import Decimal
+        wallet_balance = Decimal(str(self.pathlog_wallet_balance))
+        payment_amount = Decimal(str(self.amount))
+        
+        if wallet_balance < payment_amount:
+            return False, "Insufficient wallet balance"
+        
+        # Demo transaction processing - replace with actual Pathlog API
+        import uuid
+        self.pathlog_transaction_id = f"TXN{uuid.uuid4().hex[:12].upper()}"
+        
+        # Deduct balance
+        self.pathlog_wallet_balance = float(wallet_balance - payment_amount)
+        
+        self.status = 'successful'
+        self.save()
+        
+        # Create order if this was a cart-first payment
+        if self.cart_data and not self.order:
+            order = self.create_order_from_cart_data()
+            if order:
+                order.payment_status = 'paid'
+                order.save()
+                return True, f"Payment successful. Order created: #{order.order_number}"
+            else:
+                return False, "Payment successful but failed to create order"
+        
+        return True, "Pathlog Wallet payment processed successfully"
+
+    def create_order_from_cart_data(self):
+        """Create order from stored cart data after successful payment"""
+        if not self.cart_data or self.order:
+            return None
+            
+        from cart.models import Cart
+        from orders.models import Order
+        from coupon.models import Coupon
+        
+        try:
+            # Recreate cart from stored data
+            cart = Cart.objects.get(id=self.cart_data['cart_id'], user=self.user)
+            
+            # Create order from cart
+            order = Order.create_from_cart(
+                cart=cart,
+                shipping_address=self.shipping_address,
+                billing_address=self.billing_address,
+                payment_method=self.payment_method or 'razorpay'
+            )
+            
+            # Apply coupon if provided
+            if self.coupon_code:
+                try:
+                    order.coupon = Coupon.objects.get(code=self.coupon_code)
+                    is_valid, _ = order.coupon.is_valid(self.user, order.subtotal)
+                    if is_valid:
+                        order.coupon_discount = order.coupon.apply_discount(order.subtotal)
+                        order.calculate_totals()
+                except Coupon.DoesNotExist:
+                    pass
+            
+            # Set payment status to paid
+            order.payment_status = 'paid'
+            order.save()
+            
+            # Link payment to order
+            self.order = order
+            self.save()
+            
+            # Clear cart
+            cart.items.all().delete()
+            
+            return order
+            
+        except Exception as e:
+            print(f"Error creating order from cart data: {e}")
+            return None
+
     def process_webhook(self, event, payload):
         if event == 'payment.captured':
             self.razorpay_payment_id = payload['payment']['entity']['id']
@@ -62,9 +220,15 @@ class Payment(models.Model):
             self.webhook_verified = True
             self.save()
 
-            # Update order status
-            self.order.payment_status = 'paid'
-            self.order.save()
+            # Create order if this was a cart-first payment
+            if self.cart_data and not self.order:
+                self.create_order_from_cart_data()
+            
+            # Update existing order status
+            elif self.order:
+                self.order.payment_status = 'paid'
+                self.order.save()
+                
         elif event == 'payment.failed':
             self.status = 'failed'
             self.webhook_verified = True

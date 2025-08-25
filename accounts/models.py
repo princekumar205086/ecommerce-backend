@@ -123,6 +123,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
+    
+    # Address fields for future use and COD support
+    address_line_1 = models.CharField(max_length=255, blank=True, null=True)
+    address_line_2 = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
+    postal_code = models.CharField(max_length=20, blank=True, null=True)
+    country = models.CharField(max_length=100, default='India')
 
     objects = UserManager()
 
@@ -131,3 +139,35 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    @property
+    def has_address(self):
+        """Check if user has a complete address"""
+        return all([
+            self.address_line_1,
+            self.city,
+            self.state,
+            self.postal_code,
+            self.country
+        ])
+    
+    def get_full_address(self):
+        """Get formatted address string"""
+        address_parts = [
+            self.address_line_1,
+            self.address_line_2,
+            self.city,
+            f"{self.state} {self.postal_code}",
+            self.country
+        ]
+        return ", ".join(filter(None, address_parts))
+    
+    def update_address(self, address_data):
+        """Update user address from address data"""
+        self.address_line_1 = address_data.get('address_line_1', self.address_line_1)
+        self.address_line_2 = address_data.get('address_line_2', self.address_line_2)
+        self.city = address_data.get('city', self.city)
+        self.state = address_data.get('state', self.state)
+        self.postal_code = address_data.get('postal_code', self.postal_code)
+        self.country = address_data.get('country', self.country)
+        self.save()

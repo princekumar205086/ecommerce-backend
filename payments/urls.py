@@ -1,16 +1,29 @@
 from django.urls import path
 from .views import (
     CreatePaymentView,
+    CreatePaymentFromCartView,
     VerifyPaymentView,
     RazorpayWebhookView,
     PaymentListView,
-    PaymentDetailView
+    PaymentDetailView,
+    ConfirmCODView,
+    PathlogWalletVerifyView,
+    PathlogWalletOTPView,
+    PathlogWalletPaymentView
 )
 from .refund_views import RefundPaymentView, check_refund_status
 
 urlpatterns = [
-    path('create/', CreatePaymentView.as_view(), name='create-payment'),
+    path('create/', CreatePaymentView.as_view(), name='create-payment'),  # Legacy: from order
+    path('create-from-cart/', CreatePaymentFromCartView.as_view(), name='create-payment-from-cart'),  # NEW: from cart
     path('verify/', VerifyPaymentView.as_view(), name='verify-payment'),
+    path('confirm-cod/', ConfirmCODView.as_view(), name='confirm-cod'),  # NEW: COD confirmation
+    
+    # Pathlog Wallet endpoints
+    path('pathlog-wallet/verify/', PathlogWalletVerifyView.as_view(), name='pathlog-wallet-verify'),
+    path('pathlog-wallet/otp/', PathlogWalletOTPView.as_view(), name='pathlog-wallet-otp'),
+    path('pathlog-wallet/pay/', PathlogWalletPaymentView.as_view(), name='pathlog-wallet-pay'),
+    
     path('webhook/', RazorpayWebhookView.as_view(), name='razorpay-webhook'),
     path('', PaymentListView.as_view(), name='payment-list'),
     path('<int:pk>/', PaymentDetailView.as_view(), name='payment-detail'),
