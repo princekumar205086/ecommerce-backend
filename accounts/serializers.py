@@ -72,6 +72,50 @@ class UserLoginSerializer(serializers.Serializer):
         return data
 
 class UserSerializer(serializers.ModelSerializer):
+    has_address = serializers.ReadOnlyField()
+    
     class Meta:
         model = get_user_model()
-        fields = ['id', 'email', 'full_name', 'contact', 'role']
+        fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address']
+
+
+class UserAddressSerializer(serializers.ModelSerializer):
+    """Serializer for user address management"""
+    has_address = serializers.ReadOnlyField()
+    full_address = serializers.ReadOnlyField()
+    
+    class Meta:
+        model = get_user_model()
+        fields = [
+            'id', 'email', 'full_name', 'contact', 
+            'address_line_1', 'address_line_2', 'city', 'state', 
+            'postal_code', 'country', 'has_address', 'full_address'
+        ]
+        read_only_fields = ['id', 'email']
+
+
+class UpdateAddressSerializer(serializers.ModelSerializer):
+    """Serializer for updating user address"""
+    
+    class Meta:
+        model = get_user_model()
+        fields = [
+            'address_line_1', 'address_line_2', 'city', 'state', 
+            'postal_code', 'country'
+        ]
+    
+    def validate(self, data):
+        """Validate required address fields"""
+        required_fields = ['address_line_1', 'city', 'state', 'postal_code', 'country']
+        missing_fields = []
+        
+        for field in required_fields:
+            if not data.get(field):
+                missing_fields.append(field)
+        
+        if missing_fields:
+            raise serializers.ValidationError({
+                'required_fields': f'Missing required fields: {", ".join(missing_fields)}'
+            })
+        
+        return data

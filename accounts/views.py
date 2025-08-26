@@ -10,7 +10,7 @@ from rest_framework.generics import ListAPIView
 
 from cart.models import Cart, CartItem
 from .models import User
-from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer
+from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer, UserAddressSerializer, UpdateAddressSerializer
 
 # Common Swagger components
 AUTH_HEADER_PARAMETER = openapi.Parameter(
@@ -151,6 +151,205 @@ class ProfileView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+
+class UserAddressView(APIView):
+    """View for getting and updating user address"""
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        responses={
+            200: openapi.Response(
+                description="User address retrieved successfully",
+                examples={
+                    "application/json": {
+                        "id": 1,
+                        "email": "user@example.com",
+                        "full_name": "John Doe",
+                        "contact": "1234567890",
+                        "address_line_1": "123 Main Street",
+                        "address_line_2": "Apt 4B",
+                        "city": "Mumbai",
+                        "state": "Maharashtra",
+                        "postal_code": "400001",
+                        "country": "India",
+                        "has_address": True,
+                        "full_address": "123 Main Street, Apt 4B, Mumbai, Maharashtra 400001, India"
+                    }
+                },
+            ),
+            401: "Unauthorized",
+        },
+        operation_description="Get current user address information"
+    )
+    def get(self, request):
+        serializer = UserAddressSerializer(request.user)
+        return Response(serializer.data)
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=UpdateAddressSerializer,
+        responses={
+            200: openapi.Response(
+                description="Address updated successfully",
+                examples={
+                    "application/json": {
+                        "message": "Address updated successfully",
+                        "address": {
+                            "address_line_1": "123 Main Street",
+                            "address_line_2": "Apt 4B",
+                            "city": "Mumbai",
+                            "state": "Maharashtra",
+                            "postal_code": "400001",
+                            "country": "India",
+                            "has_address": True,
+                            "full_address": "123 Main Street, Apt 4B, Mumbai, Maharashtra 400001, India"
+                        }
+                    }
+                },
+            ),
+            400: "Invalid input",
+            401: "Unauthorized",
+        },
+        operation_description="Update user address for future checkout use"
+    )
+    def put(self, request):
+        serializer = UpdateAddressSerializer(data=request.data)
+        if serializer.is_valid():
+            # Update user address
+            user = request.user
+            for field, value in serializer.validated_data.items():
+                setattr(user, field, value)
+            user.save()
+            
+            # Return updated address
+            address_serializer = UserAddressSerializer(user)
+            return Response({
+                'message': 'Address updated successfully',
+                'address': address_serializer.data
+            })
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        responses={
+            200: openapi.Response(
+                description="Address deleted successfully",
+                examples={
+                    "application/json": {
+                        "message": "Address deleted successfully"
+                    }
+                },
+            ),
+            401: "Unauthorized",
+        },
+        operation_description="Delete user saved address"
+    )
+    def delete(self, request):
+        user = request.user
+        user.address_line_1 = None
+        user.address_line_2 = None
+        user.city = None
+        user.state = None
+        user.postal_code = None
+        user.country = 'India'  # Reset to default
+        user.save()
+        
+        return Response({
+            'message': 'Address deleted successfully'
+        })
+
+
+class SaveAddressFromCheckoutView(APIView):
+    """Save address from checkout flow"""
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'shipping_address': openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'full_name': openapi.Schema(type=openapi.TYPE_STRING, description="Full name"),
+                        'address_line_1': openapi.Schema(type=openapi.TYPE_STRING, description="Address line 1"),
+                        'address_line_2': openapi.Schema(type=openapi.TYPE_STRING, description="Address line 2"),
+                        'city': openapi.Schema(type=openapi.TYPE_STRING, description="City"),
+                        'state': openapi.Schema(type=openapi.TYPE_STRING, description="State"),
+                        'postal_code': openapi.Schema(type=openapi.TYPE_STRING, description="Postal code"),
+                        'country': openapi.Schema(type=openapi.TYPE_STRING, description="Country"),
+                    },
+                    required=['full_name', 'address_line_1', 'city', 'state', 'postal_code', 'country']
+                )
+            },
+            required=['shipping_address']
+        ),
+        responses={
+            200: openapi.Response(
+                description="Address saved successfully",
+                examples={
+                    "application/json": {
+                        "message": "Address saved successfully for future use",
+                        "address": {
+                            "address_line_1": "123 Main Street",
+                            "address_line_2": "Apt 4B",
+                            "city": "Mumbai",
+                            "state": "Maharashtra",
+                            "postal_code": "400001",
+                            "country": "India",
+                            "has_address": True
+                        }
+                    }
+                },
+            ),
+            400: "Invalid input",
+            401: "Unauthorized",
+        },
+        operation_description="Save address from checkout for future use"
+    )
+    def post(self, request):
+        shipping_address = request.data.get('shipping_address')
+        if not shipping_address:
+            return Response({
+                'error': 'shipping_address is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Validate address has required fields
+        required_fields = ['full_name', 'address_line_1', 'city', 'state', 'postal_code', 'country']
+        missing_fields = [field for field in required_fields if not shipping_address.get(field)]
+        if missing_fields:
+            return Response({
+                'error': f'Missing required fields: {", ".join(missing_fields)}'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Update user address
+        user = request.user
+        user.full_name = shipping_address.get('full_name', user.full_name)
+        user.address_line_1 = shipping_address.get('address_line_1')
+        user.address_line_2 = shipping_address.get('address_line_2', '')
+        user.city = shipping_address.get('city')
+        user.state = shipping_address.get('state')
+        user.postal_code = shipping_address.get('postal_code')
+        user.country = shipping_address.get('country', 'India')
+        user.save()
+        
+        return Response({
+            'message': 'Address saved successfully for future use',
+            'address': {
+                'address_line_1': user.address_line_1,
+                'address_line_2': user.address_line_2,
+                'city': user.city,
+                'state': user.state,
+                'postal_code': user.postal_code,
+                'country': user.country,
+                'has_address': user.has_address
+            }
+        })
 
 
 class UserListView(ListAPIView):

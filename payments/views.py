@@ -14,13 +14,64 @@ from .serializers import PaymentSerializer, CreatePaymentSerializer, CreatePayme
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from decimal import Decimal
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZORPAY_API_SECRET))
 
 
 class CreatePaymentFromCartView(APIView):
-    """NEW: Create payment directly from cart (payment-first flow) with COD support"""
+    """Create payment directly from cart (payment-first flow) with COD, Razorpay, and Pathlog Wallet support"""
     permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        request_body=CreatePaymentFromCartSerializer,
+        responses={
+            200: openapi.Response(
+                description="Payment created successfully",
+                examples={
+                    "application/json": {
+                        "razorpay": {
+                            "payment_method": "razorpay",
+                            "payment_id": 1,
+                            "amount": 604.6,
+                            "currency": "INR",
+                            "razorpay_order_id": "order_MKlqKDZvp8cqAm",
+                            "razorpay_key": "rzp_test_xxxxxxxx",
+                            "message": "Razorpay order created successfully",
+                            "order_summary": {
+                                "subtotal": 470.0,
+                                "tax": 84.6,
+                                "shipping": 50.0,
+                                "discount": 0.0,
+                                "total": 604.6
+                            }
+                        },
+                        "cod": {
+                            "payment_method": "cod",
+                            "payment_id": 2,
+                            "amount": 604.6,
+                            "currency": "INR",
+                            "message": "COD order created. Please confirm to proceed.",
+                            "next_step": "/api/payments/confirm-cod/"
+                        },
+                        "pathlog_wallet": {
+                            "payment_method": "pathlog_wallet",
+                            "payment_id": 3,
+                            "amount": 604.6,
+                            "currency": "INR",
+                            "message": "Pathlog Wallet payment created. Please verify your wallet to proceed.",
+                            "next_step": "/api/payments/pathlog-wallet/verify/",
+                            "verification_required": True
+                        }
+                    }
+                }
+            ),
+            400: "Bad request - cart empty or invalid data",
+            401: "Unauthorized"
+        },
+        operation_description="Create payment from cart items. Supports Razorpay (online), COD (cash on delivery), and Pathlog Wallet payment methods. Automatically calculates totals including tax and shipping."
+    )
 
     def post(self, request):
         serializer = CreatePaymentFromCartSerializer(data=request.data, context={'request': request})
@@ -497,6 +548,39 @@ class ConfirmCODView(APIView):
     """Confirm COD payment and create order"""
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        request_body=ConfirmCODSerializer,
+        responses={
+            200: openapi.Response(
+                description="COD payment confirmed and order created",
+                examples={
+                    "application/json": {
+                        "status": "COD confirmed",
+                        "message": "COD order created: #202508250002",
+                        "order_created": True,
+                        "order": {
+                            "id": 2,
+                            "order_number": "202508250002",
+                            "status": "pending",
+                            "payment_status": "pending",
+                            "total": "517.00",
+                            "items_count": 1
+                        },
+                        "payment": {
+                            "id": 2,
+                            "status": "cod_confirmed",
+                            "amount": "604.60",
+                            "method": "cod"
+                        }
+                    }
+                }
+            ),
+            400: "Bad request - payment not found or already confirmed",
+            401: "Unauthorized"
+        },
+        operation_description="Confirm COD payment and automatically create order. Cart will be cleared after successful order creation."
+    )
+
     def post(self, request):
         serializer = ConfirmCODSerializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
@@ -552,6 +636,33 @@ class ConfirmCODView(APIView):
 class PathlogWalletVerifyView(APIView):
     """Verify Pathlog Wallet with mobile number and send OTP"""
     permission_classes = [IsAuthenticated]
+    
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'payment_id': openapi.Schema(type=openapi.TYPE_INTEGER, description="Payment ID from create-from-cart"),
+                'mobile_number': openapi.Schema(type=openapi.TYPE_STRING, description="10-digit mobile number")
+            },
+            required=['payment_id', 'mobile_number']
+        ),
+        responses={
+            200: openapi.Response(
+                description="OTP sent successfully",
+                examples={
+                    "application/json": {
+                        "status": "OTP Sent",
+                        "message": "OTP sent to +91 8677939971",
+                        "mobile_number": "8677939971",
+                        "demo_otp": "123456"
+                    }
+                }
+            ),
+            400: "Bad request - invalid payment or mobile number",
+            404: "Payment not found"
+        },
+        operation_description="Verify mobile number for Pathlog Wallet and send OTP. Only works with pathlog_wallet payment method."
+    )
     
     def post(self, request):
         from .serializers import PathlogWalletVerifySerializer
