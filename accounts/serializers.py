@@ -76,7 +76,19 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = get_user_model()
-        fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address']
+        fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address', 'medixmall_mode']
+
+
+class MedixMallModeSerializer(serializers.Serializer):
+    """Serializer for toggling MedixMall mode"""
+    medixmall_mode = serializers.BooleanField(
+        help_text="Enable to show only medicine products (MedixMall mode)"
+    )
+    
+    def update(self, instance, validated_data):
+        instance.medixmall_mode = validated_data.get('medixmall_mode', instance.medixmall_mode)
+        instance.save()
+        return instance
 
 
 class UserAddressSerializer(serializers.ModelSerializer):

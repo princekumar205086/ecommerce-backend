@@ -1,6 +1,6 @@
 # accounts/urls.py
 from django.urls import path
-from .views import RegisterView, LoginView, ProfileView, UserListView, UserAddressView, SaveAddressFromCheckoutView
+from .views import RegisterView, LoginView, ProfileView, UserListView, UserAddressView, SaveAddressFromCheckoutView, MedixMallModeToggleView
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('list/', UserListView.as_view(), name='user_list'),
     path('address/', UserAddressView.as_view(), name='user_address'),
     path('address/save-from-checkout/', SaveAddressFromCheckoutView.as_view(), name='save_address_from_checkout'),
+    path('medixmall-mode/', MedixMallModeToggleView.as_view(), name='medixmall_mode_toggle'),
 ]

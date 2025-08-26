@@ -10,6 +10,8 @@ from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 from coupon.models import Coupon
 from ecommerce.permissions import IsAdmin, IsOwnerOrAdmin
@@ -20,9 +22,10 @@ from .serializers import (
     CreateOrderSerializer,
     UpdateOrderStatusSerializer
 )
+from .mixins import MedixMallOrderFilterMixin, MedixMallOrderContextMixin
 
 
-class OrderListView(generics.ListCreateAPIView):
+class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
@@ -30,6 +33,30 @@ class OrderListView(generics.ListCreateAPIView):
     search_fields = ['order_number', 'user__email']
     ordering_fields = ['created_at', 'total']
     ordering = ['-created_at']
+
+    @swagger_auto_schema(
+        operation_description="Get user's orders. For regular users in MedixMall mode, only shows orders containing medicine products only. Admins see all orders.",
+        operation_summary="List User Orders",
+        tags=['Orders'],
+        manual_parameters=[
+            openapi.Parameter('Authorization', openapi.IN_HEADER, description="Bearer <access_token>", type=openapi.TYPE_STRING, required=True),
+            openapi.Parameter('status', openapi.IN_QUERY, description="Filter by order status", type=openapi.TYPE_STRING),
+            openapi.Parameter('payment_status', openapi.IN_QUERY, description="Filter by payment status", type=openapi.TYPE_STRING),
+            openapi.Parameter('payment_method', openapi.IN_QUERY, description="Filter by payment method", type=openapi.TYPE_STRING),
+        ],
+        responses={
+            200: openapi.Response(
+                'Success',
+                OrderSerializer(many=True),
+                headers={
+                    'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
+                }
+            ),
+            401: "Unauthorized",
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         # Add this check for schema generation
@@ -39,7 +66,12 @@ class OrderListView(generics.ListCreateAPIView):
         user = self.request.user
         if user.role == 'admin':  # Check if the user is an admin
             return Order.objects.all()
-        return Order.objects.filter(user=user)
+        
+        # For regular users, get base queryset and apply MedixMall filtering
+        base_queryset = Order.objects.filter(user=user)
+        
+        # Apply MedixMall filtering using mixin
+        return super().get_queryset().filter(user=user)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -47,16 +79,44 @@ class OrderListView(generics.ListCreateAPIView):
         return OrderSerializer
 
 
-# In views.py
-class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
+class OrderDetailView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
     permission_classes = [IsOwnerOrAdmin]
+
+    @swagger_auto_schema(
+        operation_description="Get order details. Respects user's MedixMall mode preference.",
+        operation_summary="Get Order Details",
+        tags=['Orders'],
+        manual_parameters=[
+            openapi.Parameter('Authorization', openapi.IN_HEADER, description="Bearer <access_token>", type=openapi.TYPE_STRING, required=True),
+        ],
+        responses={
+            200: openapi.Response(
+                'Success',
+                OrderSerializer,
+                headers={
+                    'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
+                }
+            ),
+            401: "Unauthorized",
+            403: "Forbidden",
+            404: "Not found"
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         # Add this check for schema generation
         if getattr(self, 'swagger_fake_view', False):
             return Order.objects.none()
-        return Order.objects.filter(user=self.request.user)
+        
+        # Use mixin's queryset and then filter by user
+        queryset = super().get_queryset()
+        if self.request.user.role != 'admin':
+            queryset = queryset.filter(user=self.request.user)
+        
+        return queryset
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'PATCH']:

@@ -131,6 +131,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     state = models.CharField(max_length=100, blank=True, null=True)
     postal_code = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=100, default='India')
+    
+    # MedixMall mode preference
+    medixmall_mode = models.BooleanField(
+        default=False,
+        help_text="When enabled, user only sees medicine products (MedixMall mode)"
+    )
 
     objects = UserManager()
 

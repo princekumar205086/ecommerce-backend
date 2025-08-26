@@ -10,7 +10,7 @@ from rest_framework.generics import ListAPIView
 
 from cart.models import Cart, CartItem
 from .models import User
-from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer, UserAddressSerializer, UpdateAddressSerializer
+from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer, UserAddressSerializer, UpdateAddressSerializer, MedixMallModeSerializer
 
 # Common Swagger components
 AUTH_HEADER_PARAMETER = openapi.Parameter(
@@ -411,3 +411,113 @@ class UserListView(ListAPIView):
         if role in ['user', 'supplier']:
             return queryset.filter(role=role)
         return queryset
+
+
+class MedixMallModeToggleView(APIView):
+    """
+    Toggle MedixMall mode for both authenticated and anonymous users
+    - Authenticated users: Saves to user profile
+    - Anonymous users: Saves to session
+    When enabled, user only sees medicine products throughout the platform
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [AllowAny]  # Allow both authenticated and anonymous users
+
+    def get_medixmall_mode(self, request):
+        """Get MedixMall mode from user profile or session"""
+        if request.user.is_authenticated:
+            return request.user.medixmall_mode
+        else:
+            return request.session.get('medixmall_mode', False)
+
+    def set_medixmall_mode(self, request, mode):
+        """Set MedixMall mode in user profile or session"""
+        if request.user.is_authenticated:
+            request.user.medixmall_mode = mode
+            request.user.save()
+        else:
+            request.session['medixmall_mode'] = mode
+
+    @swagger_auto_schema(
+        responses={
+            200: openapi.Response(
+                description="MedixMall mode status retrieved successfully",
+                examples={
+                    "application/json": {
+                        "medixmall_mode": True,
+                        "message": "MedixMall mode is currently enabled (authenticated user)",
+                        "user_type": "authenticated",
+                        "storage_type": "profile"
+                    }
+                },
+            ),
+        },
+        operation_description="Get current MedixMall mode status. Works for both authenticated and anonymous users.",
+        operation_summary="Get MedixMall Mode Status",
+        tags=['User Profile']
+    )
+    def get(self, request):
+        """Get current MedixMall mode status"""
+        mode = self.get_medixmall_mode(request)
+        user_type = "authenticated" if request.user.is_authenticated else "anonymous"
+        storage_type = "profile" if request.user.is_authenticated else "session"
+        
+        response_data = {
+            'medixmall_mode': mode,
+            'message': f"MedixMall mode is currently {'enabled' if mode else 'disabled'} ({user_type} user)",
+            'user_type': user_type,
+            'storage_type': storage_type
+        }
+        response = Response(response_data)
+        response['X-MedixMall-Mode'] = 'true' if mode else 'false'
+        return response
+
+    @swagger_auto_schema(
+        request_body=MedixMallModeSerializer,
+        responses={
+            200: openapi.Response(
+                description="MedixMall mode updated successfully",
+                examples={
+                    "application/json": {
+                        "medixmall_mode": True,
+                        "message": "MedixMall mode enabled successfully. You will now only see medicine products.",
+                        "user_type": "authenticated",
+                        "storage_type": "profile"
+                    }
+                },
+            ),
+            400: openapi.Response(
+                description="Bad Request",
+                examples={"application/json": {"medixmall_mode": ["This field is required."]}},
+            ),
+        },
+        operation_description="Toggle MedixMall mode. Works for both authenticated and anonymous users. Authenticated users save to profile, anonymous users save to session.",
+        operation_summary="Toggle MedixMall Mode",
+        tags=['User Profile']
+    )
+    def put(self, request):
+        """Toggle MedixMall mode"""
+        serializer = MedixMallModeSerializer(data=request.data)
+        if serializer.is_valid():
+            mode = serializer.validated_data['medixmall_mode']
+            self.set_medixmall_mode(request, mode)
+            
+            user_type = "authenticated" if request.user.is_authenticated else "anonymous"
+            storage_type = "profile" if request.user.is_authenticated else "session"
+            
+            message = (
+                f"MedixMall mode enabled successfully ({user_type} user). You will now only see medicine products."
+                if mode else
+                f"MedixMall mode disabled successfully ({user_type} user). You can now see all products."
+            )
+            
+            response_data = {
+                'medixmall_mode': mode,
+                'message': message,
+                'user_type': user_type,
+                'storage_type': storage_type
+            }
+            response = Response(response_data)
+            response['X-MedixMall-Mode'] = 'true' if mode else 'false'
+            return response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
