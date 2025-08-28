@@ -26,6 +26,7 @@ from .mixins import MedixMallOrderFilterMixin, MedixMallOrderContextMixin
 
 
 class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, generics.ListCreateAPIView):
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
@@ -80,6 +81,7 @@ class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, gener
 
 
 class OrderDetailView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [IsOwnerOrAdmin]
 

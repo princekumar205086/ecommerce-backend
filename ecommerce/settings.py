@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'invoice',
     'support',
     'wishlist',
+    'shipping',
     'inventory',
     'reviews',
     'corsheaders',
