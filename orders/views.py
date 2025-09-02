@@ -15,17 +15,15 @@ from drf_yasg import openapi
 
 from coupon.models import Coupon
 from ecommerce.permissions import IsAdmin, IsOwnerOrAdmin
-from . import serializers
 from .models import Order, OrderStatusChange, OrderItem
 from .serializers import (
     OrderSerializer,
     CreateOrderSerializer,
     UpdateOrderStatusSerializer
 )
-from .mixins import MedixMallOrderFilterMixin, MedixMallOrderContextMixin
 
 
-class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, generics.ListCreateAPIView):
+class OrderListView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -36,7 +34,7 @@ class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, gener
     ordering = ['-created_at']
 
     @swagger_auto_schema(
-        operation_description="Get user's orders. For regular users in MedixMall mode, only shows orders containing medicine products only. Admins see all orders.",
+        operation_description="Get user's orders. Shows all orders for the authenticated user.",
         operation_summary="List User Orders",
         tags=['Orders'],
         manual_parameters=[
@@ -49,9 +47,6 @@ class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, gener
             200: openapi.Response(
                 'Success',
                 OrderSerializer(many=True),
-                headers={
-                    'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
-                }
             ),
             401: "Unauthorized",
         }
@@ -68,11 +63,8 @@ class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, gener
         if user.role == 'admin':  # Check if the user is an admin
             return Order.objects.all()
         
-        # For regular users, get base queryset and apply MedixMall filtering
-        base_queryset = Order.objects.filter(user=user)
-        
-        # Apply MedixMall filtering using mixin
-        return super().get_queryset().filter(user=user)
+        # For regular users, return all their orders (no MedixMall filtering)
+        return Order.objects.filter(user=user)
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -80,13 +72,13 @@ class OrderListView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, gener
         return OrderSerializer
 
 
-class OrderDetailView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, generics.RetrieveUpdateDestroyAPIView):
+class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [IsOwnerOrAdmin]
 
     @swagger_auto_schema(
-        operation_description="Get order details. Respects user's MedixMall mode preference.",
+        operation_description="Get order details. Shows order details for the authenticated user.",
         operation_summary="Get Order Details",
         tags=['Orders'],
         manual_parameters=[
@@ -96,9 +88,6 @@ class OrderDetailView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, gen
             200: openapi.Response(
                 'Success',
                 OrderSerializer,
-                headers={
-                    'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
-                }
             ),
             401: "Unauthorized",
             403: "Forbidden",
@@ -113,12 +102,11 @@ class OrderDetailView(MedixMallOrderFilterMixin, MedixMallOrderContextMixin, gen
         if getattr(self, 'swagger_fake_view', False):
             return Order.objects.none()
         
-        # Use mixin's queryset and then filter by user
-        queryset = super().get_queryset()
-        if self.request.user.role != 'admin':
-            queryset = queryset.filter(user=self.request.user)
-        
-        return queryset
+        # Return all orders for admin, user's orders for regular users (no MedixMall filtering)
+        if self.request.user.role == 'admin':
+            return Order.objects.all()
+        else:
+            return Order.objects.filter(user=self.request.user)
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'PATCH']:
