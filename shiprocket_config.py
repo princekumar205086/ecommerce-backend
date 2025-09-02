@@ -6,8 +6,8 @@ SHIPROCKET_BASE_URL = "https://apiv2.shiprocket.in/v1/external/"
 
 # UAT Test Credentials (Update these with your actual UAT credentials)
 # For testing, you need to register at https://app.shiprocket.in/ and get UAT access
-SHIPROCKET_EMAIL = "demo@example.com"  # Replace with your actual UAT email
-SHIPROCKET_PASSWORD = "demo123"  # Replace with your actual UAT password
+SHIPROCKET_EMAIL = "test@example.com"  # Replace with your actual UAT email
+SHIPROCKET_PASSWORD = "testpass123"  # Replace with your actual UAT password
 
 # API Configuration
 SHIPROCKET_TIMEOUT = 30  # API request timeout in seconds

@@ -299,6 +299,25 @@ class Order(models.Model):
             )
             return True
         return False
+    
+    def add_status_change(self, status, notes="", changed_by=None):
+        """Add a status change record"""
+        OrderStatusChange.objects.create(
+            order=self,
+            status=status,
+            changed_by=changed_by,
+            notes=notes
+        )
+    
+    def restore_stock(self):
+        """Restore stock when order is cancelled"""
+        for item in self.items.all():
+            if item.variant:
+                item.variant.stock += item.quantity
+                item.variant.save()
+            else:
+                item.product.stock += item.quantity
+                item.product.save()
 
 
 class OrderItem(models.Model):
