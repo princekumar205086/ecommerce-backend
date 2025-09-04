@@ -13,6 +13,12 @@ from .views import (
     ProductVariantDetailView,
     SupplierProductPriceListCreateView,
     SupplierProductPriceDetailView,
+    ProductAttributeListCreateView,
+    ProductAttributeDetailView,
+    ProductAttributeValueListCreateView,
+    ProductAttributeValueDetailView,
+    ProductImageListCreateView,
+    ProductImageDetailView,
 )
 
 app_name = 'products'
@@ -30,4 +36,10 @@ urlpatterns = [
     path('supplier-prices/<int:pk>/', SupplierProductPriceDetailView.as_view(), name='supplier-price-detail'),
     path('reviews/', ProductReviewListCreateView.as_view(), name='review-list-create'),
     path('reviews/<int:pk>/', ProductReviewDetailView.as_view(), name='review-detail'),
+    path('attributes/', ProductAttributeListCreateView.as_view(), name='attribute-list-create'),
+    path('attributes/<int:pk>/', ProductAttributeDetailView.as_view(), name='attribute-detail'),
+    path('attribute-values/', ProductAttributeValueListCreateView.as_view(), name='attribute-value-list-create'),
+    path('attribute-values/<int:pk>/', ProductAttributeValueDetailView.as_view(), name='attribute-value-detail'),
+    path('images/', ProductImageListCreateView.as_view(), name='image-list-create'),
+    path('images/<int:pk>/', ProductImageDetailView.as_view(), name='image-detail'),
 ]

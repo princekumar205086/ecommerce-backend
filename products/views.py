@@ -7,12 +7,15 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly
 from .models import (
     ProductCategory, Product, ProductReview,
-    Brand, ProductVariant, SupplierProductPrice
+    Brand, ProductVariant, SupplierProductPrice,
+    MedicineDetails, EquipmentDetails, PathologyDetails,
+    ProductAttribute, ProductAttributeValue, ProductImage
 )
 from .serializers import (
     ProductCategorySerializer, BaseProductSerializer, ProductReviewSerializer,
     BrandSerializer, ProductVariantSerializer, SupplierProductPriceSerializer,
-    MedicineBaseProductSerializer, EquipmentBaseProductSerializer, PathologyBaseProductSerializer
+    MedicineBaseProductSerializer, EquipmentBaseProductSerializer, PathologyBaseProductSerializer,
+    ProductAttributeSerializer, ProductAttributeValueSerializer, ProductImageSerializer
 )
 
 
@@ -145,6 +148,51 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         instance = serializer.save()
         instance._changed_by = self.request.user  # Used in audit logging
+
+
+# Product Attribute Views
+class ProductAttributeListCreateView(generics.ListCreateAPIView):
+    queryset = ProductAttribute.objects.all()
+    serializer_class = ProductAttributeSerializer
+    permission_classes = [IsAdminOrReadOnly]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
+
+
+class ProductAttributeDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductAttribute.objects.all()
+    serializer_class = ProductAttributeSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+
+class ProductAttributeValueListCreateView(generics.ListCreateAPIView):
+    queryset = ProductAttributeValue.objects.select_related('attribute').all()
+    serializer_class = ProductAttributeValueSerializer
+    permission_classes = [IsAdminOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['attribute']
+    search_fields = ['value']
+
+
+class ProductAttributeValueDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductAttributeValue.objects.select_related('attribute').all()
+    serializer_class = ProductAttributeValueSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+
+# Product Image Views
+class ProductImageListCreateView(generics.ListCreateAPIView):
+    queryset = ProductImage.objects.select_related('product').all()
+    serializer_class = ProductImageSerializer
+    permission_classes = [IsAdminOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['product', 'variant']
+
+
+class ProductImageDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProductImage.objects.select_related('product').all()
+    serializer_class = ProductImageSerializer
+    permission_classes = [IsAdminOrReadOnly]
 
 
 class ProductVariantListCreateView(generics.ListCreateAPIView):

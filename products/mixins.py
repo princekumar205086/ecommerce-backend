@@ -98,14 +98,16 @@ class EnterpriseSearchMixin:
             search_conditions |= Q(description__icontains=term)
             
             # Medicine-specific searches
-            search_conditions |= Q(composition__icontains=term)
-            search_conditions |= Q(manufacturer__icontains=term)
-            search_conditions |= Q(form__icontains=term)
+            if hasattr(Product, 'medicine_details'):
+                search_conditions |= Q(medicine_details__composition__icontains=term)
+                search_conditions |= Q(medicine_details__manufacturer__icontains=term)
+                search_conditions |= Q(medicine_details__form__icontains=term)
             
             # Equipment-specific searches
-            search_conditions |= Q(model_number__icontains=term)
-            search_conditions |= Q(equipment_type__icontains=term)
-            search_conditions |= Q(usage_type__icontains=term)
+            if hasattr(Product, 'equipment_details'):
+                search_conditions |= Q(equipment_details__model_number__icontains=term)
+                search_conditions |= Q(equipment_details__equipment_type__icontains=term)
+                search_conditions |= Q(equipment_details__usage_type__icontains=term)
             
             # Tags search
             search_conditions |= Q(tags__name__icontains=term)
@@ -158,11 +160,11 @@ class EnterpriseSearchMixin:
         # Medicine-specific filters
         prescription_required = filters.get('prescription_required')
         if prescription_required is not None:
-            filtered_queryset = filtered_queryset.filter(prescription_required=prescription_required)
+            filtered_queryset = filtered_queryset.filter(medicine_details__prescription_required=prescription_required)
         
         form = filters.get('form')
         if form:
-            filtered_queryset = filtered_queryset.filter(form__icontains=form)
+            filtered_queryset = filtered_queryset.filter(medicine_details__form__icontains=form)
         
         return filtered_queryset
     

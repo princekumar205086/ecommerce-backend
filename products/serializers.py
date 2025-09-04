@@ -7,8 +7,9 @@ import uuid
 
 from .models import (
     Brand, ProductCategory, Product, ProductImage,
-    ProductVariant, SupplierProductPrice,
-    ProductReview, ProductAuditLog
+    ProductVariant, SupplierProductPrice, ProductReview, ProductAuditLog,
+    MedicineDetails, EquipmentDetails, PathologyDetails,
+    ProductAttribute, ProductAttributeValue
 )
 from accounts.models import upload_to_imagekit
 
@@ -213,7 +214,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductImage
-        fields = ['id', 'image', 'alt_text', 'image_file']
+        fields = ['id', 'image', 'alt_text', 'order', 'variant', 'image_file']
 
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)
@@ -298,37 +299,85 @@ class ProductImageSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
+# Product Attributes
+class ProductAttributeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductAttribute
+        fields = ['id', 'name']
+
+
+class ProductAttributeValueSerializer(serializers.ModelSerializer):
+    attribute_name = serializers.CharField(source='attribute.name', read_only=True)
+    
+    class Meta:
+        model = ProductAttributeValue
+        fields = ['id', 'attribute', 'attribute_name', 'value']
 # Product Variant
 class ProductVariantSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
+    attributes = ProductAttributeValueSerializer(many=True, read_only=True)
+    attribute_ids = serializers.ListField(
+        child=serializers.IntegerField(), write_only=True, required=False
+    )
 
     class Meta:
         model = ProductVariant
         fields = [
-            'id', 'product', 'size', 'weight',
-            'additional_price', 'total_price',
-            'stock', 'created_at'
+            'id', 'product', 'sku', 'price', 'additional_price', 'total_price',
+            'stock', 'is_active', 'attributes', 'attribute_ids',
+            'created_at', 'updated_at'
         ]
-        read_only_fields = ('created_at', 'total_price')
+        read_only_fields = ('created_at', 'updated_at', 'total_price', 'sku')
 
     def get_total_price(self, obj):
-        return obj.product.price + obj.additional_price
+        return obj.total_price
 
-    def validate(self, data):
-        # Only validate uniqueness if we have the required fields
-        if 'product' in data and ('size' in data or 'weight' in data):
-            query = ProductVariant.objects.filter(
-                product=data['product'],
-                size=data.get('size'),
-                weight=data.get('weight')
-            )
-            # Exclude current instance during update
-            if self.instance:
-                query = query.exclude(pk=self.instance.pk)
-            
-            if query.exists():
-                raise serializers.ValidationError("Variant with these specifications already exists.")
-        return data
+    def create(self, validated_data):
+        attribute_ids = validated_data.pop('attribute_ids', [])
+        variant = super().create(validated_data)
+        
+        if attribute_ids:
+            attribute_values = ProductAttributeValue.objects.filter(id__in=attribute_ids)
+            variant.attributes.set(attribute_values)
+        
+        return variant
+
+    def update(self, instance, validated_data):
+        attribute_ids = validated_data.pop('attribute_ids', None)
+        variant = super().update(instance, validated_data)
+        
+        if attribute_ids is not None:
+            attribute_values = ProductAttributeValue.objects.filter(id__in=attribute_ids)
+            variant.attributes.set(attribute_values)
+        
+        return variant
+
+
+# Product Type Detail Serializers
+class MedicineDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MedicineDetails
+        fields = [
+            'composition', 'quantity', 'manufacturer', 'expiry_date',
+            'batch_number', 'prescription_required', 'form', 'pack_size'
+        ]
+
+
+class EquipmentDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EquipmentDetails
+        fields = [
+            'model_number', 'warranty_period', 'usage_type',
+            'technical_specifications', 'power_requirement', 'equipment_type'
+        ]
+
+
+class PathologyDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PathologyDetails
+        fields = [
+            'compatible_tests', 'chemical_composition', 'storage_condition'
+        ]
 
 
 # Base Product Serializer
@@ -337,18 +386,27 @@ class BaseProductSerializer(serializers.ModelSerializer):
     variants = ProductVariantSerializer(many=True, read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
     category = serializers.PrimaryKeyRelatedField(queryset=ProductCategory.objects.all())
+    category_name = serializers.CharField(source='category.name', read_only=True)
+    category_id = serializers.IntegerField(source='category.id', read_only=True)
     brand = serializers.PrimaryKeyRelatedField(queryset=Brand.objects.all(), required=False, allow_null=True)
+    brand_name = serializers.CharField(source='brand.name', read_only=True)
     image_file = serializers.ImageField(write_only=True, required=False)
+    
+    # Type-specific details
+    medicine_details = MedicineDetailsSerializer(read_only=True)
+    equipment_details = EquipmentDetailsSerializer(read_only=True)
+    pathology_details = PathologyDetailsSerializer(read_only=True)
 
     class Meta:
         model = Product
         fields = [
-            'id', 'name', 'description', 'category', 'brand',
-            'price', 'stock', 'product_type', 'created_by',
-            'created_at', 'updated_at', 'status', 'is_publish',
-            'variants', 'images', 'image', 'image_file'
+            'id', 'name', 'slug', 'sku', 'description', 'category', 'category_id', 'category_name',
+            'brand', 'brand_name', 'price', 'stock', 'product_type', 'created_by',
+            'created_at', 'updated_at', 'status', 'is_publish', 'specifications',
+            'variants', 'images', 'image', 'image_file',
+            'medicine_details', 'equipment_details', 'pathology_details'
         ]
-        read_only_fields = ('created_at', 'updated_at', 'status', 'is_publish')
+        read_only_fields = ('created_at', 'updated_at', 'status', 'is_publish', 'slug', 'sku')
 
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)
@@ -435,32 +493,89 @@ class BaseProductSerializer(serializers.ModelSerializer):
 
 # Medicine Product Serializer
 class MedicineBaseProductSerializer(BaseProductSerializer):
+    medicine_details = MedicineDetailsSerializer()
+
     class Meta(BaseProductSerializer.Meta):
-        fields = BaseProductSerializer.Meta.fields + [
-            'composition', 'quantity', 'manufacturer',
-            'expiry_date', 'batch_number', 'prescription_required',
-            'form', 'pack_size'
-        ]
+        pass
+
+    def create(self, validated_data):
+        medicine_details_data = validated_data.pop('medicine_details', {})
+        product = super().create(validated_data)
+        
+        if medicine_details_data:
+            MedicineDetails.objects.create(product=product, **medicine_details_data)
+        
+        return product
+
+    def update(self, instance, validated_data):
+        medicine_details_data = validated_data.pop('medicine_details', None)
+        product = super().update(instance, validated_data)
+        
+        if medicine_details_data is not None:
+            medicine_details, created = MedicineDetails.objects.get_or_create(product=product)
+            for attr, value in medicine_details_data.items():
+                setattr(medicine_details, attr, value)
+            medicine_details.save()
+        
+        return product
 
 
 # Equipment Product Serializer
 class EquipmentBaseProductSerializer(BaseProductSerializer):
+    equipment_details = EquipmentDetailsSerializer()
+
     class Meta(BaseProductSerializer.Meta):
-        fields = BaseProductSerializer.Meta.fields + [
-            'model_number', 'warranty_period', 'usage_type',
-            'technical_specifications', 'power_requirement',
-            'equipment_type'
-        ]
+        pass
+
+    def create(self, validated_data):
+        equipment_details_data = validated_data.pop('equipment_details', {})
+        product = super().create(validated_data)
+        
+        if equipment_details_data:
+            EquipmentDetails.objects.create(product=product, **equipment_details_data)
+        
+        return product
+
+    def update(self, instance, validated_data):
+        equipment_details_data = validated_data.pop('equipment_details', None)
+        product = super().update(instance, validated_data)
+        
+        if equipment_details_data is not None:
+            equipment_details, created = EquipmentDetails.objects.get_or_create(product=product)
+            for attr, value in equipment_details_data.items():
+                setattr(equipment_details, attr, value)
+            equipment_details.save()
+        
+        return product
 
 
-# Pathology Product Serializer (fixed)
+# Pathology Product Serializer
 class PathologyBaseProductSerializer(BaseProductSerializer):
+    pathology_details = PathologyDetailsSerializer()
+
     class Meta(BaseProductSerializer.Meta):
-        fields = BaseProductSerializer.Meta.fields + [
-            'compatible_tests',
-            'chemical_composition',
-            'storage_condition'
-        ]
+        pass
+
+    def create(self, validated_data):
+        pathology_details_data = validated_data.pop('pathology_details', {})
+        product = super().create(validated_data)
+        
+        if pathology_details_data:
+            PathologyDetails.objects.create(product=product, **pathology_details_data)
+        
+        return product
+
+    def update(self, instance, validated_data):
+        pathology_details_data = validated_data.pop('pathology_details', None)
+        product = super().update(instance, validated_data)
+        
+        if pathology_details_data is not None:
+            pathology_details, created = PathologyDetails.objects.get_or_create(product=product)
+            for attr, value in pathology_details_data.items():
+                setattr(pathology_details, attr, value)
+            pathology_details.save()
+        
+        return product
 
 
 # Supplier Price
@@ -476,10 +591,10 @@ class SupplierProductPriceSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         
         # Only validate uniqueness if we have the required fields
-        if 'product' in data:
+        if 'product_variant' in data:
             query = SupplierProductPrice.objects.filter(
                 supplier=user,
-                product=data['product'],
+                product_variant=data['product_variant'],
                 pincode=data.get('pincode'),
                 district=data.get('district')
             )
@@ -488,7 +603,7 @@ class SupplierProductPriceSerializer(serializers.ModelSerializer):
                 query = query.exclude(pk=self.instance.pk)
                 
             if query.exists():
-                raise serializers.ValidationError("Price already exists for this product in the specified region.")
+                raise serializers.ValidationError("Price already exists for this product variant in the specified region.")
         return data
 
 
