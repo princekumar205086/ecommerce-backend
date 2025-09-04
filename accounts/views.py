@@ -3,14 +3,25 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.exceptions import TokenError
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.generics import ListAPIView
+from django.contrib.auth import get_user_model
+from django.utils import timezone
+from django.db import transaction
 
 from cart.models import Cart, CartItem
-from .models import User
-from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer, UserAddressSerializer, UpdateAddressSerializer, MedixMallModeSerializer
+from .models import User, OTP, PasswordResetToken
+from .serializers import (
+    UserRegisterSerializer, UserLoginSerializer, UserSerializer, 
+    UserAddressSerializer, UpdateAddressSerializer, MedixMallModeSerializer,
+    OTPVerificationSerializer, OTPRequestSerializer, PasswordResetRequestSerializer,
+    PasswordResetConfirmSerializer, EmailVerificationSerializer, ResendVerificationSerializer,
+    ChangePasswordSerializer
+)
 
 # Common Swagger components
 AUTH_HEADER_PARAMETER = openapi.Parameter(
@@ -26,7 +37,8 @@ USER_RESPONSE_EXAMPLE = {
     "email": "user@example.com",
     "full_name": "John Doe",
     "contact": "1234567890",
-    "role": "user"
+    "role": "user",
+    "email_verified": True
 }
 
 TOKEN_RESPONSE = {
@@ -42,17 +54,18 @@ class RegisterView(APIView):
         request_body=UserRegisterSerializer,
         responses={
             201: openapi.Response(
-                description="User registered successfully",
+                description="User registered successfully. Email verification sent.",
                 examples={
                     "application/json": {
                         "user": USER_RESPONSE_EXAMPLE,
+                        "message": "Registration successful. Please check your email for verification.",
                         **TOKEN_RESPONSE
                     }
                 },
             ),
             400: "Invalid input",
         },
-        operation_description="Register a new user account. Role can be 'user' or 'supplier'."
+        operation_description="Register a new user account. Role can be 'user' or 'supplier'. Email verification will be sent."
     )
     def post(self, request, role=None):
         # Set default role to 'user' if not provided
@@ -69,16 +82,18 @@ class RegisterView(APIView):
         serializer = UserRegisterSerializer(data=request.data)
         
         if serializer.is_valid():
-            user = serializer.save()
-            user.role = role
-            user.save()
+            with transaction.atomic():
+                user = serializer.save()
+                user.role = role
+                user.save()
 
-            refresh = RefreshToken.for_user(user)
-            return Response({
-                'user': UserSerializer(user).data,
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }, status=status.HTTP_201_CREATED)
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'user': UserSerializer(user).data,
+                    'message': 'Registration successful. Please check your email for verification.',
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -99,13 +114,21 @@ class LoginView(APIView):
                 },
             ),
             400: "Invalid credentials",
+            403: "Email not verified",
         },
-        operation_description="Authenticate user and get access token"
+        operation_description="Authenticate user and get access token. Email must be verified."
     )
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+
+        # Check if email is verified
+        if not user.email_verified:
+            return Response({
+                'error': 'Email not verified. Please verify your email before logging in.',
+                'email_verified': False
+            }, status=status.HTTP_403_FORBIDDEN)
 
         # Sync guest cart to user's cart
         sync_guest_cart_to_user(request, user)
@@ -520,4 +543,350 @@ class MedixMallModeToggleView(APIView):
             response = Response(response_data)
             response['X-MedixMall-Mode'] = 'true' if mode else 'false'
             return response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'refresh_token': openapi.Schema(type=openapi.TYPE_STRING, description='Refresh token to blacklist')
+            },
+            required=['refresh_token']
+        ),
+        responses={
+            205: "Logout successful",
+            400: "Invalid refresh token",
+            401: "Unauthorized",
+        },
+        operation_description="Logout user and blacklist refresh token"
+    )
+    def post(self, request):
+        try:
+            refresh_token = request.data.get('refresh_token')
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({'message': 'Logout successful'}, status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response({'error': 'Invalid refresh token'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomTokenRefreshView(TokenRefreshView):
+    """Custom token refresh view that returns user data along with tokens"""
+    
+    @swagger_auto_schema(
+        responses={
+            200: openapi.Response(
+                description="Token refreshed successfully",
+                examples={
+                    "application/json": {
+                        "access": "new_access_token",
+                        "refresh": "new_refresh_token",
+                        "user": USER_RESPONSE_EXAMPLE
+                    }
+                },
+            ),
+            401: "Invalid refresh token",
+        },
+        operation_description="Refresh access token using refresh token. Returns new tokens and user data."
+    )
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        
+        if response.status_code == 200:
+            # Get user from the refresh token
+            try:
+                refresh_token = request.data.get('refresh')
+                token = RefreshToken(refresh_token)
+                user_id = token.payload.get('user_id')
+                user = User.objects.get(id=user_id)
+                
+                # Add user data to response
+                response.data['user'] = UserSerializer(user).data
+            except (TokenError, User.DoesNotExist):
+                pass
+        
+        return response
+
+
+class EmailVerificationView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        responses={
+            200: "Email verified successfully",
+            400: "Invalid or expired token",
+        },
+        operation_description="Verify email using verification token"
+    )
+    def get(self, request, token):
+        try:
+            user = User.objects.get(email_verification_token=token)
+            
+            # Check if token is expired (24 hours)
+            if user.email_verification_sent_at:
+                expiry_time = user.email_verification_sent_at + timezone.timedelta(hours=24)
+                if timezone.now() > expiry_time:
+                    return Response({
+                        'error': 'Verification link has expired. Please request a new one.'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Verify email
+            user.email_verified = True
+            user.email_verification_token = None
+            user.email_verification_sent_at = None
+            user.save()
+            
+            return Response({
+                'message': 'Email verified successfully. You can now log in.'
+            })
+            
+        except User.DoesNotExist:
+            return Response({
+                'error': 'Invalid verification token.'
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ResendVerificationView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=ResendVerificationSerializer,
+        responses={
+            200: "Verification email sent",
+            400: "Invalid email or already verified",
+        },
+        operation_description="Resend email verification"
+    )
+    def post(self, request):
+        serializer = ResendVerificationSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+            user = User.objects.get(email=email)
+            user.send_verification_email()
+            
+            return Response({
+                'message': 'Verification email sent successfully.'
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OTPRequestView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=OTPRequestSerializer,
+        responses={
+            200: "OTP sent successfully",
+            400: "Invalid input",
+        },
+        operation_description="Request OTP for verification"
+    )
+    def post(self, request):
+        serializer = OTPRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            otp_type = serializer.validated_data['otp_type']
+            email = serializer.validated_data.get('email')
+            phone = serializer.validated_data.get('phone')
+            
+            # Find user by email or phone
+            user = None
+            if email:
+                try:
+                    user = User.objects.get(email=email)
+                except User.DoesNotExist:
+                    return Response({
+                        'error': 'No user found with this email.'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            elif phone:
+                try:
+                    user = User.objects.get(contact=phone)
+                except User.DoesNotExist:
+                    return Response({
+                        'error': 'No user found with this phone number.'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Create and send OTP
+            otp = OTP.objects.create(
+                user=user,
+                otp_type=otp_type,
+                email=email,
+                phone=phone
+            )
+            otp.generate_otp()
+            
+            if email:
+                otp.send_email_otp()
+                return Response({
+                    'message': 'OTP sent to email successfully.',
+                    'otp_id': otp.id  # For testing purposes
+                })
+            elif phone:
+                success, message = otp.send_sms_otp()
+                if success:
+                    return Response({
+                        'message': 'OTP sent to phone successfully.',
+                        'otp_id': otp.id  # For testing purposes
+                    })
+                else:
+                    return Response({
+                        'error': message
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OTPVerificationView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=OTPVerificationSerializer,
+        responses={
+            200: "OTP verified successfully",
+            400: "Invalid or expired OTP",
+        },
+        operation_description="Verify OTP"
+    )
+    def post(self, request):
+        serializer = OTPVerificationSerializer(data=request.data)
+        if serializer.is_valid():
+            otp_code = serializer.validated_data['otp_code']
+            otp_type = serializer.validated_data['otp_type']
+            email = serializer.validated_data.get('email')
+            phone = serializer.validated_data.get('phone')
+            
+            # Find latest OTP
+            try:
+                otp_query = OTP.objects.filter(
+                    otp_type=otp_type,
+                    is_verified=False
+                )
+                
+                if email:
+                    otp_query = otp_query.filter(email=email)
+                elif phone:
+                    otp_query = otp_query.filter(phone=phone)
+                
+                otp = otp_query.latest('created_at')
+                
+                success, message = otp.verify_otp(otp_code)
+                
+                if success:
+                    # Handle specific OTP types
+                    if otp_type == 'email_verification':
+                        otp.user.email_verified = True
+                        otp.user.save()
+                    
+                    return Response({
+                        'message': message,
+                        'verified': True
+                    })
+                else:
+                    return Response({
+                        'error': message,
+                        'verified': False
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            
+            except OTP.DoesNotExist:
+                return Response({
+                    'error': 'No valid OTP found.'
+                }, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PasswordResetRequestView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=PasswordResetRequestSerializer,
+        responses={
+            200: "Password reset email sent",
+            400: "Invalid email",
+        },
+        operation_description="Request password reset"
+    )
+    def post(self, request):
+        serializer = PasswordResetRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+            user = User.objects.get(email=email)
+            
+            # Generate password reset token
+            reset_token = PasswordResetToken.generate_for_user(user)
+            reset_token.send_reset_email()
+            
+            return Response({
+                'message': 'Password reset email sent successfully.'
+            })
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PasswordResetConfirmView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=PasswordResetConfirmSerializer,
+        responses={
+            200: "Password reset successful",
+            400: "Invalid token or passwords don't match",
+        },
+        operation_description="Confirm password reset with token"
+    )
+    def post(self, request):
+        serializer = PasswordResetConfirmSerializer(data=request.data)
+        if serializer.is_valid():
+            reset_token = serializer.validated_data['reset_token']
+            new_password = serializer.validated_data['new_password']
+            
+            # Reset password
+            user = reset_token.user
+            user.set_password(new_password)
+            user.save()
+            
+            # Mark token as used
+            reset_token.is_used = True
+            reset_token.save()
+            
+            return Response({
+                'message': 'Password reset successful. You can now log in with your new password.'
+            })
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ChangePasswordView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=ChangePasswordSerializer,
+        responses={
+            200: "Password changed successfully",
+            400: "Invalid current password or passwords don't match",
+            401: "Unauthorized",
+        },
+        operation_description="Change user password"
+    )
+    def post(self, request):
+        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            new_password = serializer.validated_data['new_password']
+            
+            # Change password
+            user = request.user
+            user.set_password(new_password)
+            user.save()
+            
+            return Response({
+                'message': 'Password changed successfully.'
+            })
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

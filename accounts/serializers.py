@@ -2,6 +2,8 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from django.core.exceptions import ValidationError
+from django.utils import timezone
+from .models import OTP, PasswordResetToken
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
@@ -22,6 +24,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user = get_user_model().objects.create_user(**validated_data)
         user.set_password(password)
         user.save()
+        
+        # Send email verification
+        user.send_verification_email()
+        
         return user
 
 class SupplierRegisterSerializer(UserRegisterSerializer):
@@ -47,6 +53,10 @@ class SupplierRegisterSerializer(UserRegisterSerializer):
         user = get_user_model().objects.create_user(**validated_data)
         user.set_password(password)
         user.save()
+        
+        # Send email verification
+        user.send_verification_email()
+        
         return user
 
 class UserLoginSerializer(serializers.Serializer):
@@ -76,7 +86,103 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = get_user_model()
-        fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address', 'medixmall_mode']
+        fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address', 'medixmall_mode', 'email_verified']
+
+
+class OTPVerificationSerializer(serializers.Serializer):
+    """Serializer for OTP verification"""
+    otp_code = serializers.CharField(max_length=6, min_length=6)
+    otp_type = serializers.ChoiceField(choices=OTP.OTP_TYPES)
+    email = serializers.EmailField(required=False)
+    phone = serializers.CharField(max_length=20, required=False)
+
+    def validate(self, data):
+        if not data.get('email') and not data.get('phone'):
+            raise serializers.ValidationError("Either email or phone must be provided")
+        return data
+
+
+class OTPRequestSerializer(serializers.Serializer):
+    """Serializer for requesting OTP"""
+    otp_type = serializers.ChoiceField(choices=OTP.OTP_TYPES)
+    email = serializers.EmailField(required=False)
+    phone = serializers.CharField(max_length=20, required=False)
+
+    def validate(self, data):
+        if not data.get('email') and not data.get('phone'):
+            raise serializers.ValidationError("Either email or phone must be provided")
+        return data
+
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    """Serializer for password reset request"""
+    email = serializers.EmailField()
+
+    def validate_email(self, value):
+        User = get_user_model()
+        if not User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("No user found with this email address.")
+        return value
+
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    """Serializer for password reset confirmation"""
+    token = serializers.CharField()
+    new_password = serializers.CharField(write_only=True, min_length=8)
+    confirm_password = serializers.CharField(write_only=True, min_length=8)
+
+    def validate(self, data):
+        if data['new_password'] != data['confirm_password']:
+            raise serializers.ValidationError({"confirm_password": "Passwords don't match."})
+        
+        # Validate token
+        try:
+            reset_token = PasswordResetToken.objects.get(token=data['token'])
+            if not reset_token.is_valid():
+                raise serializers.ValidationError({"token": "Invalid or expired token."})
+            data['reset_token'] = reset_token
+        except PasswordResetToken.DoesNotExist:
+            raise serializers.ValidationError({"token": "Invalid token."})
+        
+        return data
+
+
+class EmailVerificationSerializer(serializers.Serializer):
+    """Serializer for email verification"""
+    token = serializers.CharField()
+
+
+class ResendVerificationSerializer(serializers.Serializer):
+    """Serializer for resending verification email"""
+    email = serializers.EmailField()
+
+    def validate_email(self, value):
+        User = get_user_model()
+        try:
+            user = User.objects.get(email=value)
+            if user.email_verified:
+                raise serializers.ValidationError("Email is already verified.")
+        except User.DoesNotExist:
+            raise serializers.ValidationError("No user found with this email address.")
+        return value
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """Serializer for changing password"""
+    old_password = serializers.CharField(write_only=True)
+    new_password = serializers.CharField(write_only=True, min_length=8)
+    confirm_password = serializers.CharField(write_only=True, min_length=8)
+
+    def validate(self, data):
+        if data['new_password'] != data['confirm_password']:
+            raise serializers.ValidationError({"confirm_password": "Passwords don't match."})
+        return data
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError("Invalid current password.")
+        return value
 
 
 class MedixMallModeSerializer(serializers.Serializer):

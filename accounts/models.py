@@ -1,12 +1,16 @@
 # accounts/models.py
 import os
 import uuid
+import random
+from datetime import timedelta
 from PIL import Image
 from io import BytesIO
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.core.mail import send_mail
+from django.conf import settings
 from imagekitio import ImageKit
 from dotenv import load_dotenv
 
@@ -124,6 +128,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     
+    # Email verification fields
+    email_verified = models.BooleanField(default=False)
+    email_verification_token = models.CharField(max_length=255, blank=True, null=True)
+    email_verification_sent_at = models.DateTimeField(blank=True, null=True)
+    
     # Address fields for future use and COD support
     address_line_1 = models.CharField(max_length=255, blank=True, null=True)
     address_line_2 = models.CharField(max_length=255, blank=True, null=True)
@@ -177,3 +186,218 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.postal_code = address_data.get('postal_code', self.postal_code)
         self.country = address_data.get('country', self.country)
         self.save()
+    
+    def generate_email_verification_token(self):
+        """Generate email verification token"""
+        self.email_verification_token = str(uuid.uuid4())
+        self.email_verification_sent_at = timezone.now()
+        self.save()
+        return self.email_verification_token
+    
+    def send_verification_email(self):
+        """Send email verification email"""
+        if not self.email_verification_token:
+            self.generate_email_verification_token()
+        
+        subject = 'Verify Your Email - MedixMall'
+        message = f"""
+        Hi {self.full_name},
+
+        Thank you for registering with MedixMall!
+        
+        Please verify your email address by clicking the link below:
+        http://localhost:8000/api/accounts/verify-email/{self.email_verification_token}/
+
+        This link will expire in 24 hours.
+        
+        If you did not create this account, please ignore this email.
+
+        Best regards,
+        MedixMall Team
+        """
+        
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.email],
+            fail_silently=False,
+        )
+
+
+class OTP(models.Model):
+    """Model to handle OTP for email and SMS verification"""
+    OTP_TYPES = (
+        ('email_verification', 'Email Verification'),
+        ('sms_verification', 'SMS Verification'),
+        ('password_reset', 'Password Reset'),
+        ('login_verification', 'Login Verification'),
+    )
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='otps')
+    otp_type = models.CharField(max_length=20, choices=OTP_TYPES)
+    otp_code = models.CharField(max_length=6)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    attempts = models.PositiveIntegerField(default=0)
+    max_attempts = models.PositiveIntegerField(default=3)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set expiry on creation
+            self.expires_at = timezone.now() + timedelta(minutes=10)  # 10 minutes expiry
+        super().save(*args, **kwargs)
+    
+    def generate_otp(self):
+        """Generate a 6-digit OTP"""
+        self.otp_code = str(random.randint(100000, 999999))
+        self.save()
+        return self.otp_code
+    
+    def is_expired(self):
+        """Check if OTP is expired"""
+        return timezone.now() > self.expires_at
+    
+    def is_max_attempts_reached(self):
+        """Check if maximum attempts reached"""
+        return self.attempts >= self.max_attempts
+    
+    def verify_otp(self, provided_otp):
+        """Verify provided OTP"""
+        self.attempts += 1
+        self.save()
+        
+        if self.is_expired():
+            return False, "OTP has expired"
+        
+        if self.is_max_attempts_reached():
+            return False, "Maximum attempts reached"
+        
+        if self.otp_code == provided_otp and not self.is_verified:
+            self.is_verified = True
+            self.save()
+            return True, "OTP verified successfully"
+        
+        return False, "Invalid OTP"
+    
+    def send_email_otp(self):
+        """Send OTP via email"""
+        if not self.email:
+            self.email = self.user.email
+            self.save()
+        
+        subject = f'Your OTP - {self.get_otp_type_display()}'
+        message = f"""
+        Hi {self.user.full_name},
+
+        Your OTP for {self.get_otp_type_display().lower()} is: {self.otp_code}
+        
+        This OTP will expire in 10 minutes.
+        
+        If you did not request this OTP, please ignore this email.
+
+        Best regards,
+        MedixMall Team
+        """
+        
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.email],
+            fail_silently=False,
+        )
+    
+    def send_sms_otp(self):
+        """Send OTP via SMS using Twilio"""
+        from django.conf import settings
+        from twilio.rest import Client
+        
+        try:
+            if not self.phone:
+                self.phone = self.user.contact
+                self.save()
+            
+            # Initialize Twilio client
+            client = Client(
+                settings.TWILIO_ACCOUNT_SID, 
+                settings.TWILIO_AUTH_TOKEN
+            )
+            
+            message_body = f'Your MedixMall OTP is: {self.otp_code}. Valid for 10 minutes.'
+            
+            message = client.messages.create(
+                body=message_body,
+                from_=settings.TWILIO_PHONE_NUMBER,
+                to=self.phone
+            )
+            
+            return True, "SMS sent successfully"
+            
+        except Exception as e:
+            return False, f"SMS sending failed: {str(e)}"
+
+
+class PasswordResetToken(models.Model):
+    """Model for password reset tokens"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=255, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    is_used = models.BooleanField(default=False)
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set expiry on creation
+            self.expires_at = timezone.now() + timedelta(hours=1)  # 1 hour expiry
+        super().save(*args, **kwargs)
+    
+    def is_expired(self):
+        """Check if token is expired"""
+        return timezone.now() > self.expires_at
+    
+    def is_valid(self):
+        """Check if token is valid (not used and not expired)"""
+        return not self.is_used and not self.is_expired()
+    
+    @classmethod
+    def generate_for_user(cls, user):
+        """Generate a new password reset token for user"""
+        # Invalidate existing tokens
+        cls.objects.filter(user=user, is_used=False).update(is_used=True)
+        
+        # Create new token
+        token = str(uuid.uuid4())
+        reset_token = cls.objects.create(user=user, token=token)
+        return reset_token
+    
+    def send_reset_email(self):
+        """Send password reset email"""
+        subject = 'Password Reset - MedixMall'
+        message = f"""
+        Hi {self.user.full_name},
+
+        You have requested a password reset for your MedixMall account.
+        
+        Click the link below to reset your password:
+        http://localhost:8000/api/accounts/reset-password/{self.token}/
+
+        This link will expire in 1 hour.
+        
+        If you did not request this password reset, please ignore this email.
+
+        Best regards,
+        MedixMall Team
+        """
+        
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.user.email],
+            fail_silently=False,
+        )
