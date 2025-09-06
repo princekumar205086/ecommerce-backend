@@ -425,6 +425,18 @@ class OTP(models.Model):
         """Check if maximum attempts reached"""
         return self.attempts >= self.max_attempts
     
+    def can_resend(self):
+        """Check if OTP can be resent (after 1 minute)"""
+        if self.is_verified:
+            return False, "OTP already verified"
+        
+        time_since_creation = timezone.now() - self.created_at
+        if time_since_creation < timedelta(minutes=1):
+            remaining_seconds = 60 - time_since_creation.total_seconds()
+            return False, f"Please wait {int(remaining_seconds)} seconds before requesting new OTP"
+        
+        return True, "Can resend OTP"
+    
     def verify_otp(self, provided_otp):
         """Verify provided OTP"""
         self.attempts += 1

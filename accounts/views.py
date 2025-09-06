@@ -739,6 +739,82 @@ class ResendVerificationView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ResendOTPView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, description='User email'),
+                'otp_type': openapi.Schema(
+                    type=openapi.TYPE_STRING, 
+                    enum=['email_verification', 'sms_verification', 'password_reset', 'login_verification'],
+                    description='Type of OTP to resend'
+                ),
+            },
+            required=['email', 'otp_type']
+        ),
+        responses={
+            200: "OTP resent successfully",
+            400: "Cannot resend OTP yet or invalid input",
+            404: "User not found",
+        },
+        operation_description="Resend OTP after 1 minute cooldown"
+    )
+    def post(self, request):
+        email = request.data.get('email')
+        otp_type = request.data.get('otp_type', 'email_verification')
+        
+        if not email:
+            return Response({
+                'error': 'Email is required.'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({
+                'error': 'No user found with this email.'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        # Get the latest OTP for this user and type
+        latest_otp = OTP.objects.filter(
+            user=user,
+            otp_type=otp_type
+        ).order_by('-created_at').first()
+        
+        if latest_otp:
+            can_resend, message = latest_otp.can_resend()
+            if not can_resend:
+                return Response({
+                    'error': message
+                }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Create new OTP and send
+        otp = OTP.objects.create(
+            user=user,
+            otp_type=otp_type,
+            email=email
+        )
+        otp.generate_otp()
+        
+        if otp_type == 'email_verification':
+            success, message = user.send_verification_email()
+        else:
+            success, message = otp.send_email_otp()
+        
+        if success:
+            return Response({
+                'message': f'New OTP sent successfully to {email}.',
+                'can_resend_after': '1 minute'
+            })
+        else:
+            return Response({
+                'error': f'Failed to send OTP: {message}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 class OTPRequestView(APIView):
     permission_classes = [AllowAny]
 

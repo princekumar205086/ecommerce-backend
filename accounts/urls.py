@@ -5,7 +5,7 @@ from .views import (
     SaveAddressFromCheckoutView, MedixMallModeToggleView, CustomTokenRefreshView,
     EmailVerificationView, ResendVerificationView, OTPRequestView, OTPVerificationView,
     PasswordResetRequestView, PasswordResetConfirmView, ChangePasswordView,
-    OTPLoginRequestView, OTPLoginVerifyView, LoginChoiceView
+    OTPLoginRequestView, OTPLoginVerifyView, LoginChoiceView, ResendOTPView
 )
 
 urlpatterns = [
@@ -31,6 +31,7 @@ urlpatterns = [
     # OTP Verification
     path('otp/request/', OTPRequestView.as_view(), name='otp_request'),
     path('otp/verify/', OTPVerificationView.as_view(), name='otp_verify'),
+    path('otp/resend/', ResendOTPView.as_view(), name='resend_otp'),
     
     # OTP Login System
     path('login/otp/request/', OTPLoginRequestView.as_view(), name='otp_login_request'),
