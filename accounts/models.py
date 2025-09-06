@@ -195,9 +195,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email_verification_token
     
     def send_verification_email(self):
-        """Send email verification email"""
-        if not self.email_verification_token:
-            self.generate_email_verification_token()
+        """Send OTP-based email verification (no links)"""
+        # Create or get existing email verification OTP
+        from .models import OTP
+        
+        # Clean up old verification OTPs
+        OTP.objects.filter(
+            user=self,
+            otp_type='email_verification',
+            is_verified=False
+        ).delete()
+        
+        # Create new OTP for email verification
+        otp = OTP.objects.create(
+            user=self,
+            otp_type='email_verification',
+            email=self.email
+        )
+        otp_code = otp.generate_otp()
         
         subject = 'Verify Your Email - MedixMall'
         message = f"""
@@ -205,10 +220,11 @@ Hi {self.full_name},
 
 Thank you for registering with MedixMall!
 
-Please verify your email address by clicking the link below:
-https://backend.okpuja.in/api/accounts/verify-email/{self.email_verification_token}/
+Your email verification code is: {otp_code}
 
-This link will expire in 24 hours.
+Please enter this 6-digit code to verify your email address.
+
+This code will expire in 10 minutes.
 
 If you did not create this account, please ignore this email.
 
@@ -226,17 +242,145 @@ MedixMall Team
             )
             import logging
             logger = logging.getLogger(__name__)
-            logger.info(f"✅ Verification email sent successfully to {self.email}")
-            return True, "Verification email sent successfully"
+            logger.info(f"✅ Verification OTP email sent successfully to {self.email}")
+            return True, "Verification OTP email sent successfully"
         except Exception as e:
             import logging
             logger = logging.getLogger(__name__)
-            logger.error(f"❌ Failed to send verification email to {self.email}: {str(e)}")
+            logger.error(f"❌ Failed to send verification OTP email to {self.email}: {str(e)}")
             return False, f"Failed to send verification email: {str(e)}"
-            # Log the error for debugging
+
+    def send_welcome_email(self):
+        """Send professional welcome notification email"""
+        subject = '🎉 Welcome to MedixMall - Your Account is Ready!'
+        message = f"""
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #2c5282; margin-bottom: 10px;">Welcome to MedixMall!</h1>
+            <p style="color: #666; font-size: 18px;">Your trusted online pharmacy</p>
+        </div>
+        
+        <div style="background-color: #f7fafc; padding: 25px; border-radius: 8px; margin-bottom: 25px;">
+            <h2 style="color: #2c5282; margin-bottom: 15px;">Hello {self.full_name}! 👋</h2>
+            <p>Thank you for joining MedixMall! We're thrilled to have you as part of our community.</p>
+            
+            <div style="background-color: white; padding: 15px; border-radius: 6px; margin: 20px 0;">
+                <h3 style="color: #2c5282; margin-bottom: 10px;">Your Account Details:</h3>
+                <p><strong>Email:</strong> {self.email}</p>
+                <p><strong>Name:</strong> {self.full_name}</p>
+                <p><strong>Contact:</strong> {self.contact}</p>
+                <p><strong>Registration Date:</strong> {self.date_joined.strftime('%B %d, %Y')}</p>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 25px;">
+            <h3 style="color: #2c5282;">What's Next?</h3>
+            <ul style="color: #666;">
+                <li>✅ Verify your email address using the OTP we've sent</li>
+                <li>🛒 Browse our wide range of medicines and healthcare products</li>
+                <li>📱 Download our mobile app for convenient shopping</li>
+                <li>💊 Set up medication reminders and refill alerts</li>
+                <li>🚚 Enjoy fast and secure delivery to your doorstep</li>
+            </ul>
+        </div>
+        
+        <div style="background-color: #e6fffa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+            <h3 style="color: #2c5282; margin-bottom: 10px;">🎁 Special Welcome Offer!</h3>
+            <p>Use code <strong style="color: #e53e3e; font-size: 18px;">WELCOME10</strong> and get 10% off on your first order!</p>
+            <p style="font-size: 14px; color: #666;">*Valid for 30 days from registration</p>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 25px;">
+            <a href="https://backend.okpuja.in" style="background-color: #2c5282; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Start Shopping Now</a>
+        </div>
+        
+        <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 30px;">
+            <h3 style="color: #2c5282;">Need Help?</h3>
+            <p>Our customer support team is here to help you 24/7:</p>
+            <ul style="color: #666;">
+                <li>📧 Email: support@medixmall.com</li>
+                <li>📞 Phone: +91 8002-8002-80</li>
+                <li>💬 Live Chat: Available on our website</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #666; font-size: 14px;">
+            <p>Thank you for choosing MedixMall!</p>
+            <p>Best regards,<br>The MedixMall Team</p>
+            <p style="margin-top: 15px;">
+                <a href="https://backend.okpuja.in" style="color: #2c5282;">Visit Website</a> | 
+                <a href="mailto:support@medixmall.com" style="color: #2c5282;">Contact Support</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+        """
+        
+        # Plain text version for email clients that don't support HTML
+        plain_message = f"""
+Welcome to MedixMall!
+
+Hello {self.full_name}!
+
+Thank you for joining MedixMall! We're thrilled to have you as part of our community.
+
+Your Account Details:
+- Email: {self.email}
+- Name: {self.full_name}
+- Contact: {self.contact}
+- Registration Date: {self.date_joined.strftime('%B %d, %Y')}
+
+What's Next?
+- Verify your email address using the OTP we've sent
+- Browse our wide range of medicines and healthcare products
+- Download our mobile app for convenient shopping
+- Set up medication reminders and refill alerts
+- Enjoy fast and secure delivery to your doorstep
+
+Special Welcome Offer!
+Use code WELCOME10 and get 10% off on your first order!
+*Valid for 30 days from registration
+
+Need Help?
+Our customer support team is here to help you 24/7:
+- Email: support@medixmall.com
+- Phone: +91 8002-8002-80
+- Live Chat: Available on our website
+
+Thank you for choosing MedixMall!
+
+Best regards,
+The MedixMall Team
+
+Visit Website: https://backend.okpuja.in
+Contact Support: support@medixmall.com
+        """
+        
+        try:
+            from django.core.mail import EmailMultiAlternatives
+            
+            email = EmailMultiAlternatives(
+                subject=subject,
+                body=plain_message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[self.email]
+            )
+            email.attach_alternative(message, "text/html")
+            email.send()
+            
             import logging
             logger = logging.getLogger(__name__)
-            logger.error(f"Email sending failed for user {self.email}: {str(e)}")
+            logger.info(f"✅ Welcome email sent successfully to {self.email}")
+            return True, "Welcome email sent successfully"
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"❌ Failed to send welcome email to {self.email}: {str(e)}")
+            return False, f"Failed to send welcome email: {str(e)}"
 
 
 class OTP(models.Model):

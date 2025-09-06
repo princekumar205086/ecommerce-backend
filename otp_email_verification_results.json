@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "email": "avengerprinceraj@gmail.com",
+    "total_tests": 4,
+    "passed": 2,
+    "failed": 2,
+    "skipped": 0,
+    "success_rate": 50.0,
+    "timestamp": "2025-09-06T18:06:57.770733"
+  },
+  "results": {
+    "Registration with Professional Emails": {
+      "status": "PASS",
+      "details": "User already exists (expected). Testing with existing user: avengerprinceraj@gmail.com",
+      "timestamp": "2025-09-06T18:06:27.465800",
+      "extra_data": {
+        "status_code": 400,
+        "note": "User already registered"
+      }
+    },
+    "Resend Verification OTP": {
+      "status": "FAIL",
+      "details": "Resend failed: {\"email\":[\"Email is already verified.\"]}",
+      "timestamp": "2025-09-06T18:06:27.483756",
+      "extra_data": {
+        "status_code": 400
+      }
+    },
+    "OTP Email Verification": {
+      "status": "FAIL",
+      "details": "OTP verification failed: {\"error\":\"Invalid OTP code\"}",
+      "timestamp": "2025-09-06T18:06:55.849776",
+      "extra_data": {
+        "status_code": 400
+      }
+    },
+    "Login After Email Verification": {
+      "status": "PASS",
+      "details": "Login successful for verified email: avengerprinceraj@gmail.com",
+      "timestamp": "2025-09-06T18:06:57.768427",
+      "extra_data": {
+        "status_code": 200,
+        "has_tokens": true
+      }
+    }
+  }
+}

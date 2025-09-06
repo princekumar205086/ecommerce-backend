@@ -24,8 +24,8 @@ urlpatterns = [
     path('address/save-from-checkout/', SaveAddressFromCheckoutView.as_view(), name='save_address_from_checkout'),
     path('medixmall-mode/', MedixMallModeToggleView.as_view(), name='medixmall_mode_toggle'),
     
-    # Email Verification
-    path('verify-email/<str:token>/', EmailVerificationView.as_view(), name='verify_email'),
+    # Email Verification (OTP-based)
+    path('verify-email/', EmailVerificationView.as_view(), name='verify_email_otp'),
     path('resend-verification/', ResendVerificationView.as_view(), name='resend_verification'),
     
     # OTP Verification

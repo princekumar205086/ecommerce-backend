@@ -88,10 +88,30 @@ class RegisterView(APIView):
                 user.role = role
                 user.save()
 
+                # Send professional welcome email
+                try:
+                    welcome_success, welcome_message = user.send_welcome_email()
+                    if welcome_success:
+                        print(f"✅ Welcome email sent to {user.email}")
+                    else:
+                        print(f"⚠️ Welcome email failed: {welcome_message}")
+                except Exception as e:
+                    print(f"⚠️ Welcome email exception: {str(e)}")
+
+                # Send OTP-based email verification
+                try:
+                    verification_success, verification_message = user.send_verification_email()
+                    if verification_success:
+                        print(f"✅ Verification OTP sent to {user.email}")
+                    else:
+                        print(f"⚠️ Verification OTP failed: {verification_message}")
+                except Exception as e:
+                    print(f"⚠️ Verification OTP exception: {str(e)}")
+
                 refresh = RefreshToken.for_user(user)
                 return Response({
                     'user': UserSerializer(user).data,
-                    'message': 'Registration successful. Please check your email for verification.',
+                    'message': 'Registration successful! Welcome email and verification OTP sent to your email.',
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
                 }, status=status.HTTP_201_CREATED)
@@ -619,38 +639,73 @@ class EmailVerificationView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        request_body=OTPVerificationSerializer,
         responses={
             200: "Email verified successfully",
-            400: "Invalid or expired token",
+            400: "Invalid or expired OTP",
         },
-        operation_description="Verify email using verification token"
+        operation_description="Verify email using OTP code (no links required)"
     )
-    def get(self, request, token):
+    def post(self, request):
         try:
-            user = User.objects.get(email_verification_token=token)
+            serializer = OTPVerificationSerializer(data=request.data)
+            if not serializer.is_valid():
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             
-            # Check if token is expired (24 hours)
-            if user.email_verification_sent_at:
-                expiry_time = user.email_verification_sent_at + timezone.timedelta(hours=24)
-                if timezone.now() > expiry_time:
-                    return Response({
-                        'error': 'Verification link has expired. Please request a new one.'
-                    }, status=status.HTTP_400_BAD_REQUEST)
+            otp_code = serializer.validated_data['otp_code']
+            email = serializer.validated_data.get('email')
             
-            # Verify email
-            user.email_verified = True
-            user.email_verification_token = None
-            user.email_verification_sent_at = None
-            user.save()
+            if not email:
+                return Response({
+                    'error': 'Email is required for email verification'
+                }, status=status.HTTP_400_BAD_REQUEST)
             
+            # Find user by email
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                return Response({
+                    'error': 'User not found with this email'
+                }, status=status.HTTP_404_NOT_FOUND)
+            
+            # Find the OTP
+            try:
+                otp = OTP.objects.get(
+                    user=user,
+                    otp_type='email_verification',
+                    otp_code=otp_code,
+                    is_verified=False
+                )
+            except OTP.DoesNotExist:
+                return Response({
+                    'error': 'Invalid OTP code'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Verify OTP
+            is_valid, message = otp.verify_otp(otp_code)
+            
+            if is_valid:
+                # Mark email as verified
+                user.email_verified = True
+                user.save()
+                
+                # Mark OTP as verified
+                otp.is_verified = True
+                otp.save()
+                
+                return Response({
+                    'message': 'Email verified successfully! You can now use all features.',
+                    'email_verified': True
+                })
+            else:
+                return Response({
+                    'error': message
+                }, status=status.HTTP_400_BAD_REQUEST)
+                
+        except Exception as e:
             return Response({
-                'message': 'Email verified successfully. You can now log in.'
-            })
-            
-        except User.DoesNotExist:
-            return Response({
-                'error': 'Invalid verification token.'
-            }, status=status.HTTP_400_BAD_REQUEST)
+                'error': f'Verification failed: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ResendVerificationView(APIView):

@@ -1,7 +1,7 @@
 {
-  "timestamp": "2025-09-06T17:26:23.906388",
+  "timestamp": "2025-09-06T18:12:00.289853",
   "base_url": "http://127.0.0.1:8000",
-  "test_user_email": "testuser_1757159751@example.com",
+  "test_user_email": "testuser_1757162480@example.com",
   "test_user_contact": "9876543210",
   "summary": {
     "passed": 10,
@@ -14,8 +14,8 @@
     {
       "test": "User Registration",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:25:57.260332",
-      "details": "User registered successfully. Email: testuser_1757159751@example.com",
+      "timestamp": "2025-09-06T18:11:35.032683",
+      "details": "User registered successfully. Email: testuser_1757162480@example.com",
       "response_data": {
         "status_code": 201
       }
@@ -23,7 +23,7 @@
     {
       "test": "Traditional Login",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:25:59.652725",
+      "timestamp": "2025-09-06T18:11:37.415944",
       "details": "Email verification required (expected behavior)",
       "response_data": {
         "status_code": 403,
@@ -33,7 +33,7 @@
     {
       "test": "Login Choice (Password)",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:01.529929",
+      "timestamp": "2025-09-06T18:11:39.347354",
       "details": "Unified login with password successful",
       "response_data": {
         "status_code": 200
@@ -42,27 +42,27 @@
     {
       "test": "Login Choice (OTP Request)",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:06.120049",
+      "timestamp": "2025-09-06T18:11:43.282506",
       "details": "OTP requested successfully via email",
       "response_data": {
         "status_code": 200,
-        "otp_id": 16
+        "otp_id": 33
       }
     },
     {
       "test": "OTP Login Request (Email)",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:10.555748",
+      "timestamp": "2025-09-06T18:11:47.167711",
       "details": "Dedicated OTP login request successful via email",
       "response_data": {
         "status_code": 200,
-        "otp_id": 17
+        "otp_id": 34
       }
     },
     {
       "test": "OTP Login Request (SMS)",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:11.944590",
+      "timestamp": "2025-09-06T18:11:48.176339",
       "details": "SMS service not configured (expected in development)",
       "response_data": {
         "status_code": 500,
@@ -72,7 +72,7 @@
     {
       "test": "Resend Verification Email",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:16.089199",
+      "timestamp": "2025-09-06T18:11:52.222145",
       "details": "Verification email resent successfully",
       "response_data": {
         "status_code": 200
@@ -81,7 +81,7 @@
     {
       "test": "OTP Verification Flow",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:19.813557",
+      "timestamp": "2025-09-06T18:11:56.152999",
       "details": "OTP for email verification requested successfully",
       "response_data": {
         "status_code": 200
@@ -90,7 +90,7 @@
     {
       "test": "Token Refresh",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:19.857888",
+      "timestamp": "2025-09-06T18:11:56.246047",
       "details": "Token refreshed successfully",
       "response_data": {
         "status_code": 200
@@ -99,7 +99,7 @@
     {
       "test": "Password Reset Request",
       "status": "PASS",
-      "timestamp": "2025-09-06T17:26:23.899378",
+      "timestamp": "2025-09-06T18:12:00.280002",
       "details": "Password reset requested successfully",
       "response_data": {
         "status_code": 200
