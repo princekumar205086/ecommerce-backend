@@ -668,11 +668,18 @@ class ResendVerificationView(APIView):
         if serializer.is_valid():
             email = serializer.validated_data['email']
             user = User.objects.get(email=email)
-            user.send_verification_email()
             
-            return Response({
-                'message': 'Verification email sent successfully.'
-            })
+            # Send verification email with error handling
+            success, message = user.send_verification_email()
+            if success:
+                return Response({
+                    'message': 'Verification email sent successfully.'
+                })
+            else:
+                return Response({
+                    'error': message
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -721,11 +728,16 @@ class OTPRequestView(APIView):
             otp.generate_otp()
             
             if email:
-                otp.send_email_otp()
-                return Response({
-                    'message': 'OTP sent to email successfully.',
-                    'otp_id': otp.id  # For testing purposes
-                })
+                success, message = otp.send_email_otp()
+                if success:
+                    return Response({
+                        'message': 'OTP sent to email successfully.',
+                        'otp_id': otp.id  # For testing purposes
+                    })
+                else:
+                    return Response({
+                        'error': message
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             elif phone:
                 success, message = otp.send_sms_otp()
                 if success:
@@ -819,11 +831,17 @@ class PasswordResetRequestView(APIView):
             
             # Generate password reset token
             reset_token = PasswordResetToken.generate_for_user(user)
-            reset_token.send_reset_email()
             
-            return Response({
-                'message': 'Password reset email sent successfully.'
-            })
+            # Send reset email
+            success, message = reset_token.send_reset_email()
+            if success:
+                return Response({
+                    'message': 'Password reset email sent successfully.'
+                })
+            else:
+                return Response({
+                    'error': message
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

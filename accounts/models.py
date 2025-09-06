@@ -201,28 +201,37 @@ class User(AbstractBaseUser, PermissionsMixin):
         
         subject = 'Verify Your Email - MedixMall'
         message = f"""
-        Hi {self.full_name},
+Hi {self.full_name},
 
-        Thank you for registering with MedixMall!
-        
-        Please verify your email address by clicking the link below:
-        http://localhost:8000/api/accounts/verify-email/{self.email_verification_token}/
+Thank you for registering with MedixMall!
 
-        This link will expire in 24 hours.
-        
-        If you did not create this account, please ignore this email.
+Please verify your email address by clicking the link below:
+https://backend.okpuja.in/api/accounts/verify-email/{self.email_verification_token}/
 
-        Best regards,
-        MedixMall Team
+This link will expire in 24 hours.
+
+If you did not create this account, please ignore this email.
+
+Best regards,
+MedixMall Team
         """
         
-        send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [self.email],
-            fail_silently=False,
-        )
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [self.email],
+                fail_silently=False,
+            )
+            print(f"✅ Verification email sent successfully to {self.email}")
+        except Exception as e:
+            print(f"❌ Failed to send verification email to {self.email}: {str(e)}")
+            # Don't raise exception to prevent registration failure
+            # Log the error for debugging
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Email sending failed for user {self.email}: {str(e)}")
 
 
 class OTP(models.Model):
@@ -293,25 +302,34 @@ class OTP(models.Model):
         
         subject = f'Your OTP - {self.get_otp_type_display()}'
         message = f"""
-        Hi {self.user.full_name},
+Hi {self.user.full_name},
 
-        Your OTP for {self.get_otp_type_display().lower()} is: {self.otp_code}
-        
-        This OTP will expire in 10 minutes.
-        
-        If you did not request this OTP, please ignore this email.
+Your OTP for {self.get_otp_type_display().lower()} is: {self.otp_code}
 
-        Best regards,
-        MedixMall Team
+This OTP will expire in 10 minutes.
+
+If you did not request this OTP, please ignore this email.
+
+Best regards,
+MedixMall Team
         """
         
-        send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [self.email],
-            fail_silently=False,
-        )
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [self.email],
+                fail_silently=False,
+            )
+            print(f"✅ OTP email sent successfully to {self.email}")
+            return True, "OTP email sent successfully"
+        except Exception as e:
+            print(f"❌ Failed to send OTP email to {self.email}: {str(e)}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"OTP email sending failed for {self.email}: {str(e)}")
+            return False, f"Failed to send OTP email: {str(e)}"
     
     def send_sms_otp(self):
         """Send OTP via SMS using Twilio"""
@@ -379,25 +397,32 @@ class PasswordResetToken(models.Model):
         """Send password reset email"""
         subject = 'Password Reset - MedixMall'
         message = f"""
-        Hi {self.user.full_name},
+Hi {self.user.full_name},
 
-        You have requested a password reset for your MedixMall account.
-        
-        Click the link below to reset your password:
-        http://localhost:8000/api/accounts/reset-password/{self.token}/
+You have requested a password reset for your MedixMall account.
 
-        This link will expire in 1 hour.
-        
-        If you did not request this password reset, please ignore this email.
+Click the link below to reset your password:
+https://backend.okpuja.in/api/accounts/reset-password/{self.token}/
 
-        Best regards,
-        MedixMall Team
+This link will expire in 1 hour.
+
+If you did not request this password reset, please ignore this email.
+
+Best regards,
+MedixMall Team
         """
         
-        send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [self.user.email],
-            fail_silently=False,
-        )
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [self.user.email],
+                fail_silently=False,
+            )
+            print(f"✅ Password reset email sent successfully to {self.user.email}")
+        except Exception as e:
+            print(f"❌ Failed to send password reset email to {self.user.email}: {str(e)}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Password reset email sending failed for {self.user.email}: {str(e)}")
