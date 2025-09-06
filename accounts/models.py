@@ -224,10 +224,15 @@ MedixMall Team
                 [self.email],
                 fail_silently=False,
             )
-            print(f"✅ Verification email sent successfully to {self.email}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.info(f"✅ Verification email sent successfully to {self.email}")
+            return True, "Verification email sent successfully"
         except Exception as e:
-            print(f"❌ Failed to send verification email to {self.email}: {str(e)}")
-            # Don't raise exception to prevent registration failure
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"❌ Failed to send verification email to {self.email}: {str(e)}")
+            return False, f"Failed to send verification email: {str(e)}"
             # Log the error for debugging
             import logging
             logger = logging.getLogger(__name__)
@@ -421,8 +426,10 @@ MedixMall Team
                 fail_silently=False,
             )
             print(f"✅ Password reset email sent successfully to {self.user.email}")
+            return True, f"Password reset email sent successfully to {self.user.email}"
         except Exception as e:
             print(f"❌ Failed to send password reset email to {self.user.email}: {str(e)}")
             import logging
             logger = logging.getLogger(__name__)
             logger.error(f"Password reset email sending failed for {self.user.email}: {str(e)}")
+            return False, f"Failed to send password reset email: {str(e)}"

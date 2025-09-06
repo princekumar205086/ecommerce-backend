@@ -9,7 +9,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.generics import ListAPIView
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.utils import timezone
 from django.db import transaction
 
@@ -20,7 +20,8 @@ from .serializers import (
     UserAddressSerializer, UpdateAddressSerializer, MedixMallModeSerializer,
     OTPVerificationSerializer, OTPRequestSerializer, PasswordResetRequestSerializer,
     PasswordResetConfirmSerializer, EmailVerificationSerializer, ResendVerificationSerializer,
-    ChangePasswordSerializer
+    ChangePasswordSerializer, OTPLoginRequestSerializer, OTPLoginVerifySerializer, 
+    LoginChoiceSerializer
 )
 
 # Common Swagger components
@@ -906,5 +907,307 @@ class ChangePasswordView(APIView):
             return Response({
                 'message': 'Password changed successfully.'
             })
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OTPLoginRequestView(APIView):
+    """Request OTP for login"""
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL, description='Email address'),
+                'contact': openapi.Schema(type=openapi.TYPE_STRING, description='Contact number'),
+            },
+            required=[],
+            description="Provide either email or contact number"
+        ),
+        responses={
+            200: openapi.Response(
+                description="OTP sent successfully",
+                examples={
+                    "application/json": {
+                        "message": "OTP sent successfully to your email/phone",
+                        "otp_id": 123
+                    }
+                }
+            ),
+            400: "Invalid input",
+            500: "Email/SMS sending failed"
+        },
+        operation_description="Request OTP for login via email or SMS"
+    )
+    def post(self, request):
+        
+        serializer = OTPLoginRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data.get('email')
+            contact = serializer.validated_data.get('contact')
+            
+            # Find user by email or contact
+            if email:
+                user = User.objects.get(email=email)
+            else:
+                # Handle potential duplicate contacts by getting the first one
+                user = User.objects.filter(contact=contact).first()
+                if not user:
+                    return Response({
+                        'error': 'User not found with this contact'
+                    }, status=status.HTTP_404_NOT_FOUND)
+            
+            # Clean up old unverified OTPs for this user and type
+            OTP.objects.filter(
+                user=user,
+                otp_type='login_verification',
+                is_verified=False
+            ).delete()
+            
+            # Create OTP for login
+            otp = OTP.objects.create(
+                user=user,
+                otp_type='login_verification',
+                email=email if email else None,
+                phone=contact if contact else None
+            )
+            otp.generate_otp()
+            
+            # Send OTP
+            if email:
+                success, message = otp.send_email_otp()
+                channel = "email"
+            else:
+                success, message = otp.send_sms_otp()
+                channel = "SMS"
+            
+            if success:
+                return Response({
+                    'message': f'OTP sent successfully to your {channel}',
+                    'otp_id': otp.id,
+                    'channel': channel
+                })
+            else:
+                return Response({
+                    'error': message
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OTPLoginVerifyView(APIView):
+    """Verify OTP and login"""
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL, description='Email address'),
+                'contact': openapi.Schema(type=openapi.TYPE_STRING, description='Contact number'),
+                'otp_code': openapi.Schema(type=openapi.TYPE_STRING, description='6-digit OTP code'),
+            },
+            required=['otp_code'],
+            description="Provide either email or contact number with OTP code"
+        ),
+        responses={
+            200: openapi.Response(
+                description="Login successful",
+                examples={
+                    "application/json": {
+                        "user": USER_RESPONSE_EXAMPLE,
+                        "message": "Login successful with OTP",
+                        **TOKEN_RESPONSE
+                    }
+                }
+            ),
+            400: "Invalid OTP or input"
+        },
+        operation_description="Verify OTP and complete login"
+    )
+    def post(self, request):
+        
+        serializer = OTPLoginVerifySerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data.get('email')
+            contact = serializer.validated_data.get('contact')
+            otp_code = serializer.validated_data['otp_code']
+            
+            # Find user by email or contact
+            if email:
+                user = User.objects.get(email=email)
+                otp = OTP.objects.filter(
+                    user=user,
+                    email=email,
+                    otp_type='login_verification',
+                    is_verified=False
+                ).order_by('-created_at').first()
+            else:
+                user = User.objects.get(contact=contact)
+                otp = OTP.objects.filter(
+                    user=user,
+                    phone=contact,
+                    otp_type='login_verification',
+                    is_verified=False
+                ).order_by('-created_at').first()
+            
+            if not otp:
+                return Response({
+                    'error': 'No valid OTP found. Please request a new OTP.'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            if otp.verify_otp(otp_code):
+                # Mark email as verified since OTP login acts as verification
+                if not user.email_verified:
+                    user.email_verified = True
+                    user.save()
+                
+                # Generate JWT tokens
+                refresh = RefreshToken.for_user(user)
+                
+                return Response({
+                    'user': UserSerializer(user).data,
+                    'message': 'Login successful with OTP',
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                })
+            else:
+                return Response({
+                    'error': 'Invalid OTP or OTP has expired'
+                }, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginChoiceView(APIView):
+    """Unified login endpoint - supports both password and OTP login"""
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL, description='Email address'),
+                'contact': openapi.Schema(type=openapi.TYPE_STRING, description='Contact number'),
+                'password': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_PASSWORD, description='Password (required for password login)'),
+                'login_type': openapi.Schema(
+                    type=openapi.TYPE_STRING, 
+                    enum=['password', 'otp'],
+                    description='Login method: "password" or "otp"'
+                ),
+            },
+            required=['login_type'],
+            description="Choose login method and provide appropriate credentials"
+        ),
+        responses={
+            200: openapi.Response(
+                description="Login method processed",
+                examples={
+                    "application/json": {
+                        "password_login": {
+                            "user": USER_RESPONSE_EXAMPLE,
+                            "message": "Login successful",
+                            **TOKEN_RESPONSE
+                        },
+                        "otp_request": {
+                            "message": "OTP sent successfully to your email/phone",
+                            "otp_id": 123,
+                            "channel": "email"
+                        }
+                    }
+                }
+            ),
+            400: "Invalid input or credentials"
+        },
+        operation_description="Unified login endpoint - use 'password' for traditional login or 'otp' to request OTP"
+    )
+    def post(self, request):
+        
+        serializer = LoginChoiceSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data.get('email')
+            contact = serializer.validated_data.get('contact')
+            password = serializer.validated_data.get('password')
+            login_type = serializer.validated_data['login_type']
+            
+            # Find user by email or contact
+            if email:
+                try:
+                    user = User.objects.get(email=email)
+                except User.DoesNotExist:
+                    return Response({
+                        'error': 'No account found with this email address'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                try:
+                    user = User.objects.get(contact=contact)
+                except User.DoesNotExist:
+                    return Response({
+                        'error': 'No account found with this contact number'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            
+            if login_type == 'password':
+                # Password-based login
+                if not password:
+                    return Response({
+                        'error': 'Password is required for password login'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Authenticate user
+                auth_user = authenticate(
+                    request=request,
+                    username=user.email,  # Use email as username
+                    password=password
+                )
+                
+                if auth_user:
+                    refresh = RefreshToken.for_user(auth_user)
+                    return Response({
+                        'user': UserSerializer(auth_user).data,
+                        'message': 'Login successful',
+                        'refresh': str(refresh),
+                        'access': str(refresh.access_token),
+                    })
+                else:
+                    return Response({
+                        'error': 'Invalid password'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+            
+            elif login_type == 'otp':
+                # Clean up any existing OTPs for this user and type
+                OTP.objects.filter(
+                    user=user,
+                    otp_type='login_verification'
+                ).delete()
+                
+                # OTP-based login - send OTP
+                otp = OTP.objects.create(
+                    user=user,
+                    otp_type='login_verification',
+                    email=email if email else None,
+                    phone=contact if contact else None
+                )
+                otp.generate_otp()
+                
+                # Send OTP
+                if email:
+                    success, message = otp.send_email_otp()
+                    channel = "email"
+                else:
+                    success, message = otp.send_sms_otp()
+                    channel = "SMS"
+                
+                if success:
+                    return Response({
+                        'message': f'OTP sent successfully to your {channel}',
+                        'otp_id': otp.id,
+                        'channel': channel,
+                        'next_step': 'Use /api/accounts/login/otp/verify/ to complete login'
+                    })
+                else:
+                    return Response({
+                        'error': message
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

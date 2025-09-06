@@ -255,3 +255,72 @@ class UpdateAddressSerializer(serializers.ModelSerializer):
             })
         
         return data
+
+
+class OTPLoginRequestSerializer(serializers.Serializer):
+    """Serializer for requesting OTP login"""
+    email = serializers.EmailField(required=False)
+    contact = serializers.CharField(max_length=15, required=False)
+    
+    def validate(self, data):
+        if not data.get('email') and not data.get('contact'):
+            raise serializers.ValidationError(
+                "Either email or contact number is required"
+            )
+        
+        # Check if user exists with provided email or contact
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        
+        if data.get('email'):
+            if not User.objects.filter(email=data['email']).exists():
+                raise serializers.ValidationError(
+                    {"email": "No account found with this email address"}
+                )
+        
+        if data.get('contact'):
+            if not User.objects.filter(contact=data['contact']).exists():
+                raise serializers.ValidationError(
+                    {"contact": "No account found with this contact number"}
+                )
+        
+        return data
+
+
+class OTPLoginVerifySerializer(serializers.Serializer):
+    """Serializer for verifying OTP login"""
+    email = serializers.EmailField(required=False)
+    contact = serializers.CharField(max_length=15, required=False)
+    otp_code = serializers.CharField(max_length=6, required=True)
+    
+    def validate(self, data):
+        if not data.get('email') and not data.get('contact'):
+            raise serializers.ValidationError(
+                "Either email or contact number is required"
+            )
+        
+        return data
+
+
+class LoginChoiceSerializer(serializers.Serializer):
+    """Serializer for login - supports both password and OTP"""
+    email = serializers.EmailField(required=False)
+    contact = serializers.CharField(max_length=15, required=False)
+    password = serializers.CharField(required=False)
+    login_type = serializers.ChoiceField(
+        choices=[('password', 'Password'), ('otp', 'OTP')],
+        required=True
+    )
+    
+    def validate(self, data):
+        if not data.get('email') and not data.get('contact'):
+            raise serializers.ValidationError(
+                "Either email or contact number is required"
+            )
+        
+        if data.get('login_type') == 'password' and not data.get('password'):
+            raise serializers.ValidationError(
+                {"password": "Password is required for password login"}
+            )
+        
+        return data

@@ -1,0 +1,55 @@
+{
+  "summary": {
+    "email": "avengerprinceraj@gmail.com",
+    "total_tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "success_rate": 100.0,
+    "timestamp": "2025-09-06T17:27:25.112819"
+  },
+  "results": {
+    "Registration (Real Email)": {
+      "status": "PASS",
+      "details": "User registered successfully. Email: avengerprinceraj@gmail.com",
+      "timestamp": "2025-09-06T17:27:10.872345",
+      "extra_data": {
+        "status_code": 201,
+        "user_id": 54
+      }
+    },
+    "OTP Login Request (Real Email)": {
+      "status": "PASS",
+      "details": "OTP sent successfully to avengerprinceraj@gmail.com",
+      "timestamp": "2025-09-06T17:27:14.860118",
+      "extra_data": {
+        "status_code": 200,
+        "otp_id": 20
+      }
+    },
+    "Password Login (Real Email)": {
+      "status": "PASS",
+      "details": "Login successful for avengerprinceraj@gmail.com",
+      "timestamp": "2025-09-06T17:27:16.873921",
+      "extra_data": {
+        "status_code": 200,
+        "has_tokens": true
+      }
+    },
+    "Password Reset (Real Email)": {
+      "status": "PASS",
+      "details": "Password reset email sent to avengerprinceraj@gmail.com",
+      "timestamp": "2025-09-06T17:27:20.795129",
+      "extra_data": {
+        "status_code": 200
+      }
+    },
+    "Email Verification Request": {
+      "status": "PASS",
+      "details": "Verification email sent to avengerprinceraj@gmail.com",
+      "timestamp": "2025-09-06T17:27:25.103350",
+      "extra_data": {
+        "status_code": 200
+      }
+    }
+  }
+}

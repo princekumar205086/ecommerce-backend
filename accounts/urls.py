@@ -4,7 +4,8 @@ from .views import (
     RegisterView, LoginView, LogoutView, ProfileView, UserListView, UserAddressView, 
     SaveAddressFromCheckoutView, MedixMallModeToggleView, CustomTokenRefreshView,
     EmailVerificationView, ResendVerificationView, OTPRequestView, OTPVerificationView,
-    PasswordResetRequestView, PasswordResetConfirmView, ChangePasswordView
+    PasswordResetRequestView, PasswordResetConfirmView, ChangePasswordView,
+    OTPLoginRequestView, OTPLoginVerifyView, LoginChoiceView
 )
 
 urlpatterns = [
@@ -12,6 +13,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('register/<str:role>/', RegisterView.as_view(), name='register-with-role'),
     path('login/', LoginView.as_view(), name='login'),
+    path('login/choice/', LoginChoiceView.as_view(), name='login_choice'),  # New unified login
     path('logout/', LogoutView.as_view(), name='logout'),
     path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh_custom'),
     
@@ -29,6 +31,10 @@ urlpatterns = [
     # OTP Verification
     path('otp/request/', OTPRequestView.as_view(), name='otp_request'),
     path('otp/verify/', OTPVerificationView.as_view(), name='otp_verify'),
+    
+    # OTP Login System
+    path('login/otp/request/', OTPLoginRequestView.as_view(), name='otp_login_request'),
+    path('login/otp/verify/', OTPLoginVerifyView.as_view(), name='otp_login_verify'),
     
     # Password Management
     path('password/reset-request/', PasswordResetRequestView.as_view(), name='password_reset_request'),
