@@ -648,7 +648,21 @@ class EmailVerificationView(APIView):
     )
     def post(self, request):
         try:
-            serializer = OTPVerificationSerializer(data=request.data)
+            # Handle both frontend format and standard format
+            data = request.data.copy()
+            
+            # Convert frontend format to standard format if needed
+            if 'otp' in data and 'otp_code' not in data:
+                data['otp_code'] = data['otp']
+            
+            if 'purpose' in data and 'otp_type' not in data:
+                data['otp_type'] = data['purpose']
+            
+            # If otp_type not provided, default to email_verification
+            if 'otp_type' not in data:
+                data['otp_type'] = 'email_verification'
+            
+            serializer = OTPVerificationSerializer(data=data)
             if not serializer.is_valid():
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             
