@@ -1,12 +1,16 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key-here'
+# Load environment variables from .env file
+load_dotenv(BASE_DIR / '.env')
 
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
+
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
 # Use environment variable for ALLOWED_HOSTS or default to localhost
 ALLOWED_HOSTS = [
