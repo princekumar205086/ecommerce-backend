@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Cipla",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Sun Pharma",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Dr. Reddy's",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Lupin",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Zydus",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Johnson & Johnson",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Siemens Healthineers",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "GE Healthcare",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Philips Healthcare",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Medtronic",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Roche Diagnostics",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Abbott",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Agappe",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Bio-Rad",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Patanjali",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Himalaya",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Dabur",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Mamaearth",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Colgate-Palmolive",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Unilever",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "3M Healthcare",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "B. Braun",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Fresenius Kabi",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Terumo",
+    "image": "/brand/default.png"
+  },
+  {
+    "name": "Smith & Nephew",
+    "image": "/brand/default.png"
+  }
+]
