@@ -30,12 +30,6 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# Media files (uploads)
-media/
-
-# Static files collected
-staticfiles/
-static/
 
 # Database
 *.sqlite3
