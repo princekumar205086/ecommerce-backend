@@ -96,6 +96,24 @@ class PublicBrandListView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+    def list(self, request, *args, **kwargs):
+        """Return all brands when 'page' query param is absent.
+
+        Preserve normal DRF pagination when the client explicitly requests a page
+        using the `page` query parameter.
+        """
+        if 'page' in request.query_params:
+            return super().list(request, *args, **kwargs)
+
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({
+            'count': queryset.count(),
+            'next': None,
+            'previous': None,
+            'results': serializer.data,
+        })
+
 
 class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generics.ListAPIView):
     """
