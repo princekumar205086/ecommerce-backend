@@ -12,9 +12,16 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email', 'full_name', 'contact')
     ordering = ('-date_joined',)
 
-    fieldsets = UserAdmin.fieldsets + (
+    # Override fieldsets to match our custom User model
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('Personal info', {'fields': ('full_name', 'contact')}),
+        ('Permissions', {
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
         ('Additional Info', {
-            'fields': ('full_name', 'contact', 'role', 'email_verified', 'medixmall_mode')
+            'fields': ('role', 'email_verified', 'medixmall_mode')
         }),
         ('Address Information', {
             'fields': ('address_line_1', 'address_line_2', 'city', 'state', 'postal_code', 'country'),
@@ -22,13 +29,19 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
-    add_fieldsets = UserAdmin.add_fieldsets + (
+    # Override add_fieldsets for creating new users
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2'),
+        }),
+        ('Personal info', {'fields': ('full_name', 'contact')}),
         ('Additional Info', {
-            'fields': ('full_name', 'contact', 'role', 'email_verified', 'medixmall_mode')
+            'fields': ('role', 'email_verified', 'medixmall_mode')
         }),
     )
 
-    readonly_fields = ('date_joined', 'email_verification_sent_at')
+    readonly_fields = ('date_joined', 'email_verification_sent_at', 'last_login')
 
     def get_queryset(self, request):
         """Optimize queryset for admin"""
