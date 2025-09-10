@@ -21,7 +21,11 @@ from .mixins import MedixMallFilterMixin, MedixMallContextMixin, EnterpriseSearc
 
 class PublicProductCategoryListView(generics.ListAPIView):
     """
-    Public endpoint to list all published product categories
+    Public endpoint to list all published product categories.
+
+    Behaviour change: when the client does NOT provide a `page` query parameter,
+    return all matching categories (no pagination). If `page` is provided,
+    regular DRF pagination is used.
     """
     queryset = ProductCategory.objects.filter(status='published', is_publish=True)
     serializer_class = ProductCategorySerializer
@@ -29,6 +33,28 @@ class PublicProductCategoryListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['name', 'description']
     ordering = ['name']
+
+    def list(self, request, *args, **kwargs):
+        """Return all results when 'page' query param is absent.
+
+        This preserves existing pagination behaviour when clients request a
+        specific page (for example, `?page=2`). If `page` is not present we
+        return the full result set in a single response.
+        """
+        # If client explicitly asked for a page, use normal pagination
+        if 'page' in request.query_params:
+            return super().list(request, *args, **kwargs)
+
+        # No page param: return all results
+        queryset = self.filter_queryset(self.get_queryset())
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({
+            'count': queryset.count(),
+            'next': None,
+            'previous': None,
+            'results': serializer.data,
+        })
 
     @swagger_auto_schema(
         operation_description="Get list of all published product categories",
