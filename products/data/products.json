@@ -1,0 +1,3924 @@
+[
+  {
+    "name": "Blood Pressure Monitor",
+    "category_id": 7,
+    "brand_id": 8,
+    "description": "Professional grade Blood Pressure Monitor model BP-300. Suitable for home/clinic use.",
+    "image": "media/images/blood_pressure_monitor.webp",
+    "price": 5438.32,
+    "stock": 16,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BP-300",
+      "warranty": "3 years",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BP-300",
+      "warranty_period": "3 years",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Nebulizer Machine",
+    "category_id": 7,
+    "brand_id": 7,
+    "description": "Professional grade Nebulizer Machine model NEB-500. Suitable for home use.",
+    "image": "media/images/nebulizer_machine.webp",
+    "price": 31142.03,
+    "stock": 39,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "NEB-500",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "NEB-500",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced respiratory equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "respiratory"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 7,
+    "brand_id": 19,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 31294.87,
+    "stock": 31,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Blood Pressure Monitor",
+    "category_id": 6,
+    "brand_id": 7,
+    "description": "Professional grade Blood Pressure Monitor model BP-300. Suitable for home/clinic use.",
+    "image": "media/images/blood_pressure_monitor.webp",
+    "price": 43075.55,
+    "stock": 25,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BP-300",
+      "warranty": "3 years",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BP-300",
+      "warranty_period": "3 years",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 6,
+    "brand_id": 8,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 28044.35,
+    "stock": 45,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 6,
+    "brand_id": 20,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 2533.69,
+    "stock": 36,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Hand Sanitizer",
+    "category_id": 5,
+    "brand_id": 19,
+    "description": "Premium quality Hand Sanitizer for health and wellness.",
+    "image": "media/images/hand_sanitizer.webp",
+    "price": 1133.62,
+    "stock": 96,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Ayurvedic Tablets",
+    "category_id": 5,
+    "brand_id": 14,
+    "description": "Premium quality Ayurvedic Tablets for health and wellness.",
+    "image": "media/images/ayurvedic_tablets.webp",
+    "price": 945.07,
+    "stock": 137,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Hand Sanitizer",
+    "category_id": 5,
+    "brand_id": 3,
+    "description": "Premium quality Hand Sanitizer for health and wellness.",
+    "image": "media/images/hand_sanitizer.webp",
+    "price": 218.81,
+    "stock": 78,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Ayurvedic Tablets",
+    "category_id": 4,
+    "brand_id": 6,
+    "description": "Premium quality Ayurvedic Tablets for health and wellness.",
+    "image": "media/images/ayurvedic_tablets.webp",
+    "price": 689.5,
+    "stock": 110,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "First Aid Kit",
+    "category_id": 4,
+    "brand_id": 2,
+    "description": "Premium quality First Aid Kit for health and wellness.",
+    "image": "media/images/first_aid_kit.webp",
+    "price": 1353.08,
+    "stock": 67,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Ayurvedic Tablets",
+    "category_id": 4,
+    "brand_id": 8,
+    "description": "Premium quality Ayurvedic Tablets for health and wellness.",
+    "image": "media/images/ayurvedic_tablets.webp",
+    "price": 931.77,
+    "stock": 88,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Cholesterol Test Kit",
+    "category_id": 3,
+    "brand_id": 10,
+    "description": "Laboratory grade Cholesterol Test Kit for lipid profile testing. Sample type: blood.",
+    "image": "media/images/cholesterol_test_kit.webp",
+    "price": 1436.0,
+    "stock": 87,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "lipid profile",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "lipid profile",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "fasting_required": false,
+      "test_method": "Manual",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Blood Collection Tubes",
+    "category_id": 3,
+    "brand_id": 15,
+    "description": "Laboratory grade Blood Collection Tubes for hematology testing. Sample type: blood.",
+    "image": "media/images/blood_collection_tubes.webp",
+    "price": 315.26,
+    "stock": 67,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "fasting_required": false,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Culture Media Plates",
+    "category_id": 3,
+    "brand_id": 13,
+    "description": "Laboratory grade Culture Media Plates for microbiology testing. Sample type: various.",
+    "image": "media/images/culture_media_plates.webp",
+    "price": 810.76,
+    "stock": 41,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "microbiology",
+      "sample_type": "various",
+      "reporting_time": "24-48 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "microbiology",
+      "sample_type": "various",
+      "reporting_time": "24-48 hours",
+      "fasting_required": true,
+      "test_method": "Automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Nebulizer Machine",
+    "category_id": 2,
+    "brand_id": 16,
+    "description": "Professional grade Nebulizer Machine model NEB-500. Suitable for home use.",
+    "image": "media/images/nebulizer_machine.webp",
+    "price": 28307.33,
+    "stock": 49,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "NEB-500",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "NEB-500",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced respiratory equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "respiratory"
+    }
+  },
+  {
+    "name": "Oxygen Concentrator",
+    "category_id": 2,
+    "brand_id": 24,
+    "description": "Professional grade Oxygen Concentrator model OXY-C500. Suitable for home/clinic use.",
+    "image": "media/images/oxygen_concentrator.webp",
+    "price": 49805.23,
+    "stock": 24,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "OXY-C500",
+      "warranty": "3 years",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "OXY-C500",
+      "warranty_period": "3 years",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced respiratory equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "respiratory"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 2,
+    "brand_id": 12,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 38575.37,
+    "stock": 15,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Amoxicillin Capsules",
+    "category_id": 1,
+    "brand_id": 15,
+    "description": "High quality Amoxicillin 500mg in capsule form. 10 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 414.86,
+    "stock": 83,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "10 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Amoxicillin 500mg",
+      "quantity": "10 capsules",
+      "manufacturer": "HealthPlus Pharma",
+      "prescription_required": true,
+      "form": "capsule",
+      "pack_size": "10 capsules",
+      "batch_number": "BATCH000019"
+    }
+  },
+  {
+    "name": "Levothyroxine Tablets",
+    "category_id": 1,
+    "brand_id": 11,
+    "description": "High quality Levothyroxine 100mcg in tablet form. 100 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 251.83,
+    "stock": 55,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "100 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Levothyroxine 100mcg",
+      "quantity": "100 tablets",
+      "manufacturer": "HealthPlus Pharma",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "100 tablets",
+      "batch_number": "BATCH000020"
+    }
+  },
+  {
+    "name": "Aspirin Tablets",
+    "category_id": 1,
+    "brand_id": 19,
+    "description": "High quality Aspirin 325mg in tablet form. 100 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 163.93,
+    "stock": 187,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "100 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Aspirin 325mg",
+      "quantity": "100 tablets",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "100 tablets",
+      "batch_number": "BATCH000021"
+    }
+  },
+  {
+    "name": "Wheelchair Standard",
+    "category_id": 80,
+    "brand_id": 2,
+    "description": "Professional grade Wheelchair Standard model WC-STD. Suitable for home/clinic use.",
+    "image": "media/images/wheelchair_standard.webp",
+    "price": 4258.03,
+    "stock": 27,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "WC-STD",
+      "warranty": "1 year",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "WC-STD",
+      "warranty_period": "1 year",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced mobility equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "mobility"
+    }
+  },
+  {
+    "name": "ECG Machine",
+    "category_id": 80,
+    "brand_id": 17,
+    "description": "Professional grade ECG Machine model ECG-12L. Suitable for professional use.",
+    "image": "media/images/ecg_machine.webp",
+    "price": 5008.0,
+    "stock": 19,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "ECG-12L",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "ECG-12L",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 79,
+    "brand_id": 11,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 42092.37,
+    "stock": 36,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "UV Sterilizer",
+    "category_id": 79,
+    "brand_id": 17,
+    "description": "Professional grade UV Sterilizer model UV-S300. Suitable for professional use.",
+    "image": "media/images/uv_sterilizer.webp",
+    "price": 8282.69,
+    "stock": 48,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "UV-S300",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "UV-S300",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced sterilization equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "sterilization"
+    }
+  },
+  {
+    "name": "Digital Stethoscope",
+    "category_id": 78,
+    "brand_id": 15,
+    "description": "Professional grade Digital Stethoscope model DS-2000. Suitable for professional use.",
+    "image": "media/images/digital_stethoscope.webp",
+    "price": 30745.52,
+    "stock": 23,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "DS-2000",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "DS-2000",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Thermometer Digital",
+    "category_id": 78,
+    "brand_id": 1,
+    "description": "Professional grade Thermometer Digital model TEMP-200. Suitable for home/clinic use.",
+    "image": "media/images/thermometer_digital.webp",
+    "price": 42991.4,
+    "stock": 11,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "TEMP-200",
+      "warranty": "1 year",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "TEMP-200",
+      "warranty_period": "1 year",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Syringe Pump",
+    "category_id": 77,
+    "brand_id": 12,
+    "description": "Professional grade Syringe Pump model SYR-P100. Suitable for professional use.",
+    "image": "media/images/syringe_pump.webp",
+    "price": 48348.31,
+    "stock": 25,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SYR-P100",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SYR-P100",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced infusion equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "infusion"
+    }
+  },
+  {
+    "name": "UV Sterilizer",
+    "category_id": 77,
+    "brand_id": 9,
+    "description": "Professional grade UV Sterilizer model UV-S300. Suitable for professional use.",
+    "image": "media/images/uv_sterilizer.webp",
+    "price": 10675.5,
+    "stock": 33,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "UV-S300",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "UV-S300",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced sterilization equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "sterilization"
+    }
+  },
+  {
+    "name": "ECG Machine",
+    "category_id": 76,
+    "brand_id": 10,
+    "description": "Professional grade ECG Machine model ECG-12L. Suitable for professional use.",
+    "image": "media/images/ecg_machine.webp",
+    "price": 18144.97,
+    "stock": 40,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "ECG-12L",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "ECG-12L",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "UV Sterilizer",
+    "category_id": 76,
+    "brand_id": 14,
+    "description": "Professional grade UV Sterilizer model UV-S300. Suitable for professional use.",
+    "image": "media/images/uv_sterilizer.webp",
+    "price": 12918.87,
+    "stock": 13,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "UV-S300",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "UV-S300",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced sterilization equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "sterilization"
+    }
+  },
+  {
+    "name": "Hospital Bed Electric",
+    "category_id": 75,
+    "brand_id": 3,
+    "description": "Professional grade Hospital Bed Electric model BED-E200. Suitable for professional use.",
+    "image": "media/images/hospital_bed_electric.webp",
+    "price": 6525.65,
+    "stock": 31,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BED-E200",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BED-E200",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced furniture equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "furniture"
+    }
+  },
+  {
+    "name": "Blood Pressure Monitor",
+    "category_id": 75,
+    "brand_id": 20,
+    "description": "Professional grade Blood Pressure Monitor model BP-300. Suitable for home/clinic use.",
+    "image": "media/images/blood_pressure_monitor.webp",
+    "price": 41945.14,
+    "stock": 31,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BP-300",
+      "warranty": "3 years",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BP-300",
+      "warranty_period": "3 years",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Hospital Bed Electric",
+    "category_id": 74,
+    "brand_id": 2,
+    "description": "Professional grade Hospital Bed Electric model BED-E200. Suitable for professional use.",
+    "image": "media/images/hospital_bed_electric.webp",
+    "price": 49437.62,
+    "stock": 22,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BED-E200",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BED-E200",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced furniture equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "furniture"
+    }
+  },
+  {
+    "name": "Hospital Bed Electric",
+    "category_id": 74,
+    "brand_id": 3,
+    "description": "Professional grade Hospital Bed Electric model BED-E200. Suitable for professional use.",
+    "image": "media/images/hospital_bed_electric.webp",
+    "price": 12508.57,
+    "stock": 16,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BED-E200",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BED-E200",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced furniture equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "furniture"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 73,
+    "brand_id": 14,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 7936.96,
+    "stock": 33,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 73,
+    "brand_id": 12,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 40767.46,
+    "stock": 34,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 72,
+    "brand_id": 2,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 24806.58,
+    "stock": 47,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Digital Stethoscope",
+    "category_id": 72,
+    "brand_id": 9,
+    "description": "Professional grade Digital Stethoscope model DS-2000. Suitable for professional use.",
+    "image": "media/images/digital_stethoscope.webp",
+    "price": 15963.19,
+    "stock": 37,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "DS-2000",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "DS-2000",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Blood Pressure Monitor",
+    "category_id": 71,
+    "brand_id": 8,
+    "description": "Professional grade Blood Pressure Monitor model BP-300. Suitable for home/clinic use.",
+    "image": "media/images/blood_pressure_monitor.webp",
+    "price": 16035.98,
+    "stock": 48,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BP-300",
+      "warranty": "3 years",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BP-300",
+      "warranty_period": "3 years",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Digital Stethoscope",
+    "category_id": 71,
+    "brand_id": 1,
+    "description": "Professional grade Digital Stethoscope model DS-2000. Suitable for professional use.",
+    "image": "media/images/digital_stethoscope.webp",
+    "price": 21488.68,
+    "stock": 15,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "DS-2000",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "DS-2000",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Surgical Scissors",
+    "category_id": 70,
+    "brand_id": 1,
+    "description": "Professional grade Surgical Scissors model SS-125. Suitable for professional use.",
+    "image": "media/images/surgical_scissors.webp",
+    "price": 11639.09,
+    "stock": 38,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SS-125",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SS-125",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 70,
+    "brand_id": 8,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 33829.2,
+    "stock": 45,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "UV Sterilizer",
+    "category_id": 69,
+    "brand_id": 14,
+    "description": "Professional grade UV Sterilizer model UV-S300. Suitable for professional use.",
+    "image": "media/images/uv_sterilizer.webp",
+    "price": 3871.0,
+    "stock": 36,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "UV-S300",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "UV-S300",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced sterilization equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "sterilization"
+    }
+  },
+  {
+    "name": "Hospital Bed Electric",
+    "category_id": 69,
+    "brand_id": 8,
+    "description": "Professional grade Hospital Bed Electric model BED-E200. Suitable for professional use.",
+    "image": "media/images/hospital_bed_electric.webp",
+    "price": 33674.03,
+    "stock": 13,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BED-E200",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BED-E200",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced furniture equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "furniture"
+    }
+  },
+  {
+    "name": "Surgical Scissors",
+    "category_id": 68,
+    "brand_id": 3,
+    "description": "Professional grade Surgical Scissors model SS-125. Suitable for professional use.",
+    "image": "media/images/surgical_scissors.webp",
+    "price": 11242.06,
+    "stock": 43,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SS-125",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SS-125",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 68,
+    "brand_id": 12,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 3293.13,
+    "stock": 11,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Wheelchair Standard",
+    "category_id": 67,
+    "brand_id": 5,
+    "description": "Professional grade Wheelchair Standard model WC-STD. Suitable for home/clinic use.",
+    "image": "media/images/wheelchair_standard.webp",
+    "price": 28995.26,
+    "stock": 28,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "WC-STD",
+      "warranty": "1 year",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "WC-STD",
+      "warranty_period": "1 year",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced mobility equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "mobility"
+    }
+  },
+  {
+    "name": "Forceps Surgical",
+    "category_id": 67,
+    "brand_id": 15,
+    "description": "Professional grade Forceps Surgical model FOR-200. Suitable for professional use.",
+    "image": "media/images/forceps_surgical.webp",
+    "price": 35626.4,
+    "stock": 42,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "FOR-200",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "FOR-200",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 66,
+    "brand_id": 11,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 20662.16,
+    "stock": 22,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 66,
+    "brand_id": 12,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 40875.62,
+    "stock": 24,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "ECG Machine",
+    "category_id": 65,
+    "brand_id": 6,
+    "description": "Professional grade ECG Machine model ECG-12L. Suitable for professional use.",
+    "image": "media/images/ecg_machine.webp",
+    "price": 42621.36,
+    "stock": 45,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "ECG-12L",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "ECG-12L",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Wheelchair Standard",
+    "category_id": 65,
+    "brand_id": 11,
+    "description": "Professional grade Wheelchair Standard model WC-STD. Suitable for home/clinic use.",
+    "image": "media/images/wheelchair_standard.webp",
+    "price": 11532.5,
+    "stock": 39,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "WC-STD",
+      "warranty": "1 year",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "WC-STD",
+      "warranty_period": "1 year",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced mobility equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "mobility"
+    }
+  },
+  {
+    "name": "Face Masks",
+    "category_id": 64,
+    "brand_id": 2,
+    "description": "Premium quality Face Masks for health and wellness.",
+    "image": "media/images/face_masks.webp",
+    "price": 1287.5,
+    "stock": 54,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "First Aid Kit",
+    "category_id": 64,
+    "brand_id": 16,
+    "description": "Premium quality First Aid Kit for health and wellness.",
+    "image": "media/images/first_aid_kit.webp",
+    "price": 523.39,
+    "stock": 111,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Protein Powder",
+    "category_id": 63,
+    "brand_id": 24,
+    "description": "Premium quality Protein Powder for health and wellness.",
+    "image": "media/images/protein_powder.webp",
+    "price": 1432.56,
+    "stock": 108,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Monitor",
+    "category_id": 63,
+    "brand_id": 4,
+    "description": "Premium quality Health Monitor for health and wellness.",
+    "image": "media/images/health_monitor.webp",
+    "price": 526.45,
+    "stock": 96,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Massage Oil",
+    "category_id": 62,
+    "brand_id": 7,
+    "description": "Premium quality Massage Oil for health and wellness.",
+    "image": "media/images/massage_oil.webp",
+    "price": 782.43,
+    "stock": 112,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Ayurvedic Tablets",
+    "category_id": 62,
+    "brand_id": 1,
+    "description": "Premium quality Ayurvedic Tablets for health and wellness.",
+    "image": "media/images/ayurvedic_tablets.webp",
+    "price": 1148.75,
+    "stock": 88,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Drinks",
+    "category_id": 61,
+    "brand_id": 8,
+    "description": "Premium quality Health Drinks for health and wellness.",
+    "image": "media/images/health_drinks.webp",
+    "price": 448.48,
+    "stock": 43,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Massage Oil",
+    "category_id": 61,
+    "brand_id": 4,
+    "description": "Premium quality Massage Oil for health and wellness.",
+    "image": "media/images/massage_oil.webp",
+    "price": 1303.48,
+    "stock": 68,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Fitness Tracker",
+    "category_id": 60,
+    "brand_id": 25,
+    "description": "Premium quality Fitness Tracker for health and wellness.",
+    "image": "media/images/fitness_tracker.webp",
+    "price": 910.88,
+    "stock": 73,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Ayurvedic Tablets",
+    "category_id": 60,
+    "brand_id": 6,
+    "description": "Premium quality Ayurvedic Tablets for health and wellness.",
+    "image": "media/images/ayurvedic_tablets.webp",
+    "price": 272.19,
+    "stock": 94,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Drinks",
+    "category_id": 59,
+    "brand_id": 17,
+    "description": "Premium quality Health Drinks for health and wellness.",
+    "image": "media/images/health_drinks.webp",
+    "price": 1212.23,
+    "stock": 119,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "First Aid Kit",
+    "category_id": 59,
+    "brand_id": 4,
+    "description": "Premium quality First Aid Kit for health and wellness.",
+    "image": "media/images/first_aid_kit.webp",
+    "price": 825.65,
+    "stock": 107,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Drinks",
+    "category_id": 58,
+    "brand_id": 25,
+    "description": "Premium quality Health Drinks for health and wellness.",
+    "image": "media/images/health_drinks.webp",
+    "price": 1435.32,
+    "stock": 95,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Monitor",
+    "category_id": 58,
+    "brand_id": 4,
+    "description": "Premium quality Health Monitor for health and wellness.",
+    "image": "media/images/health_monitor.webp",
+    "price": 1401.06,
+    "stock": 70,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Hand Sanitizer",
+    "category_id": 57,
+    "brand_id": 9,
+    "description": "Premium quality Hand Sanitizer for health and wellness.",
+    "image": "media/images/hand_sanitizer.webp",
+    "price": 639.7,
+    "stock": 55,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "First Aid Kit",
+    "category_id": 57,
+    "brand_id": 22,
+    "description": "Premium quality First Aid Kit for health and wellness.",
+    "image": "media/images/first_aid_kit.webp",
+    "price": 378.7,
+    "stock": 106,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Wellness Supplements",
+    "category_id": 56,
+    "brand_id": 25,
+    "description": "Premium quality Wellness Supplements for health and wellness.",
+    "image": "media/images/wellness_supplements.webp",
+    "price": 1097.92,
+    "stock": 106,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Monitor",
+    "category_id": 56,
+    "brand_id": 16,
+    "description": "Premium quality Health Monitor for health and wellness.",
+    "image": "media/images/health_monitor.webp",
+    "price": 392.35,
+    "stock": 52,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Hand Sanitizer",
+    "category_id": 55,
+    "brand_id": 17,
+    "description": "Premium quality Hand Sanitizer for health and wellness.",
+    "image": "media/images/hand_sanitizer.webp",
+    "price": 1318.53,
+    "stock": 111,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Massage Oil",
+    "category_id": 55,
+    "brand_id": 16,
+    "description": "Premium quality Massage Oil for health and wellness.",
+    "image": "media/images/massage_oil.webp",
+    "price": 890.76,
+    "stock": 69,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Monitor",
+    "category_id": 54,
+    "brand_id": 3,
+    "description": "Premium quality Health Monitor for health and wellness.",
+    "image": "media/images/health_monitor.webp",
+    "price": 263.53,
+    "stock": 137,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Face Masks",
+    "category_id": 54,
+    "brand_id": 3,
+    "description": "Premium quality Face Masks for health and wellness.",
+    "image": "media/images/face_masks.webp",
+    "price": 815.5,
+    "stock": 127,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Face Masks",
+    "category_id": 53,
+    "brand_id": 13,
+    "description": "Premium quality Face Masks for health and wellness.",
+    "image": "media/images/face_masks.webp",
+    "price": 1442.68,
+    "stock": 70,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Wellness Supplements",
+    "category_id": 53,
+    "brand_id": 25,
+    "description": "Premium quality Wellness Supplements for health and wellness.",
+    "image": "media/images/wellness_supplements.webp",
+    "price": 1210.12,
+    "stock": 128,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Face Masks",
+    "category_id": 52,
+    "brand_id": 6,
+    "description": "Premium quality Face Masks for health and wellness.",
+    "image": "media/images/face_masks.webp",
+    "price": 1372.85,
+    "stock": 144,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Monitor",
+    "category_id": 52,
+    "brand_id": 4,
+    "description": "Premium quality Health Monitor for health and wellness.",
+    "image": "media/images/health_monitor.webp",
+    "price": 299.36,
+    "stock": 142,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "First Aid Kit",
+    "category_id": 51,
+    "brand_id": 2,
+    "description": "Premium quality First Aid Kit for health and wellness.",
+    "image": "media/images/first_aid_kit.webp",
+    "price": 972.44,
+    "stock": 136,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Protein Powder",
+    "category_id": 51,
+    "brand_id": 8,
+    "description": "Premium quality Protein Powder for health and wellness.",
+    "image": "media/images/protein_powder.webp",
+    "price": 765.48,
+    "stock": 90,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Fitness Tracker",
+    "category_id": 50,
+    "brand_id": 11,
+    "description": "Premium quality Fitness Tracker for health and wellness.",
+    "image": "media/images/fitness_tracker.webp",
+    "price": 730.96,
+    "stock": 31,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Fitness Tracker",
+    "category_id": 50,
+    "brand_id": 9,
+    "description": "Premium quality Fitness Tracker for health and wellness.",
+    "image": "media/images/fitness_tracker.webp",
+    "price": 458.15,
+    "stock": 84,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Monitor",
+    "category_id": 49,
+    "brand_id": 7,
+    "description": "Premium quality Health Monitor for health and wellness.",
+    "image": "media/images/health_monitor.webp",
+    "price": 1313.51,
+    "stock": 117,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Health Monitor",
+    "category_id": 49,
+    "brand_id": 17,
+    "description": "Premium quality Health Monitor for health and wellness.",
+    "image": "media/images/health_monitor.webp",
+    "price": 1493.1,
+    "stock": 104,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Wellness Supplements",
+    "category_id": 48,
+    "brand_id": 10,
+    "description": "Premium quality Wellness Supplements for health and wellness.",
+    "image": "media/images/wellness_supplements.webp",
+    "price": 1078.23,
+    "stock": 90,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Massage Oil",
+    "category_id": 48,
+    "brand_id": 9,
+    "description": "Premium quality Massage Oil for health and wellness.",
+    "image": "media/images/massage_oil.webp",
+    "price": 1456.27,
+    "stock": 145,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Ayurvedic Tablets",
+    "category_id": 47,
+    "brand_id": 1,
+    "description": "Premium quality Ayurvedic Tablets for health and wellness.",
+    "image": "media/images/ayurvedic_tablets.webp",
+    "price": 1290.93,
+    "stock": 143,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Face Masks",
+    "category_id": 47,
+    "brand_id": 23,
+    "description": "Premium quality Face Masks for health and wellness.",
+    "image": "media/images/face_masks.webp",
+    "price": 1185.44,
+    "stock": 64,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "category": "Health & Wellness",
+      "usage": "Daily health maintenance"
+    }
+  },
+  {
+    "name": "Glucose Test Strips",
+    "category_id": 46,
+    "brand_id": 22,
+    "description": "Laboratory grade Glucose Test Strips for biochemistry testing. Sample type: blood.",
+    "image": "media/images/glucose_test_strips.webp",
+    "price": 1378.3,
+    "stock": 72,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "biochemistry",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "biochemistry",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "fasting_required": true,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "HbA1c Test Kit",
+    "category_id": 46,
+    "brand_id": 21,
+    "description": "Laboratory grade HbA1c Test Kit for diabetes testing. Sample type: blood.",
+    "image": "media/images/hba1c_test_kit.webp",
+    "price": 225.42,
+    "stock": 92,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "diabetes",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "diabetes",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "fasting_required": false,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Pregnancy Test Strips",
+    "category_id": 45,
+    "brand_id": 23,
+    "description": "Laboratory grade Pregnancy Test Strips for hormone testing. Sample type: urine.",
+    "image": "media/images/pregnancy_test_strips.webp",
+    "price": 619.66,
+    "stock": 99,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "fasting_required": true,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Blood Collection Tubes",
+    "category_id": 45,
+    "brand_id": 18,
+    "description": "Laboratory grade Blood Collection Tubes for hematology testing. Sample type: blood.",
+    "image": "media/images/blood_collection_tubes.webp",
+    "price": 1559.78,
+    "stock": 39,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "fasting_required": false,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Blood Collection Tubes",
+    "category_id": 44,
+    "brand_id": 17,
+    "description": "Laboratory grade Blood Collection Tubes for hematology testing. Sample type: blood.",
+    "image": "media/images/blood_collection_tubes.webp",
+    "price": 1050.58,
+    "stock": 34,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "fasting_required": false,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Cholesterol Test Kit",
+    "category_id": 44,
+    "brand_id": 12,
+    "description": "Laboratory grade Cholesterol Test Kit for lipid profile testing. Sample type: blood.",
+    "image": "media/images/cholesterol_test_kit.webp",
+    "price": 1541.61,
+    "stock": 27,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "lipid profile",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "lipid profile",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "fasting_required": true,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Pregnancy Test Strips",
+    "category_id": 43,
+    "brand_id": 16,
+    "description": "Laboratory grade Pregnancy Test Strips for hormone testing. Sample type: urine.",
+    "image": "media/images/pregnancy_test_strips.webp",
+    "price": 1665.77,
+    "stock": 62,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "fasting_required": true,
+      "test_method": "Automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Pregnancy Test Strips",
+    "category_id": 43,
+    "brand_id": 4,
+    "description": "Laboratory grade Pregnancy Test Strips for hormone testing. Sample type: urine.",
+    "image": "media/images/pregnancy_test_strips.webp",
+    "price": 1208.76,
+    "stock": 48,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "fasting_required": true,
+      "test_method": "Manual",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Rapid Test Kits",
+    "category_id": 42,
+    "brand_id": 15,
+    "description": "Laboratory grade Rapid Test Kits for immunology testing. Sample type: blood/serum.",
+    "image": "media/images/rapid_test_kits.webp",
+    "price": 1959.36,
+    "stock": 88,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "immunology",
+      "sample_type": "blood/serum",
+      "reporting_time": "15-30 minutes",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "immunology",
+      "sample_type": "blood/serum",
+      "reporting_time": "15-30 minutes",
+      "fasting_required": false,
+      "test_method": "Automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Pregnancy Test Strips",
+    "category_id": 42,
+    "brand_id": 12,
+    "description": "Laboratory grade Pregnancy Test Strips for hormone testing. Sample type: urine.",
+    "image": "media/images/pregnancy_test_strips.webp",
+    "price": 991.79,
+    "stock": 97,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "fasting_required": false,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Urine Collection Cups",
+    "category_id": 41,
+    "brand_id": 9,
+    "description": "Laboratory grade Urine Collection Cups for urinalysis testing. Sample type: urine.",
+    "image": "media/images/urine_collection_cups.webp",
+    "price": 1365.41,
+    "stock": 54,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "urinalysis",
+      "sample_type": "urine",
+      "reporting_time": "1-2 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "urinalysis",
+      "sample_type": "urine",
+      "reporting_time": "1-2 hours",
+      "fasting_required": true,
+      "test_method": "Manual",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Culture Media Plates",
+    "category_id": 41,
+    "brand_id": 18,
+    "description": "Laboratory grade Culture Media Plates for microbiology testing. Sample type: various.",
+    "image": "media/images/culture_media_plates.webp",
+    "price": 827.63,
+    "stock": 78,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "microbiology",
+      "sample_type": "various",
+      "reporting_time": "24-48 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "microbiology",
+      "sample_type": "various",
+      "reporting_time": "24-48 hours",
+      "fasting_required": true,
+      "test_method": "Automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Pregnancy Test Strips",
+    "category_id": 40,
+    "brand_id": 5,
+    "description": "Laboratory grade Pregnancy Test Strips for hormone testing. Sample type: urine.",
+    "image": "media/images/pregnancy_test_strips.webp",
+    "price": 1688.56,
+    "stock": 26,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hormone",
+      "sample_type": "urine",
+      "reporting_time": "5 minutes",
+      "fasting_required": true,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "HbA1c Test Kit",
+    "category_id": 40,
+    "brand_id": 19,
+    "description": "Laboratory grade HbA1c Test Kit for diabetes testing. Sample type: blood.",
+    "image": "media/images/hba1c_test_kit.webp",
+    "price": 1805.37,
+    "stock": 56,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "diabetes",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "diabetes",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "fasting_required": true,
+      "test_method": "Manual",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Glucose Test Strips",
+    "category_id": 39,
+    "brand_id": 22,
+    "description": "Laboratory grade Glucose Test Strips for biochemistry testing. Sample type: blood.",
+    "image": "media/images/glucose_test_strips.webp",
+    "price": 469.93,
+    "stock": 52,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "biochemistry",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "biochemistry",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "fasting_required": false,
+      "test_method": "Automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Urine Collection Cups",
+    "category_id": 39,
+    "brand_id": 1,
+    "description": "Laboratory grade Urine Collection Cups for urinalysis testing. Sample type: urine.",
+    "image": "media/images/urine_collection_cups.webp",
+    "price": 648.65,
+    "stock": 64,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "urinalysis",
+      "sample_type": "urine",
+      "reporting_time": "1-2 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "urinalysis",
+      "sample_type": "urine",
+      "reporting_time": "1-2 hours",
+      "fasting_required": true,
+      "test_method": "Manual",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "PCR Test Kits",
+    "category_id": 38,
+    "brand_id": 10,
+    "description": "Laboratory grade PCR Test Kits for molecular testing. Sample type: swab/blood.",
+    "image": "media/images/pcr_test_kits.webp",
+    "price": 890.08,
+    "stock": 67,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "molecular",
+      "sample_type": "swab/blood",
+      "reporting_time": "4-6 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "molecular",
+      "sample_type": "swab/blood",
+      "reporting_time": "4-6 hours",
+      "fasting_required": false,
+      "test_method": "Automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Culture Media Plates",
+    "category_id": 38,
+    "brand_id": 3,
+    "description": "Laboratory grade Culture Media Plates for microbiology testing. Sample type: various.",
+    "image": "media/images/culture_media_plates.webp",
+    "price": 285.82,
+    "stock": 56,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "microbiology",
+      "sample_type": "various",
+      "reporting_time": "24-48 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "microbiology",
+      "sample_type": "various",
+      "reporting_time": "24-48 hours",
+      "fasting_required": false,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "HbA1c Test Kit",
+    "category_id": 37,
+    "brand_id": 25,
+    "description": "Laboratory grade HbA1c Test Kit for diabetes testing. Sample type: blood.",
+    "image": "media/images/hba1c_test_kit.webp",
+    "price": 1285.28,
+    "stock": 76,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "diabetes",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "diabetes",
+      "sample_type": "blood",
+      "reporting_time": "immediate",
+      "fasting_required": false,
+      "test_method": "Semi-automated",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Blood Collection Tubes",
+    "category_id": 37,
+    "brand_id": 21,
+    "description": "Laboratory grade Blood Collection Tubes for hematology testing. Sample type: blood.",
+    "image": "media/images/blood_collection_tubes.webp",
+    "price": 358.83,
+    "stock": 87,
+    "product_type": "pathology",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "storage": "Store as per manufacturer guidelines"
+    },
+    "pathology_details": {
+      "test_type": "hematology",
+      "sample_type": "blood",
+      "reporting_time": "2-4 hours",
+      "fasting_required": false,
+      "test_method": "Manual",
+      "normal_range": "As per age and gender specific ranges"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 36,
+    "brand_id": 24,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 42375.45,
+    "stock": 37,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Syringe Pump",
+    "category_id": 36,
+    "brand_id": 22,
+    "description": "Professional grade Syringe Pump model SYR-P100. Suitable for professional use.",
+    "image": "media/images/syringe_pump.webp",
+    "price": 20418.34,
+    "stock": 36,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SYR-P100",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SYR-P100",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced infusion equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "infusion"
+    }
+  },
+  {
+    "name": "UV Sterilizer",
+    "category_id": 35,
+    "brand_id": 3,
+    "description": "Professional grade UV Sterilizer model UV-S300. Suitable for professional use.",
+    "image": "media/images/uv_sterilizer.webp",
+    "price": 39263.26,
+    "stock": 15,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "UV-S300",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "UV-S300",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced sterilization equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "sterilization"
+    }
+  },
+  {
+    "name": "Surgical Scissors",
+    "category_id": 35,
+    "brand_id": 19,
+    "description": "Professional grade Surgical Scissors model SS-125. Suitable for professional use.",
+    "image": "media/images/surgical_scissors.webp",
+    "price": 31259.99,
+    "stock": 29,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SS-125",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SS-125",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Thermometer Digital",
+    "category_id": 34,
+    "brand_id": 17,
+    "description": "Professional grade Thermometer Digital model TEMP-200. Suitable for home/clinic use.",
+    "image": "media/images/thermometer_digital.webp",
+    "price": 38193.81,
+    "stock": 49,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "TEMP-200",
+      "warranty": "1 year",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "TEMP-200",
+      "warranty_period": "1 year",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Surgical Scissors",
+    "category_id": 34,
+    "brand_id": 9,
+    "description": "Professional grade Surgical Scissors model SS-125. Suitable for professional use.",
+    "image": "media/images/surgical_scissors.webp",
+    "price": 18063.92,
+    "stock": 45,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SS-125",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SS-125",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Nebulizer Machine",
+    "category_id": 33,
+    "brand_id": 3,
+    "description": "Professional grade Nebulizer Machine model NEB-500. Suitable for home use.",
+    "image": "media/images/nebulizer_machine.webp",
+    "price": 39074.19,
+    "stock": 24,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "NEB-500",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "NEB-500",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced respiratory equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "respiratory"
+    }
+  },
+  {
+    "name": "Surgical Scissors",
+    "category_id": 33,
+    "brand_id": 2,
+    "description": "Professional grade Surgical Scissors model SS-125. Suitable for professional use.",
+    "image": "media/images/surgical_scissors.webp",
+    "price": 19343.5,
+    "stock": 15,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SS-125",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SS-125",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Syringe Pump",
+    "category_id": 32,
+    "brand_id": 17,
+    "description": "Professional grade Syringe Pump model SYR-P100. Suitable for professional use.",
+    "image": "media/images/syringe_pump.webp",
+    "price": 29558.16,
+    "stock": 10,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SYR-P100",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SYR-P100",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced infusion equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "infusion"
+    }
+  },
+  {
+    "name": "Blood Pressure Monitor",
+    "category_id": 32,
+    "brand_id": 25,
+    "description": "Professional grade Blood Pressure Monitor model BP-300. Suitable for home/clinic use.",
+    "image": "media/images/blood_pressure_monitor.webp",
+    "price": 30501.85,
+    "stock": 50,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BP-300",
+      "warranty": "3 years",
+      "usage_type": "home/clinic",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BP-300",
+      "warranty_period": "3 years",
+      "usage_type": "home/clinic",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "ECG Machine",
+    "category_id": 31,
+    "brand_id": 8,
+    "description": "Professional grade ECG Machine model ECG-12L. Suitable for professional use.",
+    "image": "media/images/ecg_machine.webp",
+    "price": 23265.5,
+    "stock": 27,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "ECG-12L",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "ECG-12L",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Surgical Scissors",
+    "category_id": 31,
+    "brand_id": 19,
+    "description": "Professional grade Surgical Scissors model SS-125. Suitable for professional use.",
+    "image": "media/images/surgical_scissors.webp",
+    "price": 5952.87,
+    "stock": 47,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SS-125",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SS-125",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 30,
+    "brand_id": 19,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 39632.92,
+    "stock": 31,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Hospital Bed Electric",
+    "category_id": 30,
+    "brand_id": 9,
+    "description": "Professional grade Hospital Bed Electric model BED-E200. Suitable for professional use.",
+    "image": "media/images/hospital_bed_electric.webp",
+    "price": 31980.26,
+    "stock": 47,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BED-E200",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BED-E200",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced furniture equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "furniture"
+    }
+  },
+  {
+    "name": "UV Sterilizer",
+    "category_id": 29,
+    "brand_id": 19,
+    "description": "Professional grade UV Sterilizer model UV-S300. Suitable for professional use.",
+    "image": "media/images/uv_sterilizer.webp",
+    "price": 14622.82,
+    "stock": 30,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "UV-S300",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "UV-S300",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced sterilization equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "sterilization"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 29,
+    "brand_id": 25,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 7132.95,
+    "stock": 20,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Hospital Bed Electric",
+    "category_id": 28,
+    "brand_id": 24,
+    "description": "Professional grade Hospital Bed Electric model BED-E200. Suitable for professional use.",
+    "image": "media/images/hospital_bed_electric.webp",
+    "price": 9258.85,
+    "stock": 36,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "BED-E200",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "BED-E200",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced furniture equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "furniture"
+    }
+  },
+  {
+    "name": "Surgical Scissors",
+    "category_id": 28,
+    "brand_id": 15,
+    "description": "Professional grade Surgical Scissors model SS-125. Suitable for professional use.",
+    "image": "media/images/surgical_scissors.webp",
+    "price": 11487.94,
+    "stock": 34,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SS-125",
+      "warranty": "lifetime",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SS-125",
+      "warranty_period": "lifetime",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced surgical equipment with latest technology",
+      "power_requirement": "Manual operation",
+      "equipment_type": "surgical"
+    }
+  },
+  {
+    "name": "Syringe Pump",
+    "category_id": 27,
+    "brand_id": 16,
+    "description": "Professional grade Syringe Pump model SYR-P100. Suitable for professional use.",
+    "image": "media/images/syringe_pump.webp",
+    "price": 11821.93,
+    "stock": 40,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SYR-P100",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SYR-P100",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced infusion equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "infusion"
+    }
+  },
+  {
+    "name": "Digital Stethoscope",
+    "category_id": 27,
+    "brand_id": 1,
+    "description": "Professional grade Digital Stethoscope model DS-2000. Suitable for professional use.",
+    "image": "media/images/digital_stethoscope.webp",
+    "price": 33102.32,
+    "stock": 49,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "DS-2000",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "DS-2000",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Digital Stethoscope",
+    "category_id": 26,
+    "brand_id": 17,
+    "description": "Professional grade Digital Stethoscope model DS-2000. Suitable for professional use.",
+    "image": "media/images/digital_stethoscope.webp",
+    "price": 31083.92,
+    "stock": 31,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "DS-2000",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "DS-2000",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced diagnostic equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "diagnostic"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 26,
+    "brand_id": 19,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 15650.35,
+    "stock": 43,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Glucometer Kit",
+    "category_id": 25,
+    "brand_id": 6,
+    "description": "Professional grade Glucometer Kit model GLU-400. Suitable for home use.",
+    "image": "media/images/glucometer_kit.webp",
+    "price": 27660.39,
+    "stock": 18,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "GLU-400",
+      "warranty": "2 years",
+      "usage_type": "home",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "GLU-400",
+      "warranty_period": "2 years",
+      "usage_type": "home",
+      "technical_specifications": "Advanced monitoring equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "monitoring"
+    }
+  },
+  {
+    "name": "Defibrillator AED",
+    "category_id": 25,
+    "brand_id": 6,
+    "description": "Professional grade Defibrillator AED model AED-300. Suitable for professional use.",
+    "image": "media/images/defibrillator_aed.webp",
+    "price": 49492.31,
+    "stock": 40,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "AED-300",
+      "warranty": "5 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "AED-300",
+      "warranty_period": "5 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced emergency equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "emergency"
+    }
+  },
+  {
+    "name": "Syringe Pump",
+    "category_id": 24,
+    "brand_id": 16,
+    "description": "Professional grade Syringe Pump model SYR-P100. Suitable for professional use.",
+    "image": "media/images/syringe_pump.webp",
+    "price": 35511.72,
+    "stock": 14,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "SYR-P100",
+      "warranty": "3 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "SYR-P100",
+      "warranty_period": "3 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced infusion equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "infusion"
+    }
+  },
+  {
+    "name": "UV Sterilizer",
+    "category_id": 24,
+    "brand_id": 25,
+    "description": "Professional grade UV Sterilizer model UV-S300. Suitable for professional use.",
+    "image": "media/images/uv_sterilizer.webp",
+    "price": 22488.96,
+    "stock": 47,
+    "product_type": "equipment",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "model": "UV-S300",
+      "warranty": "2 years",
+      "usage_type": "professional",
+      "certification": "CE, FDA approved"
+    },
+    "equipment_details": {
+      "model_number": "UV-S300",
+      "warranty_period": "2 years",
+      "usage_type": "professional",
+      "technical_specifications": "Advanced sterilization equipment with latest technology",
+      "power_requirement": "AC 220V, 50Hz",
+      "equipment_type": "sterilization"
+    }
+  },
+  {
+    "name": "Levothyroxine Tablets",
+    "category_id": 23,
+    "brand_id": 22,
+    "description": "High quality Levothyroxine 100mcg in tablet form. 100 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 58.53,
+    "stock": 197,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "100 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Levothyroxine 100mcg",
+      "quantity": "100 tablets",
+      "manufacturer": "HealthPlus Pharma",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "100 tablets",
+      "batch_number": "BATCH000136"
+    }
+  },
+  {
+    "name": "Amlodipine Tablets",
+    "category_id": 23,
+    "brand_id": 20,
+    "description": "High quality Amlodipine 5mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 71.78,
+    "stock": 114,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Amlodipine 5mg",
+      "quantity": "30 tablets",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000137"
+    }
+  },
+  {
+    "name": "Probiotics Capsules",
+    "category_id": 22,
+    "brand_id": 10,
+    "description": "High quality Lactobacillus Mix 1B CFU in capsule form. 30 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 325.18,
+    "stock": 96,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "30 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Lactobacillus Mix 1B CFU",
+      "quantity": "30 capsules",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": false,
+      "form": "capsule",
+      "pack_size": "30 capsules",
+      "batch_number": "BATCH000138"
+    }
+  },
+  {
+    "name": "Amoxicillin Capsules",
+    "category_id": 22,
+    "brand_id": 21,
+    "description": "High quality Amoxicillin 500mg in capsule form. 10 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 200.36,
+    "stock": 60,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "10 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Amoxicillin 500mg",
+      "quantity": "10 capsules",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": true,
+      "form": "capsule",
+      "pack_size": "10 capsules",
+      "batch_number": "BATCH000139"
+    }
+  },
+  {
+    "name": "Amoxicillin Capsules",
+    "category_id": 21,
+    "brand_id": 21,
+    "description": "High quality Amoxicillin 500mg in capsule form. 10 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 140.42,
+    "stock": 147,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "10 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Amoxicillin 500mg",
+      "quantity": "10 capsules",
+      "manufacturer": "HealthPlus Pharma",
+      "prescription_required": true,
+      "form": "capsule",
+      "pack_size": "10 capsules",
+      "batch_number": "BATCH000140"
+    }
+  },
+  {
+    "name": "Paracetamol Tablets",
+    "category_id": 21,
+    "brand_id": 4,
+    "description": "High quality Paracetamol 500mg in tablet form. 20 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 475.71,
+    "stock": 93,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "20 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Paracetamol 500mg",
+      "quantity": "20 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "20 tablets",
+      "batch_number": "BATCH000141"
+    }
+  },
+  {
+    "name": "Vitamin D3 Tablets",
+    "category_id": 20,
+    "brand_id": 25,
+    "description": "High quality Cholecalciferol 1000IU in tablet form. 60 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 117.08,
+    "stock": 116,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "60 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Cholecalciferol 1000IU",
+      "quantity": "60 tablets",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "60 tablets",
+      "batch_number": "BATCH000142"
+    }
+  },
+  {
+    "name": "Amlodipine Tablets",
+    "category_id": 20,
+    "brand_id": 24,
+    "description": "High quality Amlodipine 5mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 328.34,
+    "stock": 134,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Amlodipine 5mg",
+      "quantity": "30 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000143"
+    }
+  },
+  {
+    "name": "Losartan Tablets",
+    "category_id": 19,
+    "brand_id": 25,
+    "description": "High quality Losartan 50mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 71.75,
+    "stock": 195,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Losartan 50mg",
+      "quantity": "30 tablets",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000144"
+    }
+  },
+  {
+    "name": "Multivitamin Tablets",
+    "category_id": 19,
+    "brand_id": 6,
+    "description": "High quality Mixed Vitamins & Minerals in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 352.34,
+    "stock": 111,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Mixed Vitamins & Minerals",
+      "quantity": "30 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000145"
+    }
+  },
+  {
+    "name": "Vitamin D3 Tablets",
+    "category_id": 18,
+    "brand_id": 4,
+    "description": "High quality Cholecalciferol 1000IU in tablet form. 60 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 157.8,
+    "stock": 76,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "60 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Cholecalciferol 1000IU",
+      "quantity": "60 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "60 tablets",
+      "batch_number": "BATCH000146"
+    }
+  },
+  {
+    "name": "Omega-3 Capsules",
+    "category_id": 18,
+    "brand_id": 5,
+    "description": "High quality Fish Oil 1000mg in capsule form. 60 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 277.01,
+    "stock": 90,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "60 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Fish Oil 1000mg",
+      "quantity": "60 capsules",
+      "manufacturer": "HealthPlus Pharma",
+      "prescription_required": false,
+      "form": "capsule",
+      "pack_size": "60 capsules",
+      "batch_number": "BATCH000147"
+    }
+  },
+  {
+    "name": "Metformin Tablets",
+    "category_id": 17,
+    "brand_id": 11,
+    "description": "High quality Metformin HCl 500mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 233.62,
+    "stock": 74,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Metformin HCl 500mg",
+      "quantity": "30 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000148"
+    }
+  },
+  {
+    "name": "Metformin Tablets",
+    "category_id": 17,
+    "brand_id": 21,
+    "description": "High quality Metformin HCl 500mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 354.98,
+    "stock": 115,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Metformin HCl 500mg",
+      "quantity": "30 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000149"
+    }
+  },
+  {
+    "name": "Aspirin Tablets",
+    "category_id": 16,
+    "brand_id": 3,
+    "description": "High quality Aspirin 325mg in tablet form. 100 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 242.69,
+    "stock": 50,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "100 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Aspirin 325mg",
+      "quantity": "100 tablets",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "100 tablets",
+      "batch_number": "BATCH000150"
+    }
+  },
+  {
+    "name": "Simvastatin Tablets",
+    "category_id": 16,
+    "brand_id": 2,
+    "description": "High quality Simvastatin 40mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 123.9,
+    "stock": 72,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Simvastatin 40mg",
+      "quantity": "30 tablets",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000151"
+    }
+  },
+  {
+    "name": "Lisinopril Tablets",
+    "category_id": 15,
+    "brand_id": 23,
+    "description": "High quality Lisinopril 10mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 447.78,
+    "stock": 197,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Lisinopril 10mg",
+      "quantity": "30 tablets",
+      "manufacturer": "HealthPlus Pharma",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000152"
+    }
+  },
+  {
+    "name": "Omeprazole Capsules",
+    "category_id": 15,
+    "brand_id": 4,
+    "description": "High quality Omeprazole 20mg in capsule form. 14 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 281.42,
+    "stock": 73,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "14 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Omeprazole 20mg",
+      "quantity": "14 capsules",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": true,
+      "form": "capsule",
+      "pack_size": "14 capsules",
+      "batch_number": "BATCH000153"
+    }
+  },
+  {
+    "name": "Lisinopril Tablets",
+    "category_id": 14,
+    "brand_id": 7,
+    "description": "High quality Lisinopril 10mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 407.76,
+    "stock": 139,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Lisinopril 10mg",
+      "quantity": "30 tablets",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000154"
+    }
+  },
+  {
+    "name": "Amoxicillin Capsules",
+    "category_id": 14,
+    "brand_id": 1,
+    "description": "High quality Amoxicillin 500mg in capsule form. 10 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 388.63,
+    "stock": 84,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "10 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Amoxicillin 500mg",
+      "quantity": "10 capsules",
+      "manufacturer": "HealthPlus Pharma",
+      "prescription_required": true,
+      "form": "capsule",
+      "pack_size": "10 capsules",
+      "batch_number": "BATCH000155"
+    }
+  },
+  {
+    "name": "Omega-3 Capsules",
+    "category_id": 13,
+    "brand_id": 6,
+    "description": "High quality Fish Oil 1000mg in capsule form. 60 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 404.59,
+    "stock": 199,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "60 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Fish Oil 1000mg",
+      "quantity": "60 capsules",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": false,
+      "form": "capsule",
+      "pack_size": "60 capsules",
+      "batch_number": "BATCH000156"
+    }
+  },
+  {
+    "name": "Simvastatin Tablets",
+    "category_id": 13,
+    "brand_id": 12,
+    "description": "High quality Simvastatin 40mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 491.48,
+    "stock": 103,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Simvastatin 40mg",
+      "quantity": "30 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000157"
+    }
+  },
+  {
+    "name": "Amoxicillin Capsules",
+    "category_id": 12,
+    "brand_id": 16,
+    "description": "High quality Amoxicillin 500mg in capsule form. 10 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 447.35,
+    "stock": 121,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "10 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Amoxicillin 500mg",
+      "quantity": "10 capsules",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": true,
+      "form": "capsule",
+      "pack_size": "10 capsules",
+      "batch_number": "BATCH000158"
+    }
+  },
+  {
+    "name": "Simvastatin Tablets",
+    "category_id": 12,
+    "brand_id": 6,
+    "description": "High quality Simvastatin 40mg in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 193.06,
+    "stock": 193,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Simvastatin 40mg",
+      "quantity": "30 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": true,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000159"
+    }
+  },
+  {
+    "name": "Omega-3 Capsules",
+    "category_id": 11,
+    "brand_id": 10,
+    "description": "High quality Fish Oil 1000mg in capsule form. 60 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 360.43,
+    "stock": 172,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "60 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Fish Oil 1000mg",
+      "quantity": "60 capsules",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": false,
+      "form": "capsule",
+      "pack_size": "60 capsules",
+      "batch_number": "BATCH000160"
+    }
+  },
+  {
+    "name": "Iron Tablets",
+    "category_id": 11,
+    "brand_id": 18,
+    "description": "High quality Ferrous Sulfate 65mg in tablet form. 100 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 331.6,
+    "stock": 83,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "100 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Ferrous Sulfate 65mg",
+      "quantity": "100 tablets",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "100 tablets",
+      "batch_number": "BATCH000161"
+    }
+  },
+  {
+    "name": "Probiotics Capsules",
+    "category_id": 10,
+    "brand_id": 18,
+    "description": "High quality Lactobacillus Mix 1B CFU in capsule form. 30 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 105.63,
+    "stock": 57,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "30 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Lactobacillus Mix 1B CFU",
+      "quantity": "30 capsules",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": false,
+      "form": "capsule",
+      "pack_size": "30 capsules",
+      "batch_number": "BATCH000162"
+    }
+  },
+  {
+    "name": "Omega-3 Capsules",
+    "category_id": 10,
+    "brand_id": 6,
+    "description": "High quality Fish Oil 1000mg in capsule form. 60 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 235.47,
+    "stock": 79,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "60 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Fish Oil 1000mg",
+      "quantity": "60 capsules",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": false,
+      "form": "capsule",
+      "pack_size": "60 capsules",
+      "batch_number": "BATCH000163"
+    }
+  },
+  {
+    "name": "Iron Tablets",
+    "category_id": 9,
+    "brand_id": 23,
+    "description": "High quality Ferrous Sulfate 65mg in tablet form. 100 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 460.17,
+    "stock": 130,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "100 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Ferrous Sulfate 65mg",
+      "quantity": "100 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "100 tablets",
+      "batch_number": "BATCH000164"
+    }
+  },
+  {
+    "name": "Omega-3 Capsules",
+    "category_id": 9,
+    "brand_id": 19,
+    "description": "High quality Fish Oil 1000mg in capsule form. 60 capsules per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 279.63,
+    "stock": 166,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "capsule",
+      "pack_size": "60 capsules",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Fish Oil 1000mg",
+      "quantity": "60 capsules",
+      "manufacturer": "PharmaCorp Ltd",
+      "prescription_required": false,
+      "form": "capsule",
+      "pack_size": "60 capsules",
+      "batch_number": "BATCH000165"
+    }
+  },
+  {
+    "name": "Multivitamin Tablets",
+    "category_id": 8,
+    "brand_id": 15,
+    "description": "High quality Mixed Vitamins & Minerals in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 173.41,
+    "stock": 113,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Mixed Vitamins & Minerals",
+      "quantity": "30 tablets",
+      "manufacturer": "MediLife Industries",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000166"
+    }
+  },
+  {
+    "name": "Multivitamin Tablets",
+    "category_id": 8,
+    "brand_id": 16,
+    "description": "High quality Mixed Vitamins & Minerals in tablet form. 30 tablets per pack.",
+    "image": "media/images/medicine_generic.webp",
+    "price": 430.67,
+    "stock": 93,
+    "product_type": "medicine",
+    "status": "published",
+    "is_publish": true,
+    "specifications": {
+      "dosage_form": "tablet",
+      "pack_size": "30 tablets",
+      "storage": "Store in cool, dry place"
+    },
+    "medicine_details": {
+      "composition": "Mixed Vitamins & Minerals",
+      "quantity": "30 tablets",
+      "manufacturer": "Global Meds Inc",
+      "prescription_required": false,
+      "form": "tablet",
+      "pack_size": "30 tablets",
+      "batch_number": "BATCH000167"
+    }
+  }
+]

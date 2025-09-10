@@ -1,0 +1,501 @@
+{
+  "parent_categories": [
+    {
+      "id": 7,
+      "name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 6,
+      "name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 5,
+      "name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 4,
+      "name": "Healthcare & Wellness"
+    },
+    {
+      "id": 3,
+      "name": "Pathology & Laboratory"
+    },
+    {
+      "id": 2,
+      "name": "Doctor Equipment"
+    },
+    {
+      "id": 1,
+      "name": "Medicines"
+    }
+  ],
+  "sub_categories": [
+    {
+      "id": 80,
+      "name": "Ophthalmic Equipment",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 79,
+      "name": "Multi-Parameter Monitors",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 78,
+      "name": "Fetal Dopplers",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 77,
+      "name": "Blood Glucose Monitoring Systems",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 76,
+      "name": "Blood Pressure Cuffs",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 75,
+      "name": "X-Ray & Imaging Equipment",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 74,
+      "name": "Ultrasound Machines",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 73,
+      "name": "ECG Machines",
+      "parent__name": "Diagnostics & Monitoring"
+    },
+    {
+      "id": 72,
+      "name": "Operation Theatre Essentials",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 71,
+      "name": "Sterile Drapes & Packs",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 70,
+      "name": "Surgical Blades & Scalpels",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 69,
+      "name": "Cotton, Bandages & Gauze",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 68,
+      "name": "Sutures & Dressings",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 67,
+      "name": "Surgical Gloves & Masks",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 66,
+      "name": "IV Cannulas & Infusion Sets",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 65,
+      "name": "Syringes & Needles",
+      "parent__name": "Surgical & Medical Supplies"
+    },
+    {
+      "id": 64,
+      "name": "Foot Care Products",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 63,
+      "name": "Deodorants & Perfumes",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 62,
+      "name": "Body Lotions & Creams",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 61,
+      "name": "Shampoos, Oils & Conditioners",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 60,
+      "name": "Face Masks & PPE Kits",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 59,
+      "name": "Hand Sanitizers & Soaps",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 58,
+      "name": "Adult Diapers & Incontinence",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 57,
+      "name": "Sanitary Napkins & Tampons",
+      "parent__name": "Personal Care & Hygiene"
+    },
+    {
+      "id": 56,
+      "name": "Daily Health Essentials",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 55,
+      "name": "Immunity Boosters",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 54,
+      "name": "Baby & Mother Care",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 53,
+      "name": "Elderly Care Products",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 52,
+      "name": "Sexual Wellness",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 51,
+      "name": "Oral & Dental Care",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 50,
+      "name": "Skin & Hair Care",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 49,
+      "name": "Weight Management",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 48,
+      "name": "Protein & Energy Supplements",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 47,
+      "name": "Nutrition & Health Drinks",
+      "parent__name": "Healthcare & Wellness"
+    },
+    {
+      "id": 46,
+      "name": "Sterilization & Disinfection",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 45,
+      "name": "Pathology Consumables",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 44,
+      "name": "Urine & Stool Test Kits",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 43,
+      "name": "Sample Storage Containers",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 42,
+      "name": "Lab Chemicals & Reagents",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 41,
+      "name": "Centrifuge Machines",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 40,
+      "name": "Microscopes & Slides",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 39,
+      "name": "Diagnostic Test Strips",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 38,
+      "name": "Blood Collection Tubes & Needles",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 37,
+      "name": "Lab Testing Kits",
+      "parent__name": "Pathology & Laboratory"
+    },
+    {
+      "id": 36,
+      "name": "First Aid & Emergency Kits",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 35,
+      "name": "Hospital Furniture",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 34,
+      "name": "Wheelchairs & Walkers",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 33,
+      "name": "Orthopedic Supports & Braces",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 32,
+      "name": "Diagnostic Tools",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 31,
+      "name": "Surgical Instruments",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 30,
+      "name": "Weighing Scales",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 29,
+      "name": "Pulse Oximeters",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 28,
+      "name": "Nebulizers & Respiratory Devices",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 27,
+      "name": "Glucometers & Diabetic Care",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 26,
+      "name": "Thermometers",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 25,
+      "name": "Blood Pressure Monitors",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 24,
+      "name": "Stethoscopes",
+      "parent__name": "Doctor Equipment"
+    },
+    {
+      "id": 23,
+      "name": "Eye & Ear Medicines",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 22,
+      "name": "Men's Health",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 21,
+      "name": "Women's Health",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 20,
+      "name": "Orthopedic & Bone Care",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 19,
+      "name": "Neurology & Mental Health",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 18,
+      "name": "Gastro & Digestive Care",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 17,
+      "name": "Respiratory & Allergy Medicines",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 16,
+      "name": "Cardiac & Diabetes Care",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 15,
+      "name": "Skin & Dermatology Medicines",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 14,
+      "name": "Pain Relief & Fever",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 13,
+      "name": "Baby & Child Care Medicines",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 12,
+      "name": "Vitamins & Supplements",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 11,
+      "name": "Homeopathic Medicines",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 10,
+      "name": "Ayurvedic & Herbal Medicines",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 9,
+      "name": "Over-The-Counter (OTC) Medicines",
+      "parent__name": "Medicines"
+    },
+    {
+      "id": 8,
+      "name": "Prescription Medicines",
+      "parent__name": "Medicines"
+    }
+  ],
+  "brands": [
+    {
+      "id": 21,
+      "name": "3M Healthcare"
+    },
+    {
+      "id": 12,
+      "name": "Abbott"
+    },
+    {
+      "id": 13,
+      "name": "Agappe"
+    },
+    {
+      "id": 22,
+      "name": "B. Braun"
+    },
+    {
+      "id": 14,
+      "name": "Bio-Rad"
+    },
+    {
+      "id": 1,
+      "name": "Cipla"
+    },
+    {
+      "id": 19,
+      "name": "Colgate-Palmolive"
+    },
+    {
+      "id": 17,
+      "name": "Dabur"
+    },
+    {
+      "id": 3,
+      "name": "Dr. Reddy's"
+    },
+    {
+      "id": 23,
+      "name": "Fresenius Kabi"
+    },
+    {
+      "id": 8,
+      "name": "GE Healthcare"
+    },
+    {
+      "id": 16,
+      "name": "Himalaya"
+    },
+    {
+      "id": 6,
+      "name": "Johnson & Johnson"
+    },
+    {
+      "id": 4,
+      "name": "Lupin"
+    },
+    {
+      "id": 18,
+      "name": "Mamaearth"
+    },
+    {
+      "id": 10,
+      "name": "Medtronic"
+    },
+    {
+      "id": 15,
+      "name": "Patanjali"
+    },
+    {
+      "id": 9,
+      "name": "Philips Healthcare"
+    },
+    {
+      "id": 11,
+      "name": "Roche Diagnostics"
+    },
+    {
+      "id": 7,
+      "name": "Siemens Healthineers"
+    },
+    {
+      "id": 25,
+      "name": "Smith & Nephew"
+    },
+    {
+      "id": 2,
+      "name": "Sun Pharma"
+    },
+    {
+      "id": 24,
+      "name": "Terumo"
+    },
+    {
+      "id": 20,
+      "name": "Unilever"
+    },
+    {
+      "id": 5,
+      "name": "Zydus"
+    }
+  ]
+}
