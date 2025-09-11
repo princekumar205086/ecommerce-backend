@@ -421,7 +421,7 @@ class PublicProductSearchView(MedixMallFilterMixin, MedixMallContextMixin, Enter
                 'min': products.aggregate(min_price=Min('price'))['min_price'] or 0,
                 'max': products.aggregate(max_price=Max('price'))['max_price'] or 0,
             },
-            'forms': list(products.exclude(form='').values_list('form', flat=True).distinct()) if products.filter(product_type='medicine').exists() else [],
+            'forms': list(products.exclude(medicine_details__form='').values_list('medicine_details__form', flat=True).distinct()) if products.filter(product_type='medicine').exists() else [],
         }
 
 
