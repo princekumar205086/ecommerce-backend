@@ -78,6 +78,9 @@ class EnterpriseSearchMixin:
         if not search_query:
             return queryset
         
+        # Import Product model locally
+        from .models import Product
+        
         # Split search query into terms
         terms = search_query.lower().split()
         
