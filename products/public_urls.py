@@ -10,6 +10,7 @@ from .public_views import (
     PublicFeaturedProductsView,
     PublicProductsByCategory,
     PublicProductsByBrand,
+    PublicProductsByType,
 )
 
 app_name = 'products_public'
@@ -26,7 +27,8 @@ urlpatterns = [
     path('search/', PublicProductSearchView.as_view(), name='public-product-search'),
     path('featured/', PublicFeaturedProductsView.as_view(), name='public-featured-products'),
     
-    # Products by category and brand
+    # Products by category, brand, and type
     path('categories/<int:category_id>/products/', PublicProductsByCategory.as_view(), name='public-products-by-category'),
     path('brands/<int:brand_id>/products/', PublicProductsByBrand.as_view(), name='public-products-by-brand'),
+    path('types/<str:product_type>/products/', PublicProductsByType.as_view(), name='public-products-by-type'),
 ]

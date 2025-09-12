@@ -535,3 +535,49 @@ class PublicProductsByBrand(MedixMallFilterMixin, MedixMallContextMixin, generic
         brand_id = self.kwargs.get('brand_id')
         queryset = super().get_queryset()
         return queryset.filter(brand_id=brand_id)
+
+
+class PublicProductsByType(MedixMallFilterMixin, MedixMallContextMixin, generics.ListAPIView):
+    """
+    Public endpoint to get products by product type (medicine, equipment, pathology)
+    Respects user's MedixMall mode preference
+    """
+    serializer_class = BaseProductSerializer
+    permission_classes = [permissions.AllowAny]
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['price', 'created_at', 'name']
+    ordering = ['-created_at']
+
+    @swagger_auto_schema(
+        operation_description="Get all products by a specific product type (medicine, equipment, pathology). Respects user's MedixMall mode preference.",
+        operation_summary="Products by Type (Public)",
+        tags=['Public - Products'],
+        manual_parameters=[
+            openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['price', '-price', 'created_at', '-created_at', 'name', '-name']),
+            openapi.Parameter('Authorization', openapi.IN_HEADER, description="Bearer <access_token> (optional for MedixMall mode)", type=openapi.TYPE_STRING, required=False),
+        ],
+        responses={
+            200: openapi.Response(
+                'Success', 
+                BaseProductSerializer(many=True),
+                headers={
+                    'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
+                }
+            ),
+            404: 'Invalid product type'
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        product_type = self.kwargs.get('product_type')
+        
+        # Validate product_type against allowed choices
+        valid_types = ['medicine', 'equipment', 'pathology']
+        if product_type not in valid_types:
+            from django.http import Http404
+            raise Http404(f"Invalid product type. Must be one of: {', '.join(valid_types)}")
+        
+        queryset = super().get_queryset()
+        return queryset.filter(product_type=product_type)
