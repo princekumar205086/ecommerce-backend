@@ -138,6 +138,7 @@ class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generic
             openapi.Parameter('brand', openapi.IN_QUERY, description="Filter by brand ID", type=openapi.TYPE_INTEGER),
             openapi.Parameter('product_type', openapi.IN_QUERY, description="Filter by product type", type=openapi.TYPE_STRING, enum=['medicine', 'equipment', 'pathology']),
             openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['price', '-price', 'created_at', '-created_at', 'name', '-name']),
+            openapi.Parameter('page', openapi.IN_QUERY, description="Page number for pagination (if not provided, returns all products)", type=openapi.TYPE_INTEGER),
             openapi.Parameter('Authorization', openapi.IN_HEADER, description="Bearer <access_token> (optional for MedixMall mode)", type=openapi.TYPE_STRING, required=False),
         ],
         responses={
@@ -152,6 +153,24 @@ class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generic
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
+
+    def list(self, request, *args, **kwargs):
+        """Return all products when 'page' query param is absent.
+
+        Preserve normal DRF pagination when the client explicitly requests a page
+        using the `page` query parameter.
+        """
+        if 'page' in request.query_params:
+            return super().list(request, *args, **kwargs)
+
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({
+            'count': queryset.count(),
+            'next': None,
+            'previous': None,
+            'results': serializer.data,
+        })
 
     def get_queryset(self):
         # Use the mixin's get_queryset which handles MedixMall filtering
@@ -282,7 +301,7 @@ class PublicProductSearchView(MedixMallFilterMixin, MedixMallContextMixin, Enter
             openapi.Parameter('sort_by', openapi.IN_QUERY, description="Sort by field", type=openapi.TYPE_STRING, 
                             enum=['relevance', 'price_low', 'price_high', 'name_asc', 'name_desc', 'newest', 'oldest', 'popularity', 'rating'], default='relevance'),
             openapi.Parameter('page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER, default=1),
-            openapi.Parameter('page_size', openapi.IN_QUERY, description="Items per page (max 50)", type=openapi.TYPE_INTEGER, default=20),
+            openapi.Parameter('page_size', openapi.IN_QUERY, description="Items per page (max 50)", type=openapi.TYPE_INTEGER, default=12),
             openapi.Parameter('in_stock_only', openapi.IN_QUERY, description="Show only products in stock", type=openapi.TYPE_BOOLEAN, default=True),
             openapi.Parameter('prescription_required', openapi.IN_QUERY, description="Filter by prescription requirement (medicines only)", type=openapi.TYPE_BOOLEAN),
             openapi.Parameter('form', openapi.IN_QUERY, description="Medicine form (tablet, syrup, etc.)", type=openapi.TYPE_STRING),
@@ -312,7 +331,7 @@ class PublicProductSearchView(MedixMallFilterMixin, MedixMallContextMixin, Enter
         # Get query parameters
         query = request.GET.get('q', '').strip()
         page = max(int(request.GET.get('page', 1)), 1)
-        page_size = min(max(int(request.GET.get('page_size', 20)), 1), 50)  # Max 50 items per page
+        page_size = min(max(int(request.GET.get('page_size', 12)), 1), 50)  # Max 50 items per page, default 12
         sort_by = request.GET.get('sort_by', 'relevance')
 
         # Collect all filter parameters
