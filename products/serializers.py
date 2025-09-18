@@ -16,6 +16,13 @@ from accounts.models import upload_to_imagekit
 User = get_user_model()
 
 
+# Simple Brand Serializer for nested representation
+class SimpleBrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = ['id', 'name', 'image']
+
+
 # Brand
 class BrandSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -107,6 +114,13 @@ class BrandSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({'image_file': f'Error processing image: {str(e)}'})
         
         return super().update(instance, validated_data)
+
+
+# Simple Category Serializer for nested representation
+class SimpleCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductCategory
+        fields = ['id', 'name', 'icon', 'slug']
 
 
 # Category
@@ -380,7 +394,7 @@ class PathologyDetailsSerializer(serializers.ModelSerializer):
         ]
 
 
-# Base Product Serializer
+# Base Product Serializer (for admin/write operations)
 class BaseProductSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
     variants = ProductVariantSerializer(many=True, read_only=True)
@@ -407,6 +421,28 @@ class BaseProductSerializer(serializers.ModelSerializer):
             'medicine_details', 'equipment_details', 'pathology_details'
         ]
         read_only_fields = ('created_at', 'updated_at', 'status', 'is_publish', 'slug', 'sku')
+
+
+# Public Product Serializer (for frontend with nested objects)
+class PublicProductSerializer(serializers.ModelSerializer):
+    variants = ProductVariantSerializer(many=True, read_only=True)
+    images = ProductImageSerializer(many=True, read_only=True)
+    category = SimpleCategorySerializer(read_only=True)
+    brand = SimpleBrandSerializer(read_only=True)
+    
+    # Type-specific details
+    medicine_details = MedicineDetailsSerializer(read_only=True)
+    equipment_details = EquipmentDetailsSerializer(read_only=True)
+    pathology_details = PathologyDetailsSerializer(read_only=True)
+
+    class Meta:
+        model = Product
+        fields = [
+            'id', 'name', 'slug', 'sku', 'description', 'category', 'brand', 
+            'price', 'stock', 'product_type', 'created_at', 'updated_at', 
+            'status', 'is_publish', 'specifications', 'variants', 'images', 'image',
+            'medicine_details', 'equipment_details', 'pathology_details'
+        ]
 
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)

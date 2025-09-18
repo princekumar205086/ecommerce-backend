@@ -13,7 +13,7 @@ from .models import (
     ProductCategory, Product, ProductReview, Brand, ProductVariant
 )
 from .serializers import (
-    ProductCategorySerializer, BaseProductSerializer, ProductReviewSerializer,
+    ProductCategorySerializer, BaseProductSerializer, PublicProductSerializer, ProductReviewSerializer,
     BrandSerializer, ProductVariantSerializer
 )
 from .mixins import MedixMallFilterMixin, MedixMallContextMixin, EnterpriseSearchMixin
@@ -120,7 +120,7 @@ class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generic
     Public endpoint to list all published products with filtering and search
     Respects user's MedixMall mode preference
     """
-    serializer_class = BaseProductSerializer
+    serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'brand', 'product_type']
@@ -144,7 +144,7 @@ class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generic
         responses={
             200: openapi.Response(
                 'Success', 
-                BaseProductSerializer(many=True),
+                PublicProductSerializer(many=True),
                 headers={
                     'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
                 }
@@ -182,7 +182,7 @@ class PublicProductDetailView(MedixMallFilterMixin, MedixMallContextMixin, gener
     Public endpoint to view individual product details
     Respects user's MedixMall mode preference
     """
-    serializer_class = BaseProductSerializer
+    serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
     lookup_field = 'pk'
 
@@ -196,7 +196,7 @@ class PublicProductDetailView(MedixMallFilterMixin, MedixMallContextMixin, gener
         responses={
             200: openapi.Response(
                 'Success', 
-                BaseProductSerializer,
+                PublicProductSerializer,
                 headers={
                     'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
                 }
@@ -240,8 +240,8 @@ class PublicProductDetailView(MedixMallFilterMixin, MedixMallContextMixin, gener
             is_publish=True
         ).exclude(id=instance.id)[:4]
         
-        from .serializers import BaseProductSerializer
-        data['related_products'] = BaseProductSerializer(related_products, many=True).data
+        from .serializers import PublicProductSerializer
+        data['related_products'] = PublicProductSerializer(related_products, many=True).data
         
         return Response(data)
 
@@ -364,7 +364,7 @@ class PublicProductSearchView(MedixMallFilterMixin, MedixMallContextMixin, Enter
         page_obj = paginator.get_page(page)
 
         # Serialize data
-        serializer = BaseProductSerializer(page_obj.object_list, many=True)
+        serializer = PublicProductSerializer(page_obj.object_list, many=True)
 
         # Generate search suggestions
         search_suggestions = self.generate_search_suggestions(query, products)
@@ -449,7 +449,7 @@ class PublicFeaturedProductsView(MedixMallFilterMixin, MedixMallContextMixin, ge
     Public endpoint for featured/trending products
     Respects user's MedixMall mode preference
     """
-    serializer_class = BaseProductSerializer
+    serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
 
     @swagger_auto_schema(
@@ -462,7 +462,7 @@ class PublicFeaturedProductsView(MedixMallFilterMixin, MedixMallContextMixin, ge
         responses={
             200: openapi.Response(
                 'Success', 
-                BaseProductSerializer(many=True),
+                PublicProductSerializer(many=True),
                 headers={
                     'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
                 }
@@ -485,7 +485,7 @@ class PublicProductsByCategory(MedixMallFilterMixin, MedixMallContextMixin, gene
     Public endpoint to get products by category
     Respects user's MedixMall mode preference
     """
-    serializer_class = BaseProductSerializer
+    serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['price', 'created_at', 'name']
@@ -502,7 +502,7 @@ class PublicProductsByCategory(MedixMallFilterMixin, MedixMallContextMixin, gene
         responses={
             200: openapi.Response(
                 'Success', 
-                BaseProductSerializer(many=True),
+                PublicProductSerializer(many=True),
                 headers={
                     'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
                 }
@@ -523,7 +523,7 @@ class PublicProductsByBrand(MedixMallFilterMixin, MedixMallContextMixin, generic
     Public endpoint to get products by brand
     Respects user's MedixMall mode preference
     """
-    serializer_class = BaseProductSerializer
+    serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['price', 'created_at', 'name']
@@ -540,7 +540,7 @@ class PublicProductsByBrand(MedixMallFilterMixin, MedixMallContextMixin, generic
         responses={
             200: openapi.Response(
                 'Success', 
-                BaseProductSerializer(many=True),
+                PublicProductSerializer(many=True),
                 headers={
                     'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
                 }
@@ -561,7 +561,7 @@ class PublicProductsByType(MedixMallFilterMixin, MedixMallContextMixin, generics
     Public endpoint to get products by product type (medicine, equipment, pathology)
     Respects user's MedixMall mode preference
     """
-    serializer_class = BaseProductSerializer
+    serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['price', 'created_at', 'name']
@@ -578,7 +578,7 @@ class PublicProductsByType(MedixMallFilterMixin, MedixMallContextMixin, generics
         responses={
             200: openapi.Response(
                 'Success', 
-                BaseProductSerializer(many=True),
+                PublicProductSerializer(many=True),
                 headers={
                     'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
                 }
