@@ -1,0 +1,274 @@
+{
+  "total_tests": 34,
+  "passed_tests": 29,
+  "failed_tests": 5,
+  "success_rate": 85.29411764705883,
+  "method_stats": {
+    "OTHER": {
+      "total": 6,
+      "passed": 6
+    },
+    "GET": {
+      "total": 20,
+      "passed": 15
+    },
+    "PATCH": {
+      "total": 6,
+      "passed": 6
+    },
+    "DELETE": {
+      "total": 2,
+      "passed": 2
+    }
+  },
+  "detailed_results": [
+    {
+      "test_name": "Setup Test Users",
+      "success": true,
+      "details": "Test users retrieved successfully",
+      "timestamp": "2025-09-19T00:00:00.575734",
+      "response_data": null
+    },
+    {
+      "test_name": "Setup Test Data",
+      "success": true,
+      "details": "Retrieved test data: 8 entity types",
+      "timestamp": "2025-09-19T00:00:00.595057",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Categories List (Admin)",
+      "success": true,
+      "details": "Retrieved 4 categories",
+      "timestamp": "2025-09-19T00:00:01.797086",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Categories List (Supplier)",
+      "success": true,
+      "details": "Retrieved 4 categories",
+      "timestamp": "2025-09-19T00:00:01.827665",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Categories List (Regular User)",
+      "success": true,
+      "details": "Retrieved 4 categories",
+      "timestamp": "2025-09-19T00:00:01.873568",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Categories List (Anonymous)",
+      "success": true,
+      "details": "Retrieved 4 categories",
+      "timestamp": "2025-09-19T00:00:01.944683",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Category Detail (Admin)",
+      "success": true,
+      "details": "Retrieved category: Updated Category 235418",
+      "timestamp": "2025-09-19T00:00:02.039464",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Category Detail (Regular User)",
+      "success": false,
+      "details": "Failed - Status: 404",
+      "timestamp": "2025-09-19T00:00:02.107061",
+      "response_data": {
+        "detail": "No ProductCategory matches the given query."
+      }
+    },
+    {
+      "test_name": "GET Category Detail (Anonymous)",
+      "success": false,
+      "details": "Failed - Status: 404",
+      "timestamp": "2025-09-19T00:00:02.125882",
+      "response_data": {
+        "detail": "No ProductCategory matches the given query."
+      }
+    },
+    {
+      "test_name": "GET Brands List",
+      "success": true,
+      "details": "Retrieved 4 brands",
+      "timestamp": "2025-09-19T00:00:02.204064",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Products List (All Products)",
+      "success": true,
+      "details": "Retrieved 167 products",
+      "timestamp": "2025-09-19T00:00:03.268231",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Products List (Filter by Type)",
+      "success": true,
+      "details": "Retrieved 77 products",
+      "timestamp": "2025-09-19T00:00:03.711903",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Products List (Search by Name)",
+      "success": true,
+      "details": "Retrieved 1 products",
+      "timestamp": "2025-09-19T00:00:03.778017",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Products List (Published Only)",
+      "success": true,
+      "details": "Retrieved 167 products",
+      "timestamp": "2025-09-19T00:00:04.194669",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Product Detail (pathology)",
+      "success": false,
+      "details": "Failed - Status: 404",
+      "timestamp": "2025-09-19T00:00:04.209201",
+      "response_data": {
+        "detail": "No Product matches the given query."
+      }
+    },
+    {
+      "test_name": "GET Product Detail (equipment)",
+      "success": false,
+      "details": "Failed - Status: 404",
+      "timestamp": "2025-09-19T00:00:04.226944",
+      "response_data": {
+        "detail": "No Product matches the given query."
+      }
+    },
+    {
+      "test_name": "GET Product Detail (medicine)",
+      "success": false,
+      "details": "Failed - Status: 404",
+      "timestamp": "2025-09-19T00:00:04.245225",
+      "response_data": {
+        "detail": "No Product matches the given query."
+      }
+    },
+    {
+      "test_name": "GET Variants List",
+      "success": true,
+      "details": "Retrieved 503 variants",
+      "timestamp": "2025-09-19T00:00:04.343849",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Attributes",
+      "success": true,
+      "details": "Retrieved 6 items",
+      "timestamp": "2025-09-19T00:00:04.362661",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Attribute Values",
+      "success": true,
+      "details": "Retrieved 20 items",
+      "timestamp": "2025-09-19T00:00:04.389171",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Supplier Prices",
+      "success": true,
+      "details": "Retrieved 2 prices",
+      "timestamp": "2025-09-19T00:00:04.424133",
+      "response_data": null
+    },
+    {
+      "test_name": "GET Reviews",
+      "success": true,
+      "details": "Retrieved 1 reviews",
+      "timestamp": "2025-09-19T00:00:04.452214",
+      "response_data": null
+    },
+    {
+      "test_name": "PATCH Category",
+      "success": true,
+      "details": "Updated category to: Updated Category 000004",
+      "timestamp": "2025-09-19T00:00:04.644759",
+      "response_data": null
+    },
+    {
+      "test_name": "PATCH Category (Unauthorized)",
+      "success": true,
+      "details": "Correctly blocked unauthorized update",
+      "timestamp": "2025-09-19T00:00:04.660911",
+      "response_data": null
+    },
+    {
+      "test_name": "PATCH Product",
+      "success": true,
+      "details": "Updated product price to: 99.99",
+      "timestamp": "2025-09-19T00:00:04.742574",
+      "response_data": null
+    },
+    {
+      "test_name": "PATCH Variant",
+      "success": true,
+      "details": "Updated variant price to: 55.75",
+      "timestamp": "2025-09-19T00:00:04.781483",
+      "response_data": null
+    },
+    {
+      "test_name": "PATCH Supplier Price",
+      "success": true,
+      "details": "Updated supplier price to: 45.50",
+      "timestamp": "2025-09-19T00:00:04.816977",
+      "response_data": null
+    },
+    {
+      "test_name": "PATCH Review",
+      "success": true,
+      "details": "Updated review rating to: 4",
+      "timestamp": "2025-09-19T00:00:04.850585",
+      "response_data": null
+    },
+    {
+      "test_name": "DELETE Category (Admin)",
+      "success": true,
+      "details": "Successfully deleted category",
+      "timestamp": "2025-09-19T00:00:04.921091",
+      "response_data": null
+    },
+    {
+      "test_name": "DELETE Category (Unauthorized)",
+      "success": true,
+      "details": "Correctly blocked unauthorized deletion",
+      "timestamp": "2025-09-19T00:00:04.940697",
+      "response_data": null
+    },
+    {
+      "test_name": "404 Test (Non-existent Category)",
+      "success": true,
+      "details": "Correctly returned 404 for non-existent resource",
+      "timestamp": "2025-09-19T00:00:04.972091",
+      "response_data": null
+    },
+    {
+      "test_name": "404 Test (Non-existent Product)",
+      "success": true,
+      "details": "Correctly returned 404 for non-existent resource",
+      "timestamp": "2025-09-19T00:00:04.995443",
+      "response_data": null
+    },
+    {
+      "test_name": "404 Test (Non-existent Variant)",
+      "success": true,
+      "details": "Correctly returned 404 for non-existent resource",
+      "timestamp": "2025-09-19T00:00:05.022787",
+      "response_data": null
+    },
+    {
+      "test_name": "Invalid Data Test",
+      "success": true,
+      "details": "Correctly rejected invalid data",
+      "timestamp": "2025-09-19T00:00:05.060653",
+      "response_data": null
+    }
+  ]
+}

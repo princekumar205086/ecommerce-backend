@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-09-19T01:05:14.158335",
+  "tests": [
+    {
+      "test_name": "Setup Test Users",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:14.181896",
+      "details": "Retrieved existing users: ['admin', 'supplier', 'regular']"
+    },
+    {
+      "test_name": "GET Categories List",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:15.418566",
+      "details": "Retrieved 80 categories"
+    },
+    {
+      "test_name": "GET Brands List",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:15.427815",
+      "details": "Retrieved 31 brands"
+    },
+    {
+      "test_name": "GET Products List",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:15.792906",
+      "details": "Retrieved 167 products"
+    },
+    {
+      "test_name": "GET Variants List",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:15.861856",
+      "details": "Retrieved 503 variants"
+    },
+    {
+      "test_name": "Create New Category (Admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:15.999213",
+      "details": "Created category: Test Category 20250919_010515"
+    },
+    {
+      "test_name": "Create New Brand (Admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.016498",
+      "details": "Created brand: Test Brand 20250919_010515"
+    },
+    {
+      "test_name": "Create Medicine Product (Admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.081598",
+      "details": "Created product: Test Medicine 20250919_010516"
+    },
+    {
+      "test_name": "Create Equipment Product (Supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.135137",
+      "details": "Created product: Test Equipment 20250919_010516"
+    },
+    {
+      "test_name": "GET Product Detail #1",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.174912",
+      "details": "Retrieved product: Test Equipment 20250919_010516"
+    },
+    {
+      "test_name": "GET Product Detail #2",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.201470",
+      "details": "Retrieved product: Test Medicine 20250919_010516"
+    },
+    {
+      "test_name": "GET Product Detail #3",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.233629",
+      "details": "Retrieved product: Test Equipment 20250919_005603"
+    },
+    {
+      "test_name": "PATCH Product (Admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.286378",
+      "details": "Updated product price to: 39.99"
+    },
+    {
+      "test_name": "Unauthorized Product Creation",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.292927",
+      "details": "Correctly blocked unauthorized access"
+    },
+    {
+      "test_name": "Regular User Category Creation",
+      "status": "PASS",
+      "timestamp": "2025-09-19T01:05:16.313351",
+      "details": "Correctly blocked regular user from creating category"
+    }
+  ],
+  "summary": {
+    "total_tests": 15,
+    "passed_tests": 15,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "entity_counts": {
+      "categories": 1,
+      "brands": 1,
+      "products": 2,
+      "variants": 0,
+      "images": 0,
+      "reviews": 0,
+      "supplier_prices": 0
+    }
+  }
+}

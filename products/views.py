@@ -83,12 +83,23 @@ class BrandListCreateView(generics.ListCreateAPIView):
 
 
 class ProductListCreateView(generics.ListCreateAPIView):
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSupplierOrAdmin]  # Custom permission that allows read for all, create for supplier/admin
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'brand', 'status', 'is_publish', 'product_type']
     search_fields = ['name', 'description']
     ordering_fields = ['price', 'created_at']
+
+    def get_permissions(self):
+        """
+        Override permissions based on request method.
+        GET requests are allowed for everyone, POST requires supplier or admin.
+        """
+        if self.request.method == 'GET':
+            self.permission_classes = [permissions.AllowAny]
+        else:
+            self.permission_classes = [IsSupplierOrAdmin]
+        return super().get_permissions()
 
     def get_queryset(self):
         """
@@ -96,13 +107,13 @@ class ProductListCreateView(generics.ListCreateAPIView):
         Anonymous users see only published products, admins see all.
         """
         if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
-            return Product.objects.prefetch_related('variants', 'images', 'supplier_prices').all()
+            return Product.objects.prefetch_related('variants__supplier_prices', 'images').all()
         else:
             # For anonymous users and non-admin users, show only published products
             return Product.objects.filter(
                 status='published',
                 is_publish=True
-            ).prefetch_related('variants', 'images', 'supplier_prices').all()
+            ).prefetch_related('variants__supplier_prices', 'images').all()
 
     def get_serializer_class(self):
         product_type = self.request.data.get('product_type') or self.request.query_params.get('product_type')
@@ -121,8 +132,19 @@ class ProductListCreateView(generics.ListCreateAPIView):
 
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]  # Allow read access for everyone, update/delete for admin only
     parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def get_permissions(self):
+        """
+        Override permissions based on request method.
+        GET requests are allowed for everyone, PUT/PATCH/DELETE require admin.
+        """
+        if self.request.method == 'GET':
+            self.permission_classes = [permissions.AllowAny]
+        else:
+            self.permission_classes = [IsAdminOrReadOnly]
+        return super().get_permissions()
 
     def get_queryset(self):
         """
@@ -130,13 +152,13 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
         Anonymous users see only published products, admins see all.
         """
         if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
-            return Product.objects.prefetch_related('variants', 'images', 'supplier_prices').all()
+            return Product.objects.prefetch_related('variants__supplier_prices', 'images').all()
         else:
             # For anonymous users and non-admin users, show only published products
             return Product.objects.filter(
                 status='published',
                 is_publish=True
-            ).prefetch_related('variants', 'images', 'supplier_prices').all()
+            ).prefetch_related('variants__supplier_prices', 'images').all()
 
     def get_serializer_class(self):
         # Prevent errors during schema generation
@@ -213,7 +235,7 @@ class ProductVariantListCreateView(generics.ListCreateAPIView):
 
 
 class SupplierProductPriceListCreateView(generics.ListCreateAPIView):
-    queryset = SupplierProductPrice.objects.select_related('product', 'supplier').all()
+    queryset = SupplierProductPrice.objects.select_related('product_variant', 'supplier').all()
     serializer_class = SupplierProductPriceSerializer
     permission_classes = [permissions.IsAuthenticated, IsSupplierOrAdmin]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
@@ -257,7 +279,7 @@ class ProductVariantDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class SupplierProductPriceDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SupplierProductPrice.objects.select_related('product', 'supplier').all()
+    queryset = SupplierProductPrice.objects.select_related('product_variant', 'supplier').all()
     serializer_class = SupplierProductPriceSerializer
     permission_classes = [permissions.IsAuthenticated, IsSupplierOrAdmin]
 

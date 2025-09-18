@@ -21,6 +21,15 @@ from .views import (
     ProductImageDetailView,
 )
 
+from .admin_views import (
+    pending_approvals,
+    approve_brand, reject_brand,
+    approve_category, reject_category,
+    approve_product, reject_product,
+    approve_variant, reject_variant,
+    bulk_approve
+)
+
 app_name = 'products'
 
 urlpatterns = [
@@ -42,4 +51,16 @@ urlpatterns = [
     path('attribute-values/<int:pk>/', ProductAttributeValueDetailView.as_view(), name='attribute-value-detail'),
     path('images/', ProductImageListCreateView.as_view(), name='image-list-create'),
     path('images/<int:pk>/', ProductImageDetailView.as_view(), name='image-detail'),
+    
+    # Admin approval endpoints
+    path('admin/pending-approvals/', pending_approvals, name='pending-approvals'),
+    path('admin/brands/<int:brand_id>/approve/', approve_brand, name='approve-brand'),
+    path('admin/brands/<int:brand_id>/reject/', reject_brand, name='reject-brand'),
+    path('admin/categories/<int:category_id>/approve/', approve_category, name='approve-category'),
+    path('admin/categories/<int:category_id>/reject/', reject_category, name='reject-category'),
+    path('admin/products/<int:product_id>/approve/', approve_product, name='approve-product'),
+    path('admin/products/<int:product_id>/reject/', reject_product, name='reject-product'),
+    path('admin/variants/<int:variant_id>/approve/', approve_variant, name='approve-variant'),
+    path('admin/variants/<int:variant_id>/reject/', reject_variant, name='reject-variant'),
+    path('admin/bulk-approve/', bulk_approve, name='bulk-approve'),
 ]

@@ -1,0 +1,178 @@
+{
+  "timestamp": "2025-09-19T00:17:43.060718",
+  "tests": [
+    {
+      "test_name": "Setup Test Users",
+      "status": "PASS",
+      "timestamp": "2025-09-19T00:17:49.058014",
+      "details": "Test users created successfully"
+    },
+    {
+      "test_name": "Create Category: Medicines",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.299066",
+      "details": "Failed to create category - Status: 400, Response: {'name': ['product category with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Category: Medical Equipment",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.307038",
+      "details": "Failed to create category - Status: 400, Response: {'name': ['product category with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Category: Pathology",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.314839",
+      "details": "Failed to create category - Status: 400, Response: {'name': ['product category with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Brand: Pfizer",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.340772",
+      "details": "Failed to create brand - Status: 400, Response: {'name': ['brand with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Brand: Johnson & Johnson",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.348666",
+      "details": "Failed to create brand - Status: 400, Response: {'name': ['brand with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Brand: Roche",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.361636",
+      "details": "Failed to create brand - Status: 400, Response: {'name': ['brand with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Brand: Siemens Healthineers",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.371638",
+      "details": "Failed to create brand - Status: 400, Response: {'name': ['brand with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Attribute: Size",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.392396",
+      "details": "Failed to create attribute - Status: 400, Response: {'name': ['product attribute with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Attribute: Color",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.408331",
+      "details": "Failed to create attribute - Status: 400, Response: {'name': ['product attribute with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Attribute: Dosage",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.413671",
+      "details": "Failed to create attribute - Status: 400, Response: {'name': ['product attribute with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Attribute: Pack Size",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.424754",
+      "details": "Failed to create attribute - Status: 400, Response: {'name': ['product attribute with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Attribute: Strength",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.431192",
+      "details": "Failed to create attribute - Status: 400, Response: {'name': ['product attribute with this name already exists.']}"
+    },
+    {
+      "test_name": "Create Attribute Values",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.432890",
+      "details": "No attributes available"
+    },
+    {
+      "test_name": "Create Medicine Product (admin)",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.433654",
+      "details": "Categories or brands not available"
+    },
+    {
+      "test_name": "Create Equipment Product (admin)",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.437364",
+      "details": "Categories or brands not available"
+    },
+    {
+      "test_name": "Create Pathology Product (admin)",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.438997",
+      "details": "Categories or brands not available"
+    },
+    {
+      "test_name": "Create Medicine Product (supplier)",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.439580",
+      "details": "Categories or brands not available"
+    },
+    {
+      "test_name": "Create Equipment Product (supplier)",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.440866",
+      "details": "Categories or brands not available"
+    },
+    {
+      "test_name": "Create Pathology Product (supplier)",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.442096",
+      "details": "Categories or brands not available"
+    },
+    {
+      "test_name": "Create Product Variants",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.442755",
+      "details": "Products or attribute values not available"
+    },
+    {
+      "test_name": "Create Product Images",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.443518",
+      "details": "No products available"
+    },
+    {
+      "test_name": "Create Supplier Prices",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.444489",
+      "details": "No variants available"
+    },
+    {
+      "test_name": "Create Product Reviews",
+      "status": "FAIL",
+      "timestamp": "2025-09-19T00:17:50.445132",
+      "details": "No products available"
+    },
+    {
+      "test_name": "Unauthorized Category Creation",
+      "status": "PASS",
+      "timestamp": "2025-09-19T00:17:50.448023",
+      "details": "Correctly blocked unauthorized access"
+    },
+    {
+      "test_name": "Unauthenticated Product Creation",
+      "status": "PASS",
+      "timestamp": "2025-09-19T00:17:50.464014",
+      "details": "Correctly blocked unauthenticated access"
+    }
+  ],
+  "summary": {
+    "total_tests": 26,
+    "passed_tests": 3,
+    "failed_tests": 23,
+    "success_rate": 11.538461538461538,
+    "entity_counts": {
+      "categories": 0,
+      "brands": 0,
+      "products": 0,
+      "variants": 0,
+      "attributes": 0,
+      "attribute_values": 0,
+      "images": 0,
+      "supplier_prices": 0,
+      "reviews": 0
+    }
+  }
+}

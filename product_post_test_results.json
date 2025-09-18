@@ -1,0 +1,259 @@
+{
+  "total_tests": 30,
+  "passed_tests": 6,
+  "failed_tests": 24,
+  "success_rate": 20.0,
+  "created_entities": {
+    "categories": [],
+    "brands": [],
+    "products": [],
+    "variants": [],
+    "attributes": [],
+    "attribute_values": [],
+    "images": [],
+    "supplier_prices": [],
+    "reviews": []
+  },
+  "detailed_results": [
+    {
+      "test_name": "Setup Test Users",
+      "success": true,
+      "details": "Test users created successfully",
+      "timestamp": "2025-09-18T23:47:31.170453",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Authenticate Admin",
+      "success": true,
+      "details": "Token obtained successfully",
+      "timestamp": "2025-09-18T23:47:33.251746",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Authenticate Supplier",
+      "success": true,
+      "details": "Token obtained successfully",
+      "timestamp": "2025-09-18T23:47:35.415486",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Authenticate User",
+      "success": true,
+      "details": "Token obtained successfully",
+      "timestamp": "2025-09-18T23:47:37.429387",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Category: Medicines",
+      "success": false,
+      "details": "Failed to create category",
+      "timestamp": "2025-09-18T23:47:37.437719",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Category: Medical Equipment",
+      "success": false,
+      "details": "Failed to create category",
+      "timestamp": "2025-09-18T23:47:37.447605",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Category: Pathology",
+      "success": false,
+      "details": "Failed to create category",
+      "timestamp": "2025-09-18T23:47:37.457235",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Category: Prescription Medicines",
+      "success": false,
+      "details": "Failed to create category",
+      "timestamp": "2025-09-18T23:47:37.467059",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Brand: Pfizer",
+      "success": false,
+      "details": "Failed to create brand",
+      "timestamp": "2025-09-18T23:47:37.488799",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Brand: Johnson & Johnson",
+      "success": false,
+      "details": "Failed to create brand",
+      "timestamp": "2025-09-18T23:47:37.505530",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Brand: Roche",
+      "success": false,
+      "details": "Failed to create brand",
+      "timestamp": "2025-09-18T23:47:37.515904",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Brand: Abbott",
+      "success": false,
+      "details": "Failed to create brand",
+      "timestamp": "2025-09-18T23:47:37.522870",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Attribute: Size",
+      "success": false,
+      "details": "Failed to create attribute",
+      "timestamp": "2025-09-18T23:47:37.549950",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Attribute: Color",
+      "success": false,
+      "details": "Failed to create attribute",
+      "timestamp": "2025-09-18T23:47:37.557024",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Attribute: Dosage",
+      "success": false,
+      "details": "Failed to create attribute",
+      "timestamp": "2025-09-18T23:47:37.574224",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Attribute: Pack Size",
+      "success": false,
+      "details": "Failed to create attribute",
+      "timestamp": "2025-09-18T23:47:37.588538",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Attribute: Strength",
+      "success": false,
+      "details": "Failed to create attribute",
+      "timestamp": "2025-09-18T23:47:37.603998",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Attribute Values",
+      "success": false,
+      "details": "No attributes available to create values",
+      "timestamp": "2025-09-18T23:47:37.606187",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Medicine Product (admin)",
+      "success": false,
+      "details": "Categories or brands not available",
+      "timestamp": "2025-09-18T23:47:37.612510",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Medicine Product (supplier)",
+      "success": false,
+      "details": "Categories or brands not available",
+      "timestamp": "2025-09-18T23:47:37.614845",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Equipment Product (admin)",
+      "success": false,
+      "details": "Categories or brands not available",
+      "timestamp": "2025-09-18T23:47:37.616556",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Equipment Product (supplier)",
+      "success": false,
+      "details": "Categories or brands not available",
+      "timestamp": "2025-09-18T23:47:37.617246",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Pathology Product (admin)",
+      "success": false,
+      "details": "Categories or brands not available",
+      "timestamp": "2025-09-18T23:47:37.619302",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Pathology Product (supplier)",
+      "success": false,
+      "details": "Categories or brands not available",
+      "timestamp": "2025-09-18T23:47:37.620127",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Product Variants",
+      "success": false,
+      "details": "Products or attribute values not available",
+      "timestamp": "2025-09-18T23:47:37.622432",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Product Images",
+      "success": false,
+      "details": "No products available",
+      "timestamp": "2025-09-18T23:47:37.623121",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Supplier Prices",
+      "success": false,
+      "details": "No variants available",
+      "timestamp": "2025-09-18T23:47:37.623639",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Create Product Reviews",
+      "success": false,
+      "details": "No products available",
+      "timestamp": "2025-09-18T23:47:37.624145",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Unauthorized Category Creation",
+      "success": true,
+      "details": "Correctly blocked unauthorized access",
+      "timestamp": "2025-09-18T23:47:37.636903",
+      "status_code": null,
+      "response_data": null
+    },
+    {
+      "test_name": "Unauthenticated Product Creation",
+      "success": true,
+      "details": "Correctly blocked unauthenticated access",
+      "timestamp": "2025-09-18T23:47:37.647554",
+      "status_code": null,
+      "response_data": null
+    }
+  ]
+}

@@ -228,7 +228,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductImage
-        fields = ['id', 'image', 'alt_text', 'order', 'variant', 'image_file']
+        fields = ['id', 'product', 'image', 'alt_text', 'order', 'variant', 'image_file']
 
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)
