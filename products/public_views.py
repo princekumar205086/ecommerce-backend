@@ -484,6 +484,7 @@ class PublicProductsByCategory(MedixMallFilterMixin, MedixMallContextMixin, gene
     """
     Public endpoint to get products by category
     Respects user's MedixMall mode preference
+    Enhanced to show parent category info, subcategories, and products from all subcategories
     """
     serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
@@ -492,8 +493,8 @@ class PublicProductsByCategory(MedixMallFilterMixin, MedixMallContextMixin, gene
     ordering = ['-created_at']
 
     @swagger_auto_schema(
-        operation_description="Get all products in a specific category. Respects user's MedixMall mode preference.",
-        operation_summary="Products by Category (Public)",
+        operation_description="Get all products in a specific category. If the category has subcategories, includes products from all subcategories too. Respects user's MedixMall mode preference.",
+        operation_summary="Products by Category (Public) - Enhanced with Subcategories",
         tags=['Public - Products'],
         manual_parameters=[
             openapi.Parameter('ordering', openapi.IN_QUERY, description="Order by field", type=openapi.TYPE_STRING, enum=['price', '-price', 'created_at', '-created_at', 'name', '-name']),
@@ -502,7 +503,17 @@ class PublicProductsByCategory(MedixMallFilterMixin, MedixMallContextMixin, gene
         responses={
             200: openapi.Response(
                 'Success', 
-                PublicProductSerializer(many=True),
+                openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'category': openapi.Schema(type=openapi.TYPE_OBJECT, description="Parent category information"),
+                        'subcategories': openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Schema(type=openapi.TYPE_OBJECT), description="List of subcategories"),
+                        'count': openapi.Schema(type=openapi.TYPE_INTEGER, description="Total products count"),
+                        'next': openapi.Schema(type=openapi.TYPE_STRING, description="Next page URL"),
+                        'previous': openapi.Schema(type=openapi.TYPE_STRING, description="Previous page URL"),
+                        'results': openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Schema(type=openapi.TYPE_OBJECT), description="Product list"),
+                    }
+                ),
                 headers={
                     'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
                 }
@@ -513,9 +524,87 @@ class PublicProductsByCategory(MedixMallFilterMixin, MedixMallContextMixin, gene
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
+        from .models import ProductCategory
+        
         category_id = self.kwargs.get('category_id')
+        
+        # Get the parent category
+        try:
+            parent_category = ProductCategory.objects.get(id=category_id, is_publish=True)
+        except ProductCategory.DoesNotExist:
+            from django.http import Http404
+            raise Http404("Category not found")
+        
+        # Get all subcategories (children of this category)
+        subcategory_ids = list(ProductCategory.objects.filter(
+            parent_id=category_id,
+            is_publish=True
+        ).values_list('id', flat=True))
+        
+        # Create a list of all category IDs to search in (parent + subcategories)
+        all_category_ids = [category_id] + subcategory_ids
+        
+        # Get base queryset with MedixMall filtering
         queryset = super().get_queryset()
-        return queryset.filter(category_id=category_id)
+        
+        # Filter products from parent category and all subcategories
+        return queryset.filter(category_id__in=all_category_ids)
+    
+    def list(self, request, *args, **kwargs):
+        """Enhanced list method to include category and subcategory information"""
+        from .models import ProductCategory
+        
+        category_id = self.kwargs.get('category_id')
+        
+        # Get the parent category
+        try:
+            parent_category = ProductCategory.objects.get(id=category_id, is_publish=True)
+        except ProductCategory.DoesNotExist:
+            from django.http import Http404
+            raise Http404("Category not found")
+        
+        # Get all subcategories
+        subcategories = ProductCategory.objects.filter(
+            parent_id=category_id,
+            is_publish=True
+        ).order_by('name')
+        
+        # Get the standard product list response
+        response = super().list(request, *args, **kwargs)
+        
+        # Enhance the response with category and subcategory information
+        response.data = {
+            'category': {
+                'id': parent_category.id,
+                'name': parent_category.name,
+                'slug': parent_category.slug,
+                'icon': parent_category.icon,
+                'is_parent': subcategories.exists(),
+                'total_subcategories': subcategories.count()
+            },
+            'subcategories': [
+                {
+                    'id': subcat.id,
+                    'name': subcat.name,
+                    'slug': subcat.slug,
+                    'icon': subcat.icon,
+                    'product_count': self.get_products_count_for_category(subcat.id)
+                }
+                for subcat in subcategories
+            ],
+            'count': response.data['count'],
+            'next': response.data['next'],
+            'previous': response.data['previous'],
+            'results': response.data['results'],
+        }
+        
+        return response
+    
+    def get_products_count_for_category(self, category_id):
+        """Get product count for a specific category"""
+        # Use the same base queryset logic to respect MedixMall mode
+        base_queryset = super().get_queryset()
+        return base_queryset.filter(category_id=category_id).count()
 
 
 class PublicProductsByBrand(MedixMallFilterMixin, MedixMallContextMixin, generics.ListAPIView):
