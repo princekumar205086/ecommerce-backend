@@ -16,13 +16,56 @@ class MedixMallFilterMixin:
             return request.session.get('medixmall_mode', False)
     
     def get_queryset(self):
-        # Define base queryset for Product model
+        # Define base queryset for Product model (lightweight for list views)
         from .models import Product
         queryset = Product.objects.filter(
             status='published',
             is_publish=True,
-            stock__gt=0
-        ).prefetch_related('variants', 'images').select_related('category', 'brand')
+            stock__gt=0,
+            created_by__is_on_duty=True  # Only show products from suppliers who are on duty
+        ).select_related('category', 'brand', 'created_by')
+        
+        # Apply MedixMall filtering for both authenticated and anonymous users
+        if self.get_medixmall_mode(self.request):
+            # Filter to show only medicine products
+            queryset = queryset.filter(product_type='medicine')
+        
+        return queryset
+
+
+class MedixMallDetailMixin:
+    """
+    Mixin for MedixMall filtering and mode detection with heavy prefetching for detail views
+    """
+    
+    def get_medixmall_mode(self, request):
+        """
+        Determine if user is in MedixMall mode
+        """
+        # For authenticated users, check database settings
+        if request.user.is_authenticated:
+            try:
+                from accounts.models import UserProfile
+                user_profile = UserProfile.objects.get(user=request.user)
+                return user_profile.medixmall_mode
+            except:
+                return False
+        else:
+            return request.session.get('medixmall_mode', False)
+    
+    def get_queryset(self):
+        # Define base queryset for Product model (with heavy prefetching for detail views)
+        from .models import Product
+        queryset = Product.objects.filter(
+            status='published',
+            is_publish=True,
+            stock__gt=0,
+            created_by__is_on_duty=True  # Only show products from suppliers who are on duty
+        ).prefetch_related(
+            'variants__attributes__attribute',
+            'images', 
+            'reviews'
+        ).select_related('category', 'brand', 'created_by')
         
         # Apply MedixMall filtering for both authenticated and anonymous users
         if self.get_medixmall_mode(self.request):

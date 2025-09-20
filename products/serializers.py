@@ -535,6 +535,27 @@ class PublicProductSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
+# Lightweight Public Product List Serializer (for list views, search, filters)
+# Excludes variants, images, reviews, supplier_prices for better performance
+class PublicProductListSerializer(serializers.ModelSerializer):
+    category = SimpleCategorySerializer(read_only=True)
+    brand = SimpleBrandSerializer(read_only=True)
+    
+    # Type-specific details
+    medicine_details = MedicineDetailsSerializer(read_only=True)
+    equipment_details = EquipmentDetailsSerializer(read_only=True)
+    pathology_details = PathologyDetailsSerializer(read_only=True)
+
+    class Meta:
+        model = Product
+        fields = [
+            'id', 'name', 'slug', 'sku', 'description', 'category', 'brand', 
+            'price', 'stock', 'product_type', 'created_at', 'updated_at', 
+            'status', 'is_publish', 'specifications', 'image',
+            'medicine_details', 'equipment_details', 'pathology_details'
+        ]
+
+
 # Medicine Product Serializer
 class MedicineBaseProductSerializer(BaseProductSerializer):
     medicine_details = MedicineDetailsSerializer()

@@ -5,7 +5,8 @@ from .views import (
     SaveAddressFromCheckoutView, MedixMallModeToggleView, CustomTokenRefreshView,
     EmailVerificationView, ResendVerificationView, OTPRequestView, OTPVerificationView,
     PasswordResetRequestView, PasswordResetConfirmView, ChangePasswordView,
-    OTPLoginRequestView, OTPLoginVerifyView, LoginChoiceView, ResendOTPView
+    OTPLoginRequestView, OTPLoginVerifyView, LoginChoiceView, ResendOTPView,
+    SupplierDutyStatusView, SupplierDutyToggleView
 )
 
 urlpatterns = [
@@ -41,4 +42,8 @@ urlpatterns = [
     path('password/reset-request/', PasswordResetRequestView.as_view(), name='password_reset_request'),
     path('password/reset-confirm/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password/change/', ChangePasswordView.as_view(), name='change_password'),
+    
+    # Supplier Duty Management
+    path('supplier/duty/status/', SupplierDutyStatusView.as_view(), name='supplier_duty_status'),
+    path('supplier/duty/toggle/', SupplierDutyToggleView.as_view(), name='supplier_duty_toggle'),
 ]

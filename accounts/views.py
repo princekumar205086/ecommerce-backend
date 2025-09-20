@@ -1356,3 +1356,115 @@ class LoginChoiceView(APIView):
                     }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Supplier Duty Management Views
+class SupplierDutyStatusView(APIView):
+    """
+    Get current duty status for suppliers
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_description="Get current duty status. Only suppliers can access this endpoint.",
+        operation_summary="Get Supplier Duty Status",
+        tags=['Supplier - Duty Management'],
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        responses={
+            200: openapi.Response(
+                'Success',
+                openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'is_on_duty': openapi.Schema(type=openapi.TYPE_BOOLEAN, description="Current duty status"),
+                        'message': openapi.Schema(type=openapi.TYPE_STRING, description="Status message"),
+                    }
+                )
+            ),
+            403: openapi.Response('Forbidden - Only suppliers can access'),
+        }
+    )
+    def get(self, request):
+        if request.user.role != 'supplier':
+            return Response({
+                'error': 'Only suppliers can access duty status'
+            }, status=status.HTTP_403_FORBIDDEN)
+        
+        return Response({
+            'is_on_duty': request.user.is_on_duty,
+            'message': f"You are currently {'ON DUTY' if request.user.is_on_duty else 'OFF DUTY'}. Your products are {'visible' if request.user.is_on_duty else 'hidden'} to customers."
+        })
+
+
+class SupplierDutyToggleView(APIView):
+    """
+    Toggle supplier duty status (on/off)
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_description="Toggle duty status. When OFF, supplier's products won't show in public listings. When ON, products are visible.",
+        operation_summary="Toggle Supplier Duty Status",
+        tags=['Supplier - Duty Management'],
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'is_on_duty': openapi.Schema(
+                    type=openapi.TYPE_BOOLEAN, 
+                    description="Set duty status: true for ON DUTY, false for OFF DUTY",
+                    example=True
+                ),
+            },
+            required=['is_on_duty']
+        ),
+        responses={
+            200: openapi.Response(
+                'Success',
+                openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'is_on_duty': openapi.Schema(type=openapi.TYPE_BOOLEAN, description="New duty status"),
+                        'message': openapi.Schema(type=openapi.TYPE_STRING, description="Status change message"),
+                        'products_affected': openapi.Schema(type=openapi.TYPE_INTEGER, description="Number of products affected"),
+                    }
+                )
+            ),
+            403: openapi.Response('Forbidden - Only suppliers can toggle duty'),
+            400: openapi.Response('Bad Request - Invalid data'),
+        }
+    )
+    def post(self, request):
+        if request.user.role != 'supplier':
+            return Response({
+                'error': 'Only suppliers can toggle duty status'
+            }, status=status.HTTP_403_FORBIDDEN)
+        
+        is_on_duty = request.data.get('is_on_duty')
+        if is_on_duty is None:
+            return Response({
+                'error': 'is_on_duty field is required (true/false)'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Count supplier's products
+        from products.models import Product
+        products_count = Product.objects.filter(
+            created_by=request.user,
+            status='published',
+            is_publish=True
+        ).count()
+        
+        # Update duty status
+        request.user.is_on_duty = bool(is_on_duty)
+        request.user.save()
+        
+        status_text = "ON DUTY" if is_on_duty else "OFF DUTY"
+        visibility_text = "visible to" if is_on_duty else "hidden from"
+        
+        return Response({
+            'is_on_duty': request.user.is_on_duty,
+            'message': f"You are now {status_text}. Your {products_count} products are now {visibility_text} customers.",
+            'products_affected': products_count
+        })

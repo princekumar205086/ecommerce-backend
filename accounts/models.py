@@ -146,6 +146,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text="When enabled, user only sees medicine products (MedixMall mode)"
     )
+    
+    # Supplier duty status - controls whether supplier's products are visible
+    is_on_duty = models.BooleanField(
+        default=True,
+        help_text="For suppliers: When OFF, their products won't show in public listings. When ON, products are visible."
+    )
 
     objects = UserManager()
 

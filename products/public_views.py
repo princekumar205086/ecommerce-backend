@@ -13,10 +13,10 @@ from .models import (
     ProductCategory, Product, ProductReview, Brand, ProductVariant
 )
 from .serializers import (
-    ProductCategorySerializer, BaseProductSerializer, PublicProductSerializer, ProductReviewSerializer,
-    BrandSerializer, ProductVariantSerializer
+    ProductCategorySerializer, BaseProductSerializer, PublicProductSerializer, PublicProductListSerializer, 
+    ProductReviewSerializer, BrandSerializer, ProductVariantSerializer
 )
-from .mixins import MedixMallFilterMixin, MedixMallContextMixin, EnterpriseSearchMixin
+from .mixins import MedixMallFilterMixin, MedixMallDetailMixin, MedixMallContextMixin, EnterpriseSearchMixin
 
 
 class PublicProductCategoryListView(generics.ListAPIView):
@@ -119,8 +119,9 @@ class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generic
     """
     Public endpoint to list all published products with filtering and search
     Respects user's MedixMall mode preference
+    Uses lightweight serializer for better performance (no variants, images, reviews)
     """
-    serializer_class = PublicProductSerializer
+    serializer_class = PublicProductListSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'brand', 'product_type']
@@ -177,10 +178,11 @@ class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generic
         return super().get_queryset()
 
 
-class PublicProductDetailView(MedixMallFilterMixin, MedixMallContextMixin, generics.RetrieveAPIView):
+class PublicProductDetailView(MedixMallDetailMixin, MedixMallContextMixin, generics.RetrieveAPIView):
     """
     Public endpoint to view individual product details
     Respects user's MedixMall mode preference
+    Includes full data: variants, images, reviews, supplier prices
     """
     serializer_class = PublicProductSerializer
     permission_classes = [permissions.AllowAny]
@@ -206,11 +208,6 @@ class PublicProductDetailView(MedixMallFilterMixin, MedixMallContextMixin, gener
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
-
-    def get_queryset(self):
-        # Use the mixin's queryset and filter further for product details
-        queryset = super().get_queryset()
-        return queryset.prefetch_related('variants', 'images', 'reviews')
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -364,7 +361,7 @@ class PublicProductSearchView(MedixMallFilterMixin, MedixMallContextMixin, Enter
         page_obj = paginator.get_page(page)
 
         # Serialize data
-        serializer = PublicProductSerializer(page_obj.object_list, many=True)
+        serializer = PublicProductListSerializer(page_obj.object_list, many=True)
 
         # Generate search suggestions
         search_suggestions = self.generate_search_suggestions(query, products)
@@ -448,8 +445,9 @@ class PublicFeaturedProductsView(MedixMallFilterMixin, MedixMallContextMixin, ge
     """
     Public endpoint for featured/trending products
     Respects user's MedixMall mode preference
+    Uses lightweight serializer for better performance
     """
-    serializer_class = PublicProductSerializer
+    serializer_class = PublicProductListSerializer
     permission_classes = [permissions.AllowAny]
 
     @swagger_auto_schema(
@@ -485,8 +483,9 @@ class PublicProductsByCategory(MedixMallFilterMixin, MedixMallContextMixin, gene
     Public endpoint to get products by category
     Respects user's MedixMall mode preference
     Enhanced to show parent category info, subcategories, and products from all subcategories
+    Uses lightweight serializer for better performance
     """
-    serializer_class = PublicProductSerializer
+    serializer_class = PublicProductListSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['price', 'created_at', 'name']
@@ -611,8 +610,9 @@ class PublicProductsByBrand(MedixMallFilterMixin, MedixMallContextMixin, generic
     """
     Public endpoint to get products by brand
     Respects user's MedixMall mode preference
+    Uses lightweight serializer for better performance
     """
-    serializer_class = PublicProductSerializer
+    serializer_class = PublicProductListSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['price', 'created_at', 'name']
@@ -649,8 +649,9 @@ class PublicProductsByType(MedixMallFilterMixin, MedixMallContextMixin, generics
     """
     Public endpoint to get products by product type (medicine, equipment, pathology)
     Respects user's MedixMall mode preference
+    Uses lightweight serializer for better performance
     """
-    serializer_class = PublicProductSerializer
+    serializer_class = PublicProductListSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['price', 'created_at', 'name']
