@@ -425,7 +425,7 @@ class BaseProductSerializer(serializers.ModelSerializer):
 
 # Public Product Serializer (for frontend with nested objects)
 class PublicProductSerializer(serializers.ModelSerializer):
-    variants = ProductVariantSerializer(many=True, read_only=True)
+    variants = serializers.SerializerMethodField()
     images = ProductImageSerializer(many=True, read_only=True)
     category = SimpleCategorySerializer(read_only=True)
     brand = SimpleBrandSerializer(read_only=True)
@@ -443,6 +443,14 @@ class PublicProductSerializer(serializers.ModelSerializer):
             'status', 'is_publish', 'specifications', 'variants', 'images', 'image',
             'medicine_details', 'equipment_details', 'pathology_details'
         ]
+
+    def get_variants(self, obj):
+        """Only return approved and active variants"""
+        approved_variants = obj.variants.filter(
+            status__in=['approved', 'published'], 
+            is_active=True
+        )
+        return ProductVariantSerializer(approved_variants, many=True).data
 
     def create(self, validated_data):
         image_file = validated_data.pop('image_file', None)

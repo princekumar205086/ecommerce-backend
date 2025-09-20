@@ -1,0 +1,375 @@
+{
+  "id": 459,
+  "name": "Multivitamin Tablets",
+  "slug": "multivitamin-tablets-2",
+  "sku": "MULTIVITAMIN-TABLETS-D0BBA5FA",
+  "description": "High quality Mixed Vitamins & Minerals in tablet form. 30 tablets per pack.",
+  "category": {
+    "id": 8,
+    "name": "Prescription Medicines",
+    "icon": "https://ik.imagekit.io/medixmall/categories_default_24p8dB5pun.png",
+    "slug": "prescription-medicines"
+  },
+  "brand": {
+    "id": 16,
+    "name": "Himalaya",
+    "image": "https://ik.imagekit.io/medixmallstore/__brand____Himalaya____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_himalaya_wAqTV1Az1j.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true"
+  },
+  "price": "430.67",
+  "stock": 93,
+  "product_type": "medicine",
+  "created_at": "2025-09-11T00:50:30.671053+05:30",
+  "updated_at": "2025-09-11T00:50:30.671123+05:30",
+  "status": "published",
+  "is_publish": true,
+  "specifications": {
+    "dosage_form": "tablet",
+    "pack_size": "30 tablets",
+    "storage": "Store in cool, dry place"
+  },
+  "variants": [
+    {
+      "id": 433,
+      "product": 459,
+      "sku": "VAR14501",
+      "price": "1045.91",
+      "additional_price": "0.00",
+      "total_price": "1045.91",
+      "stock": 102,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 1,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Small"
+        },
+        {
+          "id": 2,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Grey"
+        },
+        {
+          "id": 3,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Deluxe"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:55.265758+05:30",
+      "updated_at": "2025-09-20T23:24:39.776356+05:30"
+    },
+    {
+      "id": 434,
+      "product": 459,
+      "sku": "VAR14502",
+      "price": "1566.32",
+      "additional_price": "0.00",
+      "total_price": "1566.32",
+      "stock": 27,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 3,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Deluxe"
+        },
+        {
+          "id": 4,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Medium"
+        },
+        {
+          "id": 8,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Black"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:55.322052+05:30",
+      "updated_at": "2025-09-20T23:24:39.789169+05:30"
+    },
+    {
+      "id": 435,
+      "product": 459,
+      "sku": "VAR14503",
+      "price": "2138.80",
+      "additional_price": "0.00",
+      "total_price": "2138.80",
+      "stock": 49,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 3,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Deluxe"
+        },
+        {
+          "id": 7,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Large"
+        },
+        {
+          "id": 8,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Black"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:55.390132+05:30",
+      "updated_at": "2025-09-20T23:24:39.805318+05:30"
+    },
+    {
+      "id": 496,
+      "product": 459,
+      "sku": "VAR16601",
+      "price": "282.22",
+      "additional_price": "0.00",
+      "total_price": "282.22",
+      "stock": 96,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 1,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Small"
+        },
+        {
+          "id": 3,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Deluxe"
+        },
+        {
+          "id": 8,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Black"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:58.901050+05:30",
+      "updated_at": "2025-09-20T23:24:41.035127+05:30"
+    },
+    {
+      "id": 497,
+      "product": 459,
+      "sku": "VAR16602",
+      "price": "1069.69",
+      "additional_price": "0.00",
+      "total_price": "1069.69",
+      "stock": 90,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 2,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Grey"
+        },
+        {
+          "id": 4,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Medium"
+        },
+        {
+          "id": 10,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Premium"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:58.944236+05:30",
+      "updated_at": "2025-09-20T23:24:41.045547+05:30"
+    },
+    {
+      "id": 498,
+      "product": 459,
+      "sku": "VAR16603",
+      "price": "2003.86",
+      "additional_price": "0.00",
+      "total_price": "2003.86",
+      "stock": 41,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 2,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Grey"
+        },
+        {
+          "id": 7,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Large"
+        },
+        {
+          "id": 10,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Premium"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:58.986140+05:30",
+      "updated_at": "2025-09-20T23:24:41.060686+05:30"
+    },
+    {
+      "id": 499,
+      "product": 459,
+      "sku": "VAR16701",
+      "price": "1015.55",
+      "additional_price": "0.00",
+      "total_price": "1015.55",
+      "stock": 58,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 1,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Small"
+        },
+        {
+          "id": 9,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Silver"
+        },
+        {
+          "id": 10,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Premium"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:59.029654+05:30",
+      "updated_at": "2025-09-20T23:24:41.078794+05:30"
+    },
+    {
+      "id": 500,
+      "product": 459,
+      "sku": "VAR16702",
+      "price": "1103.76",
+      "additional_price": "0.00",
+      "total_price": "1103.76",
+      "stock": 87,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 3,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Deluxe"
+        },
+        {
+          "id": 4,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Medium"
+        },
+        {
+          "id": 11,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "White"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:59.073046+05:30",
+      "updated_at": "2025-09-20T23:24:41.091194+05:30"
+    },
+    {
+      "id": 501,
+      "product": 459,
+      "sku": "VAR16703",
+      "price": "957.77",
+      "additional_price": "0.00",
+      "total_price": "957.77",
+      "stock": 14,
+      "is_active": true,
+      "attributes": [
+        {
+          "id": 7,
+          "attribute": 1,
+          "attribute_name": "Pack Size",
+          "value": "Large"
+        },
+        {
+          "id": 8,
+          "attribute": 2,
+          "attribute_name": "Color",
+          "value": "Black"
+        },
+        {
+          "id": 10,
+          "attribute": 3,
+          "attribute_name": "Type",
+          "value": "Premium"
+        }
+      ],
+      "created_at": "2025-09-11T00:50:59.257205+05:30",
+      "updated_at": "2025-09-20T23:24:41.103053+05:30"
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "product": 459,
+      "image": "https://picsum.photos/400/400?random=4590",
+      "alt_text": "Multivitamin Tablets - Image 1",
+      "order": 0,
+      "variant": null
+    },
+    {
+      "id": 4,
+      "product": 459,
+      "image": "https://picsum.photos/400/400?random=459433",
+      "alt_text": "Multivitamin Tablets - Variant 433",
+      "order": 0,
+      "variant": 433
+    },
+    {
+      "id": 5,
+      "product": 459,
+      "image": "https://picsum.photos/400/400?random=459434",
+      "alt_text": "Multivitamin Tablets - Variant 434",
+      "order": 0,
+      "variant": 434
+    },
+    {
+      "id": 2,
+      "product": 459,
+      "image": "https://picsum.photos/400/400?random=4591",
+      "alt_text": "Multivitamin Tablets - Image 2",
+      "order": 1,
+      "variant": null
+    },
+    {
+      "id": 3,
+      "product": 459,
+      "image": "https://picsum.photos/400/400?random=4592",
+      "alt_text": "Multivitamin Tablets - Image 3",
+      "order": 2,
+      "variant": null
+    }
+  ],
+  "image": "https://ik.imagekit.io/medixmall/__product____Multivitamin_Tablets____type____product_image____product_type____medicine____source____default_product_image___products_product_multivitamin_tablets_default_x_seFc7Dh.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+  "medicine_details": {
+    "composition": "Mixed Vitamins & Minerals",
+    "quantity": "30 tablets",
+    "manufacturer": "Global Meds Inc",
+    "expiry_date": null,
+    "batch_number": "BATCH000167",
+    "prescription_required": false,
+    "form": "tablet",
+    "pack_size": "30 tablets"
+  },
+  "equipment_details": null,
+  "pathology_details": null
+}
