@@ -11,6 +11,18 @@ class IsSupplierOrAdmin(BasePermission):
         return request.user.is_authenticated and request.user.role in ['supplier', 'admin']
 
 
+class IsRXVerifier(BasePermission):
+    """Permission for RX verifiers"""
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role == 'rx_verifier'
+
+
+class IsRXVerifierOrAdmin(BasePermission):
+    """Permission for RX verifiers and admins"""
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role in ['rx_verifier', 'admin']
+
+
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
@@ -21,3 +33,31 @@ class IsAdminOrReadOnly(BasePermission):
 class IsOwnerOrAdmin(BasePermission):
     def has_object_permission(self, request, view, obj):
         return request.user.is_staff or obj.user == request.user
+
+
+class IsOwnerOrRXVerifierOrAdmin(BasePermission):
+    """Allow object owner, RX verifiers, or admins"""
+    def has_object_permission(self, request, view, obj):
+        # Check if user is admin or RX verifier
+        if request.user.role in ['admin', 'rx_verifier']:
+            return True
+        
+        # Check if user is the owner (for customer accessing their own prescriptions)
+        if hasattr(obj, 'customer'):
+            return obj.customer == request.user
+        elif hasattr(obj, 'user'):
+            return obj.user == request.user
+        
+        return False
+
+
+class CanVerifyPrescription(BasePermission):
+    """Permission to verify prescriptions - only for RX verifiers and admins"""
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role in ['rx_verifier', 'admin']
+    
+    def has_object_permission(self, request, view, obj):
+        # Only RX verifiers and admins can verify prescriptions
+        if request.user.role in ['rx_verifier', 'admin']:
+            return True
+        return False

@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-09-22T01:14:59.511950",
+  "tests_run": 6,
+  "tests_passed": 3,
+  "tests_failed": 3,
+  "detailed_results": {
+    "ImageKit Integration Test": {
+      "status": "FAILED",
+      "error": "{'prescription_file': ErrorDetail(string=\"File upload failed: name 'logger' is not defined\", code='invalid')}"
+    },
+    "Advanced Optimization Test": {
+      "status": "FAILED",
+      "error": "type object 'RXSystemOptimizer' has no attribute 'bulk_update_workloads'"
+    },
+    "Security Audit Test": {
+      "status": "PASSED",
+      "file_audit_score": 80,
+      "session_audit_score": 80,
+      "api_access_granted": true,
+      "overall_security_score": 95.0
+    },
+    "Comprehensive Validation Test": {
+      "status": "PASSED",
+      "validation_score": 90,
+      "data_quality_score": 55.55555555555555,
+      "is_valid": true,
+      "total_errors": 1,
+      "total_warnings": 2
+    },
+    "End-to-End Workflow Test": {
+      "status": "FAILED",
+      "error": "{'prescription_file': ErrorDetail(string=\"File upload failed: name 'logger' is not defined\", code='invalid')}"
+    },
+    "Performance Benchmarks Test": {
+      "status": "PASSED",
+      "performance_metrics": {
+        "avg_workload_stats_time": 0.0022447586059570314,
+        "avg_health_metrics_time": 4.963874816894531e-05,
+        "avg_security_audit_time": 0.003923988342285157,
+        "avg_validation_time": 0.01139693260192871
+      },
+      "thresholds": {
+        "avg_workload_stats_time": 0.5,
+        "avg_health_metrics_time": 1.0,
+        "avg_security_audit_time": 0.3,
+        "avg_validation_time": 0.5
+      }
+    }
+  },
+  "performance_metrics": {
+    "avg_workload_stats_time": 0.0022447586059570314,
+    "avg_health_metrics_time": 4.963874816894531e-05,
+    "avg_security_audit_time": 0.003923988342285157,
+    "avg_validation_time": 0.01139693260192871
+  },
+  "total_execution_time": 6.511,
+  "success_rate": 50.0
+}

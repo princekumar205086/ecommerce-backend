@@ -119,6 +119,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('user', 'User'),
         ('supplier', 'Supplier'),
         ('admin', 'Admin'),
+        ('rx_verifier', 'RX Verifier'),
     )
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=100)
@@ -387,6 +388,163 @@ Contact Support: support@medixmall.com
             logger = logging.getLogger(__name__)
             logger.error(f"❌ Failed to send welcome email to {self.email}: {str(e)}")
             return False, f"Failed to send welcome email: {str(e)}"
+
+    def send_rx_verifier_credentials(self, password):
+        """Send RX verifier account credentials via email"""
+        if self.role != 'rx_verifier':
+            return False, "This method is only for RX verifier accounts"
+        
+        subject = '🔐 MedixMall RX Verifier Account - Login Credentials'
+        message = f"""
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #e53e3e; margin-bottom: 10px;">🔐 RX Verifier Account</h1>
+            <p style="color: #666; font-size: 18px;">MedixMall Prescription Verification System</p>
+        </div>
+        
+        <div style="background-color: #fff5f5; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #e53e3e;">
+            <h2 style="color: #e53e3e; margin-bottom: 15px;">Hello {self.full_name}! 👨‍⚕️</h2>
+            <p>Your RX Verifier account has been successfully created by the admin team. You now have access to the MedixMall prescription verification system.</p>
+        </div>
+        
+        <div style="background-color: #f7fafc; padding: 25px; border-radius: 8px; margin-bottom: 25px;">
+            <h3 style="color: #2c5282; margin-bottom: 15px;">🔑 Your Login Credentials</h3>
+            <div style="background-color: white; padding: 20px; border-radius: 6px; margin: 15px 0; border: 2px solid #e53e3e;">
+                <p style="margin: 5px 0;"><strong>Email/Username:</strong> <code style="background-color: #f1f5f9; padding: 4px 8px; border-radius: 4px; font-family: 'Courier New', monospace;">{self.email}</code></p>
+                <p style="margin: 5px 0;"><strong>Password:</strong> <code style="background-color: #f1f5f9; padding: 4px 8px; border-radius: 4px; font-family: 'Courier New', monospace;">{password}</code></p>
+                <p style="margin: 5px 0;"><strong>Role:</strong> <span style="background-color: #e53e3e; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px;">RX VERIFIER</span></p>
+            </div>
+            <div style="background-color: #fff3cd; padding: 15px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #ffc107;">
+                <p style="margin: 0; color: #856404;"><strong>⚠️ Security Notice:</strong> Please change your password after first login for security purposes.</p>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 25px;">
+            <h3 style="color: #2c5282;">📋 Your Responsibilities:</h3>
+            <ul style="color: #666;">
+                <li>🔍 Review and verify prescription uploads</li>
+                <li>✅ Approve or reject prescription requests</li>
+                <li>📝 Add verification notes and comments</li>
+                <li>🕒 Maintain timely response to pending verifications</li>
+                <li>📞 Contact customers for clarification when needed</li>
+            </ul>
+        </div>
+        
+        <div style="background-color: #e6fffa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+            <h3 style="color: #2c5282; margin-bottom: 10px;">🌐 Access Information</h3>
+            <p><strong>Login URL:</strong> <a href="https://backend.okpuja.in/api/accounts/rx-verifier/login/" style="color: #2c5282;">RX Verifier Portal</a></p>
+            <p><strong>System URL:</strong> <a href="https://backend.okpuja.in/rx-upload/" style="color: #2c5282;">Prescription Management System</a></p>
+            <p style="font-size: 14px; color: #666;">*Bookmark these URLs for easy access</p>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 25px;">
+            <a href="https://backend.okpuja.in/api/accounts/rx-verifier/login/" style="background-color: #e53e3e; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Login to RX Verifier Portal</a>
+        </div>
+        
+        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+            <h3 style="color: #495057;">📱 Quick Start Guide:</h3>
+            <ol style="color: #666; margin: 10px 0;">
+                <li>Click the login button above or visit the login URL</li>
+                <li>Enter your email and password</li>
+                <li>Change your password in profile settings</li>
+                <li>Start reviewing pending prescription uploads</li>
+                <li>Use the verification dashboard to manage your workload</li>
+            </ol>
+        </div>
+        
+        <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 30px;">
+            <h3 style="color: #2c5282;">🆘 Need Support?</h3>
+            <p>For technical issues or questions about the verification system:</p>
+            <ul style="color: #666;">
+                <li>📧 Email: rx-support@medixmall.com</li>
+                <li>📞 Phone: +91 8002-8002-80 (Ext: 101)</li>
+                <li>💬 Internal Chat: Available in the verifier portal</li>
+                <li>🎓 Training Materials: Access in your dashboard</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #666; font-size: 14px;">
+            <p><strong>Important:</strong> Keep your login credentials secure and do not share them with anyone.</p>
+            <p>Welcome to the MedixMall RX Verification Team!</p>
+            <p>Best regards,<br>MedixMall Admin Team</p>
+        </div>
+    </div>
+</body>
+</html>
+        """
+        
+        # Plain text version
+        plain_message = f"""
+MedixMall RX Verifier Account - Login Credentials
+
+Hello {self.full_name}!
+
+Your RX Verifier account has been successfully created by the admin team. You now have access to the MedixMall prescription verification system.
+
+Your Login Credentials:
+- Email/Username: {self.email}
+- Password: {password}
+- Role: RX VERIFIER
+
+Security Notice: Please change your password after first login for security purposes.
+
+Your Responsibilities:
+- Review and verify prescription uploads
+- Approve or reject prescription requests
+- Add verification notes and comments
+- Maintain timely response to pending verifications
+- Contact customers for clarification when needed
+
+Access Information:
+- Login URL: https://backend.okpuja.in/api/accounts/rx-verifier/login/
+- System URL: https://backend.okpuja.in/rx-upload/
+
+Quick Start Guide:
+1. Visit the login URL above
+2. Enter your email and password
+3. Change your password in profile settings
+4. Start reviewing pending prescription uploads
+5. Use the verification dashboard to manage your workload
+
+Need Support?
+For technical issues or questions about the verification system:
+- Email: rx-support@medixmall.com
+- Phone: +91 8002-8002-80 (Ext: 101)
+- Internal Chat: Available in the verifier portal
+- Training Materials: Access in your dashboard
+
+Important: Keep your login credentials secure and do not share them with anyone.
+
+Welcome to the MedixMall RX Verification Team!
+
+Best regards,
+MedixMall Admin Team
+        """
+        
+        try:
+            from django.core.mail import EmailMultiAlternatives
+            
+            email = EmailMultiAlternatives(
+                subject=subject,
+                body=plain_message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[self.email]
+            )
+            email.attach_alternative(message, "text/html")
+            email.send()
+            
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.info(f"✅ RX verifier credentials sent successfully to {self.email}")
+            return True, "RX verifier credentials sent successfully"
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"❌ Failed to send RX verifier credentials to {self.email}: {str(e)}")
+            return False, f"Failed to send RX verifier credentials: {str(e)}"
 
 
 class OTP(models.Model):

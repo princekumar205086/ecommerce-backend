@@ -48,6 +48,7 @@ urlpatterns = [
     path('api/payments/', include('payments.urls')),
     path('api/products/', include('products.urls')),
     path('api/reviews/', include('reviews.urls')),
+    path('api/rx-upload/', include('rx_upload.urls')),  # RX Verifier System
     path('api/shipping/', include('shipping.urls')),
     path('api/support/', include('support.urls')),
     path('api/wishlist/', include('wishlist.urls')),

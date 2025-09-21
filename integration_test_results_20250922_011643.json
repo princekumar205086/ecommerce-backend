@@ -1,0 +1,66 @@
+{
+  "timestamp": "2025-09-22T01:16:32.857207",
+  "tests_run": 6,
+  "tests_passed": 5,
+  "tests_failed": 1,
+  "detailed_results": {
+    "ImageKit Integration Test": {
+      "status": "FAILED",
+      "error": "Expected 'upload_to_imagekit' to have been called once. Called 0 times."
+    },
+    "Advanced Optimization Test": {
+      "status": "PASSED",
+      "execution_time": 0.168,
+      "workload_stats_keys": 21,
+      "health_metrics_keys": 4,
+      "background_task_status": "completed"
+    },
+    "Security Audit Test": {
+      "status": "PASSED",
+      "file_audit_score": 80,
+      "session_audit_score": 80,
+      "api_access_granted": true,
+      "overall_security_score": 95.0
+    },
+    "Comprehensive Validation Test": {
+      "status": "PASSED",
+      "validation_score": 90,
+      "data_quality_score": 55.55555555555555,
+      "is_valid": true,
+      "total_errors": 1,
+      "total_warnings": 2
+    },
+    "End-to-End Workflow Test": {
+      "status": "PASSED",
+      "workflow_time": 3.027,
+      "prescription_id": "fc7c243c-f040-4e44-bcde-301f7d1a7c3e",
+      "validation_score": 90,
+      "security_score": 80,
+      "verifier_assignment": "valid",
+      "optimization_completed": true
+    },
+    "Performance Benchmarks Test": {
+      "status": "PASSED",
+      "performance_metrics": {
+        "avg_workload_stats_time": 0.00011968612670898438,
+        "avg_health_metrics_time": 3.557205200195312e-05,
+        "avg_security_audit_time": 0.00713200569152832,
+        "avg_validation_time": 0.007420063018798828
+      },
+      "thresholds": {
+        "avg_workload_stats_time": 0.5,
+        "avg_health_metrics_time": 1.0,
+        "avg_security_audit_time": 0.3,
+        "avg_validation_time": 0.5
+      }
+    }
+  },
+  "performance_metrics": {
+    "avg_workload_stats_time": 0.00011968612670898438,
+    "avg_health_metrics_time": 3.557205200195312e-05,
+    "avg_security_audit_time": 0.00713200569152832,
+    "avg_validation_time": 0.007420063018798828
+  },
+  "total_execution_time": 6.358,
+  "success_rate": 83.33
+}

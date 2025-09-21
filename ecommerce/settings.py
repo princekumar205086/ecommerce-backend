@@ -12,6 +12,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
 
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
+# Frontend URL for email templates
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+
 # Use environment variable for ALLOWED_HOSTS or default to localhost
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -58,6 +61,7 @@ INSTALLED_APPS = [
     'shipping',
     'inventory',
     'reviews',
+    'rx_upload',  # RX Verifier System for prescription management
     'corsheaders',
     'taggit'
 ]
@@ -243,7 +247,7 @@ IMAGEKIT_PUBLIC_KEY = os.environ.get('IMAGEKIT_PUBLIC_KEY')
 IMAGEKIT_PRIVATE_KEY = os.environ.get('IMAGEKIT_PRIVATE_KEY')
 
 # Email smtp Configuration
-
+# SMTP backend for production
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -251,6 +255,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', os.environ.get('EMAIL_HOST_USER', 'medixmallstore@gmail.com'))
+
+# For testing only: Use console backend to avoid Gmail limits
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Twilio SMS Configuration
 TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
