@@ -27,6 +27,7 @@ class IsUserOrSupplier(IsAuthenticated):
 
 
 class CartView(generics.RetrieveAPIView):
+    """Get user's cart with enhanced variant information"""
     serializer_class = CartSerializer
     permission_classes = [IsUserOrSupplier]
 
@@ -36,34 +37,26 @@ class CartView(generics.RetrieveAPIView):
 
 
 class AddToCartView(generics.CreateAPIView):
+    """Add item to cart with enhanced variant validation"""
     serializer_class = AddToCartSerializer
     permission_classes = [IsUserOrSupplier]
 
     def create(self, request, *args, **kwargs):
         cart = Cart.objects.get_or_create(user=request.user)[0]
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        product = get_object_or_404(
-            Product,
-            id=serializer.validated_data['product_id']
-        )
-        variant_id = serializer.validated_data.get('variant_id')
-        quantity = serializer.validated_data.get('quantity', 1)
-
-        variant = None
-        if variant_id:
-            variant = get_object_or_404(
-                ProductVariant,
-                id=variant_id
-            )
-            if variant.product != product:
-                return Response(
-                    {"error": "Variant does not belong to product"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         try:
+            product = get_object_or_404(Product, id=serializer.validated_data['product_id'])
+            variant_id = serializer.validated_data.get('variant_id')
+            quantity = serializer.validated_data.get('quantity', 1)
+
+            variant = None
+            if variant_id:
+                variant = get_object_or_404(ProductVariant, id=variant_id)
+
             cart_item, created = CartItem.objects.get_or_create(
                 cart=cart,
                 product=product,
@@ -76,23 +69,29 @@ class AddToCartView(generics.CreateAPIView):
                 cart_item.save()
 
             return Response(
-                {"message": "Item added to cart"},
+                {"message": "Item added to cart successfully"},
                 status=status.HTTP_201_CREATED if created else status.HTTP_200_OK
             )
+
         except ValidationError as e:
             return Response(
                 {'error': str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
+        except Exception as e:
+            return Response(
+                {'error': 'An unexpected error occurred'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
 
 class UpdateCartItemView(generics.UpdateAPIView):
+    """Update cart item with enhanced validation"""
     serializer_class = UpdateCartItemSerializer
     permission_classes = [IsUserOrSupplier]
     lookup_url_kwarg = 'pk'
 
     def get_queryset(self):
-        # Return an empty queryset during schema generation
         if getattr(self, 'swagger_fake_view', False):
             return CartItem.objects.none()
         return CartItem.objects.filter(cart__user=self.request.user)
@@ -101,14 +100,19 @@ class UpdateCartItemView(generics.UpdateAPIView):
         try:
             instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data)
-            serializer.is_valid(raise_exception=True)
+            
+            if not serializer.is_valid():
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            # Manual validation and update
+            # Update quantity
             instance.quantity = serializer.validated_data['quantity']
-            instance.full_clean()
             instance.save()
 
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response({
+                "message": "Cart item updated successfully",
+                "quantity": instance.quantity,
+                "total_price": instance.total_price
+            }, status=status.HTTP_200_OK)
 
         except CartItem.DoesNotExist:
             return Response(
@@ -123,11 +127,11 @@ class UpdateCartItemView(generics.UpdateAPIView):
 
 
 class RemoveFromCartView(generics.DestroyAPIView):
+    """Remove item from cart"""
     permission_classes = [IsUserOrSupplier]
     lookup_url_kwarg = 'pk'
 
     def get_queryset(self):
-        # Return an empty queryset during schema generation
         if getattr(self, 'swagger_fake_view', False):
             return CartItem.objects.none()
         return CartItem.objects.filter(cart__user=self.request.user)
@@ -136,7 +140,10 @@ class RemoveFromCartView(generics.DestroyAPIView):
         try:
             instance = self.get_object()
             self.perform_destroy(instance)
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {"message": "Item removed from cart successfully"},
+                status=status.HTTP_200_OK
+            )
         except CartItem.DoesNotExist:
             return Response(
                 {"error": "Cart item not found"},
@@ -145,11 +152,21 @@ class RemoveFromCartView(generics.DestroyAPIView):
 
 
 class ClearCartView(APIView):
+    """Clear all items from cart"""
     permission_classes = [IsUserOrSupplier]
 
     def delete(self, request):
         cart = Cart.objects.filter(user=request.user).first()
         if not cart:
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {"message": "Cart is already empty"},
+                status=status.HTTP_200_OK
+            )
+        
+        items_count = cart.items.count()
         cart.items.all().delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        return Response(
+            {"message": f"Cart cleared successfully. {items_count} items removed."},
+            status=status.HTTP_200_OK
+        )

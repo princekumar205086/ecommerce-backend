@@ -5,7 +5,7 @@ from django.db.models import Count, Sum, F
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, serializers
 from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
