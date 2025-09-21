@@ -14,7 +14,8 @@ class Command(BaseCommand):
                 'full_name': 'Test User',
                 'contact': '9876543210',
                 'role': 'user',
-                'is_active': True
+                'is_active': True,
+                'email_verified': True
             },
             {
                 'email': 'supplier@example.com',
@@ -22,7 +23,8 @@ class Command(BaseCommand):
                 'full_name': 'Test Supplier',
                 'contact': '0123456789',
                 'role': 'supplier',
-                'is_active': True
+                'is_active': True,
+                'email_verified': True
             }
         ]
 
