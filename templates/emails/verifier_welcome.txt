@@ -1,0 +1,33 @@
+Welcome to RX Verification System
+===================================
+
+Dear {{ verifier_name }},
+
+Welcome to the MedixMall RX Verification System! Your professional verifier account has been created successfully.
+
+YOUR LOGIN CREDENTIALS:
+========================
+Email: {{ verifier_email }}
+Password: {{ temporary_password }}
+
+LOGIN URL: {{ login_url }}
+
+SECURITY NOTICE:
+================
+- This is a temporary password - change it on first login
+- Never share your credentials with anyone
+- Always log out when finished working
+- Report any suspicious activity immediately
+
+NEED HELP?
+==========
+Admin Email: {{ admin_email }}
+System URL: {{ login_url }}
+
+Thank you for joining our verification team!
+
+Best regards,
+MedixMall RX Verification System
+
+---
+This email was sent automatically. Please do not reply to this email.

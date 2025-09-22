@@ -41,7 +41,7 @@ EMAIL_HOST = smtp.gmail.com
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = medixmallstore@gmail.com
-EMAIL_HOST_PASSWORD = monb vbas djmw wmeh
+EMAIL_HOST_PASSWORD = your-new-app-password-here
 DEFAULT_FROM_EMAIL = medixmallstore@gmail.com
 DEBUG = False
 ```

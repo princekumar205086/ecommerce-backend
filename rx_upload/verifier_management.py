@@ -163,12 +163,12 @@ class VerifierAccountCreationSerializer(serializers.Serializer):
             # Email context
             context = {
                 'user': user,
-                'full_name': user.full_name,
+                'full_name': user.full_name or user.email,
                 'email': user.email,
                 'temporary_password': password,
-                'login_url': f"{settings.FRONTEND_URL}/rx-verifier/login",
+                'login_url': f"{getattr(settings, 'FRONTEND_URL', 'http://localhost:3000')}/rx-verifier/login",
                 'system_name': 'RX Verification System',
-                'support_email': getattr(settings, 'SUPPORT_EMAIL', 'support@example.com'),
+                'support_email': getattr(settings, 'SUPPORT_EMAIL', getattr(settings, 'DEFAULT_FROM_EMAIL', 'support@example.com')),
                 'creation_date': timezone.now().strftime('%B %d, %Y'),
                 'specialization': validated_data.get('specialization', ''),
                 'department': validated_data.get('department', ''),

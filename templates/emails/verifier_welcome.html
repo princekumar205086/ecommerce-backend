@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to RX Verification System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .header .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .welcome-message {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .credentials-box {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .credentials-box h3 {
+            color: #495057;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .credential-item {
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        .credential-label {
+            font-weight: 600;
+            color: #6c757d;
+            display: inline-block;
+            width: 100px;
+            text-align: left;
+        }
+        .credential-value {
+            font-weight: 700;
+            color: #212529;
+            background-color: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+        .login-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px 0;
+            transition: transform 0.2s;
+        }
+        .login-button:hover {
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+        .security-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 25px 0;
+            color: #856404;
+        }
+        .security-notice h4 {
+            margin-top: 0;
+            color: #856404;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 25px 30px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .support-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="icon">🏥</div>
+            <h1>Welcome to RX Verification System</h1>
+            <p>Your professional verification account is ready</p>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-message">
+                <p>Dear <strong>{{ verifier_name }}</strong>,</p>
+                <p>Welcome to the MedixMall RX Verification System! Your professional verifier account has been created successfully. You now have access to our secure prescription verification platform.</p>
+            </div>
+
+            <div class="credentials-box">
+                <h3>🔐 Your Login Credentials</h3>
+                <div class="credential-item">
+                    <span class="credential-label">Email:</span>
+                    <span class="credential-value">{{ verifier_email }}</span>
+                </div>
+                <div class="credential-item">
+                    <span class="credential-label">Password:</span>
+                    <span class="credential-value">{{ temporary_password }}</span>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="{{ login_url }}" class="login-button">
+                    🚀 Access Verification System
+                </a>
+            </div>
+
+            <div class="security-notice">
+                <h4>🔒 Security Notice</h4>
+                <ul>
+                    <li>This is a temporary password - you'll be prompted to change it on first login</li>
+                    <li>Never share your credentials with anyone</li>
+                    <li>Always log out when finished working</li>
+                    <li>Report any suspicious activity immediately</li>
+                </ul>
+            </div>
+
+            <div class="support-info">
+                <h4>📞 Need Help?</h4>
+                <p>If you have any questions or need assistance, please contact our admin team:</p>
+                <p><strong>Admin Email:</strong> {{ admin_email }}</p>
+                <p><strong>System URL:</strong> <a href="{{ login_url }}">{{ login_url }}</a></p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>MedixMall RX Verification System</strong></p>
+            <p>Secure • Professional • Trusted</p>
+            <p>This email was sent automatically. Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

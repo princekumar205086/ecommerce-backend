@@ -62,7 +62,7 @@ def check_production_env():
         print(f"Set these environment variables in your production platform:")
         
         if 'EMAIL_HOST_PASSWORD' in missing_vars:
-            print(f"   EMAIL_HOST_PASSWORD=monb vbas djmw wmeh")
+            print(f"   EMAIL_HOST_PASSWORD=your-app-password-here")
         if 'EMAIL_HOST_USER' in missing_vars:
             print(f"   EMAIL_HOST_USER=medixmallstore@gmail.com")
         if 'DEFAULT_FROM_EMAIL' in missing_vars:
