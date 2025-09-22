@@ -84,12 +84,18 @@ class RegisterView(APIView):
         
         if serializer.is_valid():
             with transaction.atomic():
+                print(f"🚀 Starting registration for email: {request.data.get('email')}")
+                
                 user = serializer.save()
+                print(f"✅ User created via serializer: {user.email}")
+                
                 user.role = role
                 user.save()
+                print(f"🔧 User role set to: {role}")
 
                 # Send professional welcome email
                 try:
+                    print(f"📧 Sending welcome email to: {user.email}")
                     welcome_success, welcome_message = user.send_welcome_email()
                     if welcome_success:
                         print(f"✅ Welcome email sent to {user.email}")
@@ -100,6 +106,7 @@ class RegisterView(APIView):
 
                 # Send OTP-based email verification
                 try:
+                    print(f"📧 Sending verification OTP to: {user.email}")
                     verification_success, verification_message = user.send_verification_email()
                     if verification_success:
                         print(f"✅ Verification OTP sent to {user.email}")
@@ -108,6 +115,8 @@ class RegisterView(APIView):
                 except Exception as e:
                     print(f"⚠️ Verification OTP exception: {str(e)}")
 
+                print(f"🎯 Registration completed for: {user.email}")
+                
                 refresh = RefreshToken.for_user(user)
                 return Response({
                     'user': UserSerializer(user).data,

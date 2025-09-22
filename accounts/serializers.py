@@ -25,17 +25,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         
-        # Send email verification - don't fail registration if email fails
-        try:
-            success, message = user.send_verification_email()
-            if not success:
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.warning(f"Failed to send verification email to {user.email}: {message}")
-        except Exception as e:
-            import logging
-            logger = logging.getLogger(__name__)
-            logger.error(f"Exception while sending verification email to {user.email}: {str(e)}")
+        # Note: Email verification is handled in the view to avoid duplicates
+        # The RegisterView will call user.send_verification_email() 
         
         return user
 
@@ -63,17 +54,8 @@ class SupplierRegisterSerializer(UserRegisterSerializer):
         user.set_password(password)
         user.save()
         
-        # Send email verification - don't fail registration if email fails
-        try:
-            success, message = user.send_verification_email()
-            if not success:
-                import logging
-                logger = logging.getLogger(__name__)
-                logger.warning(f"Failed to send verification email to {user.email}: {message}")
-        except Exception as e:
-            import logging
-            logger = logging.getLogger(__name__)
-            logger.error(f"Exception while sending verification email to {user.email}: {str(e)}")
+        # Note: Email verification is handled in the view to avoid duplicates
+        # The RegisterView will call user.send_verification_email() 
         
         return user
 

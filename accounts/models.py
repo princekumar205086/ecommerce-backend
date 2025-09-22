@@ -202,25 +202,83 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email_verification_token
     
     def send_verification_email(self):
-        """Send OTP-based email verification (no links)"""
-        # Create or get existing email verification OTP
+        """Send OTP-based email verification with idempotency protection"""
         from .models import OTP
+        from django.db import transaction
+        import logging
+        logger = logging.getLogger(__name__)
         
-        # Clean up old verification OTPs
-        OTP.objects.filter(
-            user=self,
-            otp_type='email_verification',
-            is_verified=False
-        ).delete()
+        logger.info(f"🔄 send_verification_email() called for {self.email}")
         
-        # Create new OTP for email verification
-        otp = OTP.objects.create(
-            user=self,
-            otp_type='email_verification',
-            email=self.email
-        )
-        otp_code = otp.generate_otp()
+        # Use database-level locking to prevent race conditions
+        with transaction.atomic():
+            # Lock the user row to prevent concurrent OTP creation
+            user_locked = User.objects.select_for_update().get(id=self.id)
+            
+            # Clean up ALL old verification OTPs more aggressively  
+            old_otps_query = OTP.objects.filter(
+                user=user_locked,
+                otp_type='email_verification',
+                is_verified=False
+            )
+            
+            old_otp_count = old_otps_query.count()
+            logger.info(f"🔍 Found {old_otp_count} existing unverified OTPs for {user_locked.email}")
+            
+            if old_otp_count > 0:
+                # Log existing OTPs before deletion
+                for otp in old_otps_query:
+                    logger.info(f"   📋 Existing OTP: {otp.otp_code} (Created: {otp.created_at})")
+            
+            # Delete ALL old unverified OTPs
+            deleted_count = old_otps_query.delete()[0]
+            
+            if deleted_count > 0:
+                logger.info(f"🧹 Deleted {deleted_count} old unverified OTPs for {user_locked.email}")
+            
+            # Double-check: ensure no unverified OTPs exist after cleanup
+            remaining_count = OTP.objects.filter(
+                user=user_locked,
+                otp_type='email_verification',
+                is_verified=False
+            ).count()
+            
+            if remaining_count > 0:
+                logger.error(f"❌ CRITICAL: Still found {remaining_count} unverified OTPs after cleanup for {user_locked.email}")
+                # Force delete again
+                OTP.objects.filter(
+                    user=user_locked,
+                    otp_type='email_verification',
+                    is_verified=False
+                ).delete()
+                logger.info(f"🗑️ Force deleted remaining OTPs for {user_locked.email}")
+            
+            # Create exactly ONE new OTP
+            logger.info(f"✨ Creating new OTP for {user_locked.email}")
+            otp = OTP.objects.create(
+                user=user_locked,
+                otp_type='email_verification',
+                email=user_locked.email
+            )
+            otp_code = otp.generate_otp()
+            
+            logger.info(f"✅ Created new OTP {otp_code} for {user_locked.email}")
+            
+            # Verify only one OTP exists now
+            final_count = OTP.objects.filter(
+                user=user_locked,
+                otp_type='email_verification',
+                is_verified=False
+            ).count()
+            
+            if final_count != 1:
+                logger.error(f"❌ CRITICAL: Expected 1 OTP but found {final_count} for {user_locked.email}")
+                # This should never happen with proper locking
+                raise Exception(f"OTP creation failed - expected 1 but found {final_count}")
+            
+            logger.info(f"✅ Verified exactly 1 OTP exists for {user_locked.email}")
         
+        # Send email outside of transaction to avoid issues
         subject = 'Verify Your Email - MedixMall'
         message = f"""
 Hi {self.full_name},
@@ -569,6 +627,14 @@ class OTP(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        # Ensure only one unverified OTP per user per type
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'otp_type'],
+                condition=models.Q(is_verified=False),
+                name='unique_unverified_otp_per_user_type'
+            )
+        ]
     
     def save(self, *args, **kwargs):
         if not self.pk:  # Only set expiry on creation
