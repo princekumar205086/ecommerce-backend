@@ -93,16 +93,8 @@ class RegisterView(APIView):
                 user.save()
                 print(f"🔧 User role set to: {role}")
 
-                # Send professional welcome email
-                try:
-                    print(f"📧 Sending welcome email to: {user.email}")
-                    welcome_success, welcome_message = user.send_welcome_email()
-                    if welcome_success:
-                        print(f"✅ Welcome email sent to {user.email}")
-                    else:
-                        print(f"⚠️ Welcome email failed: {welcome_message}")
-                except Exception as e:
-                    print(f"⚠️ Welcome email exception: {str(e)}")
+                # NOTE: Welcome email moved to OTP verification success
+                # Users should only get welcomed AFTER they verify their email
 
                 # Send OTP-based email verification
                 try:
@@ -117,12 +109,10 @@ class RegisterView(APIView):
 
                 print(f"🎯 Registration completed for: {user.email}")
                 
-                refresh = RefreshToken.for_user(user)
+                # Don't provide tokens until email is verified
                 return Response({
                     'user': UserSerializer(user).data,
-                    'message': 'Registration successful! Welcome email and verification OTP sent to your email.',
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
+                    'message': 'Registration successful! Please check your email for verification OTP.',
                 }, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -716,9 +706,27 @@ class EmailVerificationView(APIView):
                 otp.is_verified = True
                 otp.save()
                 
+                # Send welcome email NOW that verification is complete
+                try:
+                    print(f"📧 Sending welcome email to verified user: {user.email}")
+                    welcome_success, welcome_message = user.send_welcome_email()
+                    if welcome_success:
+                        print(f"✅ Welcome email sent to {user.email}")
+                    else:
+                        print(f"⚠️ Welcome email failed: {welcome_message}")
+                except Exception as e:
+                    print(f"⚠️ Welcome email exception: {str(e)}")
+                
+                # Auto-login: Generate JWT tokens for verified user
+                refresh = RefreshToken.for_user(user)
+                
                 return Response({
-                    'message': 'Email verified successfully! You can now use all features.',
-                    'email_verified': True
+                    'message': 'Email verified successfully! Welcome to MedixMall!',
+                    'email_verified': True,
+                    'user': UserSerializer(user).data,
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                    'welcome_email_sent': True
                 })
             else:
                 return Response({
