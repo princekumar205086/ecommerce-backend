@@ -981,10 +981,10 @@ class PasswordResetRequestView(APIView):
     @swagger_auto_schema(
         request_body=PasswordResetRequestSerializer,
         responses={
-            200: "Password reset email sent",
+            200: "Password reset OTP sent",
             400: "Invalid email",
         },
-        operation_description="Request password reset"
+        operation_description="Request password reset - sends OTP to email"
     )
     def post(self, request):
         serializer = PasswordResetRequestSerializer(data=request.data)
@@ -992,19 +992,35 @@ class PasswordResetRequestView(APIView):
             email = serializer.validated_data['email']
             user = User.objects.get(email=email)
             
-            # Generate password reset token
-            reset_token = PasswordResetToken.generate_for_user(user)
-            
-            # Send reset email
-            success, message = reset_token.send_reset_email()
-            if success:
-                return Response({
-                    'message': 'Password reset email sent successfully.'
-                })
-            else:
-                return Response({
-                    'error': message
-                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # Generate password reset OTP
+            with transaction.atomic():
+                # Delete any existing unverified password reset OTPs
+                OTP.objects.filter(
+                    user=user, 
+                    otp_type='password_reset', 
+                    is_verified=False
+                ).delete()
+                
+                # Create new password reset OTP
+                otp_instance = OTP.objects.create(
+                    user=user,
+                    otp_type='password_reset'
+                )
+                
+                # Generate the actual OTP code
+                otp_instance.generate_otp()
+                
+                # Send OTP email
+                success, message = otp_instance.send_password_reset_email()
+                
+                if success:
+                    return Response({
+                        'message': 'Password reset OTP sent successfully to your email.'
+                    })
+                else:
+                    return Response({
+                        'error': message
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -1016,24 +1032,25 @@ class PasswordResetConfirmView(APIView):
         request_body=PasswordResetConfirmSerializer,
         responses={
             200: "Password reset successful",
-            400: "Invalid token or passwords don't match",
+            400: "Invalid OTP or passwords don't match",
         },
-        operation_description="Confirm password reset with token"
+        operation_description="Confirm password reset with OTP"
     )
     def post(self, request):
         serializer = PasswordResetConfirmSerializer(data=request.data)
         if serializer.is_valid():
-            reset_token = serializer.validated_data['reset_token']
+            otp_instance = serializer.validated_data['otp_instance']
+            user = serializer.validated_data['user']
             new_password = serializer.validated_data['new_password']
             
             # Reset password
-            user = reset_token.user
             user.set_password(new_password)
             user.save()
             
-            # Mark token as used
-            reset_token.is_used = True
-            reset_token.save()
+            # Mark OTP as verified
+            otp_instance.is_verified = True
+            otp_instance.verified_at = timezone.now()
+            otp_instance.save()
             
             return Response({
                 'message': 'Password reset successful. You can now log in with your new password.'

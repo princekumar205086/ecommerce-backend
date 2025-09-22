@@ -126,8 +126,9 @@ class PasswordResetRequestSerializer(serializers.Serializer):
 
 
 class PasswordResetConfirmSerializer(serializers.Serializer):
-    """Serializer for password reset confirmation"""
-    token = serializers.CharField()
+    """Serializer for password reset confirmation with OTP"""
+    email = serializers.EmailField()
+    otp_code = serializers.CharField(max_length=6)
     new_password = serializers.CharField(write_only=True, min_length=8)
     confirm_password = serializers.CharField(write_only=True, min_length=8)
 
@@ -135,14 +136,29 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         if data['new_password'] != data['confirm_password']:
             raise serializers.ValidationError({"confirm_password": "Passwords don't match."})
         
-        # Validate token
+        # Validate OTP
+        User = get_user_model()
         try:
-            reset_token = PasswordResetToken.objects.get(token=data['token'])
-            if not reset_token.is_valid():
-                raise serializers.ValidationError({"token": "Invalid or expired token."})
-            data['reset_token'] = reset_token
-        except PasswordResetToken.DoesNotExist:
-            raise serializers.ValidationError({"token": "Invalid token."})
+            user = User.objects.get(email=data['email'])
+        except User.DoesNotExist:
+            raise serializers.ValidationError({"email": "No user found with this email address."})
+        
+        try:
+            from .models import OTP
+            otp_instance = OTP.objects.get(
+                user=user, 
+                otp_code=data['otp_code'], 
+                otp_type='password_reset',
+                is_verified=False
+            )
+            
+            if otp_instance.is_expired():
+                raise serializers.ValidationError({"otp_code": "OTP has expired."})
+            
+            data['otp_instance'] = otp_instance
+            data['user'] = user
+        except OTP.DoesNotExist:
+            raise serializers.ValidationError({"otp_code": "Invalid or expired OTP."})
         
         return data
 

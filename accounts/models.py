@@ -750,6 +750,45 @@ MedixMall Team
             
         except Exception as e:
             return False, f"SMS sending failed: {str(e)}"
+    
+    def send_password_reset_email(self):
+        """Send password reset OTP via email"""
+        if not self.email:
+            self.email = self.user.email
+            self.save()
+        
+        subject = 'Password Reset OTP - MedixMall'
+        message = f"""
+Hi {self.user.full_name},
+
+You have requested a password reset for your MedixMall account.
+
+Your password reset OTP is: {self.otp_code}
+
+This OTP will expire in 10 minutes.
+
+If you did not request this password reset, please ignore this email.
+
+Best regards,
+MedixMall Team
+        """
+        
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [self.email],
+                fail_silently=False,
+            )
+            print(f"✅ Password reset OTP email sent successfully to {self.email}")
+            return True, "Password reset OTP email sent successfully"
+        except Exception as e:
+            print(f"❌ Failed to send password reset OTP email to {self.email}: {str(e)}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Password reset OTP email sending failed for {self.email}: {str(e)}")
+            return False, f"Failed to send password reset OTP email: {str(e)}"
 
 
 class PasswordResetToken(models.Model):
