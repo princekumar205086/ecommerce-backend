@@ -122,7 +122,16 @@ class LoginView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        request_body=UserLoginSerializer,
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL, description='Email address'),
+                'contact': openapi.Schema(type=openapi.TYPE_STRING, description='Contact number'),
+                'password': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_PASSWORD, description='Password'),
+            },
+            required=['password'],
+            description="Provide either email or contact number with password"
+        ),
         responses={
             200: openapi.Response(
                 description="Login successful",
@@ -136,7 +145,7 @@ class LoginView(APIView):
             400: "Invalid credentials",
             403: "Email not verified",
         },
-        operation_description="Authenticate user and get access token. Email must be verified."
+        operation_description="Authenticate user with email/contact and password. Email must be verified."
     )
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
@@ -1148,24 +1157,21 @@ class OTPLoginRequestView(APIView):
             otp = OTP.objects.create(
                 user=user,
                 otp_type='login_verification',
-                email=email if email else None,
+                email=user.email,  # Always use email for OTP delivery
                 phone=contact if contact else None
             )
             otp.generate_otp()
             
-            # Send OTP
-            if email:
-                success, message = otp.send_email_otp()
-                channel = "email"
-            else:
-                success, message = otp.send_sms_otp()
-                channel = "SMS"
+            # Always send OTP via email (even if contact was provided)
+            success, message = otp.send_email_otp()
+            channel = "email"
             
             if success:
                 return Response({
-                    'message': f'OTP sent successfully to your {channel}',
+                    'message': f'OTP sent successfully to your {channel} ({user.email})',
                     'otp_id': otp.id,
-                    'channel': channel
+                    'channel': channel,
+                    'email': user.email
                 })
             else:
                 return Response({

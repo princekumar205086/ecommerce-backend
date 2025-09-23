@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .models import OTP, PasswordResetToken
 
+User = get_user_model()
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
@@ -60,24 +62,50 @@ class SupplierRegisterSerializer(UserRegisterSerializer):
         return user
 
 class UserLoginSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
+    email = serializers.EmailField(required=False)
+    contact = serializers.CharField(max_length=15, required=False)
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
 
     def validate(self, data):
         email = data.get('email')
+        contact = data.get('contact')
         password = data.get('password')
 
-        if email and password:
-            user = authenticate(email=email, password=password)
+        # Require either email or contact
+        if not email and not contact:
+            raise ValidationError("Either email or contact number is required")
+
+        if password:
+            user = None
+            
+            # Try to authenticate with email first
+            if email:
+                user = authenticate(email=email, password=password)
+            
+            # If email auth failed or no email provided, try contact
+            if not user and contact:
+                try:
+                    # Get the first active user with this contact number  
+                    user_obj = User.objects.filter(contact=contact, is_active=True).first()
+                    if user_obj:
+                        user = authenticate(email=user_obj.email, password=password)
+                except Exception:
+                    pass
+            
             if user:
                 if user.is_active:
                     data['user'] = user
                 else:
                     raise ValidationError("User is deactivated.")
             else:
-                raise ValidationError("Unable to log in with provided credentials.")
+                if email and contact:
+                    raise ValidationError("Unable to log in with provided email/contact and password.")
+                elif email:
+                    raise ValidationError("Unable to log in with provided email and password.")
+                else:
+                    raise ValidationError("Unable to log in with provided contact and password.")
         else:
-            raise ValidationError("Must include 'email' and 'password'.")
+            raise ValidationError("Password is required.")
 
         return data
 
