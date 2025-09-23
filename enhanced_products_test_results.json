@@ -1,0 +1,957 @@
+{
+  "timestamp": "2025-09-24T00:10:20.709430",
+  "tests": [
+    {
+      "test_name": "Setup Test Users",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:20.728058",
+      "details": {
+        "users_created": [
+          "admin",
+          "supplier",
+          "supplier2",
+          "user"
+        ]
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Category (Admin) - Advanced Medicine",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:21.828905",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "name": [
+            "product category with this name already exists."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Category (Admin) - Medical Equipment Pro",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:21.837648",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "name": [
+            "product category with this name already exists."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Category (Admin) - Pathology Supplies Plus",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:21.843737",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "name": [
+            "product category with this name already exists."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Category (Supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:21.897093",
+      "details": {
+        "category_id": 95,
+        "needs_approval": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Unauthorized Category Creation",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:21.899885",
+      "details": {
+        "expected_401": true,
+        "status_code": 401
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Brand (Admin) - Pfizer Premium",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:21.929961",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "name": [
+            "brand with this name already exists."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Brand (Admin) - Johnson & Johnson Pro",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:21.944694",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "name": [
+            "brand with this name already exists."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Brand (Admin) - Siemens Healthineers Advanced",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:21.953217",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "name": [
+            "brand with this name already exists."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Brand (Admin) - Roche Diagnostics Plus",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:21.964262",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "name": [
+            "brand with this name already exists."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Brand (Supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.008135",
+      "details": {
+        "brand_id": 38,
+        "needs_approval": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Attribute Already Exists - Size",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.075096",
+      "details": {
+        "attribute_found": true,
+        "reused": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Attribute Already Exists - Color",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.080761",
+      "details": {
+        "attribute_found": true,
+        "reused": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Attribute Already Exists - Dosage",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.090191",
+      "details": {
+        "attribute_found": true,
+        "reused": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Attribute Already Exists - Pack Size",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.094957",
+      "details": {
+        "attribute_found": true,
+        "reused": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Attribute Already Exists - Strength",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.103733",
+      "details": {
+        "attribute_found": true,
+        "reused": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Attribute Already Exists - Brand Variant",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.110298",
+      "details": {
+        "attribute_found": true,
+        "reused": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Attribute Already Exists - Model Type",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.116360",
+      "details": {
+        "attribute_found": true,
+        "reused": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Size: Small",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.147464",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Size: Medium",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.157997",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Size: Large",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.164454",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Size: Extra Large",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.189520",
+      "details": {
+        "value_id": 34
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Color: Red",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.205259",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Color: Blue",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.212591",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Color: White",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.224054",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Color: Black",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.230444",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Color: Green",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.242758",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Dosage: 10mg",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.257840",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Dosage: 25mg",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.275941",
+      "details": {
+        "value_id": 35
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Dosage: 50mg",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.283032",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Dosage: 100mg",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.301909",
+      "details": {
+        "value_id": 36
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Pack Size: 10 pieces",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.331875",
+      "details": {
+        "value_id": 37
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Pack Size: 50 pieces",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.348934",
+      "details": {
+        "value_id": 38
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Pack Size: 100 pieces",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.367781",
+      "details": {
+        "value_id": 39
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Strength: Regular",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.391635",
+      "details": {
+        "value_id": 40
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Strength: Extra Strong",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.410110",
+      "details": {
+        "value_id": 41
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Strength: Mild",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.426503",
+      "details": {
+        "value_id": 42
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Brand Variant: Pro",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.440460",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Brand Variant: Premium",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.452975",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Brand Variant: Standard",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.463740",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Model Type: Basic",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.485746",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Model Type: Advanced",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.498854",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute Value - Model Type: Professional",
+      "status": "FAIL",
+      "timestamp": "2025-09-24T00:10:22.525106",
+      "details": {
+        "status_code": 400,
+        "response": {
+          "non_field_errors": [
+            "The fields attribute, value must make a unique set."
+          ]
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Medicine Product (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.597201",
+      "details": {
+        "product_id": 478,
+        "needs_approval": false
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Medicine Product (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.670362",
+      "details": {
+        "product_id": 479,
+        "needs_approval": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Equipment Product (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.765879",
+      "details": {
+        "product_id": 480,
+        "needs_approval": false
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Equipment Product (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.832534",
+      "details": {
+        "product_id": 481,
+        "needs_approval": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Pathology Product (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.896262",
+      "details": {
+        "product_id": 482,
+        "needs_approval": false
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Pathology Product (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.957087",
+      "details": {
+        "product_id": 483,
+        "needs_approval": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Variant - Product 478 Variant 1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:22.991712",
+      "details": {
+        "variant_id": 521,
+        "has_image": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Variant - Product 478 Variant 2",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.019656",
+      "details": {
+        "variant_id": 522,
+        "has_image": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Variant - Product 479 Variant 1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.046768",
+      "details": {
+        "variant_id": 523,
+        "has_image": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Variant - Product 479 Variant 2",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.084458",
+      "details": {
+        "variant_id": 524,
+        "has_image": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Variant - Product 480 Variant 1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.112990",
+      "details": {
+        "variant_id": 525,
+        "has_image": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Variant - Product 480 Variant 2",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.151519",
+      "details": {
+        "variant_id": 526,
+        "has_image": true
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Image - Product 478 Image 1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.248475",
+      "details": {
+        "image_id": 56
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Image - Product 478 Image 2",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.277886",
+      "details": {
+        "image_id": 57
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Image - Product 479 Image 1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.301748",
+      "details": {
+        "image_id": 58
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Image - Product 479 Image 2",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.326745",
+      "details": {
+        "image_id": 59
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Price - supplier Variant 521",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.371441",
+      "details": {
+        "price_id": 3,
+        "location": {
+          "pincode": "110001",
+          "district": "Delhi"
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Price - supplier Variant 522",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.412692",
+      "details": {
+        "price_id": 4,
+        "location": {
+          "pincode": "400001",
+          "district": "Mumbai"
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Price - supplier Variant 523",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.441119",
+      "details": {
+        "price_id": 5,
+        "location": {
+          "pincode": "560001",
+          "district": "Bangalore"
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Price - supplier2 Variant 521",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.501580",
+      "details": {
+        "price_id": 6,
+        "location": {
+          "pincode": "110001",
+          "district": "Delhi"
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Price - supplier2 Variant 522",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.528080",
+      "details": {
+        "price_id": 7,
+        "location": {
+          "pincode": "400001",
+          "district": "Mumbai"
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Price - supplier2 Variant 523",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.560312",
+      "details": {
+        "price_id": 8,
+        "location": {
+          "pincode": "560001",
+          "district": "Bangalore"
+        }
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Review - Product 478",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.606362",
+      "details": {
+        "review_id": 30,
+        "rating": 5
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Review - Product 479",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.637597",
+      "details": {
+        "review_id": 31,
+        "rating": 4
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Create Product Review - Product 480",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.692939",
+      "details": {
+        "review_id": 32,
+        "rating": 3
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Unauthorized Access - /api/products/categories/",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.728618",
+      "details": {
+        "expected_401": true,
+        "status_code": 401
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Unauthorized Access - /api/products/brands/",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.742166",
+      "details": {
+        "expected_401": true,
+        "status_code": 401
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Unauthorized Access - /api/products/products/",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:23.825949",
+      "details": {
+        "expected_401": true,
+        "status_code": 401
+      },
+      "response_data": null,
+      "error": null
+    },
+    {
+      "test_name": "Enterprise Optimization Analysis",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:10:24.096079",
+      "details": {
+        "suggestions_count": 6
+      },
+      "response_data": null,
+      "error": null
+    }
+  ],
+  "summary": {
+    "total_tests": 72,
+    "passed_tests": 49,
+    "failed_tests": 23,
+    "skipped_tests": 0,
+    "success_rate": "68.1%",
+    "entities_created": {
+      "categories": 1,
+      "brands": 1,
+      "products": 6,
+      "variants": 6,
+      "attributes": 7,
+      "attribute_values": 9,
+      "images": 4,
+      "supplier_prices": 6,
+      "reviews": 3
+    },
+    "issues_count": 0,
+    "optimization_suggestions": 6
+  },
+  "created_entities": {},
+  "issues_found": [],
+  "suggestions": [
+    {
+      "category": "Database Optimization",
+      "item": "Add database indexes for frequently queried fields",
+      "details": "Consider adding indexes on product.category, product.brand, product.product_type, and variant.product for better query performance",
+      "priority": "High"
+    },
+    {
+      "category": "Caching Strategy",
+      "item": "Implement Redis caching for product listings",
+      "details": "Cache product listings, category hierarchies, and brand lists for improved response times",
+      "priority": "High"
+    },
+    {
+      "category": "Image Management",
+      "item": "Implement CDN for image delivery",
+      "details": "Use CloudFront or similar CDN for faster image loading and better user experience",
+      "priority": "Medium"
+    },
+    {
+      "category": "Search & Filtering",
+      "item": "Implement Elasticsearch for advanced search",
+      "details": "Add full-text search, faceted filtering, and autocomplete functionality",
+      "priority": "Medium"
+    },
+    {
+      "category": "API Performance",
+      "item": "Implement API rate limiting and pagination",
+      "details": "Add rate limiting to prevent abuse and optimize pagination for large datasets",
+      "priority": "High"
+    },
+    {
+      "category": "Security",
+      "item": "Implement field-level permissions",
+      "details": "Add granular permissions for different user roles and product approval workflows",
+      "priority": "High"
+    }
+  ]
+}

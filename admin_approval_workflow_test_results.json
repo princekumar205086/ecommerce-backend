@@ -1,0 +1,175 @@
+{
+  "timestamp": "2025-09-24T00:12:42.255221",
+  "tests": [
+    {
+      "test_name": "Setup Admin Approval Test Users",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:46.234929",
+      "details": {},
+      "error": null
+    },
+    {
+      "test_name": "Supplier Creates Category",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.371586",
+      "details": {
+        "category_id": 97,
+        "status": "pending",
+        "is_published": false,
+        "requires_approval": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Category Status Pending",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.371791",
+      "details": {
+        "awaiting_admin_approval": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Admin Approves Category",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.387901",
+      "details": {
+        "category_id": 97,
+        "approval_response": {
+          "message": "Category \"Supplier Test Category 4635\" approved successfully",
+          "category_id": 97,
+          "status": "approved"
+        }
+      },
+      "error": null
+    },
+    {
+      "test_name": "Category Approval Verification",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.393827",
+      "details": {
+        "status": "approved",
+        "is_published": true,
+        "approved_by": null
+      },
+      "error": null
+    },
+    {
+      "test_name": "Supplier Creates Brand",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.441175",
+      "details": {
+        "brand_id": 41,
+        "status": "pending",
+        "is_published": false,
+        "requires_approval": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Admin Approves Brand",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.458906",
+      "details": {
+        "brand_id": 41,
+        "approval_response": {
+          "message": "Brand \"Supplier Test Brand 9810\" approved successfully",
+          "brand_id": 41,
+          "status": "approved"
+        }
+      },
+      "error": null
+    },
+    {
+      "test_name": "Brand Approval Verification",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.464470",
+      "details": {
+        "status": "approved",
+        "is_published": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Supplier Creates Product",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.563936",
+      "details": {
+        "product_id": 485,
+        "status": "pending",
+        "is_published": false,
+        "requires_approval": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Admin Approves Product",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.595789",
+      "details": {
+        "product_id": 485,
+        "approval_response": {
+          "message": "Product \"Supplier Test Medicine 1470\" approved successfully",
+          "product_id": 485,
+          "status": "approved"
+        }
+      },
+      "error": null
+    },
+    {
+      "test_name": "Product Approval Verification",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.631652",
+      "details": {
+        "status": "approved",
+        "is_published": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Admin Rejects Brand",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.692639",
+      "details": {
+        "brand_id": 42,
+        "rejection_reason": "Brand name not meeting quality standards"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Brand Rejection Verification",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.697962",
+      "details": {
+        "status": "rejected",
+        "rejection_reason": "Brand name not meeting quality standards"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Pending Approvals Endpoint",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:12:47.723505",
+      "details": {
+        "pending_categories_count": 0,
+        "pending_brands_count": 0,
+        "pending_products_count": 0,
+        "total_pending": 0
+      },
+      "error": null
+    }
+  ],
+  "summary": {
+    "total_tests": 14,
+    "passed_tests": 14,
+    "failed_tests": 0,
+    "skipped_tests": 0,
+    "success_rate": "100.0%",
+    "pending_entities_created": {
+      "categories": 1,
+      "brands": 1,
+      "products": 1
+    }
+  },
+  "approval_workflow_entities": {}
+}

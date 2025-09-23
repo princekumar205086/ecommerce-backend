@@ -1,0 +1,1043 @@
+{
+  "timestamp": "2025-09-24T00:38:39.100202",
+  "tests": [
+    {
+      "test_name": "Setup Test Users",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:39.117059",
+      "details": {
+        "users_ready": 3
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Category: Medicines CAT 175865...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.630119",
+      "details": {
+        "category_id": 106,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Category: Medical Equipment CA...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.653187",
+      "details": {
+        "category_id": 107,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Category: Pathology CAT 175865...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.679666",
+      "details": {
+        "category_id": 108,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Category: Surgical Instruments...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.710160",
+      "details": {
+        "category_id": 109,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Brand: Pfizer BRAND 1758654...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.763531",
+      "details": {
+        "brand_id": 51,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Brand: Johnson & Johnson BR...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.792555",
+      "details": {
+        "brand_id": 52,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Brand: Roche BRAND 17586545...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.813277",
+      "details": {
+        "brand_id": 53,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Brand: Siemens Healthineers...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.834226",
+      "details": {
+        "brand_id": 54,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute: Size ATTR 1758654519...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.862909",
+      "details": {
+        "attribute_id": 19,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute: Color ATTR 175865451...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.881422",
+      "details": {
+        "attribute_id": 20,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute: Dosage ATTR 17586545...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.902309",
+      "details": {
+        "attribute_id": 21,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute: Pack Size ATTR 17586...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.923232",
+      "details": {
+        "attribute_id": 22,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attribute: Strength ATTR 175865...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.943930",
+      "details": {
+        "attribute_id": 23,
+        "status_code": 201
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Small",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.977169",
+      "details": {
+        "value_id": 83,
+        "attribute": "Size ATTR 17586"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Medium",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:41.995387",
+      "details": {
+        "value_id": 84,
+        "attribute": "Size ATTR 17586"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Large",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.016629",
+      "details": {
+        "value_id": 85,
+        "attribute": "Size ATTR 17586"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Extra Large",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.038362",
+      "details": {
+        "value_id": 86,
+        "attribute": "Size ATTR 17586"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Red",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.055875",
+      "details": {
+        "value_id": 87,
+        "attribute": "Color ATTR 1758"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Blue",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.071373",
+      "details": {
+        "value_id": 88,
+        "attribute": "Color ATTR 1758"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Green",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.090174",
+      "details": {
+        "value_id": 89,
+        "attribute": "Color ATTR 1758"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: White",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.111189",
+      "details": {
+        "value_id": 90,
+        "attribute": "Color ATTR 1758"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: 500mg",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.128867",
+      "details": {
+        "value_id": 91,
+        "attribute": "Dosage ATTR 175"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: 250mg",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.146900",
+      "details": {
+        "value_id": 92,
+        "attribute": "Dosage ATTR 175"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: 100mg",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.165677",
+      "details": {
+        "value_id": 93,
+        "attribute": "Dosage ATTR 175"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: 50mg",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.189664",
+      "details": {
+        "value_id": 94,
+        "attribute": "Dosage ATTR 175"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Small",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.207707",
+      "details": {
+        "value_id": 95,
+        "attribute": "Pack Size ATTR "
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Medium",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.228693",
+      "details": {
+        "value_id": 96,
+        "attribute": "Pack Size ATTR "
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Large",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.247244",
+      "details": {
+        "value_id": 97,
+        "attribute": "Pack Size ATTR "
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Extra Large",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.267014",
+      "details": {
+        "value_id": 98,
+        "attribute": "Pack Size ATTR "
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Low",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.291326",
+      "details": {
+        "value_id": 99,
+        "attribute": "Strength ATTR 1"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Medium",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.392071",
+      "details": {
+        "value_id": 100,
+        "attribute": "Strength ATTR 1"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: High",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.529412",
+      "details": {
+        "value_id": 101,
+        "attribute": "Strength ATTR 1"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Attr Value: Extra Strong",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.554461",
+      "details": {
+        "value_id": 102,
+        "attribute": "Strength ATTR 1"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Product (Admin): Paracetamol MED 1758...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.655743",
+      "details": {
+        "product_id": 491,
+        "product_type": "medicine"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Product (Admin): Ibuprofen MED 175865...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.707497",
+      "details": {
+        "product_id": 492,
+        "product_type": "medicine"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Product (Admin): Digital Thermometer ...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.763879",
+      "details": {
+        "product_id": 493,
+        "product_type": "equipment"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Product (Admin): Blood Test Kit PATH ...",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.803491",
+      "details": {
+        "product_id": 494,
+        "product_type": "pathology"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Product (Supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.857686",
+      "details": {
+        "product_id": 495,
+        "access_level": "allowed"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Variant 1 for Product 491",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.909385",
+      "details": {
+        "variant_id": 533,
+        "sku": "PARACETAMOL-MED-1758-8B550FEB-2F84DBEE"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Variant 2 for Product 491",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.945873",
+      "details": {
+        "variant_id": 534,
+        "sku": "PARACETAMOL-MED-1758-8B550FEB-E5016D02"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Variant 1 for Product 492",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:42.978793",
+      "details": {
+        "variant_id": 535,
+        "sku": "IBUPROFEN-MED-175865-73BD978A-4471990E"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Variant 2 for Product 492",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.005802",
+      "details": {
+        "variant_id": 536,
+        "sku": "IBUPROFEN-MED-175865-73BD978A-614AAEF8"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Variant 1 for Product 493",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.028025",
+      "details": {
+        "variant_id": 537,
+        "sku": "DIGITAL-THERMOMETER--985309F3-49324C4A"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Variant 2 for Product 493",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.092492",
+      "details": {
+        "variant_id": 538,
+        "sku": "DIGITAL-THERMOMETER--985309F3-5A70B9BB"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Pricing for Variant 533",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.315315",
+      "details": {
+        "pricing_id": 9,
+        "price": "116.67"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Supplier Pricing for Variant 534",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.553375",
+      "details": {
+        "pricing_id": 10,
+        "price": "56.96"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Image for Product 491",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.634814",
+      "details": {
+        "image_id": 62
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Image for Product 492",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.656523",
+      "details": {
+        "image_id": 63
+      },
+      "error": null
+    },
+    {
+      "test_name": "User Category Creation (Should Fail)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.676346",
+      "details": {
+        "correctly_blocked": true,
+        "status_code": 403
+      },
+      "error": null
+    },
+    {
+      "test_name": "Unauthenticated Product Creation (Should Fail)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:38:43.680380",
+      "details": {
+        "correctly_blocked": true,
+        "status_code": 401
+      },
+      "error": null
+    }
+  ],
+  "summary": {
+    "total_tests": 51,
+    "passed_tests": 51,
+    "failed_tests": 0,
+    "skipped_tests": 0,
+    "success_rate": "100.0%",
+    "target_achieved": true,
+    "entity_counts": {
+      "categories": 4,
+      "brands": 4,
+      "products": 5,
+      "variants": 6,
+      "attributes": 5,
+      "attribute_values": 20,
+      "images": 2,
+      "supplier_prices": 2
+    }
+  },
+  "created_entities": {
+    "categories": [
+      {
+        "id": 106,
+        "name": "Medicines CAT 1758654519_905",
+        "parent": null,
+        "created_at": "2025-09-24T00:38:41.606965+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+      },
+      {
+        "id": 107,
+        "name": "Medical Equipment CAT 1758654519_725",
+        "parent": null,
+        "created_at": "2025-09-24T00:38:41.638818+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+      },
+      {
+        "id": 108,
+        "name": "Pathology CAT 1758654519_261",
+        "parent": null,
+        "created_at": "2025-09-24T00:38:41.662387+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+      },
+      {
+        "id": 109,
+        "name": "Surgical Instruments CAT 1758654519_848",
+        "parent": null,
+        "created_at": "2025-09-24T00:38:41.691950+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+      }
+    ],
+    "brands": [
+      {
+        "id": 51,
+        "name": "Pfizer BRAND 1758654519_594",
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "created_at": "2025-09-24T00:38:41.744638+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      {
+        "id": 52,
+        "name": "Johnson & Johnson BRAND 1758654519_753",
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "created_at": "2025-09-24T00:38:41.775552+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      {
+        "id": 53,
+        "name": "Roche BRAND 1758654519_576",
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "created_at": "2025-09-24T00:38:41.802982+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      {
+        "id": 54,
+        "name": "Siemens Healthineers BRAND 1758654519_607",
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "created_at": "2025-09-24T00:38:41.823214+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      }
+    ],
+    "products": [
+      {
+        "id": 491,
+        "name": "Paracetamol MED 1758654519_701",
+        "slug": "paracetamol-med-1758654519_701",
+        "sku": "PARACETAMOL-MED-1758-8B550FEB",
+        "description": "Pain relief medicine for headaches and fever",
+        "category": 106,
+        "category_id": 106,
+        "category_name": "Medicines CAT 1758654519_905",
+        "brand": 51,
+        "brand_name": "Pfizer BRAND 1758654519_594",
+        "price": "25.50",
+        "stock": 0,
+        "product_type": "medicine",
+        "created_at": "2025-09-24T00:38:42.610853+05:30",
+        "updated_at": "2025-09-24T00:38:42.610907+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "medicine_details": {
+          "composition": "",
+          "quantity": "",
+          "manufacturer": "Test Pharmaceutical",
+          "expiry_date": null,
+          "batch_number": null,
+          "prescription_required": true,
+          "form": "",
+          "pack_size": ""
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      },
+      {
+        "id": 492,
+        "name": "Ibuprofen MED 1758654519_799",
+        "slug": "ibuprofen-med-1758654519_799",
+        "sku": "IBUPROFEN-MED-175865-73BD978A",
+        "description": "Anti-inflammatory medicine",
+        "category": 106,
+        "category_id": 106,
+        "category_name": "Medicines CAT 1758654519_905",
+        "brand": 51,
+        "brand_name": "Pfizer BRAND 1758654519_594",
+        "price": "30.00",
+        "stock": 0,
+        "product_type": "medicine",
+        "created_at": "2025-09-24T00:38:42.670521+05:30",
+        "updated_at": "2025-09-24T00:38:42.670572+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "medicine_details": {
+          "composition": "",
+          "quantity": "",
+          "manufacturer": "Test Pharmaceutical",
+          "expiry_date": null,
+          "batch_number": null,
+          "prescription_required": false,
+          "form": "",
+          "pack_size": ""
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      },
+      {
+        "id": 493,
+        "name": "Digital Thermometer EQUIP 1758654519_921",
+        "slug": "digital-thermometer-equip-1758654519_921",
+        "sku": "DIGITAL-THERMOMETER--985309F3",
+        "description": "Digital medical thermometer",
+        "category": 107,
+        "category_id": 107,
+        "category_name": "Medical Equipment CAT 1758654519_725",
+        "brand": 51,
+        "brand_name": "Pfizer BRAND 1758654519_594",
+        "price": "150.00",
+        "stock": 0,
+        "product_type": "equipment",
+        "created_at": "2025-09-24T00:38:42.729074+05:30",
+        "updated_at": "2025-09-24T00:38:42.729133+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "medicine_details": null,
+        "equipment_details": {
+          "model_number": "THERM-7246",
+          "warranty_period": "24",
+          "usage_type": "",
+          "technical_specifications": "",
+          "power_requirement": "",
+          "equipment_type": ""
+        },
+        "pathology_details": null
+      },
+      {
+        "id": 494,
+        "name": "Blood Test Kit PATH 1758654519_615",
+        "slug": "blood-test-kit-path-1758654519_615",
+        "sku": "BLOOD-TEST-KIT-PATH--A470EC0E",
+        "description": "Complete blood count test kit",
+        "category": 108,
+        "category_id": 108,
+        "category_name": "Pathology CAT 1758654519_261",
+        "brand": 51,
+        "brand_name": "Pfizer BRAND 1758654519_594",
+        "price": "200.00",
+        "stock": 0,
+        "product_type": "pathology",
+        "created_at": "2025-09-24T00:38:42.778567+05:30",
+        "updated_at": "2025-09-24T00:38:42.778599+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "medicine_details": null,
+        "equipment_details": null,
+        "pathology_details": null
+      },
+      {
+        "id": 495,
+        "name": "Supplier Medicine SUP 1758654519_717",
+        "slug": "supplier-medicine-sup-1758654519_717",
+        "sku": "SUPPLIER-MEDICINE-SU-40BBB9BB",
+        "description": "Medicine created by supplier",
+        "category": 106,
+        "category_id": 106,
+        "category_name": "Medicines CAT 1758654519_905",
+        "brand": 51,
+        "brand_name": "Pfizer BRAND 1758654519_594",
+        "price": "45.00",
+        "stock": 0,
+        "product_type": "medicine",
+        "created_at": "2025-09-24T00:38:42.824348+05:30",
+        "updated_at": "2025-09-24T00:38:42.824398+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "medicine_details": {
+          "composition": "",
+          "quantity": "",
+          "manufacturer": "Supplier Pharmaceutical",
+          "expiry_date": null,
+          "batch_number": null,
+          "prescription_required": false,
+          "form": "",
+          "pack_size": ""
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      }
+    ],
+    "variants": [
+      {
+        "id": 533,
+        "product": 491,
+        "sku": "PARACETAMOL-MED-1758-8B550FEB-2F84DBEE",
+        "price": "45.58",
+        "additional_price": "0.00",
+        "total_price": 45.58,
+        "stock": 30,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-24T00:38:42.883809+05:30",
+        "updated_at": "2025-09-24T00:38:42.883903+05:30"
+      },
+      {
+        "id": 534,
+        "product": 491,
+        "sku": "PARACETAMOL-MED-1758-8B550FEB-E5016D02",
+        "price": "86.19",
+        "additional_price": "0.00",
+        "total_price": 86.19,
+        "stock": 74,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-24T00:38:42.925344+05:30",
+        "updated_at": "2025-09-24T00:38:42.925388+05:30"
+      },
+      {
+        "id": 535,
+        "product": 492,
+        "sku": "IBUPROFEN-MED-175865-73BD978A-4471990E",
+        "price": "30.31",
+        "additional_price": "0.00",
+        "total_price": 30.31,
+        "stock": 21,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-24T00:38:42.963550+05:30",
+        "updated_at": "2025-09-24T00:38:42.963596+05:30"
+      },
+      {
+        "id": 536,
+        "product": 492,
+        "sku": "IBUPROFEN-MED-175865-73BD978A-614AAEF8",
+        "price": "22.65",
+        "additional_price": "0.00",
+        "total_price": 22.65,
+        "stock": 14,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-24T00:38:42.991096+05:30",
+        "updated_at": "2025-09-24T00:38:42.991126+05:30"
+      },
+      {
+        "id": 537,
+        "product": 493,
+        "sku": "DIGITAL-THERMOMETER--985309F3-49324C4A",
+        "price": "16.77",
+        "additional_price": "0.00",
+        "total_price": 16.77,
+        "stock": 45,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-24T00:38:43.012443+05:30",
+        "updated_at": "2025-09-24T00:38:43.012472+05:30"
+      },
+      {
+        "id": 538,
+        "product": 493,
+        "sku": "DIGITAL-THERMOMETER--985309F3-5A70B9BB",
+        "price": "65.93",
+        "additional_price": "0.00",
+        "total_price": 65.93,
+        "stock": 48,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-24T00:38:43.040411+05:30",
+        "updated_at": "2025-09-24T00:38:43.040440+05:30"
+      }
+    ],
+    "attributes": [
+      {
+        "id": 19,
+        "name": "Size ATTR 1758654519_618"
+      },
+      {
+        "id": 20,
+        "name": "Color ATTR 1758654519_317"
+      },
+      {
+        "id": 21,
+        "name": "Dosage ATTR 1758654519_421"
+      },
+      {
+        "id": 22,
+        "name": "Pack Size ATTR 1758654519_873"
+      },
+      {
+        "id": 23,
+        "name": "Strength ATTR 1758654519_778"
+      }
+    ],
+    "attribute_values": [
+      {
+        "id": 83,
+        "attribute": 19,
+        "attribute_name": "Size ATTR 1758654519_618",
+        "value": "Small_1758654519"
+      },
+      {
+        "id": 84,
+        "attribute": 19,
+        "attribute_name": "Size ATTR 1758654519_618",
+        "value": "Medium_1758654519"
+      },
+      {
+        "id": 85,
+        "attribute": 19,
+        "attribute_name": "Size ATTR 1758654519_618",
+        "value": "Large_1758654519"
+      },
+      {
+        "id": 86,
+        "attribute": 19,
+        "attribute_name": "Size ATTR 1758654519_618",
+        "value": "Extra Large_1758654519"
+      },
+      {
+        "id": 87,
+        "attribute": 20,
+        "attribute_name": "Color ATTR 1758654519_317",
+        "value": "Red_1758654519"
+      },
+      {
+        "id": 88,
+        "attribute": 20,
+        "attribute_name": "Color ATTR 1758654519_317",
+        "value": "Blue_1758654519"
+      },
+      {
+        "id": 89,
+        "attribute": 20,
+        "attribute_name": "Color ATTR 1758654519_317",
+        "value": "Green_1758654519"
+      },
+      {
+        "id": 90,
+        "attribute": 20,
+        "attribute_name": "Color ATTR 1758654519_317",
+        "value": "White_1758654519"
+      },
+      {
+        "id": 91,
+        "attribute": 21,
+        "attribute_name": "Dosage ATTR 1758654519_421",
+        "value": "500mg_1758654519"
+      },
+      {
+        "id": 92,
+        "attribute": 21,
+        "attribute_name": "Dosage ATTR 1758654519_421",
+        "value": "250mg_1758654519"
+      },
+      {
+        "id": 93,
+        "attribute": 21,
+        "attribute_name": "Dosage ATTR 1758654519_421",
+        "value": "100mg_1758654519"
+      },
+      {
+        "id": 94,
+        "attribute": 21,
+        "attribute_name": "Dosage ATTR 1758654519_421",
+        "value": "50mg_1758654519"
+      },
+      {
+        "id": 95,
+        "attribute": 22,
+        "attribute_name": "Pack Size ATTR 1758654519_873",
+        "value": "Small_1758654519"
+      },
+      {
+        "id": 96,
+        "attribute": 22,
+        "attribute_name": "Pack Size ATTR 1758654519_873",
+        "value": "Medium_1758654519"
+      },
+      {
+        "id": 97,
+        "attribute": 22,
+        "attribute_name": "Pack Size ATTR 1758654519_873",
+        "value": "Large_1758654519"
+      },
+      {
+        "id": 98,
+        "attribute": 22,
+        "attribute_name": "Pack Size ATTR 1758654519_873",
+        "value": "Extra Large_1758654519"
+      },
+      {
+        "id": 99,
+        "attribute": 23,
+        "attribute_name": "Strength ATTR 1758654519_778",
+        "value": "Low_1758654519"
+      },
+      {
+        "id": 100,
+        "attribute": 23,
+        "attribute_name": "Strength ATTR 1758654519_778",
+        "value": "Medium_1758654519"
+      },
+      {
+        "id": 101,
+        "attribute": 23,
+        "attribute_name": "Strength ATTR 1758654519_778",
+        "value": "High_1758654519"
+      },
+      {
+        "id": 102,
+        "attribute": 23,
+        "attribute_name": "Strength ATTR 1758654519_778",
+        "value": "Extra Strong_1758654519"
+      }
+    ],
+    "images": [
+      {
+        "id": 62,
+        "product": 491,
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "alt_text": "Additional image for Paracetamol MED 1758654519_701",
+        "order": 0,
+        "variant": null
+      },
+      {
+        "id": 63,
+        "product": 492,
+        "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+        "alt_text": "Additional image for Ibuprofen MED 1758654519_799",
+        "order": 0,
+        "variant": null
+      }
+    ],
+    "supplier_prices": [
+      {
+        "id": 9,
+        "price": "116.67",
+        "pincode": "110001",
+        "district": "New Delhi",
+        "created_at": "2025-09-24T00:38:43.271170+05:30",
+        "product_variant": 533
+      },
+      {
+        "id": 10,
+        "price": "56.96",
+        "pincode": "110001",
+        "district": "New Delhi",
+        "created_at": "2025-09-24T00:38:43.373704+05:30",
+        "product_variant": 534
+      }
+    ],
+    "reviews": []
+  }
+}

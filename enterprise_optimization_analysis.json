@@ -1,0 +1,678 @@
+{
+  "timestamp": "2025-09-24T01:01:30.663514",
+  "database_analysis": {
+    "model_counts": {
+      "ProductCategory": 107,
+      "Brand": 54,
+      "Product": 203,
+      "ProductVariant": 538,
+      "ProductAttribute": 23,
+      "ProductAttributeValue": 102,
+      "ProductImage": 63,
+      "SupplierProductPrice": 10,
+      "ProductReview": 29,
+      "MedicineDetails": 50,
+      "EquipmentDetails": 76,
+      "PathologyDetails": 28
+    },
+    "missing_indexes": [],
+    "query_analysis": {},
+    "foreign_key_analysis": {},
+    "index_recommendations": [
+      {
+        "table": "products_product",
+        "columns": [
+          "category_id",
+          "brand_id"
+        ],
+        "type": "composite",
+        "benefit": "Faster filtering by category and brand combination",
+        "sql": "CREATE INDEX idx_product_category_brand ON products_product(category_id, brand_id);"
+      },
+      {
+        "table": "products_product",
+        "columns": [
+          "product_type",
+          "status"
+        ],
+        "type": "composite",
+        "benefit": "Optimized product type and status filtering",
+        "sql": "CREATE INDEX idx_product_type_status ON products_product(product_type, status);"
+      },
+      {
+        "table": "products_productvariant",
+        "columns": [
+          "product_id",
+          "stock"
+        ],
+        "type": "composite",
+        "benefit": "Fast stock availability queries",
+        "sql": "CREATE INDEX idx_variant_product_stock ON products_productvariant(product_id, stock);"
+      },
+      {
+        "table": "products_productreview",
+        "columns": [
+          "product_id",
+          "rating"
+        ],
+        "type": "composite",
+        "benefit": "Efficient rating aggregation queries",
+        "sql": "CREATE INDEX idx_review_product_rating ON products_productreview(product_id, rating);"
+      },
+      {
+        "table": "products_supplierproductprice",
+        "columns": [
+          "pincode",
+          "district"
+        ],
+        "type": "composite",
+        "benefit": "Location-based price filtering",
+        "sql": "CREATE INDEX idx_supplier_price_location ON products_supplierproductprice(pincode, district);"
+      }
+    ],
+    "current_indexes": [
+      {
+        "table": "products_productreview",
+        "columns": "user_id",
+        "index_name": "products_productreview_user_id_5c551aaa",
+        "unique": false
+      },
+      {
+        "table": "products_productreview",
+        "columns": "product_id",
+        "index_name": "products_productreview_product_id_7e81c4a6",
+        "unique": false
+      },
+      {
+        "table": "products_productreview",
+        "columns": "product_id, user_id",
+        "index_name": "products_productreview_product_id_user_id_8cc1724b_uniq",
+        "unique": true
+      },
+      {
+        "table": "products_productcategory",
+        "columns": "approved_by_id",
+        "index_name": "products_productcategory_approved_by_id_852527b1",
+        "unique": false
+      },
+      {
+        "table": "products_productcategory",
+        "columns": "parent_id",
+        "index_name": "products_productcategory_parent_id_37f1f851",
+        "unique": false
+      },
+      {
+        "table": "products_productcategory",
+        "columns": "created_by_id",
+        "index_name": "products_productcategory_created_by_id_4377db66",
+        "unique": false
+      },
+      {
+        "table": "products_productcategory",
+        "columns": "slug",
+        "index_name": "sqlite_autoindex_products_productcategory_2",
+        "unique": true
+      },
+      {
+        "table": "products_productcategory",
+        "columns": "name",
+        "index_name": "sqlite_autoindex_products_productcategory_1",
+        "unique": true
+      },
+      {
+        "table": "products_productattribute",
+        "columns": "name",
+        "index_name": "sqlite_autoindex_products_productattribute_1",
+        "unique": true
+      },
+      {
+        "table": "products_productauditlog",
+        "columns": "product_id",
+        "index_name": "products_productauditlog_product_id_e9714efe",
+        "unique": false
+      },
+      {
+        "table": "products_productauditlog",
+        "columns": "changed_by_id",
+        "index_name": "products_productauditlog_changed_by_id_815f4b0a",
+        "unique": false
+      },
+      {
+        "table": "products_productimage",
+        "columns": "variant_id",
+        "index_name": "products_productimage_variant_id_bf70ade8",
+        "unique": false
+      },
+      {
+        "table": "products_productimage",
+        "columns": "product_id",
+        "index_name": "products_productimage_product_id_e747596a",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "approved_by_id",
+        "index_name": "products_product_approved_by_id_ba6fec80",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "product_type",
+        "index_name": "products_pr_product_cea9e6_idx",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "status, is_publish",
+        "index_name": "products_pr_status_8eb55b_idx",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "slug",
+        "index_name": "products_pr_slug_3edc0c_idx",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "category_id",
+        "index_name": "products_product_category_id_9b594869",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "created_by_id",
+        "index_name": "products_product_created_by_id_dd4af40e",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "brand_id",
+        "index_name": "products_product_brand_id_3e2e8fd1",
+        "unique": false
+      },
+      {
+        "table": "products_product",
+        "columns": "sku",
+        "index_name": "sqlite_autoindex_products_product_2",
+        "unique": true
+      },
+      {
+        "table": "products_product",
+        "columns": "slug",
+        "index_name": "sqlite_autoindex_products_product_1",
+        "unique": true
+      },
+      {
+        "table": "products_equipmentdetails",
+        "columns": "product_id",
+        "index_name": "sqlite_autoindex_products_equipmentdetails_1",
+        "unique": true
+      },
+      {
+        "table": "products_pathologydetails",
+        "columns": "product_id",
+        "index_name": "sqlite_autoindex_products_pathologydetails_1",
+        "unique": true
+      },
+      {
+        "table": "products_productattributevalue",
+        "columns": "attribute_id, value",
+        "index_name": "products_productattributevalue_attribute_id_value_a51d021b_uniq",
+        "unique": true
+      },
+      {
+        "table": "products_productattributevalue",
+        "columns": "attribute_id",
+        "index_name": "products_productattributevalue_attribute_id_e82aac01",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant_attributes",
+        "columns": "productattributevalue_id",
+        "index_name": "products_productvariant_attributes_productattributevalue_id_e18db267",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant_attributes",
+        "columns": "productvariant_id",
+        "index_name": "products_productvariant_attributes_productvariant_id_88ff47de",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant_attributes",
+        "columns": "productvariant_id, productattributevalue_id",
+        "index_name": "products_productvariant_attributes_productvariant_id_productattributevalue_id_882a882c_uniq",
+        "unique": true
+      },
+      {
+        "table": "products_supplierproductprice",
+        "columns": "supplier_id, product_variant_id, pincode, district",
+        "index_name": "products_supplierproductprice_supplier_id_product_variant_id_pincode_district_61ffe161_uniq",
+        "unique": true
+      },
+      {
+        "table": "products_supplierproductprice",
+        "columns": "product_variant_id",
+        "index_name": "products_supplierproductprice_product_variant_id_3110410f",
+        "unique": false
+      },
+      {
+        "table": "products_supplierproductprice",
+        "columns": "supplier_id",
+        "index_name": "products_supplierproductprice_supplier_id_7907fd8d",
+        "unique": false
+      },
+      {
+        "table": "products_supplierproductprice",
+        "columns": "district",
+        "index_name": "products_supplierproductprice_district_10c14b22",
+        "unique": false
+      },
+      {
+        "table": "products_supplierproductprice",
+        "columns": "pincode",
+        "index_name": "products_supplierproductprice_pincode_62e4c9c2",
+        "unique": false
+      },
+      {
+        "table": "products_brand",
+        "columns": "approved_by_id",
+        "index_name": "products_brand_approved_by_id_77a39339",
+        "unique": false
+      },
+      {
+        "table": "products_brand",
+        "columns": "created_by_id",
+        "index_name": "products_brand_created_by_id_8af2db37",
+        "unique": false
+      },
+      {
+        "table": "products_brand",
+        "columns": "name",
+        "index_name": "sqlite_autoindex_products_brand_1",
+        "unique": true
+      },
+      {
+        "table": "products_medicinedetails",
+        "columns": "product_id",
+        "index_name": "sqlite_autoindex_products_medicinedetails_1",
+        "unique": true
+      },
+      {
+        "table": "products_productvariant",
+        "columns": "status",
+        "index_name": "products_pr_status_ce6b86_idx",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant",
+        "columns": "product_id, is_active",
+        "index_name": "products_pr_product_66459e_idx",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant",
+        "columns": "sku",
+        "index_name": "products_pr_sku_dcab68_idx",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant",
+        "columns": "approved_by_id",
+        "index_name": "products_productvariant_approved_by_id_0f84d1e1",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant",
+        "columns": "product_id",
+        "index_name": "products_productvariant_product_id_d9c22902",
+        "unique": false
+      },
+      {
+        "table": "products_productvariant",
+        "columns": "sku",
+        "index_name": "sqlite_autoindex_products_productvariant_1",
+        "unique": true
+      }
+    ]
+  },
+  "performance_analysis": {
+    "n_plus_1_queries": [
+      {
+        "location": "ProductViewSet list/retrieve",
+        "issue": "Category and Brand objects loaded separately for each product",
+        "solution": "Use select_related(\"category\", \"brand\")",
+        "impact": "High - reduces queries from N+1 to 1"
+      },
+      {
+        "location": "ProductVariant queries",
+        "issue": "Product objects loaded separately for each variant",
+        "solution": "Use select_related(\"product\") in variant queries",
+        "impact": "Medium - improves variant listing performance"
+      },
+      {
+        "location": "ProductReview queries",
+        "issue": "User and Product objects loaded separately",
+        "solution": "Use select_related(\"user\", \"product\")",
+        "impact": "Medium - faster review loading"
+      }
+    ],
+    "heavy_queries": [],
+    "caching_opportunities": [
+      {
+        "target": "Product Categories",
+        "type": "Redis Cache",
+        "key_pattern": "categories:list",
+        "ttl": "1 hour",
+        "benefit": "Categories change infrequently, high read volume"
+      },
+      {
+        "target": "Brand List",
+        "type": "Redis Cache",
+        "key_pattern": "brands:list",
+        "ttl": "30 minutes",
+        "benefit": "Brands are relatively static"
+      },
+      {
+        "target": "Product Details",
+        "type": "Redis Cache",
+        "key_pattern": "product:{id}:detail",
+        "ttl": "15 minutes",
+        "benefit": "Product details accessed frequently"
+      },
+      {
+        "target": "Search Results",
+        "type": "Redis Cache",
+        "key_pattern": "search:{hash}:results",
+        "ttl": "5 minutes",
+        "benefit": "Same searches repeated frequently"
+      }
+    ],
+    "serialization_optimizations": [
+      {
+        "serializer": "BaseProductSerializer",
+        "optimization": "Create lightweight list serializer",
+        "benefit": "Faster product list API responses"
+      },
+      {
+        "serializer": "ProductReviewSerializer",
+        "optimization": "Prefetch related user data",
+        "benefit": "Reduced database queries for review lists"
+      }
+    ]
+  },
+  "security_analysis": {
+    "permission_analysis": {
+      "current_permissions": [
+        "IsAdminOrReadOnly - Proper admin-only write access",
+        "IsSupplierOrAdmin - Allows supplier participation",
+        "IsReviewOwnerOrAdminOrReadOnly - Protects review ownership"
+      ],
+      "strengths": [
+        "Role-based access control implemented",
+        "Object-level permissions for reviews",
+        "Proper authentication required for modifications"
+      ],
+      "improvements_needed": [
+        "Add rate limiting for review creation",
+        "Implement content moderation for reviews",
+        "Add audit logging for admin actions"
+      ]
+    },
+    "data_validation": {},
+    "security_recommendations": [
+      {
+        "category": "Input Validation",
+        "recommendations": [
+          "Add content filtering for review comments",
+          "Implement image upload validation and scanning",
+          "Add price range validation to prevent unrealistic values",
+          "Sanitize product descriptions and names"
+        ]
+      },
+      {
+        "category": "Rate Limiting",
+        "recommendations": [
+          "Limit review creation per user per day",
+          "Throttle search API calls per IP",
+          "Rate limit product creation by suppliers",
+          "Implement progressive delays for failed attempts"
+        ]
+      },
+      {
+        "category": "Audit & Monitoring",
+        "recommendations": [
+          "Log all admin approval/rejection actions",
+          "Track suspicious pricing patterns",
+          "Monitor review manipulation attempts",
+          "Alert on bulk data access patterns"
+        ]
+      }
+    ]
+  },
+  "scalability_analysis": {
+    "current_architecture": {
+      "database": "SQLite (Development) - Not suitable for production scale",
+      "caching": "None implemented - Critical for scale",
+      "file_storage": "ImageKit - Good for production",
+      "search": "Database LIKE queries - Not scalable",
+      "session_management": "JWT - Stateless and scalable"
+    },
+    "scaling_challenges": [
+      {
+        "challenge": "Database Performance",
+        "description": "Complex queries on product filtering will slow down",
+        "solution": "Implement read replicas, query optimization, database sharding"
+      },
+      {
+        "challenge": "Search Performance",
+        "description": "Text search on product names/descriptions will degrade",
+        "solution": "Implement Elasticsearch or similar search engine"
+      },
+      {
+        "challenge": "Image Storage",
+        "description": "Large number of product images will impact performance",
+        "solution": "CDN integration, image optimization, lazy loading"
+      },
+      {
+        "challenge": "Review Volume",
+        "description": "High volume of reviews will impact query performance",
+        "solution": "Pagination, caching, database partitioning"
+      }
+    ],
+    "horizontal_scaling": {
+      "database": [
+        "PostgreSQL with read replicas",
+        "Redis for caching and sessions",
+        "Separate analytics database for reporting"
+      ],
+      "application": [
+        "Docker containers with Kubernetes orchestration",
+        "Load balancer with health checks",
+        "Microservices architecture for larger scale"
+      ],
+      "storage": [
+        "CDN for static assets and images",
+        "Object storage (S3-compatible) for file uploads",
+        "Distributed file system for larger files"
+      ]
+    },
+    "vertical_scaling": {}
+  },
+  "optimization_recommendations": {
+    "immediate_optimizations": [
+      {
+        "title": "Add Database Indexes",
+        "description": "Implement composite indexes for common query patterns",
+        "implementation": "Run migration with index creation SQL",
+        "expected_impact": "30-50% improvement in query performance",
+        "effort": "Low"
+      },
+      {
+        "title": "Query Optimization",
+        "description": "Add select_related and prefetch_related to views",
+        "implementation": "Update ViewSets to use optimized querysets",
+        "expected_impact": "40-60% reduction in database queries",
+        "effort": "Low"
+      },
+      {
+        "title": "Response Caching",
+        "description": "Implement Redis caching for static data",
+        "implementation": "Add Redis and cache decorators",
+        "expected_impact": "50-70% faster API responses for cached data",
+        "effort": "Medium"
+      }
+    ],
+    "medium_term_improvements": [
+      {
+        "title": "Search Engine Integration",
+        "description": "Implement Elasticsearch for product search",
+        "implementation": "Add elasticsearch-dsl-py and search views",
+        "expected_impact": "Sub-second search response times",
+        "effort": "High"
+      },
+      {
+        "title": "API Rate Limiting",
+        "description": "Implement comprehensive rate limiting",
+        "implementation": "Add django-ratelimit middleware",
+        "expected_impact": "Prevention of abuse and improved stability",
+        "effort": "Medium"
+      },
+      {
+        "title": "Background Task Processing",
+        "description": "Move heavy operations to background tasks",
+        "implementation": "Add Celery with Redis broker",
+        "expected_impact": "Faster API responses, better user experience",
+        "effort": "Medium"
+      }
+    ],
+    "long_term_architecture": [
+      {
+        "title": "Microservices Architecture",
+        "description": "Split products app into dedicated microservice",
+        "implementation": "Create separate Django service with API gateway",
+        "expected_impact": "Better scalability and maintainability",
+        "effort": "Very High"
+      },
+      {
+        "title": "Event-Driven Architecture",
+        "description": "Implement event sourcing for product changes",
+        "implementation": "Add message queue (RabbitMQ/Apache Kafka)",
+        "expected_impact": "Real-time updates, better audit trail",
+        "effort": "Very High"
+      },
+      {
+        "title": "Multi-Database Strategy",
+        "description": "Separate read/write databases",
+        "implementation": "Configure master-slave PostgreSQL setup",
+        "expected_impact": "Better read performance and availability",
+        "effort": "High"
+      }
+    ],
+    "performance_improvements": [],
+    "security_enhancements": []
+  },
+  "implementation_priority": {
+    "phase_1_immediate": {
+      "duration": "1-2 weeks",
+      "priority": "Critical",
+      "tasks": [
+        {
+          "task": "Database Index Creation",
+          "description": "Add recommended composite indexes",
+          "files_to_modify": [
+            "migrations/",
+            "models.py"
+          ],
+          "estimated_hours": 8
+        },
+        {
+          "task": "Query Optimization",
+          "description": "Add select_related/prefetch_related",
+          "files_to_modify": [
+            "views.py",
+            "serializers.py"
+          ],
+          "estimated_hours": 16
+        },
+        {
+          "task": "Basic Caching",
+          "description": "Implement Redis caching for categories/brands",
+          "files_to_modify": [
+            "views.py",
+            "settings.py"
+          ],
+          "estimated_hours": 24
+        }
+      ]
+    },
+    "phase_2_performance": {
+      "duration": "2-4 weeks",
+      "priority": "High",
+      "tasks": [
+        {
+          "task": "Advanced Caching Strategy",
+          "description": "Product detail caching, search result caching",
+          "files_to_modify": [
+            "views.py",
+            "utils.py"
+          ],
+          "estimated_hours": 32
+        },
+        {
+          "task": "API Rate Limiting",
+          "description": "Implement comprehensive rate limiting",
+          "files_to_modify": [
+            "middleware.py",
+            "settings.py"
+          ],
+          "estimated_hours": 16
+        },
+        {
+          "task": "Background Tasks",
+          "description": "Move image processing to background",
+          "files_to_modify": [
+            "tasks.py",
+            "views.py"
+          ],
+          "estimated_hours": 40
+        }
+      ]
+    },
+    "phase_3_scalability": {
+      "duration": "1-2 months",
+      "priority": "Medium",
+      "tasks": [
+        {
+          "task": "Search Engine Integration",
+          "description": "Elasticsearch implementation",
+          "files_to_modify": [
+            "search.py",
+            "views.py",
+            "management/"
+          ],
+          "estimated_hours": 80
+        },
+        {
+          "task": "Monitoring & Logging",
+          "description": "Comprehensive monitoring setup",
+          "files_to_modify": [
+            "middleware.py",
+            "utils.py"
+          ],
+          "estimated_hours": 32
+        },
+        {
+          "task": "Security Enhancements",
+          "description": "Content moderation, audit logging",
+          "files_to_modify": [
+            "permissions.py",
+            "serializers.py"
+          ],
+          "estimated_hours": 48
+        }
+      ]
+    }
+  }
+}

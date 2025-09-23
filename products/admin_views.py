@@ -17,28 +17,28 @@ def pending_approvals(request):
         status='pending', 
         created_by__role='supplier'
     ).values(
-        'id', 'name', 'created_by__username', 'created_at'
+        'id', 'name', 'created_by__full_name', 'created_at'
     )
     
     pending_categories = ProductCategory.objects.filter(
         status='pending', 
         created_by__role='supplier'
     ).values(
-        'id', 'name', 'created_by__username', 'created_at'
+        'id', 'name', 'created_by__full_name', 'created_at'
     )
     
     pending_products = Product.objects.filter(
         status='pending', 
         created_by__role='supplier'
     ).values(
-        'id', 'name', 'product_type', 'created_by__username', 'created_at'
+        'id', 'name', 'product_type', 'created_by__full_name', 'created_at'
     )
     
     pending_variants = ProductVariant.objects.filter(
         status='pending',
         product__created_by__role='supplier'
     ).select_related('product').values(
-        'id', 'product__name', 'product__created_by__username', 'created_at'
+        'id', 'product__name', 'product__created_by__full_name', 'created_at'
     )
     
     return Response({

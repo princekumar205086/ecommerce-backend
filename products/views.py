@@ -4,7 +4,7 @@ from rest_framework import generics, filters, permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
-from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly
+from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly, IsReviewOwnerOrAdminOrReadOnly
 from .models import (
     ProductCategory, Product, ProductReview,
     Brand, ProductVariant, SupplierProductPrice,
@@ -29,10 +29,21 @@ def get_product_serializer_class(product_type):
 
 class ProductCategoryListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductCategorySerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSupplierOrAdmin]  # Allow suppliers to create categories
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['name']
+
+    def get_permissions(self):
+        """
+        Override permissions based on request method.
+        GET requests are allowed for everyone, POST requires supplier or admin.
+        """
+        if self.request.method == 'GET':
+            self.permission_classes = [permissions.AllowAny]
+        else:
+            self.permission_classes = [IsSupplierOrAdmin]
+        return [permission() for permission in self.permission_classes]
 
     def get_queryset(self):
         """
@@ -46,7 +57,11 @@ class ProductCategoryListCreateView(generics.ListCreateAPIView):
             return ProductCategory.objects.filter(status='published', is_publish=True)
 
     def perform_create(self, serializer):
-        serializer.save(status='pending', is_publish=False)
+        # Set defaults based on user role
+        if self.request.user.role == 'admin':
+            serializer.save(status='published', is_publish=True, created_by=self.request.user)
+        else:  # supplier
+            serializer.save(status='pending', is_publish=False, created_by=self.request.user)
 
 
 class ProductCategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -76,10 +91,28 @@ class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSupplierOrAdmin]  # Allow suppliers to create brands
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
+
+    def get_permissions(self):
+        """
+        Override permissions based on request method.
+        GET requests are allowed for everyone, POST requires supplier or admin.
+        """
+        if self.request.method == 'GET':
+            self.permission_classes = [permissions.AllowAny]
+        else:
+            self.permission_classes = [IsSupplierOrAdmin]
+        return [permission() for permission in self.permission_classes]
+
+    def perform_create(self, serializer):
+        # Set defaults based on user role
+        if self.request.user.role == 'admin':
+            serializer.save(status='published', is_publish=True, created_by=self.request.user)
+        else:  # supplier
+            serializer.save(status='pending', is_publish=False, created_by=self.request.user)
 
 
 class ProductListCreateView(generics.ListCreateAPIView):
@@ -287,15 +320,4 @@ class SupplierProductPriceDetailView(generics.RetrieveUpdateDestroyAPIView):
 class ProductReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ProductReview.objects.select_related('product', 'user').all()
     serializer_class = ProductReviewSerializer
-    permission_classes = [permissions.AllowAny]
-
-    def get_permissions(self):
-        """
-        Override permissions based on request method.
-        GET requests are allowed for everyone, POST/PUT/PATCH/DELETE require authentication.
-        """
-        if self.request.method == 'GET':
-            self.permission_classes = [permissions.AllowAny]
-        else:
-            self.permission_classes = [permissions.IsAuthenticated]
-        return super().get_permissions()
+    permission_classes = [IsReviewOwnerOrAdminOrReadOnly]

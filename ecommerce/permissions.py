@@ -51,6 +51,30 @@ class IsOwnerOrRXVerifierOrAdmin(BasePermission):
         return False
 
 
+class IsReviewOwnerOrAdminOrReadOnly(BasePermission):
+    """
+    Custom permission for product reviews.
+    - GET: Anyone (including anonymous users)
+    - POST: Authenticated users only
+    - PUT/PATCH/DELETE: Only review owner or admin
+    """
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        return request.user.is_authenticated
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions for everyone
+        if request.method in SAFE_METHODS:
+            return True
+        
+        # Write permissions only for review owner or admin
+        return (
+            obj.user == request.user or 
+            (request.user.is_authenticated and request.user.role == 'admin')
+        )
+
+
 class CanVerifyPrescription(BasePermission):
     """Permission to verify prescriptions - only for RX verifiers and admins"""
     def has_permission(self, request, view):

@@ -1,0 +1,549 @@
+{
+  "timestamp": "2025-09-24T00:41:39.405755",
+  "tests": [
+    {
+      "test_name": "Setup CRUD Test Users",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:39.422100",
+      "details": {},
+      "error": null
+    },
+    {
+      "test_name": "Fetch Existing Entities",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:40.803747",
+      "details": {
+        "categories": 5,
+        "brands": 5,
+        "products": 5,
+        "variants": 5,
+        "attributes": 3
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET categories (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:40.833743",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET categories (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:40.873616",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET categories (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:40.914936",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET categories (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:40.938668",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET brands (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:40.980910",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET brands (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:41.025198",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET brands (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:41.062691",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET brands (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:41.075006",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET products (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:41.322802",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET products (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:41.647834",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET products (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:41.973708",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET products (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.266266",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET variants (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.352686",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET variants (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.432864",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET variants (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.523157",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET variants (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.602360",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attributes (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.619847",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attributes (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.640914",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attributes (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.664526",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attributes (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.669028",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attribute-values (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.697122",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attribute-values (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.721696",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attribute-values (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.750113",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET attribute-values (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.768493",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET images (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.806327",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET images (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.849491",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET images (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.880545",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET images (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.890375",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET supplier-prices (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.922121",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET supplier-prices (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.953293",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET supplier-prices (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.967730",
+      "details": {
+        "status_code": 403,
+        "has_data": false
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET supplier-prices (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:42.970853",
+      "details": {
+        "status_code": 401,
+        "has_data": false
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET reviews (admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.000595",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET reviews (supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.023303",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET reviews (user)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.051557",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET reviews (anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.064718",
+      "details": {
+        "status_code": 200,
+        "has_data": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET Category Detail",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.083462",
+      "details": {
+        "category_id": 109
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET Brand Detail",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.090007",
+      "details": {
+        "brand_id": 21
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET Product Detail",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.121053",
+      "details": {
+        "product_id": 495,
+        "product_type": "medicine",
+        "has_variants": false
+      },
+      "error": null
+    },
+    {
+      "test_name": "PUT Category Update",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.277387",
+      "details": {
+        "category_id": 109
+      },
+      "error": null
+    },
+    {
+      "test_name": "PUT Brand Update",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.294705",
+      "details": {
+        "brand_id": 21
+      },
+      "error": null
+    },
+    {
+      "test_name": "PATCH Product (Admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.357028",
+      "details": {
+        "product_id": 495
+      },
+      "error": null
+    },
+    {
+      "test_name": "PATCH Product (Supplier)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.364915",
+      "details": {
+        "product_id": 495,
+        "status_code": 403,
+        "access_level": "forbidden"
+      },
+      "error": null
+    },
+    {
+      "test_name": "PATCH Variant",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.395155",
+      "details": {
+        "variant_id": 1
+      },
+      "error": null
+    },
+    {
+      "test_name": "DELETE Category",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.456484",
+      "details": {
+        "category_id": 111
+      },
+      "error": null
+    },
+    {
+      "test_name": "DELETE Brand",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.490595",
+      "details": {
+        "brand_id": 56
+      },
+      "error": null
+    },
+    {
+      "test_name": "Search Categories",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.521731",
+      "details": {
+        "results_count": 12
+      },
+      "error": null
+    },
+    {
+      "test_name": "Filter Products by Type",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.685203",
+      "details": {
+        "results_count": 12
+      },
+      "error": null
+    },
+    {
+      "test_name": "Search Products",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.843193",
+      "details": {
+        "results_count": 12
+      },
+      "error": null
+    },
+    {
+      "test_name": "Order Products by Date",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:43.990118",
+      "details": {
+        "results_count": 12
+      },
+      "error": null
+    },
+    {
+      "test_name": "User Category Creation (Restricted)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:44.004566",
+      "details": {
+        "expected_403": true,
+        "status_code": 403
+      },
+      "error": null
+    },
+    {
+      "test_name": "User Product Deletion (Restricted)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:41:44.015998",
+      "details": {
+        "expected_403": true,
+        "status_code": 403
+      },
+      "error": null
+    }
+  ],
+  "summary": {
+    "total_tests": 54,
+    "passed_tests": 54,
+    "failed_tests": 0,
+    "skipped_tests": 0,
+    "success_rate": "100.0%",
+    "crud_coverage": {
+      "CREATE": 0,
+      "READ": 43,
+      "UPDATE": 5,
+      "DELETE": 2
+    }
+  },
+  "crud_coverage": {}
+}

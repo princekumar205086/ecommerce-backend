@@ -1,0 +1,301 @@
+{
+  "timestamp": "2025-09-24T00:54:44.443931",
+  "tests": [
+    {
+      "test_name": "Setup Review Test Users",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:44.463263",
+      "details": {
+        "users_ready": 5
+      },
+      "error": null
+    },
+    {
+      "test_name": "Cleanup Existing Reviews",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:44.482597",
+      "details": {
+        "deleted_reviews": 13
+      },
+      "error": null
+    },
+    {
+      "test_name": "Fetch Test Products",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.649251",
+      "details": {
+        "products_count": 5
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Review 5\u2b50 by user1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.680645",
+      "details": {
+        "review_id": 41,
+        "product_id": 495,
+        "rating": 5
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Review 4\u2b50 by reviewer1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.719533",
+      "details": {
+        "review_id": 42,
+        "product_id": 494,
+        "rating": 4
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Review 3\u2b50 by reviewer2",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.755641",
+      "details": {
+        "review_id": 43,
+        "product_id": 493,
+        "rating": 3
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Review 5\u2b50 by reviewer3",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.787836",
+      "details": {
+        "review_id": 44,
+        "product_id": 492,
+        "rating": 5
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Review 2\u2b50 by reviewer1",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.816115",
+      "details": {
+        "review_id": 45,
+        "product_id": 491,
+        "rating": 2
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET All Reviews (Anonymous)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.838938",
+      "details": {
+        "reviews_count": 12,
+        "status_code": 200
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET All Reviews (Authenticated)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.868184",
+      "details": {
+        "reviews_count": 12,
+        "status_code": 200
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET Product Reviews (Filtered)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.882173",
+      "details": {
+        "product_id": 495,
+        "reviews_count": 1
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET Review 41 Detail",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.889198",
+      "details": {
+        "review_id": 41,
+        "rating": 5,
+        "has_comment": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET Review 42 Detail",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.899816",
+      "details": {
+        "review_id": 42,
+        "rating": 4,
+        "has_comment": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "GET Review 43 Detail",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.904339",
+      "details": {
+        "review_id": 43,
+        "rating": 3,
+        "has_comment": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "PATCH Review Update (Own Review)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.937934",
+      "details": {
+        "review_id": 41,
+        "new_rating": 4,
+        "updated": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "PATCH Review Update (Others Review - Should Fail)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.960200",
+      "details": {
+        "correctly_blocked": true,
+        "status_code": 403
+      },
+      "error": null
+    },
+    {
+      "test_name": "DELETE Own Review",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:45.995987",
+      "details": {
+        "review_id": 45,
+        "deleted": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "DELETE Review (Admin)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:46.033368",
+      "details": {
+        "review_id": 44,
+        "admin_deleted": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Filter Reviews by Rating (5 stars)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:46.051138",
+      "details": {
+        "reviews_count": 9,
+        "all_5_star": true
+      },
+      "error": null
+    },
+    {
+      "test_name": "Order Reviews by Date (Newest First)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:46.069883",
+      "details": {
+        "reviews_count": 12
+      },
+      "error": null
+    },
+    {
+      "test_name": "Search Reviews by Comment",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:46.099080",
+      "details": {
+        "reviews_count": 12
+      },
+      "error": null
+    },
+    {
+      "test_name": "Unauthenticated Review Creation (Should Fail)",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:46.103728",
+      "details": {
+        "correctly_blocked": true,
+        "status_code": 401
+      },
+      "error": null
+    },
+    {
+      "test_name": "Duplicate Review Handling",
+      "status": "PASS",
+      "timestamp": "2025-09-24T00:54:46.134081",
+      "details": {
+        "status_code": 400,
+        "behavior": "duplicate_blocked"
+      },
+      "error": null
+    }
+  ],
+  "summary": {
+    "total_tests": 23,
+    "passed_tests": 23,
+    "failed_tests": 0,
+    "skipped_tests": 0,
+    "success_rate": "100.0%",
+    "reviews_created": 5,
+    "test_users_count": 5,
+    "test_products_count": 5
+  },
+  "created_reviews": [
+    {
+      "id": 41,
+      "user": "user@example.com",
+      "rating": 5,
+      "comment": "Excellent product! Highly recommend for everyone looking for quality medicine.",
+      "created_at": "2025-09-24T00:54:45.669296+05:30",
+      "updated_at": "2025-09-24T00:54:45.669330+05:30",
+      "is_published": true,
+      "product": 495
+    },
+    {
+      "id": 42,
+      "user": "reviewer1@example.com",
+      "rating": 4,
+      "comment": "Good product with fast delivery. Minor packaging issues but overall satisfied.",
+      "created_at": "2025-09-24T00:54:45.704543+05:30",
+      "updated_at": "2025-09-24T00:54:45.704590+05:30",
+      "is_published": true,
+      "product": 494
+    },
+    {
+      "id": 43,
+      "user": "reviewer2@example.com",
+      "rating": 3,
+      "comment": "Average product. Does what it says but nothing exceptional about it.",
+      "created_at": "2025-09-24T00:54:45.745271+05:30",
+      "updated_at": "2025-09-24T00:54:45.745328+05:30",
+      "is_published": true,
+      "product": 493
+    },
+    {
+      "id": 44,
+      "user": "reviewer3@example.com",
+      "rating": 5,
+      "comment": "Outstanding quality! Great value for money. Will definitely buy again.",
+      "created_at": "2025-09-24T00:54:45.780032+05:30",
+      "updated_at": "2025-09-24T00:54:45.780092+05:30",
+      "is_published": true,
+      "product": 492
+    },
+    {
+      "id": 45,
+      "user": "reviewer1@example.com",
+      "rating": 2,
+      "comment": "Not satisfied with this product. Expected better quality for the price.",
+      "created_at": "2025-09-24T00:54:45.805720+05:30",
+      "updated_at": "2025-09-24T00:54:45.805752+05:30",
+      "is_published": false,
+      "product": 491
+    }
+  ]
+}
