@@ -2,11 +2,13 @@
 import os
 import uuid
 import random
+import base64
+import logging
 from datetime import timedelta
 from PIL import Image
 from io import BytesIO
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
@@ -603,6 +605,270 @@ MedixMall Admin Team
             logger = logging.getLogger(__name__)
             logger.error(f"❌ Failed to send RX verifier credentials to {self.email}: {str(e)}")
             return False, f"Failed to send RX verifier credentials: {str(e)}"
+
+
+class SupplierRequest(models.Model):
+    """Model for supplier account requests that require admin approval"""
+    STATUS_CHOICES = [
+        ('pending', 'Pending Review'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+        ('under_review', 'Under Review'),
+    ]
+    
+    # Basic user information
+    email = models.EmailField(unique=True)
+    full_name = models.CharField(max_length=100)
+    contact = models.CharField(max_length=20)
+    password_hash = models.CharField(max_length=255, help_text="Encrypted password until approval")
+    
+    # Supplier-specific information
+    company_name = models.CharField(max_length=255)
+    company_address = models.TextField()
+    gst_number = models.CharField(max_length=15, unique=True)
+    pan_number = models.CharField(max_length=10)
+    business_license = ImageKitField(help_text="Business license document")
+    gst_certificate = ImageKitField(help_text="GST registration certificate")
+    
+    # Additional business details
+    business_type = models.CharField(max_length=100, blank=True, null=True)
+    years_in_business = models.PositiveIntegerField(blank=True, null=True)
+    annual_turnover = models.CharField(max_length=50, blank=True, null=True)
+    product_categories = models.TextField(help_text="Categories of products they want to sell")
+    bank_account_details = models.TextField(blank=True, null=True)
+    
+    # Request status and admin handling
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    requested_at = models.DateTimeField(auto_now_add=True)
+    reviewed_at = models.DateTimeField(blank=True, null=True)
+    reviewed_by = models.ForeignKey(
+        User, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True,
+        related_name='reviewed_supplier_requests'
+    )
+    admin_notes = models.TextField(blank=True, null=True, help_text="Internal notes for admin")
+    rejection_reason = models.TextField(blank=True, null=True)
+    
+    # Created user reference (filled after approval)
+    approved_user = models.OneToOneField(
+        User, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True,
+        related_name='supplier_request'
+    )
+    
+    class Meta:
+        ordering = ['-requested_at']
+        indexes = [
+            models.Index(fields=['status']),
+            models.Index(fields=['requested_at']),
+            models.Index(fields=['gst_number']),
+        ]
+    
+    def __str__(self):
+        return f"{self.company_name} - {self.full_name} ({self.status})"
+    
+    @property
+    def is_pending(self):
+        return self.status == 'pending'
+    
+    @property
+    def is_approved(self):
+        return self.status == 'approved'
+    
+    @property
+    def is_rejected(self):
+        return self.status == 'rejected'
+    
+    def approve(self, admin_user, notes=None):
+        """Approve the supplier request and create user account"""
+        if self.status == 'approved':
+            return False, "Request is already approved"
+        
+        try:
+            with transaction.atomic():
+                # Create the supplier user account
+                user = User.objects.create_user(
+                    email=self.email,
+                    full_name=self.full_name,
+                    contact=self.contact,
+                    role='supplier'
+                )
+                
+                # Set the password (it was stored temporarily)
+                user.password = self.password_hash  # Already hashed
+                user.email_verified = True  # Auto-verify approved suppliers
+                user.save()
+                
+                # Update request status
+                self.status = 'approved'
+                self.reviewed_at = timezone.now()
+                self.reviewed_by = admin_user
+                self.approved_user = user
+                if notes:
+                    self.admin_notes = notes
+                self.save()
+                
+                # Send approval notification
+                self.send_approval_email()
+                
+                return True, f"Supplier request approved. User account created for {user.email}"
+                
+        except Exception as e:
+            return False, f"Failed to approve request: {str(e)}"
+    
+    def reject(self, admin_user, reason, notes=None):
+        """Reject the supplier request"""
+        if self.status == 'rejected':
+            return False, "Request is already rejected"
+        
+        self.status = 'rejected'
+        self.reviewed_at = timezone.now()
+        self.reviewed_by = admin_user
+        self.rejection_reason = reason
+        if notes:
+            self.admin_notes = notes
+        self.save()
+        
+        # Send rejection notification
+        self.send_rejection_email()
+        
+        return True, "Supplier request rejected successfully"
+    
+    def send_approval_email(self):
+        """Send approval notification email"""
+        subject = '🎉 Your Supplier Account Has Been Approved - MedixMall'
+        message = f"""
+Hi {self.full_name},
+
+Great news! Your supplier account request has been approved.
+
+Company: {self.company_name}
+Login Email: {self.email}
+
+You can now log in to your supplier dashboard and start adding your products.
+
+Welcome to the MedixMall supplier community!
+
+Best regards,
+MedixMall Team
+        """
+        
+        try:
+            send_mail(
+                subject, message,
+                settings.EMAIL_HOST_USER,
+                [self.email],
+                fail_silently=False
+            )
+            print(f"✅ Approval email sent to {self.email}")
+        except Exception as e:
+            print(f"❌ Failed to send approval email: {str(e)}")
+    
+    def send_rejection_email(self):
+        """Send rejection notification email"""
+        subject = 'Supplier Account Request Update - MedixMall'
+        message = f"""
+Hi {self.full_name},
+
+Thank you for your interest in becoming a supplier on MedixMall.
+
+After careful review, we are unable to approve your supplier account request at this time.
+
+Reason: {self.rejection_reason}
+
+If you believe this decision was made in error or would like to reapply with additional information, please contact our support team.
+
+Best regards,
+MedixMall Team
+        """
+        
+        try:
+            send_mail(
+                subject, message,
+                settings.EMAIL_HOST_USER,
+                [self.email],
+                fail_silently=False
+            )
+            print(f"✅ Rejection email sent to {self.email}")
+        except Exception as e:
+            print(f"❌ Failed to send rejection email: {str(e)}")
+
+
+class AuditLog(models.Model):
+    """Model to track important user actions for security and compliance"""
+    ACTION_CHOICES = [
+        ('login', 'User Login'),
+        ('logout', 'User Logout'),
+        ('register', 'User Registration'),
+        ('password_change', 'Password Changed'),
+        ('password_reset', 'Password Reset'),
+        ('email_verify', 'Email Verified'),
+        ('profile_update', 'Profile Updated'),
+        ('address_update', 'Address Updated'),
+        ('role_change', 'Role Changed'),
+        ('account_status_change', 'Account Status Changed'),
+        ('otp_request', 'OTP Requested'),
+        ('otp_verify', 'OTP Verified'),
+        ('supplier_request', 'Supplier Request Submitted'),
+        ('supplier_approved', 'Supplier Request Approved'),
+        ('supplier_rejected', 'Supplier Request Rejected'),
+        ('suspicious_activity', 'Suspicious Activity Detected'),
+        ('data_export', 'Data Export'),
+        ('account_deletion', 'Account Deletion'),
+    ]
+    
+    user = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        related_name='audit_logs',
+        null=True,  # Allow null for system actions
+        blank=True
+    )
+    action = models.CharField(max_length=50, choices=ACTION_CHOICES)
+    resource = models.CharField(max_length=100, help_text="Resource being acted upon")
+    details = models.JSONField(default=dict, help_text="Additional action details")
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    success = models.BooleanField(default=True)
+    error_message = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        ordering = ['-timestamp']
+        indexes = [
+            models.Index(fields=['user', 'action']),
+            models.Index(fields=['timestamp']),
+            models.Index(fields=['action']),
+            models.Index(fields=['ip_address']),
+        ]
+    
+    def __str__(self):
+        username = self.user.email if self.user else 'System'
+        return f"{username} - {self.get_action_display()} at {self.timestamp}"
+    
+    @classmethod
+    def log_action(cls, user, action, resource, details=None, ip_address=None, user_agent=None, success=True, error_message=None):
+        """Convenience method to create audit log entries"""
+        try:
+            cls.objects.create(
+                user=user,
+                action=action,
+                resource=resource,
+                details=details or {},
+                ip_address=ip_address,
+                user_agent=user_agent,
+                success=success,
+                error_message=error_message
+            )
+        except Exception as e:
+            # Log to system logger if database logging fails
+            import logging
+            logger = logging.getLogger('accounts.audit')
+            logger.error(f"Failed to create audit log: {str(e)}")
 
 
 class OTP(models.Model):

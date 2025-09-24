@@ -1,0 +1,136 @@
+{
+  "summary": {
+    "total_tests": 14,
+    "successful_tests": 4,
+    "success_rate": 28.57142857142857,
+    "timestamp": "2025-09-24T17:09:44.389799"
+  },
+  "detailed_results": [
+    {
+      "test": "User Registration",
+      "method": "POST",
+      "url": "/api/accounts/register/",
+      "status_code": 201,
+      "success": true,
+      "details": "User created: testuser_1758713963@example.com",
+      "timestamp": "2025-09-24T17:09:29.562399"
+    },
+    {
+      "test": "Login Choice",
+      "method": "POST",
+      "url": "/api/accounts/login/choice/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:30.080376"
+    },
+    {
+      "test": "Profile Access",
+      "method": "GET",
+      "url": "/api/accounts/me/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:30.598052"
+    },
+    {
+      "test": "OTP Request",
+      "method": "POST",
+      "url": "/api/accounts/otp/request/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:31.108305"
+    },
+    {
+      "test": "Password Reset Request",
+      "method": "POST",
+      "url": "/api/accounts/password/reset-request/",
+      "status_code": 200,
+      "success": true,
+      "details": "Reset request sent successfully",
+      "timestamp": "2025-09-24T17:09:34.890969"
+    },
+    {
+      "test": "Auth Endpoint",
+      "method": "POST",
+      "url": "/api/accounts/resend-verification/",
+      "status_code": 200,
+      "success": true,
+      "details": "Endpoint responded",
+      "timestamp": "2025-09-24T17:09:38.737236"
+    },
+    {
+      "test": "Auth Endpoint",
+      "method": "POST",
+      "url": "/api/accounts/otp/resend/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:38.772823"
+    },
+    {
+      "test": "Auth Endpoint",
+      "method": "POST",
+      "url": "/api/accounts/login/otp/request/",
+      "status_code": 200,
+      "success": true,
+      "details": "Endpoint responded",
+      "timestamp": "2025-09-24T17:09:42.246903"
+    },
+    {
+      "test": "Supplier Endpoint",
+      "method": "GET",
+      "url": "/api/accounts/supplier/duty/status/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:42.755551"
+    },
+    {
+      "test": "Supplier Endpoint",
+      "method": "POST",
+      "url": "/api/accounts/supplier/request/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:42.768459"
+    },
+    {
+      "test": "Supplier Endpoint",
+      "method": "GET",
+      "url": "/api/accounts/supplier/request/status/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:42.782367"
+    },
+    {
+      "test": "Admin Endpoint",
+      "method": "GET",
+      "url": "/api/accounts/admin/supplier/requests/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:43.301688"
+    },
+    {
+      "test": "Admin Endpoint",
+      "method": "GET",
+      "url": "/api/accounts/list/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:43.317142"
+    },
+    {
+      "test": "Google Auth",
+      "method": "POST",
+      "url": "/api/accounts/login/google/",
+      "status_code": "No Response",
+      "success": false,
+      "details": "Request failed",
+      "timestamp": "2025-09-24T17:09:43.883808"
+    }
+  ]
+}

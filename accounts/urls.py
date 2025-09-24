@@ -6,7 +6,9 @@ from .views import (
     EmailVerificationView, ResendVerificationView, OTPRequestView, OTPVerificationView,
     PasswordResetRequestView, PasswordResetConfirmView, ChangePasswordView,
     OTPLoginRequestView, OTPLoginVerifyView, LoginChoiceView, ResendOTPView,
-    SupplierDutyStatusView, SupplierDutyToggleView
+    SupplierDutyStatusView, SupplierDutyToggleView,
+    SupplierRequestView, SupplierRequestStatusView, AdminSupplierRequestListView, AdminSupplierRequestActionView,
+    GoogleAuthView
 )
 
 urlpatterns = [
@@ -15,6 +17,7 @@ urlpatterns = [
     path('register/<str:role>/', RegisterView.as_view(), name='register-with-role'),
     path('login/', LoginView.as_view(), name='login'),
     path('login/choice/', LoginChoiceView.as_view(), name='login_choice'),  # New unified login
+    path('login/google/', GoogleAuthView.as_view(), name='google_auth'),  # Google Social Login
     path('logout/', LogoutView.as_view(), name='logout'),
     path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh_custom'),
     
@@ -46,4 +49,12 @@ urlpatterns = [
     # Supplier Duty Management
     path('supplier/duty/status/', SupplierDutyStatusView.as_view(), name='supplier_duty_status'),
     path('supplier/duty/toggle/', SupplierDutyToggleView.as_view(), name='supplier_duty_toggle'),
+    
+    # Supplier Request System
+    path('supplier/request/', SupplierRequestView.as_view(), name='supplier_request'),
+    path('supplier/request/status/', SupplierRequestStatusView.as_view(), name='supplier_request_status'),
+    
+    # Admin - Supplier Request Management
+    path('admin/supplier/requests/', AdminSupplierRequestListView.as_view(), name='admin_supplier_requests'),
+    path('admin/supplier/requests/<int:request_id>/action/', AdminSupplierRequestActionView.as_view(), name='admin_supplier_request_action'),
 ]

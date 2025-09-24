@@ -1,9 +1,10 @@
 # accounts/serializers.py
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from .models import OTP, PasswordResetToken
+from .models import OTP, PasswordResetToken, SupplierRequest
 
 User = get_user_model()
 
@@ -350,3 +351,76 @@ class LoginChoiceSerializer(serializers.Serializer):
             )
         
         return data
+
+
+class SupplierRequestSerializer(serializers.ModelSerializer):
+    """Serializer for supplier account requests"""
+    password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    password2 = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    business_license = serializers.CharField(required=False, help_text="ImageKit URL for business license")
+    gst_certificate = serializers.CharField(required=False, help_text="ImageKit URL for GST certificate")
+    
+    class Meta:
+        model = SupplierRequest
+        fields = [
+            'email', 'full_name', 'contact', 'password', 'password2',
+            'company_name', 'company_address', 'gst_number', 'pan_number',
+            'business_license', 'gst_certificate', 'business_type',
+            'years_in_business', 'annual_turnover', 'product_categories',
+            'bank_account_details'
+        ]
+    
+    def validate(self, data):
+        if data['password'] != data['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        
+        # Check if email is already in use
+        User = get_user_model()
+        if User.objects.filter(email=data['email']).exists():
+            raise serializers.ValidationError({"email": "User with this email already exists."})
+        
+        # Check if GST number is already in use
+        if SupplierRequest.objects.filter(gst_number=data['gst_number']).exists():
+            raise serializers.ValidationError({"gst_number": "Supplier request with this GST number already exists."})
+        
+        return data
+    
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        validated_data.pop('password2')  # Remove confirmation password
+        
+        # Hash the password before storing
+        validated_data['password_hash'] = make_password(password)
+        
+        return SupplierRequest.objects.create(**validated_data)
+
+
+class SupplierRequestDetailSerializer(serializers.ModelSerializer):
+    """Detailed serializer for viewing supplier requests (admin use)"""
+    reviewed_by = serializers.StringRelatedField()
+    approved_user = serializers.StringRelatedField()
+    
+    class Meta:
+        model = SupplierRequest
+        fields = '__all__'
+        read_only_fields = ['password_hash', 'reviewed_at', 'reviewed_by', 'approved_user']
+
+
+class SupplierRequestActionSerializer(serializers.Serializer):
+    """Serializer for admin actions on supplier requests"""
+    action = serializers.ChoiceField(choices=['approve', 'reject', 'under_review'])
+    reason = serializers.CharField(required=False, help_text="Required for rejection")
+    admin_notes = serializers.CharField(required=False)
+    
+    def validate(self, data):
+        if data.get('action') == 'reject' and not data.get('reason'):
+            raise serializers.ValidationError({"reason": "Rejection reason is required when rejecting a request."})
+        return data
+
+
+class SupplierRequestStatusSerializer(serializers.ModelSerializer):
+    """Simple serializer for checking supplier request status"""
+    class Meta:
+        model = SupplierRequest
+        fields = ['id', 'email', 'company_name', 'status', 'requested_at', 'reviewed_at', 'rejection_reason']
+        read_only_fields = ['id', 'status', 'requested_at', 'reviewed_at', 'rejection_reason']

@@ -14,7 +14,7 @@ from django.utils import timezone
 from django.db import transaction
 
 from cart.models import Cart, CartItem
-from .models import User, OTP, PasswordResetToken
+from .models import User, OTP, PasswordResetToken, SupplierRequest
 from .serializers import (
     UserRegisterSerializer, UserLoginSerializer, UserSerializer, 
     UserAddressSerializer, UpdateAddressSerializer, MedixMallModeSerializer,
@@ -152,12 +152,33 @@ class LoginView(APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
 
-        # Check if email is verified
+        # Check if email is verified - if not, send OTP for verification
         if not user.email_verified:
-            return Response({
-                'error': 'Email not verified. Please verify your email before logging in.',
-                'email_verified': False
-            }, status=status.HTTP_403_FORBIDDEN)
+            try:
+                print(f"📧 User {user.email} attempting login with unverified email - sending OTP")
+                verification_success, verification_message = user.send_verification_email()
+                if verification_success:
+                    return Response({
+                        'error': 'Email not verified. We\'ve sent a verification OTP to your email.',
+                        'email_verified': False,
+                        'otp_sent': True,
+                        'message': 'Please verify your email with the OTP we just sent before logging in.'
+                    }, status=status.HTTP_403_FORBIDDEN)
+                else:
+                    return Response({
+                        'error': 'Email not verified. Please verify your email before logging in.',
+                        'email_verified': False,
+                        'otp_sent': False,
+                        'message': 'Failed to send OTP. Please try again or contact support.'
+                    }, status=status.HTTP_403_FORBIDDEN)
+            except Exception as e:
+                print(f"⚠️ Failed to send OTP during login: {str(e)}")
+                return Response({
+                    'error': 'Email not verified. Please verify your email before logging in.',
+                    'email_verified': False,
+                    'otp_sent': False,
+                    'message': 'Failed to send verification OTP. Please try again later.'
+                }, status=status.HTTP_403_FORBIDDEN)
 
         # Sync guest cart to user's cart
         sync_guest_cart_to_user(request, user)
@@ -1508,3 +1529,390 @@ class SupplierDutyToggleView(APIView):
             'message': f"You are now {status_text}. Your {products_count} products are now {visibility_text} customers.",
             'products_affected': products_count
         })
+
+
+# Supplier Request System Views
+
+class SupplierRequestView(APIView):
+    """
+    Submit a supplier account request
+    """
+    permission_classes = [AllowAny]
+    
+    @swagger_auto_schema(
+        operation_description="Submit a request to become a supplier. Admin approval required.",
+        operation_summary="Request Supplier Account",
+        tags=['Supplier - Account Request'],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL),
+                'full_name': openapi.Schema(type=openapi.TYPE_STRING),
+                'contact': openapi.Schema(type=openapi.TYPE_STRING),
+                'password': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_PASSWORD),
+                'password2': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_PASSWORD),
+                'company_name': openapi.Schema(type=openapi.TYPE_STRING),
+                'company_address': openapi.Schema(type=openapi.TYPE_STRING),
+                'gst_number': openapi.Schema(type=openapi.TYPE_STRING),
+                'pan_number': openapi.Schema(type=openapi.TYPE_STRING),
+                'business_license': openapi.Schema(type=openapi.TYPE_STRING, description="ImageKit URL"),
+                'gst_certificate': openapi.Schema(type=openapi.TYPE_STRING, description="ImageKit URL"),
+                'product_categories': openapi.Schema(type=openapi.TYPE_STRING),
+            },
+            required=['email', 'full_name', 'contact', 'password', 'password2', 'company_name', 'gst_number']
+        ),
+        responses={
+            201: openapi.Response('Request submitted successfully'),
+            400: openapi.Response('Bad Request - Invalid data'),
+        }
+    )
+    def post(self, request):
+        from .serializers import SupplierRequestSerializer
+        
+        serializer = SupplierRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            supplier_request = serializer.save()
+            
+            # Send notification to admins
+            self.notify_admins(supplier_request)
+            
+            return Response({
+                'message': 'Supplier request submitted successfully. You will be notified once reviewed.',
+                'request_id': supplier_request.id,
+                'status': supplier_request.status
+            }, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def notify_admins(self, supplier_request):
+        """Notify all admin users about new supplier request"""
+        try:
+            admin_users = User.objects.filter(role='admin', is_active=True)
+            admin_emails = [admin.email for admin in admin_users]
+            
+            if admin_emails:
+                subject = f'New Supplier Request - {supplier_request.company_name}'
+                message = f"""
+New supplier account request received:
+
+Company: {supplier_request.company_name}
+Contact Person: {supplier_request.full_name}
+Email: {supplier_request.email}
+Contact: {supplier_request.contact}
+GST Number: {supplier_request.gst_number}
+
+Please review and take appropriate action in the admin panel.
+
+Best regards,
+MedixMall System
+                """
+                
+                send_mail(
+                    subject, message,
+                    settings.EMAIL_HOST_USER,
+                    admin_emails,
+                    fail_silently=True
+                )
+                print(f"✅ Admin notification sent for supplier request: {supplier_request.id}")
+        except Exception as e:
+            print(f"❌ Failed to send admin notification: {str(e)}")
+
+
+class SupplierRequestStatusView(APIView):
+    """
+    Check status of supplier request
+    """
+    permission_classes = [AllowAny]
+    
+    @swagger_auto_schema(
+        operation_description="Check the status of a supplier account request",
+        operation_summary="Check Supplier Request Status",
+        tags=['Supplier - Account Request'],
+        manual_parameters=[
+            openapi.Parameter('email', openapi.IN_QUERY, description="Email address", type=openapi.TYPE_STRING, required=True)
+        ],
+        responses={
+            200: openapi.Response('Request status retrieved'),
+            404: openapi.Response('Request not found'),
+        }
+    )
+    def get(self, request):
+        from .serializers import SupplierRequestStatusSerializer
+        email = request.query_params.get('email')
+        
+        if not email:
+            return Response({
+                'error': 'Email parameter is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            supplier_request = SupplierRequest.objects.get(email=email)
+            serializer = SupplierRequestStatusSerializer(supplier_request)
+            return Response(serializer.data)
+        except SupplierRequest.DoesNotExist:
+            return Response({
+                'error': 'No supplier request found with this email'
+            }, status=status.HTTP_404_NOT_FOUND)
+
+
+class AdminSupplierRequestListView(APIView):
+    """
+    Admin view to list all supplier requests
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    @swagger_auto_schema(
+        operation_description="List all supplier account requests (Admin only)",
+        operation_summary="List Supplier Requests (Admin)",
+        tags=['Admin - Supplier Management'],
+        manual_parameters=[
+            AUTH_HEADER_PARAMETER,
+            openapi.Parameter('status', openapi.IN_QUERY, description="Filter by status", type=openapi.TYPE_STRING)
+        ],
+        responses={
+            200: openapi.Response('Supplier requests retrieved'),
+            403: openapi.Response('Forbidden - Admin access required'),
+        }
+    )
+    def get(self, request):
+        if request.user.role != 'admin':
+            return Response({
+                'error': 'Admin access required'
+            }, status=status.HTTP_403_FORBIDDEN)
+        
+        from .serializers import SupplierRequestDetailSerializer
+        
+        queryset = SupplierRequest.objects.all()
+        status_filter = request.query_params.get('status')
+        if status_filter:
+            queryset = queryset.filter(status=status_filter)
+        
+        serializer = SupplierRequestDetailSerializer(queryset, many=True)
+        return Response({
+            'count': queryset.count(),
+            'requests': serializer.data
+        })
+
+
+class AdminSupplierRequestActionView(APIView):
+    """
+    Admin view to approve/reject supplier requests
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    @swagger_auto_schema(
+        operation_description="Approve, reject, or mark supplier request under review (Admin only)",
+        operation_summary="Handle Supplier Request (Admin)",
+        tags=['Admin - Supplier Management'],
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'action': openapi.Schema(type=openapi.TYPE_STRING, enum=['approve', 'reject', 'under_review']),
+                'reason': openapi.Schema(type=openapi.TYPE_STRING, description="Required for rejection"),
+                'admin_notes': openapi.Schema(type=openapi.TYPE_STRING),
+            },
+            required=['action']
+        ),
+        responses={
+            200: openapi.Response('Action completed successfully'),
+            400: openapi.Response('Bad Request'),
+            403: openapi.Response('Forbidden - Admin access required'),
+            404: openapi.Response('Request not found'),
+        }
+    )
+    def post(self, request, request_id):
+        if request.user.role != 'admin':
+            return Response({
+                'error': 'Admin access required'
+            }, status=status.HTTP_403_FORBIDDEN)
+        
+        from .serializers import SupplierRequestActionSerializer
+        
+        try:
+            supplier_request = SupplierRequest.objects.get(id=request_id)
+        except SupplierRequest.DoesNotExist:
+            return Response({
+                'error': 'Supplier request not found'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = SupplierRequestActionSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        action = serializer.validated_data['action']
+        admin_notes = serializer.validated_data.get('admin_notes')
+        
+        if action == 'approve':
+            success, message = supplier_request.approve(request.user, admin_notes)
+        elif action == 'reject':
+            reason = serializer.validated_data['reason']
+            success, message = supplier_request.reject(request.user, reason, admin_notes)
+        elif action == 'under_review':
+            supplier_request.status = 'under_review'
+            supplier_request.reviewed_by = request.user
+            supplier_request.reviewed_at = timezone.now()
+            if admin_notes:
+                supplier_request.admin_notes = admin_notes
+            supplier_request.save()
+            success, message = True, "Request marked as under review"
+        
+        if success:
+            return Response({
+                'message': message,
+                'status': supplier_request.status
+            })
+        else:
+            return Response({
+                'error': message
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Google Social Authentication Views
+
+class GoogleAuthView(APIView):
+    """
+    Google OAuth2 authentication endpoint
+    """
+    permission_classes = [AllowAny]
+    
+    @swagger_auto_schema(
+        operation_description="Authenticate or register user using Google OAuth2",
+        operation_summary="Google Social Login",
+        tags=['Authentication - Social'],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'id_token': openapi.Schema(
+                    type=openapi.TYPE_STRING, 
+                    description="Google ID token from frontend"
+                ),
+                'role': openapi.Schema(
+                    type=openapi.TYPE_STRING,
+                    enum=['user', 'supplier'],
+                    description="User role (defaults to 'user')",
+                    default='user'
+                ),
+            },
+            required=['id_token']
+        ),
+        responses={
+            200: openapi.Response(
+                'Login successful',
+                openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'user': openapi.Schema(type=openapi.TYPE_OBJECT),
+                        'access': openapi.Schema(type=openapi.TYPE_STRING),
+                        'refresh': openapi.Schema(type=openapi.TYPE_STRING),
+                        'is_new_user': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                    }
+                )
+            ),
+            400: openapi.Response('Invalid token or authentication failed'),
+        }
+    )
+    def post(self, request):
+        from google.oauth2 import id_token
+        from google.auth.transport import requests as google_requests
+        import os
+        
+        id_token_str = request.data.get('id_token')
+        role = request.data.get('role', 'user')  # Default to 'user'
+        
+        if not id_token_str:
+            return Response({
+                'error': 'Google ID token is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Validate role
+        if role not in ['user', 'supplier']:
+            return Response({
+                'error': 'Invalid role. Only "user" and "supplier" are allowed.'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            # Verify the token
+            CLIENT_ID = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+            if not CLIENT_ID:
+                return Response({
+                    'error': 'Google OAuth not configured properly'
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+            # Verify the token with Google
+            idinfo = id_token.verify_oauth2_token(
+                id_token_str, 
+                google_requests.Request(), 
+                CLIENT_ID
+            )
+            
+            # Extract user information
+            email = idinfo.get('email')
+            full_name = idinfo.get('name', '')
+            google_id = idinfo.get('sub')
+            email_verified = idinfo.get('email_verified', False)
+            
+            if not email:
+                return Response({
+                    'error': 'Email not provided by Google'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Check if user already exists
+            try:
+                user = User.objects.get(email=email)
+                is_new_user = False
+                
+                # Update user info if needed
+                if not user.full_name and full_name:
+                    user.full_name = full_name
+                
+                # Auto-verify email since it's verified by Google
+                if email_verified and not user.email_verified:
+                    user.email_verified = True
+                
+                user.save()
+                
+            except User.DoesNotExist:
+                # Create new user
+                user = User.objects.create_user(
+                    email=email,
+                    full_name=full_name,
+                    role=role,
+                    email_verified=email_verified  # Trust Google's verification
+                )
+                is_new_user = True
+                
+                # Send welcome email for new users
+                if is_new_user:
+                    try:
+                        user.send_welcome_email()
+                    except Exception as e:
+                        print(f"⚠️ Failed to send welcome email: {str(e)}")
+            
+            # Sync guest cart to user's cart
+            sync_guest_cart_to_user(request, user)
+            
+            # Generate tokens
+            refresh = RefreshToken.for_user(user)
+            
+            return Response({
+                'user': UserSerializer(user).data,
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),
+                'is_new_user': is_new_user,
+                'message': f"Welcome {'back' if not is_new_user else 'to MedixMall'}!"
+            })
+            
+        except ValueError as e:
+            # Token verification failed
+            return Response({
+                'error': 'Invalid Google token',
+                'details': str(e)
+            }, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({
+                'error': 'Authentication failed',
+                'details': str(e)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
