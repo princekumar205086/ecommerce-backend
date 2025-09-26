@@ -4,7 +4,7 @@ from rest_framework import generics, filters, permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
-from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly, IsReviewOwnerOrAdminOrReadOnly
+from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly, IsReviewOwnerOrAdminOrReadOnly, IsCreatedByUserOrAdmin, IsSupplierOrAdminForUpdates
 from .models import (
     ProductCategory, Product, ProductReview,
     Brand, ProductVariant, SupplierProductPrice,
@@ -48,13 +48,21 @@ class ProductCategoryListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         """
         Override queryset based on user permissions.
-        Anonymous users see only published categories, admins see all.
+        - Anonymous users see only published categories
+        - Admins see all categories
+        - Suppliers see their own categories (any status) and published categories from others
         """
         if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
             return ProductCategory.objects.all()
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can see their own categories (any status) and published categories
+            from django.db.models import Q
+            return ProductCategory.objects.filter(
+                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+            )
         else:
-            # For anonymous users and non-admin users, show only published categories
-            return ProductCategory.objects.filter(status='published', is_publish=True)
+            # For anonymous users, show only published categories
+            return ProductCategory.objects.filter(status__in=['approved', 'published'], is_publish=True)
 
     def perform_create(self, serializer):
         # Set defaults based on user role
@@ -66,30 +74,55 @@ class ProductCategoryListCreateView(generics.ListCreateAPIView):
 
 class ProductCategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductCategorySerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSupplierOrAdminForUpdates]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_queryset(self):
         """
         Override queryset based on user permissions.
-        Anonymous users see only published categories, admins see all.
+        - Anonymous users see only published categories
+        - Admins see all categories  
+        - Suppliers see their own categories (any status) and published categories from others
         """
         if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
             return ProductCategory.objects.all()
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can see their own categories (any status) and published categories
+            from django.db.models import Q
+            return ProductCategory.objects.filter(
+                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+            )
         else:
-            # For anonymous users and non-admin users, show only published categories
-            return ProductCategory.objects.filter(status='published', is_publish=True)
+            # For anonymous users, show only published categories
+            return ProductCategory.objects.filter(status__in=['approved', 'published'], is_publish=True)
 
 
 class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSupplierOrAdminForUpdates]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        - Anonymous users see only published brands
+        - Admins see all brands  
+        - Suppliers see their own brands (any status) and published brands from others
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return Brand.objects.all()
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can see their own brands (any status) and published brands
+            from django.db.models import Q
+            return Brand.objects.filter(
+                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+            )
+        else:
+            # For anonymous users, show only published brands
+            return Brand.objects.filter(status__in=['approved', 'published'], is_publish=True)
 
 
 class BrandListCreateView(generics.ListCreateAPIView):
-    queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     permission_classes = [IsSupplierOrAdmin]  # Allow suppliers to create brands
     parser_classes = [MultiPartParser, FormParser, JSONParser]
@@ -106,6 +139,25 @@ class BrandListCreateView(generics.ListCreateAPIView):
         else:
             self.permission_classes = [IsSupplierOrAdmin]
         return [permission() for permission in self.permission_classes]
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        - Anonymous users see only published brands
+        - Admins see all brands
+        - Suppliers see their own brands (any status) and published brands from others
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return Brand.objects.all()
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can see their own brands (any status) and published brands
+            from django.db.models import Q
+            return Brand.objects.filter(
+                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+            )
+        else:
+            # For anonymous users, show only published brands
+            return Brand.objects.filter(status__in=['approved', 'published'], is_publish=True)
 
     def perform_create(self, serializer):
         # Set defaults based on user role
@@ -137,14 +189,22 @@ class ProductListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         """
         Override queryset based on user permissions.
-        Anonymous users see only published products, admins see all.
+        - Anonymous users see only published products
+        - Admins see all products
+        - Suppliers see their own products (any status) and published products from others
         """
         if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
             return Product.objects.prefetch_related('variants__supplier_prices', 'images').all()
-        else:
-            # For anonymous users and non-admin users, show only published products
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can see their own products (any status) and published products
+            from django.db.models import Q
             return Product.objects.filter(
-                status='published',
+                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+            ).prefetch_related('variants__supplier_prices', 'images').all()
+        else:
+            # For anonymous users, show only published products
+            return Product.objects.filter(
+                status__in=['approved', 'published'],
                 is_publish=True
             ).prefetch_related('variants__supplier_prices', 'images').all()
 
@@ -165,31 +225,39 @@ class ProductListCreateView(generics.ListCreateAPIView):
 
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAdminOrReadOnly]  # Allow read access for everyone, update/delete for admin only
+    permission_classes = [IsSupplierOrAdminForUpdates]  # Allow suppliers to edit their own products
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def get_permissions(self):
         """
         Override permissions based on request method.
-        GET requests are allowed for everyone, PUT/PATCH/DELETE require admin.
+        GET requests are allowed for everyone, PUT/PATCH/DELETE require supplier/admin ownership.
         """
         if self.request.method == 'GET':
             self.permission_classes = [permissions.AllowAny]
         else:
-            self.permission_classes = [IsAdminOrReadOnly]
+            self.permission_classes = [IsSupplierOrAdminForUpdates]
         return super().get_permissions()
 
     def get_queryset(self):
         """
         Override queryset based on user permissions.
-        Anonymous users see only published products, admins see all.
+        - Anonymous users see only published products
+        - Admins see all products
+        - Suppliers see their own products (any status) and published products from others
         """
         if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
             return Product.objects.prefetch_related('variants__supplier_prices', 'images').all()
-        else:
-            # For anonymous users and non-admin users, show only published products
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can see their own products (any status) and published products
+            from django.db.models import Q
             return Product.objects.filter(
-                status='published',
+                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+            ).prefetch_related('variants__supplier_prices', 'images').all()
+        else:
+            # For anonymous users, show only published products
+            return Product.objects.filter(
+                status__in=['approved', 'published'],
                 is_publish=True
             ).prefetch_related('variants__supplier_prices', 'images').all()
 
@@ -251,12 +319,32 @@ class ProductImageDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ProductVariantListCreateView(generics.ListCreateAPIView):
-    queryset = ProductVariant.objects.select_related('product').all()
     serializer_class = ProductVariantSerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSupplierOrAdmin]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['product']
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        - Admins see all variants
+        - Suppliers see variants of their own products and variants of published products
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return ProductVariant.objects.select_related('product').all()
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can see variants of their own products and variants of published products
+            from django.db.models import Q
+            return ProductVariant.objects.select_related('product').filter(
+                Q(product__created_by=self.request.user) | Q(product__status__in=['approved', 'published'], product__is_publish=True)
+            )
+        else:
+            # For anonymous users, show variants of published products only
+            return ProductVariant.objects.select_related('product').filter(
+                product__status__in=['approved', 'published'],
+                product__is_publish=True
+            )
 
     def perform_create(self, serializer):
         try:
@@ -306,9 +394,28 @@ class ProductReviewListCreateView(generics.ListCreateAPIView):
 
 
 class ProductVariantDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ProductVariant.objects.select_related('product').all()
     serializer_class = ProductVariantSerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSupplierOrAdmin]
+
+    def get_queryset(self):
+        """
+        Override queryset based on user permissions.
+        - Admins see all variants
+        - Suppliers see variants of their own products only
+        """
+        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+            return ProductVariant.objects.select_related('product').all()
+        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+            # Suppliers can only access variants of their own products
+            return ProductVariant.objects.select_related('product').filter(
+                product__created_by=self.request.user
+            )
+        else:
+            # For anonymous users, show variants of published products only
+            return ProductVariant.objects.select_related('product').filter(
+                product__status__in=['approved', 'published'],
+                product__is_publish=True
+            )
 
 
 class SupplierProductPriceDetailView(generics.RetrieveUpdateDestroyAPIView):

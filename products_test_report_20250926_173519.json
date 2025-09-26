@@ -1,0 +1,530 @@
+{
+  "categories": [
+    {
+      "endpoint": "/api/products/categories/",
+      "method": "POST",
+      "payload": {
+        "name": "Test Medicine Category Admin"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 112,
+        "name": "Test Medicine Category Admin",
+        "parent": null,
+        "created_at": "2025-09-26T17:35:18.964185+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T17:35:19.026047",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/categories/",
+      "method": "POST",
+      "payload": {
+        "name": "Test Equipment Category Supplier"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 113,
+        "name": "Test Equipment Category Supplier",
+        "parent": null,
+        "created_at": "2025-09-26T17:35:19.062727+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T17:35:19.113237",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/categories/",
+      "method": "POST",
+      "payload": {
+        "name": "Test Subcategory",
+        "parent": 112
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 114,
+        "name": "Test Subcategory",
+        "parent": 112,
+        "created_at": "2025-09-26T17:35:19.133085+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T17:35:19.164403",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/categories/",
+      "method": "GET",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 93,
+        "next": "http://testserver/api/products/categories/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 112,
+            "name": "Test Medicine Category Admin",
+            "parent": null,
+            "created_at": "2025-09-26T17:35:18.964185+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 109,
+            "name": "Updated Updated Surgical Instruments CAT 1758654519_848",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.691950+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 108,
+            "name": "Pathology CAT 1758654519_261",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.662387+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 107,
+            "name": "Medical Equipment CAT 1758654519_725",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.638818+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 106,
+            "name": "Medicines CAT 1758654519_905",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.606965+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 105,
+            "name": "Surgical Instruments CAT 1758653558_875",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.754528+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 104,
+            "name": "Pathology CAT 1758653558_474",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.718037+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 103,
+            "name": "Medical Equipment CAT 1758653558_475",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.693943+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 102,
+            "name": "Medicines CAT 1758653558_477",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.662707+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 101,
+            "name": "Surgical Instruments CAT 1758653380_985",
+            "parent": null,
+            "created_at": "2025-09-24T00:19:41.721971+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 100,
+            "name": "Pathology CAT 1758653380_826",
+            "parent": null,
+            "created_at": "2025-09-24T00:19:41.691129+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 99,
+            "name": "Medical Equipment CAT 1758653380_176",
+            "parent": null,
+            "created_at": "2025-09-24T00:19:41.668424+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T17:35:19.185833",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/categories/",
+      "method": "GET",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 110,
+        "next": "http://testserver/api/products/categories/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 114,
+            "name": "Test Subcategory",
+            "parent": 112,
+            "created_at": "2025-09-26T17:35:19.133085+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 113,
+            "name": "Test Equipment Category Supplier",
+            "parent": null,
+            "created_at": "2025-09-26T17:35:19.062727+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 112,
+            "name": "Test Medicine Category Admin",
+            "parent": null,
+            "created_at": "2025-09-26T17:35:18.964185+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 109,
+            "name": "Updated Updated Surgical Instruments CAT 1758654519_848",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.691950+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 108,
+            "name": "Pathology CAT 1758654519_261",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.662387+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 107,
+            "name": "Medical Equipment CAT 1758654519_725",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.638818+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 106,
+            "name": "Medicines CAT 1758654519_905",
+            "parent": null,
+            "created_at": "2025-09-24T00:38:41.606965+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 105,
+            "name": "Surgical Instruments CAT 1758653558_875",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.754528+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 104,
+            "name": "Pathology CAT 1758653558_474",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.718037+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 103,
+            "name": "Medical Equipment CAT 1758653558_475",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.693943+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 102,
+            "name": "Medicines CAT 1758653558_477",
+            "parent": null,
+            "created_at": "2025-09-24T00:22:39.662707+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          },
+          {
+            "id": 101,
+            "name": "Surgical Instruments CAT 1758653380_985",
+            "parent": null,
+            "created_at": "2025-09-24T00:19:41.721971+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": "http://127.0.0.1:8000/media/images/medical-pattern.svg"
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T17:35:19.221896",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/admin/categories/113/approve/",
+      "method": "POST",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "message": "Category \"Test Equipment Category Supplier\" approved successfully",
+        "category_id": 113,
+        "status": "approved"
+      },
+      "timestamp": "2025-09-26T17:35:19.247513",
+      "success": true
+    }
+  ],
+  "brands": [
+    {
+      "endpoint": "/api/products/brands/",
+      "method": "POST",
+      "payload": {
+        "name": "Test Brand Admin"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 57,
+        "name": "Test Brand Admin",
+        "image": "",
+        "created_at": "2025-09-26T17:35:19.267288+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T17:35:19.280125",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/brands/",
+      "method": "POST",
+      "payload": {
+        "name": "Test Brand Supplier"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 58,
+        "name": "Test Brand Supplier",
+        "image": "",
+        "created_at": "2025-09-26T17:35:19.300211+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T17:35:19.313782",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/brands/",
+      "method": "GET",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 56,
+        "next": "http://testserver/api/products/brands/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 12,
+            "name": "Abbott",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Abbott____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_abbott_7tjWxihoin.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:50.078903+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 13,
+            "name": "Agappe",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Agappe____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_agappe_qeMJPHJHB.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:53.315733+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 22,
+            "name": "B. Braun",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____B._Braun____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_b._braun_NmElGuswr.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:22.386545+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 14,
+            "name": "Bio-Rad",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Bio-Rad____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_bio-rad_YwpH-MJnf.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:56.565750+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 42,
+            "name": "Brand To Reject 1587",
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "created_at": "2025-09-24T00:12:47.664341+05:30",
+            "status": "rejected",
+            "is_publish": false,
+            "approved_at": "2025-09-24T00:12:47.681617+05:30",
+            "rejection_reason": "Brand name not meeting quality standards",
+            "approved_by": 1
+          },
+          {
+            "id": 40,
+            "name": "Brand To Reject 6589",
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "created_at": "2025-09-24T00:11:54.564096+05:30",
+            "status": "rejected",
+            "is_publish": false,
+            "approved_at": "2025-09-24T00:11:54.579618+05:30",
+            "rejection_reason": "Brand name not meeting quality standards",
+            "approved_by": 1
+          },
+          {
+            "id": 1,
+            "name": "Cipla",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Cipla____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_cipla_S7trYd1Jgr.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:14.225601+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 19,
+            "name": "Colgate-Palmolive",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Colgate-Palmolive____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_colgate-palmolive_bDE7yL2L9f.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:12.778734+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 17,
+            "name": "Dabur",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Dabur____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_dabur_CZuMyC7VU.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:06.302225+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 3,
+            "name": "Dr. Reddy's",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Dr._Reddy_s____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_dr._reddy_s__Di7IHJRv.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:20.468981+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 23,
+            "name": "Fresenius Kabi",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Fresenius_Kabi____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_fresenius_kabi_lorRfZh9L.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:25.644696+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 8,
+            "name": "GE Healthcare",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____GE_Healthcare____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_ge_healthcare_FPuiwne6d.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:37.015729+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T17:35:19.322238",
+      "success": true
+    },
+    {
+      "endpoint": "/api/products/admin/brands/58/approve/",
+      "method": "POST",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "message": "Brand \"Test Brand Supplier\" approved successfully",
+        "brand_id": 58,
+        "status": "approved"
+      },
+      "timestamp": "2025-09-26T17:35:19.348590",
+      "success": true
+    }
+  ],
+  "products": [],
+  "variants": [],
+  "images": [],
+  "reviews": [],
+  "public_endpoints": []
+}

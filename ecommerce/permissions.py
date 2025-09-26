@@ -35,6 +35,57 @@ class IsOwnerOrAdmin(BasePermission):
         return request.user.is_staff or obj.user == request.user
 
 
+class IsCreatedByUserOrAdmin(BasePermission):
+    """Allow users to edit items they created, or admin to edit any"""
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        return request.user.is_authenticated
+    
+    def has_object_permission(self, request, view, obj):
+        # Read permissions for everyone
+        if request.method in SAFE_METHODS:
+            return True
+        
+        # Admin can edit/delete anything
+        if request.user.is_authenticated and request.user.role == 'admin':
+            return True
+        
+        # Users can only edit/delete items they created
+        if hasattr(obj, 'created_by'):
+            return obj.created_by == request.user
+        elif hasattr(obj, 'user'):
+            return obj.user == request.user
+            
+        return False
+
+
+class IsSupplierOrAdminForUpdates(BasePermission):
+    """Allow suppliers and admins to update, read-only for others"""
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        return request.user.is_authenticated and request.user.role in ['supplier', 'admin']
+    
+    def has_object_permission(self, request, view, obj):
+        # Read permissions for everyone
+        if request.method in SAFE_METHODS:
+            return True
+        
+        # Admin can edit/delete anything
+        if request.user.is_authenticated and request.user.role == 'admin':
+            return True
+        
+        # Suppliers can edit their own content
+        if request.user.is_authenticated and request.user.role == 'supplier':
+            if hasattr(obj, 'created_by'):
+                return obj.created_by == request.user
+            elif hasattr(obj, 'user'):
+                return obj.user == request.user
+                
+        return False
+
+
 class IsOwnerOrRXVerifierOrAdmin(BasePermission):
     """Allow object owner, RX verifiers, or admins"""
     def has_object_permission(self, request, view, obj):

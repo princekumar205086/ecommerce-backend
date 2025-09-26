@@ -1,0 +1,3147 @@
+{
+  "categories": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/categories/",
+      "payload": {
+        "name": "CRUD Test Category 20250926184208"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 126,
+        "name": "CRUD Test Category 20250926184208",
+        "parent": null,
+        "created_at": "2025-09-26T18:42:09.243474+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:42:09.269720",
+      "success": true,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/categories/126/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 126,
+        "name": "CRUD Test Category 20250926184208",
+        "parent": null,
+        "created_at": "2025-09-26T18:42:09.243474+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:42:09.280673",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/categories/126/",
+      "payload": {
+        "name": "Updated Category 20250926184209"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 126,
+        "name": "Updated Category 20250926184209",
+        "parent": null,
+        "created_at": "2025-09-26T18:42:09.243474+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:42:09.304420",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/categories/126/",
+      "payload": {
+        "name": "Patched Category 20250926184209"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 126,
+        "name": "Patched Category 20250926184209",
+        "parent": null,
+        "created_at": "2025-09-26T18:42:09.243474+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:42:09.407714",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/categories/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 119,
+        "next": "http://testserver/api/products/categories/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 126,
+            "name": "Patched Category 20250926184209",
+            "parent": null,
+            "created_at": "2025-09-26T18:42:09.243474+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 122,
+            "name": "Test Category 20250926175934",
+            "parent": null,
+            "created_at": "2025-09-26T17:59:34.068760+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 121,
+            "name": "Supplier Category 20250926175824",
+            "parent": null,
+            "created_at": "2025-09-26T17:58:24.807762+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 120,
+            "name": "Admin Category 20250926175823",
+            "parent": null,
+            "created_at": "2025-09-26T17:58:24.770537+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 119,
+            "name": "Supplier Category 20250926175700",
+            "parent": null,
+            "created_at": "2025-09-26T17:57:00.131439+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 118,
+            "name": "Admin Category 20250926175659",
+            "parent": null,
+            "created_at": "2025-09-26T17:57:00.096587+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 117,
+            "name": "Test Category 20250926174105",
+            "parent": null,
+            "created_at": "2025-09-26T17:41:05.576559+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 116,
+            "name": "Test Category 20250926174043",
+            "parent": null,
+            "created_at": "2025-09-26T17:40:43.759248+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 115,
+            "name": "Test Category 20250926173824",
+            "parent": null,
+            "created_at": "2025-09-26T17:38:24.528371+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 114,
+            "name": "Test Subcategory",
+            "parent": 112,
+            "created_at": "2025-09-26T17:35:19.133085+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 113,
+            "name": "Test Equipment Category Supplier",
+            "parent": null,
+            "created_at": "2025-09-26T17:35:19.062727+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 112,
+            "name": "Test Medicine Category Admin",
+            "parent": null,
+            "created_at": "2025-09-26T17:35:18.964185+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:09.499008",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/products/categories/126/",
+      "payload": {},
+      "response_status": 204,
+      "response_data": "None",
+      "timestamp": "2025-09-26T18:42:09.636559",
+      "success": true,
+      "expected_codes": [
+        204,
+        404
+      ]
+    }
+  ],
+  "brands": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/brands/",
+      "payload": {
+        "name": "CRUD Test Brand 20250926184209"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 70,
+        "name": "CRUD Test Brand 20250926184209",
+        "image": "",
+        "created_at": "2025-09-26T18:42:09.701965+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:42:09.727559",
+      "success": true,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/brands/70/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 70,
+        "name": "CRUD Test Brand 20250926184209",
+        "image": "",
+        "created_at": "2025-09-26T18:42:09.701965+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:42:09.768344",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/brands/70/",
+      "payload": {
+        "name": "Updated Brand 20250926184209"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 70,
+        "name": "Updated Brand 20250926184209",
+        "image": "",
+        "created_at": "2025-09-26T18:42:09.701965+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:42:09.792822",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/brands/70/",
+      "payload": {
+        "name": "Patched Brand 20250926184209"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 70,
+        "name": "Patched Brand 20250926184209",
+        "image": "",
+        "created_at": "2025-09-26T18:42:09.701965+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:42:09.809714",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/brands/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 65,
+        "next": "http://testserver/api/products/brands/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 12,
+            "name": "Abbott",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Abbott____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_abbott_7tjWxihoin.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:50.078903+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 62,
+            "name": "Admin Brand 20250926175700",
+            "image": "",
+            "created_at": "2025-09-26T17:57:00.239087+05:30",
+            "status": "published",
+            "is_publish": true,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 64,
+            "name": "Admin Brand 20250926175824",
+            "image": "",
+            "created_at": "2025-09-26T17:58:24.913057+05:30",
+            "status": "published",
+            "is_publish": true,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 13,
+            "name": "Agappe",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Agappe____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_agappe_qeMJPHJHB.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:53.315733+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 22,
+            "name": "B. Braun",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____B._Braun____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_b._braun_NmElGuswr.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:22.386545+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 14,
+            "name": "Bio-Rad",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Bio-Rad____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_bio-rad_YwpH-MJnf.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:56.565750+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 42,
+            "name": "Brand To Reject 1587",
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "created_at": "2025-09-24T00:12:47.664341+05:30",
+            "status": "rejected",
+            "is_publish": false,
+            "approved_at": "2025-09-24T00:12:47.681617+05:30",
+            "rejection_reason": "Brand name not meeting quality standards",
+            "approved_by": 1
+          },
+          {
+            "id": 40,
+            "name": "Brand To Reject 6589",
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "created_at": "2025-09-24T00:11:54.564096+05:30",
+            "status": "rejected",
+            "is_publish": false,
+            "approved_at": "2025-09-24T00:11:54.579618+05:30",
+            "rejection_reason": "Brand name not meeting quality standards",
+            "approved_by": 1
+          },
+          {
+            "id": 1,
+            "name": "Cipla",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Cipla____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_cipla_S7trYd1Jgr.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:14.225601+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 19,
+            "name": "Colgate-Palmolive",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Colgate-Palmolive____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_colgate-palmolive_bDE7yL2L9f.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:12.778734+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 17,
+            "name": "Dabur",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Dabur____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_dabur_CZuMyC7VU.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:06.302225+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 3,
+            "name": "Dr. Reddy's",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Dr._Reddy_s____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_dr._reddy_s__Di7IHJRv.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:20.468981+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:09.822029",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/products/brands/70/",
+      "payload": {},
+      "response_status": 204,
+      "response_data": "None",
+      "timestamp": "2025-09-26T18:42:09.840220",
+      "success": true,
+      "expected_codes": [
+        204,
+        404
+      ]
+    }
+  ],
+  "products": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/products/",
+      "payload": {
+        "name": "CRUD Test Product 20250926184209",
+        "description": "A test product for CRUD operations",
+        "category": 1,
+        "brand": 43,
+        "product_type": "medicine",
+        "price": "99.99",
+        "stock": 50,
+        "specifications": {
+          "weight": "100mg",
+          "storage": "Room temperature"
+        },
+        "medicine_details": {
+          "composition": "Active ingredient 100mg",
+          "quantity": "30 tablets",
+          "manufacturer": "Test Pharma",
+          "form": "Tablet"
+        }
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 511,
+        "name": "CRUD Test Product 20250926184209",
+        "slug": "crud-test-product-20250926184209",
+        "sku": "CRUD-TEST-PRODUCT-20-6AC1DD5E",
+        "description": "A test product for CRUD operations",
+        "category": 1,
+        "category_id": 1,
+        "category_name": "Medicines",
+        "brand": 43,
+        "brand_name": "Pfizer BRAND 1758653380_845",
+        "price": "99.99",
+        "stock": 50,
+        "product_type": "medicine",
+        "created_at": "2025-09-26T18:42:09.874587+05:30",
+        "updated_at": "2025-09-26T18:42:09.874624+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {
+          "weight": "100mg",
+          "storage": "Room temperature"
+        },
+        "variants": [],
+        "images": [],
+        "image": "",
+        "medicine_details": {
+          "composition": "Active ingredient 100mg",
+          "quantity": "30 tablets",
+          "manufacturer": "Test Pharma",
+          "expiry_date": null,
+          "batch_number": null,
+          "prescription_required": false,
+          "form": "Tablet",
+          "pack_size": ""
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      },
+      "timestamp": "2025-09-26T18:42:09.906718",
+      "success": true,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/511/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 511,
+        "name": "CRUD Test Product 20250926184209",
+        "slug": "crud-test-product-20250926184209",
+        "sku": "CRUD-TEST-PRODUCT-20-6AC1DD5E",
+        "description": "A test product for CRUD operations",
+        "category": 1,
+        "category_id": 1,
+        "category_name": "Medicines",
+        "brand": 43,
+        "brand_name": "Pfizer BRAND 1758653380_845",
+        "price": "99.99",
+        "stock": 50,
+        "product_type": "medicine",
+        "created_at": "2025-09-26T18:42:09.874587+05:30",
+        "updated_at": "2025-09-26T18:42:09.874624+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {
+          "weight": "100mg",
+          "storage": "Room temperature"
+        },
+        "variants": [],
+        "images": [],
+        "image": "",
+        "medicine_details": {
+          "composition": "Active ingredient 100mg",
+          "quantity": "30 tablets",
+          "manufacturer": "Test Pharma",
+          "expiry_date": null,
+          "batch_number": null,
+          "prescription_required": false,
+          "form": "Tablet",
+          "pack_size": ""
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      },
+      "timestamp": "2025-09-26T18:42:09.947011",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/products/511/",
+      "payload": {
+        "name": "Updated Product 20250926184209",
+        "description": "Updated test product",
+        "category": 1,
+        "brand": 43,
+        "product_type": "medicine",
+        "price": "149.99",
+        "stock": 75
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 511,
+        "name": "Updated Product 20250926184209",
+        "slug": "crud-test-product-20250926184209",
+        "sku": "CRUD-TEST-PRODUCT-20-6AC1DD5E",
+        "description": "Updated test product",
+        "category": 1,
+        "category_id": 1,
+        "category_name": "Medicines",
+        "brand": 43,
+        "brand_name": "Pfizer BRAND 1758653380_845",
+        "price": "149.99",
+        "stock": 75,
+        "product_type": "medicine",
+        "created_at": "2025-09-26T18:42:09.874587+05:30",
+        "updated_at": "2025-09-26T18:42:10.071173+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {
+          "weight": "100mg",
+          "storage": "Room temperature"
+        },
+        "variants": [],
+        "images": [],
+        "image": "",
+        "medicine_details": {
+          "composition": "Active ingredient 100mg",
+          "quantity": "30 tablets",
+          "manufacturer": "Test Pharma",
+          "expiry_date": null,
+          "batch_number": null,
+          "prescription_required": false,
+          "form": "Tablet",
+          "pack_size": ""
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      },
+      "timestamp": "2025-09-26T18:42:10.094423",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/products/511/",
+      "payload": {
+        "price": "199.99",
+        "stock": 100,
+        "description": "Patched description"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 511,
+        "name": "Updated Product 20250926184209",
+        "slug": "crud-test-product-20250926184209",
+        "sku": "CRUD-TEST-PRODUCT-20-6AC1DD5E",
+        "description": "Patched description",
+        "category": 1,
+        "category_id": 1,
+        "category_name": "Medicines",
+        "brand": 43,
+        "brand_name": "Pfizer BRAND 1758653380_845",
+        "price": "199.99",
+        "stock": 100,
+        "product_type": "medicine",
+        "created_at": "2025-09-26T18:42:09.874587+05:30",
+        "updated_at": "2025-09-26T18:42:10.191193+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {
+          "weight": "100mg",
+          "storage": "Room temperature"
+        },
+        "variants": [],
+        "images": [],
+        "image": "",
+        "medicine_details": {
+          "composition": "Active ingredient 100mg",
+          "quantity": "30 tablets",
+          "manufacturer": "Test Pharma",
+          "expiry_date": null,
+          "batch_number": null,
+          "prescription_required": false,
+          "form": "Tablet",
+          "pack_size": ""
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      },
+      "timestamp": "2025-09-26T18:42:10.215138",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 196,
+        "next": "http://testserver/api/products/products/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 511,
+            "name": "Updated Product 20250926184209",
+            "slug": "crud-test-product-20250926184209",
+            "sku": "CRUD-TEST-PRODUCT-20-6AC1DD5E",
+            "description": "Patched description",
+            "category": 1,
+            "category_id": 1,
+            "category_name": "Medicines",
+            "brand": 43,
+            "brand_name": "Pfizer BRAND 1758653380_845",
+            "price": "199.99",
+            "stock": 100,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:42:09.874587+05:30",
+            "updated_at": "2025-09-26T18:42:10.191193+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 510,
+            "name": "Debug Product 20250926183018",
+            "slug": "debug-product-20250926183018",
+            "sku": "DEBUG-PRODUCT-202509-1333F439",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:30:19.823356+05:30",
+            "updated_at": "2025-09-26T18:30:19.823389+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 508,
+            "name": "Debug Product 20250926182203",
+            "slug": "debug-product-20250926182203",
+            "sku": "DEBUG-PRODUCT-202509-58DC8B0F",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:22:04.141549+05:30",
+            "updated_at": "2025-09-26T18:22:04.141584+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 507,
+            "name": "Test Pathology Kit 20250926175934",
+            "slug": "test-pathology-kit-20250926175934",
+            "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB",
+            "description": "A comprehensive test pathology testing kit",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:59:34.579851+05:30",
+            "updated_at": "2025-09-26T17:59:36.614148+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months",
+              "accuracy": "99.5%"
+            },
+            "variants": [
+              {
+                "id": 544,
+                "product": 507,
+                "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-C53006ED",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:59:36.545163+05:30",
+                "updated_at": "2025-09-26T17:59:36.545195+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 506,
+            "name": "Test Equipment 20250926175934",
+            "slug": "test-equipment-20250926175934",
+            "sku": "TEST-EQUIPMENT-20250-FC26F5FB",
+            "description": "A comprehensive test medical equipment",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:59:34.543912+05:30",
+            "updated_at": "2025-09-26T17:59:34.543947+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg",
+              "material": "Medical grade plastic"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 505,
+            "name": "Test Medicine Product 20250926175934",
+            "slug": "test-medicine-product-20250926175934",
+            "sku": "TEST-MEDICINE-PRODUC-07B7CD26",
+            "description": "A comprehensive test medicine for API documentation",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:59:34.502672+05:30",
+            "updated_at": "2025-09-26T17:59:34.502704+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 504,
+            "name": "Test Pathology 20250926175825",
+            "slug": "test-pathology-20250926175825",
+            "sku": "TEST-PATHOLOGY-20250-E9A4670D",
+            "description": "A test pathology kit",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:58:25.183812+05:30",
+            "updated_at": "2025-09-26T17:58:26.280906+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 503,
+            "name": "Test Equipment 20250926175825",
+            "slug": "test-equipment-20250926175825",
+            "sku": "TEST-EQUIPMENT-20250-52516480",
+            "description": "A test medical equipment",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:58:25.140537+05:30",
+            "updated_at": "2025-09-26T17:58:26.061429+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 502,
+            "name": "Detailed Medicine 20250926175825",
+            "slug": "detailed-medicine-20250926175825",
+            "sku": "DETAILED-MEDICINE-20-5CB8CA66",
+            "description": "A detailed test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.093990+05:30",
+            "updated_at": "2025-09-26T17:58:25.892763+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 501,
+            "name": "Simple Medicine 20250926175825",
+            "slug": "simple-medicine-20250926175825",
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D",
+            "description": "A simple test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.056535+05:30",
+            "updated_at": "2025-09-26T17:58:25.842446+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 542,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.390434+05:30",
+                "updated_at": "2025-09-26T17:58:26.390496+05:30"
+              },
+              {
+                "id": 543,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.440474+05:30",
+                "updated_at": "2025-09-26T17:58:26.440520+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 500,
+            "name": "Test Pathology 20250926175700",
+            "slug": "test-pathology-20250926175700",
+            "sku": "TEST-PATHOLOGY-20250-A6205B79",
+            "description": "A test pathology kit",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:57:00.504872+05:30",
+            "updated_at": "2025-09-26T17:57:01.506672+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 499,
+            "name": "Test Equipment 20250926175700",
+            "slug": "test-equipment-20250926175700",
+            "sku": "TEST-EQUIPMENT-20250-EB5D4D7A",
+            "description": "A test medical equipment",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:57:00.463074+05:30",
+            "updated_at": "2025-09-26T17:57:01.461536+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.409407",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/products/products/511/",
+      "payload": {},
+      "response_status": 204,
+      "response_data": "None",
+      "timestamp": "2025-09-26T18:42:10.458543",
+      "success": true,
+      "expected_codes": [
+        204,
+        404
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/?product_type=medicine",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 105,
+        "next": "http://testserver/api/products/products/?page=2&product_type=medicine",
+        "previous": null,
+        "results": [
+          {
+            "id": 510,
+            "name": "Debug Product 20250926183018",
+            "slug": "debug-product-20250926183018",
+            "sku": "DEBUG-PRODUCT-202509-1333F439",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:30:19.823356+05:30",
+            "updated_at": "2025-09-26T18:30:19.823389+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 508,
+            "name": "Debug Product 20250926182203",
+            "slug": "debug-product-20250926182203",
+            "sku": "DEBUG-PRODUCT-202509-58DC8B0F",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:22:04.141549+05:30",
+            "updated_at": "2025-09-26T18:22:04.141584+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 505,
+            "name": "Test Medicine Product 20250926175934",
+            "slug": "test-medicine-product-20250926175934",
+            "sku": "TEST-MEDICINE-PRODUC-07B7CD26",
+            "description": "A comprehensive test medicine for API documentation",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:59:34.502672+05:30",
+            "updated_at": "2025-09-26T17:59:34.502704+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 502,
+            "name": "Detailed Medicine 20250926175825",
+            "slug": "detailed-medicine-20250926175825",
+            "sku": "DETAILED-MEDICINE-20-5CB8CA66",
+            "description": "A detailed test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.093990+05:30",
+            "updated_at": "2025-09-26T17:58:25.892763+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 501,
+            "name": "Simple Medicine 20250926175825",
+            "slug": "simple-medicine-20250926175825",
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D",
+            "description": "A simple test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.056535+05:30",
+            "updated_at": "2025-09-26T17:58:25.842446+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 542,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.390434+05:30",
+                "updated_at": "2025-09-26T17:58:26.390496+05:30"
+              },
+              {
+                "id": 543,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.440474+05:30",
+                "updated_at": "2025-09-26T17:58:26.440520+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 498,
+            "name": "Detailed Medicine 20250926175700",
+            "slug": "detailed-medicine-20250926175700",
+            "sku": "DETAILED-MEDICINE-20-B174BE58",
+            "description": "A detailed test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.416536+05:30",
+            "updated_at": "2025-09-26T17:57:01.414103+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 497,
+            "name": "Simple Medicine 20250926175700",
+            "slug": "simple-medicine-20250926175700",
+            "sku": "SIMPLE-MEDICINE-2025-CE5B61DE",
+            "description": "A simple test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.376552+05:30",
+            "updated_at": "2025-09-26T17:57:01.361386+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 540,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-6E6ED3F7",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.548790+05:30",
+                "updated_at": "2025-09-26T17:57:01.548845+05:30"
+              },
+              {
+                "id": 541,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-1CDB8714",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.601867+05:30",
+                "updated_at": "2025-09-26T17:57:01.601913+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 496,
+            "name": "Debug Medicine 174705",
+            "slug": "debug-medicine-174705",
+            "sku": "DEBUG-MEDICINE-17470-3B2CBED4",
+            "description": "Medicine with details",
+            "category": 113,
+            "category_id": 113,
+            "category_name": "Test Equipment Category Supplier",
+            "brand": 44,
+            "brand_name": "Johnson & Johnson BRAND 1758653380_668",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:47:05.924827+05:30",
+            "updated_at": "2025-09-26T17:47:05.924862+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 495,
+            "name": "Supplier Medicine SUP 1758654519_717",
+            "slug": "supplier-medicine-sup-1758654519_717",
+            "sku": "SUPPLIER-MEDICINE-SU-40BBB9BB",
+            "description": "Updated description for Supplier Medicine SUP 1758654519_717 at 2025-09-24 00:41:43.317067",
+            "category": 106,
+            "category_id": 106,
+            "category_name": "Medicines CAT 1758654519_905",
+            "brand": 51,
+            "brand_name": "Pfizer BRAND 1758654519_594",
+            "price": "99.99",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:38:42.824348+05:30",
+            "updated_at": "2025-09-26T17:38:25.935742+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 539,
+                "product": 495,
+                "sku": "SUPPLIER-MEDICINE-SU-40BBB9BB-0FA9F89C",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": false,
+                "attributes": [],
+                "created_at": "2025-09-26T17:47:05.840718+05:30",
+                "updated_at": "2025-09-26T17:47:05.840764+05:30"
+              }
+            ],
+            "images": [],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Supplier Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 492,
+            "name": "Ibuprofen MED 1758654519_799",
+            "slug": "ibuprofen-med-1758654519_799",
+            "sku": "IBUPROFEN-MED-175865-73BD978A",
+            "description": "Anti-inflammatory medicine",
+            "category": 106,
+            "category_id": 106,
+            "category_name": "Medicines CAT 1758654519_905",
+            "brand": 51,
+            "brand_name": "Pfizer BRAND 1758654519_594",
+            "price": "30.00",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:38:42.670521+05:30",
+            "updated_at": "2025-09-24T00:38:42.670572+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 535,
+                "product": 492,
+                "sku": "IBUPROFEN-MED-175865-73BD978A-4471990E",
+                "price": "30.31",
+                "additional_price": "0.00",
+                "total_price": 30.31,
+                "stock": 21,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.963550+05:30",
+                "updated_at": "2025-09-24T00:38:42.963596+05:30"
+              },
+              {
+                "id": 536,
+                "product": 492,
+                "sku": "IBUPROFEN-MED-175865-73BD978A-614AAEF8",
+                "price": "22.65",
+                "additional_price": "0.00",
+                "total_price": 22.65,
+                "stock": 14,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.991096+05:30",
+                "updated_at": "2025-09-24T00:38:42.991126+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 63,
+                "product": 492,
+                "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+                "alt_text": "Additional image for Ibuprofen MED 1758654519_799",
+                "order": 0,
+                "variant": null
+              }
+            ],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Test Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 491,
+            "name": "Paracetamol MED 1758654519_701",
+            "slug": "paracetamol-med-1758654519_701",
+            "sku": "PARACETAMOL-MED-1758-8B550FEB",
+            "description": "Pain relief medicine for headaches and fever",
+            "category": 106,
+            "category_id": 106,
+            "category_name": "Medicines CAT 1758654519_905",
+            "brand": 51,
+            "brand_name": "Pfizer BRAND 1758654519_594",
+            "price": "25.50",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:38:42.610853+05:30",
+            "updated_at": "2025-09-24T00:38:42.610907+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 533,
+                "product": 491,
+                "sku": "PARACETAMOL-MED-1758-8B550FEB-2F84DBEE",
+                "price": "45.58",
+                "additional_price": "0.00",
+                "total_price": 45.58,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.883809+05:30",
+                "updated_at": "2025-09-24T00:38:42.883903+05:30"
+              },
+              {
+                "id": 534,
+                "product": 491,
+                "sku": "PARACETAMOL-MED-1758-8B550FEB-E5016D02",
+                "price": "86.19",
+                "additional_price": "0.00",
+                "total_price": 86.19,
+                "stock": 74,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.925344+05:30",
+                "updated_at": "2025-09-24T00:38:42.925388+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 62,
+                "product": 491,
+                "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+                "alt_text": "Additional image for Paracetamol MED 1758654519_701",
+                "order": 0,
+                "variant": null
+              }
+            ],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Test Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 490,
+            "name": "Supplier Medicine SUP 1758653558_302",
+            "slug": "supplier-medicine-sup-1758653558_302",
+            "sku": "SUPPLIER-MEDICINE-SU-14780F92",
+            "description": "Medicine created by supplier",
+            "category": 102,
+            "category_id": 102,
+            "category_name": "Medicines CAT 1758653558_477",
+            "brand": 47,
+            "brand_name": "Pfizer BRAND 1758653558_867",
+            "price": "45.00",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:22:41.089434+05:30",
+            "updated_at": "2025-09-24T00:22:41.089466+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Supplier Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.856606",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/?search=test",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 56,
+        "next": "http://testserver/api/products/products/?page=2&search=test",
+        "previous": null,
+        "results": [
+          {
+            "id": 510,
+            "name": "Debug Product 20250926183018",
+            "slug": "debug-product-20250926183018",
+            "sku": "DEBUG-PRODUCT-202509-1333F439",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:30:19.823356+05:30",
+            "updated_at": "2025-09-26T18:30:19.823389+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 508,
+            "name": "Debug Product 20250926182203",
+            "slug": "debug-product-20250926182203",
+            "sku": "DEBUG-PRODUCT-202509-58DC8B0F",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:22:04.141549+05:30",
+            "updated_at": "2025-09-26T18:22:04.141584+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 507,
+            "name": "Test Pathology Kit 20250926175934",
+            "slug": "test-pathology-kit-20250926175934",
+            "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB",
+            "description": "A comprehensive test pathology testing kit",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:59:34.579851+05:30",
+            "updated_at": "2025-09-26T17:59:36.614148+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months",
+              "accuracy": "99.5%"
+            },
+            "variants": [
+              {
+                "id": 544,
+                "product": 507,
+                "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-C53006ED",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:59:36.545163+05:30",
+                "updated_at": "2025-09-26T17:59:36.545195+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 506,
+            "name": "Test Equipment 20250926175934",
+            "slug": "test-equipment-20250926175934",
+            "sku": "TEST-EQUIPMENT-20250-FC26F5FB",
+            "description": "A comprehensive test medical equipment",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:59:34.543912+05:30",
+            "updated_at": "2025-09-26T17:59:34.543947+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg",
+              "material": "Medical grade plastic"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 505,
+            "name": "Test Medicine Product 20250926175934",
+            "slug": "test-medicine-product-20250926175934",
+            "sku": "TEST-MEDICINE-PRODUC-07B7CD26",
+            "description": "A comprehensive test medicine for API documentation",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:59:34.502672+05:30",
+            "updated_at": "2025-09-26T17:59:34.502704+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 504,
+            "name": "Test Pathology 20250926175825",
+            "slug": "test-pathology-20250926175825",
+            "sku": "TEST-PATHOLOGY-20250-E9A4670D",
+            "description": "A test pathology kit",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:58:25.183812+05:30",
+            "updated_at": "2025-09-26T17:58:26.280906+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 503,
+            "name": "Test Equipment 20250926175825",
+            "slug": "test-equipment-20250926175825",
+            "sku": "TEST-EQUIPMENT-20250-52516480",
+            "description": "A test medical equipment",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:58:25.140537+05:30",
+            "updated_at": "2025-09-26T17:58:26.061429+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 502,
+            "name": "Detailed Medicine 20250926175825",
+            "slug": "detailed-medicine-20250926175825",
+            "sku": "DETAILED-MEDICINE-20-5CB8CA66",
+            "description": "A detailed test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.093990+05:30",
+            "updated_at": "2025-09-26T17:58:25.892763+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 501,
+            "name": "Simple Medicine 20250926175825",
+            "slug": "simple-medicine-20250926175825",
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D",
+            "description": "A simple test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.056535+05:30",
+            "updated_at": "2025-09-26T17:58:25.842446+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 542,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.390434+05:30",
+                "updated_at": "2025-09-26T17:58:26.390496+05:30"
+              },
+              {
+                "id": 543,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.440474+05:30",
+                "updated_at": "2025-09-26T17:58:26.440520+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 500,
+            "name": "Test Pathology 20250926175700",
+            "slug": "test-pathology-20250926175700",
+            "sku": "TEST-PATHOLOGY-20250-A6205B79",
+            "description": "A test pathology kit",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:57:00.504872+05:30",
+            "updated_at": "2025-09-26T17:57:01.506672+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 499,
+            "name": "Test Equipment 20250926175700",
+            "slug": "test-equipment-20250926175700",
+            "sku": "TEST-EQUIPMENT-20250-EB5D4D7A",
+            "description": "A test medical equipment",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:57:00.463074+05:30",
+            "updated_at": "2025-09-26T17:57:01.461536+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 498,
+            "name": "Detailed Medicine 20250926175700",
+            "slug": "detailed-medicine-20250926175700",
+            "sku": "DETAILED-MEDICINE-20-B174BE58",
+            "description": "A detailed test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.416536+05:30",
+            "updated_at": "2025-09-26T17:57:01.414103+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.974786",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/?page=1&page_size=5",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 217,
+        "next": "http://testserver/api/products/products/?page=2&page_size=5",
+        "previous": null,
+        "results": [
+          {
+            "id": 510,
+            "name": "Debug Product 20250926183018",
+            "slug": "debug-product-20250926183018",
+            "sku": "DEBUG-PRODUCT-202509-1333F439",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:30:19.823356+05:30",
+            "updated_at": "2025-09-26T18:30:19.823389+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 508,
+            "name": "Debug Product 20250926182203",
+            "slug": "debug-product-20250926182203",
+            "sku": "DEBUG-PRODUCT-202509-58DC8B0F",
+            "description": "Debug test product",
+            "category": 121,
+            "category_id": 121,
+            "category_name": "Supplier Category 20250926175824",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T18:22:04.141549+05:30",
+            "updated_at": "2025-09-26T18:22:04.141584+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 507,
+            "name": "Test Pathology Kit 20250926175934",
+            "slug": "test-pathology-kit-20250926175934",
+            "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB",
+            "description": "A comprehensive test pathology testing kit",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:59:34.579851+05:30",
+            "updated_at": "2025-09-26T17:59:36.614148+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months",
+              "accuracy": "99.5%"
+            },
+            "variants": [
+              {
+                "id": 544,
+                "product": 507,
+                "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-C53006ED",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:59:36.545163+05:30",
+                "updated_at": "2025-09-26T17:59:36.545195+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 506,
+            "name": "Test Equipment 20250926175934",
+            "slug": "test-equipment-20250926175934",
+            "sku": "TEST-EQUIPMENT-20250-FC26F5FB",
+            "description": "A comprehensive test medical equipment",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:59:34.543912+05:30",
+            "updated_at": "2025-09-26T17:59:34.543947+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg",
+              "material": "Medical grade plastic"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 505,
+            "name": "Test Medicine Product 20250926175934",
+            "slug": "test-medicine-product-20250926175934",
+            "sku": "TEST-MEDICINE-PRODUC-07B7CD26",
+            "description": "A comprehensive test medicine for API documentation",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:59:34.502672+05:30",
+            "updated_at": "2025-09-26T17:59:34.502704+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 504,
+            "name": "Test Pathology 20250926175825",
+            "slug": "test-pathology-20250926175825",
+            "sku": "TEST-PATHOLOGY-20250-E9A4670D",
+            "description": "A test pathology kit",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:58:25.183812+05:30",
+            "updated_at": "2025-09-26T17:58:26.280906+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 503,
+            "name": "Test Equipment 20250926175825",
+            "slug": "test-equipment-20250926175825",
+            "sku": "TEST-EQUIPMENT-20250-52516480",
+            "description": "A test medical equipment",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:58:25.140537+05:30",
+            "updated_at": "2025-09-26T17:58:26.061429+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 502,
+            "name": "Detailed Medicine 20250926175825",
+            "slug": "detailed-medicine-20250926175825",
+            "sku": "DETAILED-MEDICINE-20-5CB8CA66",
+            "description": "A detailed test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.093990+05:30",
+            "updated_at": "2025-09-26T17:58:25.892763+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 501,
+            "name": "Simple Medicine 20250926175825",
+            "slug": "simple-medicine-20250926175825",
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D",
+            "description": "A simple test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.056535+05:30",
+            "updated_at": "2025-09-26T17:58:25.842446+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 542,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.390434+05:30",
+                "updated_at": "2025-09-26T17:58:26.390496+05:30"
+              },
+              {
+                "id": 543,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.440474+05:30",
+                "updated_at": "2025-09-26T17:58:26.440520+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 500,
+            "name": "Test Pathology 20250926175700",
+            "slug": "test-pathology-20250926175700",
+            "sku": "TEST-PATHOLOGY-20250-A6205B79",
+            "description": "A test pathology kit",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:57:00.504872+05:30",
+            "updated_at": "2025-09-26T17:57:01.506672+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 499,
+            "name": "Test Equipment 20250926175700",
+            "slug": "test-equipment-20250926175700",
+            "sku": "TEST-EQUIPMENT-20250-EB5D4D7A",
+            "description": "A test medical equipment",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:57:00.463074+05:30",
+            "updated_at": "2025-09-26T17:57:01.461536+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 498,
+            "name": "Detailed Medicine 20250926175700",
+            "slug": "detailed-medicine-20250926175700",
+            "sku": "DETAILED-MEDICINE-20-B174BE58",
+            "description": "A detailed test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.416536+05:30",
+            "updated_at": "2025-09-26T17:57:01.414103+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:11.089225",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/variants/",
+      "payload": {
+        "product": 511,
+        "price": "119.99",
+        "additional_price": "20.00",
+        "stock": 30
+      },
+      "response_status": 400,
+      "response_data": {
+        "product": [
+          "Invalid pk \"511\" - object does not exist."
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.474507",
+      "success": false,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/variants/1/",
+      "payload": {},
+      "response_status": 404,
+      "response_data": {
+        "detail": "No ProductVariant matches the given query."
+      },
+      "timestamp": "2025-09-26T18:42:10.488532",
+      "success": false,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/variants/1/",
+      "payload": {
+        "product": 511,
+        "price": "139.99",
+        "additional_price": "30.00",
+        "stock": 40
+      },
+      "response_status": 404,
+      "response_data": {
+        "detail": "No ProductVariant matches the given query."
+      },
+      "timestamp": "2025-09-26T18:42:10.502440",
+      "success": false,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/variants/1/",
+      "payload": {
+        "price": "159.99",
+        "stock": 50
+      },
+      "response_status": 404,
+      "response_data": {
+        "detail": "No ProductVariant matches the given query."
+      },
+      "timestamp": "2025-09-26T18:42:10.509741",
+      "success": false,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/variants/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 526,
+        "next": "http://testserver/api/products/variants/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 540,
+            "product": 497,
+            "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-6E6ED3F7",
+            "price": "119.99",
+            "additional_price": "20.00",
+            "total_price": 119.99,
+            "stock": 30,
+            "is_active": true,
+            "attributes": [],
+            "created_at": "2025-09-26T17:57:01.548790+05:30",
+            "updated_at": "2025-09-26T17:57:01.548845+05:30"
+          },
+          {
+            "id": 541,
+            "product": 497,
+            "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-1CDB8714",
+            "price": "129.99",
+            "additional_price": "0.00",
+            "total_price": 129.99,
+            "stock": 25,
+            "is_active": true,
+            "attributes": [],
+            "created_at": "2025-09-26T17:57:01.601867+05:30",
+            "updated_at": "2025-09-26T17:57:01.601913+05:30"
+          },
+          {
+            "id": 542,
+            "product": 501,
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+            "price": "119.99",
+            "additional_price": "20.00",
+            "total_price": 119.99,
+            "stock": 30,
+            "is_active": true,
+            "attributes": [],
+            "created_at": "2025-09-26T17:58:26.390434+05:30",
+            "updated_at": "2025-09-26T17:58:26.390496+05:30"
+          },
+          {
+            "id": 543,
+            "product": 501,
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+            "price": "129.99",
+            "additional_price": "0.00",
+            "total_price": 129.99,
+            "stock": 25,
+            "is_active": true,
+            "attributes": [],
+            "created_at": "2025-09-26T17:58:26.440474+05:30",
+            "updated_at": "2025-09-26T17:58:26.440520+05:30"
+          },
+          {
+            "id": 544,
+            "product": 507,
+            "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-C53006ED",
+            "price": "119.99",
+            "additional_price": "20.00",
+            "total_price": 119.99,
+            "stock": 30,
+            "is_active": true,
+            "attributes": [],
+            "created_at": "2025-09-26T17:59:36.545163+05:30",
+            "updated_at": "2025-09-26T17:59:36.545195+05:30"
+          },
+          {
+            "id": 537,
+            "product": 493,
+            "sku": "DIGITAL-THERMOMETER--985309F3-49324C4A",
+            "price": "16.77",
+            "additional_price": "0.00",
+            "total_price": 16.77,
+            "stock": 45,
+            "is_active": true,
+            "attributes": [],
+            "created_at": "2025-09-24T00:38:43.012443+05:30",
+            "updated_at": "2025-09-24T00:38:43.012472+05:30"
+          },
+          {
+            "id": 538,
+            "product": 493,
+            "sku": "DIGITAL-THERMOMETER--985309F3-5A70B9BB",
+            "price": "65.93",
+            "additional_price": "0.00",
+            "total_price": 65.93,
+            "stock": 48,
+            "is_active": true,
+            "attributes": [],
+            "created_at": "2025-09-24T00:38:43.040411+05:30",
+            "updated_at": "2025-09-24T00:38:43.040440+05:30"
+          },
+          {
+            "id": 539,
+            "product": 495,
+            "sku": "SUPPLIER-MEDICINE-SU-40BBB9BB-0FA9F89C",
+            "price": "129.99",
+            "additional_price": "0.00",
+            "total_price": 129.99,
+            "stock": 25,
+            "is_active": false,
+            "attributes": [],
+            "created_at": "2025-09-26T17:47:05.840718+05:30",
+            "updated_at": "2025-09-26T17:47:05.840764+05:30"
+          },
+          {
+            "id": 49,
+            "product": 309,
+            "sku": "VAR01701",
+            "price": "1007.52",
+            "additional_price": "0.00",
+            "total_price": 1007.52,
+            "stock": 64,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 1,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Small"
+              },
+              {
+                "id": 3,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Deluxe"
+              },
+              {
+                "id": 9,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Silver"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:33.588502+05:30",
+            "updated_at": "2025-09-20T23:24:35.282424+05:30"
+          },
+          {
+            "id": 50,
+            "product": 309,
+            "sku": "VAR01702",
+            "price": "1597.95",
+            "additional_price": "0.00",
+            "total_price": 1597.95,
+            "stock": 99,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 3,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Deluxe"
+              },
+              {
+                "id": 4,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Medium"
+              },
+              {
+                "id": 8,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Black"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:33.633031+05:30",
+            "updated_at": "2025-09-20T23:24:35.291084+05:30"
+          },
+          {
+            "id": 51,
+            "product": 309,
+            "sku": "VAR01703",
+            "price": "378.29",
+            "additional_price": "0.00",
+            "total_price": 378.29,
+            "stock": 55,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 3,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Deluxe"
+              },
+              {
+                "id": 7,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Large"
+              },
+              {
+                "id": 11,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "White"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:33.689793+05:30",
+            "updated_at": "2025-09-20T23:24:35.304537+05:30"
+          },
+          {
+            "id": 145,
+            "product": 341,
+            "sku": "VAR04901",
+            "price": "1541.26",
+            "additional_price": "0.00",
+            "total_price": 1541.26,
+            "stock": 115,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 1,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Small"
+              },
+              {
+                "id": 8,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Black"
+              },
+              {
+                "id": 10,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Premium"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:39.129251+05:30",
+            "updated_at": "2025-09-20T23:24:36.411569+05:30"
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.623559",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/reviews/",
+      "payload": {
+        "product": 511,
+        "rating": 5,
+        "comment": "Excellent product! Review created at 2025-09-26 18:42:10"
+      },
+      "response_status": 400,
+      "response_data": {
+        "product": [
+          "Invalid pk \"511\" - object does not exist."
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.649921",
+      "success": false,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/reviews/1/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 1,
+        "user": "user@medixmall.com",
+        "rating": 3,
+        "comment": "Patched review comment at 2025-09-26 18:28:13",
+        "created_at": "2025-09-18T23:49:55.853144+05:30",
+        "updated_at": "2025-09-26T18:28:13.637572+05:30",
+        "is_published": true,
+        "product": 460
+      },
+      "timestamp": "2025-09-26T18:42:10.666618",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/reviews/1/",
+      "payload": {
+        "product": 511,
+        "rating": 4,
+        "comment": "Updated review at 2025-09-26 18:42:10"
+      },
+      "response_status": 400,
+      "response_data": {
+        "product": [
+          "Invalid pk \"511\" - object does not exist."
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.676875",
+      "success": false,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/reviews/1/",
+      "payload": {
+        "rating": 3,
+        "comment": "Patched review comment at 2025-09-26 18:42:10"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 1,
+        "user": "user@medixmall.com",
+        "rating": 3,
+        "comment": "Patched review comment at 2025-09-26 18:42:10",
+        "created_at": "2025-09-18T23:49:55.853144+05:30",
+        "updated_at": "2025-09-26T18:42:10.690720+05:30",
+        "is_published": true,
+        "product": 460
+      },
+      "timestamp": "2025-09-26T18:42:10.699582",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/reviews/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 29,
+        "next": "http://testserver/api/products/reviews/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 1,
+            "user": "user@medixmall.com",
+            "rating": 3,
+            "comment": "Patched review comment at 2025-09-26 18:42:10",
+            "created_at": "2025-09-18T23:49:55.853144+05:30",
+            "updated_at": "2025-09-26T18:42:10.690720+05:30",
+            "is_published": true,
+            "product": 460
+          },
+          {
+            "id": 2,
+            "user": "buyer2@test.com",
+            "rating": 4,
+            "comment": "Perfect for my needs. Will buy again.",
+            "created_at": "2025-09-20T23:26:40.555338+05:30",
+            "updated_at": "2025-09-20T23:26:40.555391+05:30",
+            "is_published": true,
+            "product": 459
+          },
+          {
+            "id": 3,
+            "user": "buyer1@test.com",
+            "rating": 3,
+            "comment": "Amazing product! Highly recommended.",
+            "created_at": "2025-09-20T23:26:40.568516+05:30",
+            "updated_at": "2025-09-20T23:26:40.568618+05:30",
+            "is_published": true,
+            "product": 459
+          },
+          {
+            "id": 4,
+            "user": "buyer0@test.com",
+            "rating": 3,
+            "comment": "Not bad, but expected better quality.",
+            "created_at": "2025-09-20T23:26:40.578107+05:30",
+            "updated_at": "2025-09-20T23:26:40.578152+05:30",
+            "is_published": true,
+            "product": 459
+          },
+          {
+            "id": 5,
+            "user": "buyer2@test.com",
+            "rating": 5,
+            "comment": "Great product! Very satisfied with the quality.",
+            "created_at": "2025-09-20T23:26:40.590859+05:30",
+            "updated_at": "2025-09-20T23:26:40.590889+05:30",
+            "is_published": true,
+            "product": 458
+          },
+          {
+            "id": 6,
+            "user": "buyer1@test.com",
+            "rating": 3,
+            "comment": "Good value for money. Fast delivery.",
+            "created_at": "2025-09-20T23:26:40.608399+05:30",
+            "updated_at": "2025-09-20T23:26:40.608456+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 7,
+            "user": "buyer2@test.com",
+            "rating": 3,
+            "comment": "Good product but delivery was slow.",
+            "created_at": "2025-09-20T23:26:40.628249+05:30",
+            "updated_at": "2025-09-20T23:26:40.628303+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 8,
+            "user": "buyer0@test.com",
+            "rating": 3,
+            "comment": "Excellent quality and packaging.",
+            "created_at": "2025-09-20T23:26:40.644234+05:30",
+            "updated_at": "2025-09-20T23:26:40.644279+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 9,
+            "user": "buyer4@test.com",
+            "rating": 3,
+            "comment": "Excellent quality and packaging.",
+            "created_at": "2025-09-20T23:26:40.660466+05:30",
+            "updated_at": "2025-09-20T23:26:40.660504+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 10,
+            "user": "buyer4@test.com",
+            "rating": 4,
+            "comment": "Average product. Could be better.",
+            "created_at": "2025-09-20T23:26:40.674484+05:30",
+            "updated_at": "2025-09-20T23:26:40.674530+05:30",
+            "is_published": true,
+            "product": 456
+          },
+          {
+            "id": 11,
+            "user": "buyer2@test.com",
+            "rating": 3,
+            "comment": "Good product but delivery was slow.",
+            "created_at": "2025-09-20T23:26:40.689001+05:30",
+            "updated_at": "2025-09-20T23:26:40.689031+05:30",
+            "is_published": true,
+            "product": 456
+          },
+          {
+            "id": 12,
+            "user": "buyer1@test.com",
+            "rating": 3,
+            "comment": "Great product! Very satisfied with the quality.",
+            "created_at": "2025-09-20T23:26:40.700229+05:30",
+            "updated_at": "2025-09-20T23:26:40.700304+05:30",
+            "is_published": true,
+            "product": 456
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:42:10.717768",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    }
+  ],
+  "admin": []
+}

@@ -1,0 +1,5127 @@
+{
+  "categories": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/categories/",
+      "payload": {
+        "name": "CRUD Test Category 20250926180551"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 123,
+        "name": "CRUD Test Category 20250926180551",
+        "parent": null,
+        "created_at": "2025-09-26T18:05:52.485007+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:05:52.503522",
+      "success": true,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/categories/123/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 123,
+        "name": "CRUD Test Category 20250926180551",
+        "parent": null,
+        "created_at": "2025-09-26T18:05:52.485007+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:05:52.509545",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/categories/123/",
+      "payload": {
+        "name": "Updated Category 20250926180552"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 123,
+        "name": "Updated Category 20250926180552",
+        "parent": null,
+        "created_at": "2025-09-26T18:05:52.485007+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:05:52.527520",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/categories/123/",
+      "payload": {
+        "name": "Patched Category 20250926180552"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 123,
+        "name": "Patched Category 20250926180552",
+        "parent": null,
+        "created_at": "2025-09-26T18:05:52.485007+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": ""
+      },
+      "timestamp": "2025-09-26T18:05:52.555211",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/categories/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 119,
+        "next": "http://testserver/api/products/categories/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 123,
+            "name": "Patched Category 20250926180552",
+            "parent": null,
+            "created_at": "2025-09-26T18:05:52.485007+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 122,
+            "name": "Test Category 20250926175934",
+            "parent": null,
+            "created_at": "2025-09-26T17:59:34.068760+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 121,
+            "name": "Supplier Category 20250926175824",
+            "parent": null,
+            "created_at": "2025-09-26T17:58:24.807762+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 120,
+            "name": "Admin Category 20250926175823",
+            "parent": null,
+            "created_at": "2025-09-26T17:58:24.770537+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 119,
+            "name": "Supplier Category 20250926175700",
+            "parent": null,
+            "created_at": "2025-09-26T17:57:00.131439+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 118,
+            "name": "Admin Category 20250926175659",
+            "parent": null,
+            "created_at": "2025-09-26T17:57:00.096587+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 117,
+            "name": "Test Category 20250926174105",
+            "parent": null,
+            "created_at": "2025-09-26T17:41:05.576559+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 116,
+            "name": "Test Category 20250926174043",
+            "parent": null,
+            "created_at": "2025-09-26T17:40:43.759248+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 115,
+            "name": "Test Category 20250926173824",
+            "parent": null,
+            "created_at": "2025-09-26T17:38:24.528371+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 114,
+            "name": "Test Subcategory",
+            "parent": 112,
+            "created_at": "2025-09-26T17:35:19.133085+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "icon": ""
+          },
+          {
+            "id": 113,
+            "name": "Test Equipment Category Supplier",
+            "parent": null,
+            "created_at": "2025-09-26T17:35:19.062727+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "icon": ""
+          },
+          {
+            "id": 112,
+            "name": "Test Medicine Category Admin",
+            "parent": null,
+            "created_at": "2025-09-26T17:35:18.964185+05:30",
+            "status": "published",
+            "is_publish": true,
+            "icon": ""
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:52.574339",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/products/categories/123/",
+      "payload": {},
+      "response_status": 204,
+      "response_data": "None",
+      "timestamp": "2025-09-26T18:05:52.603195",
+      "success": true,
+      "expected_codes": [
+        204,
+        404
+      ]
+    }
+  ],
+  "brands": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/brands/",
+      "payload": {
+        "name": "CRUD Test Brand 20250926180552"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 67,
+        "name": "CRUD Test Brand 20250926180552",
+        "image": "",
+        "created_at": "2025-09-26T18:05:52.626718+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:05:52.637132",
+      "success": true,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/brands/67/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 67,
+        "name": "CRUD Test Brand 20250926180552",
+        "image": "",
+        "created_at": "2025-09-26T18:05:52.626718+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:05:52.651885",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/brands/67/",
+      "payload": {
+        "name": "Updated Brand 20250926180552"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 67,
+        "name": "Updated Brand 20250926180552",
+        "image": "",
+        "created_at": "2025-09-26T18:05:52.626718+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:05:52.670614",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/brands/67/",
+      "payload": {
+        "name": "Patched Brand 20250926180552"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 67,
+        "name": "Patched Brand 20250926180552",
+        "image": "",
+        "created_at": "2025-09-26T18:05:52.626718+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      },
+      "timestamp": "2025-09-26T18:05:52.692088",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/brands/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 65,
+        "next": "http://testserver/api/products/brands/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 12,
+            "name": "Abbott",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Abbott____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_abbott_7tjWxihoin.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:50.078903+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 62,
+            "name": "Admin Brand 20250926175700",
+            "image": "",
+            "created_at": "2025-09-26T17:57:00.239087+05:30",
+            "status": "published",
+            "is_publish": true,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 64,
+            "name": "Admin Brand 20250926175824",
+            "image": "",
+            "created_at": "2025-09-26T17:58:24.913057+05:30",
+            "status": "published",
+            "is_publish": true,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 13,
+            "name": "Agappe",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Agappe____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_agappe_qeMJPHJHB.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:53.315733+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 22,
+            "name": "B. Braun",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____B._Braun____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_b._braun_NmElGuswr.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:22.386545+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 14,
+            "name": "Bio-Rad",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Bio-Rad____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_bio-rad_YwpH-MJnf.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:56.565750+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 42,
+            "name": "Brand To Reject 1587",
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "created_at": "2025-09-24T00:12:47.664341+05:30",
+            "status": "rejected",
+            "is_publish": false,
+            "approved_at": "2025-09-24T00:12:47.681617+05:30",
+            "rejection_reason": "Brand name not meeting quality standards",
+            "approved_by": 1
+          },
+          {
+            "id": 40,
+            "name": "Brand To Reject 6589",
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "created_at": "2025-09-24T00:11:54.564096+05:30",
+            "status": "rejected",
+            "is_publish": false,
+            "approved_at": "2025-09-24T00:11:54.579618+05:30",
+            "rejection_reason": "Brand name not meeting quality standards",
+            "approved_by": 1
+          },
+          {
+            "id": 1,
+            "name": "Cipla",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Cipla____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_cipla_S7trYd1Jgr.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:14.225601+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 19,
+            "name": "Colgate-Palmolive",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Colgate-Palmolive____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_colgate-palmolive_bDE7yL2L9f.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:12.778734+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 17,
+            "name": "Dabur",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Dabur____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_dabur_CZuMyC7VU.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:59:06.302225+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          },
+          {
+            "id": 3,
+            "name": "Dr. Reddy's",
+            "image": "https://ik.imagekit.io/medixmallstore/__brand____Dr._Reddy_s____type____brand_logo____optimized____true____size____150x150____quality____80___brands_brand_dr._reddy_s__Di7IHJRv.png?tr=w-150,h-150,q-80,f-webp,pr-true,lo-true",
+            "created_at": "2025-09-09T16:58:20.468981+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "approved_at": null,
+            "rejection_reason": null,
+            "approved_by": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:52.708504",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/products/brands/67/",
+      "payload": {},
+      "response_status": 204,
+      "response_data": "None",
+      "timestamp": "2025-09-26T18:05:52.734973",
+      "success": true,
+      "expected_codes": [
+        204,
+        404
+      ]
+    }
+  ],
+  "products": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/products/",
+      "payload": {
+        "name": "CRUD Test Product 20250926180552",
+        "description": "A test product for CRUD operations",
+        "category": 123,
+        "brand": 67,
+        "product_type": "medicine",
+        "price": "99.99",
+        "stock": 50,
+        "specifications": {
+          "weight": "100mg",
+          "storage": "Room temperature"
+        },
+        "medicine_details": {
+          "composition": "Active ingredient 100mg",
+          "quantity": "30 tablets",
+          "manufacturer": "Test Pharma",
+          "form": "Tablet"
+        }
+      },
+      "response_status": 400,
+      "response_data": {
+        "category": [
+          "Invalid pk \"123\" - object does not exist."
+        ],
+        "brand": [
+          "Invalid pk \"67\" - object does not exist."
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:52.766039",
+      "success": false,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/507/",
+      "payload": {},
+      "response_status": 404,
+      "response_data": {
+        "detail": "No Product matches the given query."
+      },
+      "timestamp": "2025-09-26T18:05:52.784720",
+      "success": false,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/products/507/",
+      "payload": {
+        "name": "Updated Product 20250926180552",
+        "description": "Updated test product",
+        "category": 123,
+        "brand": 67,
+        "product_type": "medicine",
+        "price": "149.99",
+        "stock": 75
+      },
+      "response_status": 404,
+      "response_data": {
+        "detail": "No Product matches the given query."
+      },
+      "timestamp": "2025-09-26T18:05:52.797234",
+      "success": false,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/products/507/",
+      "payload": {
+        "price": "199.99",
+        "stock": 100,
+        "description": "Patched description"
+      },
+      "response_status": 404,
+      "response_data": {
+        "detail": "No Product matches the given query."
+      },
+      "timestamp": "2025-09-26T18:05:52.804784",
+      "success": false,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 172,
+        "next": "http://testserver/api/products/products/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 473,
+            "name": "Supplier2 Test Product 2",
+            "slug": "supplier2-test-product-2",
+            "sku": "SUP2-TEST-2-8779",
+            "description": "Test product 2 from supplier 2 for duty testing",
+            "category": 91,
+            "category_id": 91,
+            "category_name": "Test Duty Category",
+            "brand": 33,
+            "brand_name": "Test Duty Brand",
+            "price": "215.00",
+            "stock": 24,
+            "product_type": "medicine",
+            "created_at": "2025-09-21T00:28:33.071532+05:30",
+            "updated_at": "2025-09-21T16:14:20.556986+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 520,
+                "product": 473,
+                "sku": "SUP2-TEST-2-8779-VAR1",
+                "price": "215.00",
+                "additional_price": "0.00",
+                "total_price": 215.0,
+                "stock": 24,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-21T00:28:33.089767+05:30",
+                "updated_at": "2025-09-21T16:14:20.542795+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 472,
+            "name": "Supplier2 Test Product 1",
+            "slug": "supplier2-test-product-1",
+            "sku": "SUP2-TEST-1-5813",
+            "description": "Test product 1 from supplier 2 for duty testing",
+            "category": 91,
+            "category_id": 91,
+            "category_name": "Test Duty Category",
+            "brand": 33,
+            "brand_name": "Test Duty Brand",
+            "price": "200.00",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-21T00:28:33.043265+05:30",
+            "updated_at": "2025-09-21T00:28:33.043294+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 519,
+                "product": 472,
+                "sku": "SUP2-TEST-1-5813-VAR1",
+                "price": "200.00",
+                "additional_price": "0.00",
+                "total_price": 200.0,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-21T00:28:33.057275+05:30",
+                "updated_at": "2025-09-21T00:28:33.057310+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 471,
+            "name": "Supplier1 Test Product 3",
+            "slug": "supplier1-test-product-3",
+            "sku": "SUP1-TEST-3-6998",
+            "description": "Test product 3 from supplier 1 for duty testing",
+            "category": 91,
+            "category_id": 91,
+            "category_name": "Test Duty Category",
+            "brand": 33,
+            "brand_name": "Test Duty Brand",
+            "price": "120.00",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-21T00:28:33.011182+05:30",
+            "updated_at": "2025-09-21T00:28:33.011237+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 518,
+                "product": 471,
+                "sku": "SUP1-TEST-3-6998-VAR1",
+                "price": "120.00",
+                "additional_price": "0.00",
+                "total_price": 120.0,
+                "stock": 50,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-21T00:28:33.027646+05:30",
+                "updated_at": "2025-09-21T00:28:33.027677+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 470,
+            "name": "Supplier1 Test Product 2",
+            "slug": "supplier1-test-product-2",
+            "sku": "SUP1-TEST-2-4794",
+            "description": "Test product 2 from supplier 1 for duty testing",
+            "category": 91,
+            "category_id": 91,
+            "category_name": "Test Duty Category",
+            "brand": 33,
+            "brand_name": "Test Duty Brand",
+            "price": "110.00",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-21T00:28:32.976465+05:30",
+            "updated_at": "2025-09-21T00:28:32.976527+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 517,
+                "product": 470,
+                "sku": "SUP1-TEST-2-4794-VAR1",
+                "price": "110.00",
+                "additional_price": "0.00",
+                "total_price": 110.0,
+                "stock": 50,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-21T00:28:32.993407+05:30",
+                "updated_at": "2025-09-21T00:28:32.993453+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 469,
+            "name": "Supplier1 Test Product 1",
+            "slug": "supplier1-test-product-1",
+            "sku": "SUP1-TEST-1-9386",
+            "description": "Test product 1 from supplier 1 for duty testing",
+            "category": 91,
+            "category_id": 91,
+            "category_name": "Test Duty Category",
+            "brand": 33,
+            "brand_name": "Test Duty Brand",
+            "price": "100.00",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-21T00:28:32.940991+05:30",
+            "updated_at": "2025-09-21T00:28:32.941039+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 516,
+                "product": 469,
+                "sku": "SUP1-TEST-1-9386-VAR1",
+                "price": "100.00",
+                "additional_price": "0.00",
+                "total_price": 100.0,
+                "stock": 50,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-21T00:28:32.957282+05:30",
+                "updated_at": "2025-09-21T00:28:32.957330+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 459,
+            "name": "Multivitamin Tablets",
+            "slug": "multivitamin-tablets-2",
+            "sku": "MULTIVITAMIN-TABLETS-D0BBA5FA",
+            "description": "High quality Mixed Vitamins & Minerals in tablet form. 30 tablets per pack.",
+            "category": 8,
+            "category_id": 8,
+            "category_name": "Prescription Medicines",
+            "brand": 16,
+            "brand_name": "Himalaya",
+            "price": "430.67",
+            "stock": 93,
+            "product_type": "medicine",
+            "created_at": "2025-09-11T00:50:30.671053+05:30",
+            "updated_at": "2025-09-11T00:50:30.671123+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {
+              "dosage_form": "tablet",
+              "pack_size": "30 tablets",
+              "storage": "Store in cool, dry place"
+            },
+            "variants": [
+              {
+                "id": 433,
+                "product": 459,
+                "sku": "VAR14501",
+                "price": "1045.91",
+                "additional_price": "0.00",
+                "total_price": 1045.91,
+                "stock": 102,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:55.265758+05:30",
+                "updated_at": "2025-09-20T23:24:39.776356+05:30"
+              },
+              {
+                "id": 434,
+                "product": 459,
+                "sku": "VAR14502",
+                "price": "1566.32",
+                "additional_price": "0.00",
+                "total_price": 1566.32,
+                "stock": 27,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:55.322052+05:30",
+                "updated_at": "2025-09-20T23:24:39.789169+05:30"
+              },
+              {
+                "id": 435,
+                "product": 459,
+                "sku": "VAR14503",
+                "price": "2138.80",
+                "additional_price": "0.00",
+                "total_price": 2138.8,
+                "stock": 49,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:55.390132+05:30",
+                "updated_at": "2025-09-20T23:24:39.805318+05:30"
+              },
+              {
+                "id": 496,
+                "product": 459,
+                "sku": "VAR16601",
+                "price": "282.22",
+                "additional_price": "0.00",
+                "total_price": 282.22,
+                "stock": 96,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.901050+05:30",
+                "updated_at": "2025-09-20T23:24:41.035127+05:30"
+              },
+              {
+                "id": 497,
+                "product": 459,
+                "sku": "VAR16602",
+                "price": "1069.69",
+                "additional_price": "0.00",
+                "total_price": 1069.69,
+                "stock": 90,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.944236+05:30",
+                "updated_at": "2025-09-20T23:24:41.045547+05:30"
+              },
+              {
+                "id": 498,
+                "product": 459,
+                "sku": "VAR16603",
+                "price": "2003.86",
+                "additional_price": "0.00",
+                "total_price": 2003.86,
+                "stock": 41,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.986140+05:30",
+                "updated_at": "2025-09-20T23:24:41.060686+05:30"
+              },
+              {
+                "id": 499,
+                "product": 459,
+                "sku": "VAR16701",
+                "price": "1015.55",
+                "additional_price": "0.00",
+                "total_price": 1015.55,
+                "stock": 58,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 9,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Silver"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:59.029654+05:30",
+                "updated_at": "2025-09-20T23:24:41.078794+05:30"
+              },
+              {
+                "id": 500,
+                "product": 459,
+                "sku": "VAR16702",
+                "price": "1103.76",
+                "additional_price": "0.00",
+                "total_price": 1103.76,
+                "stock": 87,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 11,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "White"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:59.073046+05:30",
+                "updated_at": "2025-09-20T23:24:41.091194+05:30"
+              },
+              {
+                "id": 501,
+                "product": 459,
+                "sku": "VAR16703",
+                "price": "957.77",
+                "additional_price": "0.00",
+                "total_price": 957.77,
+                "stock": 14,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:59.257205+05:30",
+                "updated_at": "2025-09-20T23:24:41.103053+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 1,
+                "product": 459,
+                "image": "https://picsum.photos/400/400?random=4590",
+                "alt_text": "Multivitamin Tablets - Image 1",
+                "order": 0,
+                "variant": null
+              },
+              {
+                "id": 4,
+                "product": 459,
+                "image": "https://picsum.photos/400/400?random=459433",
+                "alt_text": "Multivitamin Tablets - Variant 433",
+                "order": 0,
+                "variant": 433
+              },
+              {
+                "id": 5,
+                "product": 459,
+                "image": "https://picsum.photos/400/400?random=459434",
+                "alt_text": "Multivitamin Tablets - Variant 434",
+                "order": 0,
+                "variant": 434
+              },
+              {
+                "id": 2,
+                "product": 459,
+                "image": "https://picsum.photos/400/400?random=4591",
+                "alt_text": "Multivitamin Tablets - Image 2",
+                "order": 1,
+                "variant": null
+              },
+              {
+                "id": 3,
+                "product": 459,
+                "image": "https://picsum.photos/400/400?random=4592",
+                "alt_text": "Multivitamin Tablets - Image 3",
+                "order": 2,
+                "variant": null
+              }
+            ],
+            "image": "https://ik.imagekit.io/medixmall/__product____Multivitamin_Tablets____type____product_image____product_type____medicine____source____default_product_image___products_product_multivitamin_tablets_default_x_seFc7Dh.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+            "medicine_details": {
+              "composition": "Mixed Vitamins & Minerals",
+              "quantity": "30 tablets",
+              "manufacturer": "Global Meds Inc",
+              "expiry_date": null,
+              "batch_number": "BATCH000167",
+              "prescription_required": false,
+              "form": "tablet",
+              "pack_size": "30 tablets"
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 458,
+            "name": "Multivitamin Tablets",
+            "slug": "multivitamin-tablets-1",
+            "sku": "MULTIVITAMIN-TABLETS-BCAC9E69",
+            "description": "High quality Mixed Vitamins & Minerals in tablet form. 30 tablets per pack.",
+            "category": 8,
+            "category_id": 8,
+            "category_name": "Prescription Medicines",
+            "brand": 15,
+            "brand_name": "Patanjali",
+            "price": "173.41",
+            "stock": 113,
+            "product_type": "medicine",
+            "created_at": "2025-09-11T00:50:26.390852+05:30",
+            "updated_at": "2025-09-11T00:50:26.390884+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {
+              "dosage_form": "tablet",
+              "pack_size": "30 tablets",
+              "storage": "Store in cool, dry place"
+            },
+            "variants": [
+              {
+                "id": 504,
+                "product": 458,
+                "sku": "MULTIVITAMIN-TABLETS-BCAC9E69-40DF208F",
+                "price": "629.00",
+                "additional_price": "97.00",
+                "total_price": 629.0,
+                "stock": 67,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 24,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "50mg"
+                  },
+                  {
+                    "id": 26,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "30 tablets"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.304085+05:30",
+                "updated_at": "2025-09-20T23:24:41.304116+05:30"
+              },
+              {
+                "id": 505,
+                "product": 458,
+                "sku": "MULTIVITAMIN-TABLETS-BCAC9E69-A45D1014",
+                "price": "149.00",
+                "additional_price": "11.00",
+                "total_price": 149.0,
+                "stock": 52,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 16,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "10mg"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.355736+05:30",
+                "updated_at": "2025-09-20T23:24:41.355799+05:30"
+              },
+              {
+                "id": 506,
+                "product": 458,
+                "sku": "MULTIVITAMIN-TABLETS-BCAC9E69-D73FA6D4",
+                "price": "407.00",
+                "additional_price": "99.00",
+                "total_price": 407.0,
+                "stock": 81,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 15,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "5mg"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.409033+05:30",
+                "updated_at": "2025-09-20T23:24:41.409072+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 6,
+                "product": 458,
+                "image": "https://picsum.photos/400/400?random=4580",
+                "alt_text": "Multivitamin Tablets - Image 1",
+                "order": 0,
+                "variant": null
+              },
+              {
+                "id": 9,
+                "product": 458,
+                "image": "https://picsum.photos/400/400?random=458504",
+                "alt_text": "Multivitamin Tablets - Variant 504",
+                "order": 0,
+                "variant": 504
+              },
+              {
+                "id": 10,
+                "product": 458,
+                "image": "https://picsum.photos/400/400?random=458505",
+                "alt_text": "Multivitamin Tablets - Variant 505",
+                "order": 0,
+                "variant": 505
+              },
+              {
+                "id": 7,
+                "product": 458,
+                "image": "https://picsum.photos/400/400?random=4581",
+                "alt_text": "Multivitamin Tablets - Image 2",
+                "order": 1,
+                "variant": null
+              },
+              {
+                "id": 8,
+                "product": 458,
+                "image": "https://picsum.photos/400/400?random=4582",
+                "alt_text": "Multivitamin Tablets - Image 3",
+                "order": 2,
+                "variant": null
+              }
+            ],
+            "image": "https://ik.imagekit.io/medixmall/__product____Multivitamin_Tablets____type____product_image____product_type____medicine____source____default_product_image___products_product_multivitamin_tablets_default_x9-aeL48bJ.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+            "medicine_details": {
+              "composition": "Mixed Vitamins & Minerals",
+              "quantity": "30 tablets",
+              "manufacturer": "MediLife Industries",
+              "expiry_date": null,
+              "batch_number": "BATCH000166",
+              "prescription_required": false,
+              "form": "tablet",
+              "pack_size": "30 tablets"
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 457,
+            "name": "Omega-3 Capsules",
+            "slug": "omega-3-capsules-4",
+            "sku": "OMEGA-3-CAPSULES-ACE7E461",
+            "description": "High quality Fish Oil 1000mg in capsule form. 60 capsules per pack.",
+            "category": 9,
+            "category_id": 9,
+            "category_name": "Over-The-Counter (OTC) Medicines",
+            "brand": 19,
+            "brand_name": "Colgate-Palmolive",
+            "price": "279.63",
+            "stock": 166,
+            "product_type": "medicine",
+            "created_at": "2025-09-11T00:50:21.386436+05:30",
+            "updated_at": "2025-09-11T00:50:21.386506+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {
+              "dosage_form": "capsule",
+              "pack_size": "60 capsules",
+              "storage": "Store in cool, dry place"
+            },
+            "variants": [
+              {
+                "id": 439,
+                "product": 457,
+                "sku": "VAR14701",
+                "price": "939.32",
+                "additional_price": "0.00",
+                "total_price": 939.32,
+                "stock": 139,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  },
+                  {
+                    "id": 11,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "White"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:55.684448+05:30",
+                "updated_at": "2025-09-20T23:24:40.145425+05:30"
+              },
+              {
+                "id": 440,
+                "product": 457,
+                "sku": "VAR14702",
+                "price": "573.27",
+                "additional_price": "0.00",
+                "total_price": 573.27,
+                "stock": 48,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:55.830006+05:30",
+                "updated_at": "2025-09-20T23:24:40.156811+05:30"
+              },
+              {
+                "id": 441,
+                "product": 457,
+                "sku": "VAR14703",
+                "price": "941.30",
+                "additional_price": "0.00",
+                "total_price": 941.3,
+                "stock": 21,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:55.954878+05:30",
+                "updated_at": "2025-09-20T23:24:40.168077+05:30"
+              },
+              {
+                "id": 466,
+                "product": 457,
+                "sku": "VAR15601",
+                "price": "787.87",
+                "additional_price": "0.00",
+                "total_price": 787.87,
+                "stock": 52,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:57.437407+05:30",
+                "updated_at": "2025-09-20T23:24:40.640926+05:30"
+              },
+              {
+                "id": 467,
+                "product": 457,
+                "sku": "VAR15602",
+                "price": "1893.92",
+                "additional_price": "0.00",
+                "total_price": 1893.92,
+                "stock": 26,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 11,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "White"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:57.486235+05:30",
+                "updated_at": "2025-09-20T23:24:40.654510+05:30"
+              },
+              {
+                "id": 468,
+                "product": 457,
+                "sku": "VAR15603",
+                "price": "1490.40",
+                "additional_price": "0.00",
+                "total_price": 1490.4,
+                "stock": 57,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 9,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Silver"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:57.533848+05:30",
+                "updated_at": "2025-09-20T23:24:40.666620+05:30"
+              },
+              {
+                "id": 478,
+                "product": 457,
+                "sku": "VAR16001",
+                "price": "1083.70",
+                "additional_price": "0.00",
+                "total_price": 1083.7,
+                "stock": 84,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  },
+                  {
+                    "id": 11,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "White"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.043189+05:30",
+                "updated_at": "2025-09-20T23:24:40.778360+05:30"
+              },
+              {
+                "id": 479,
+                "product": 457,
+                "sku": "VAR16002",
+                "price": "1944.40",
+                "additional_price": "0.00",
+                "total_price": 1944.4,
+                "stock": 95,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 5,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Blue"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.106844+05:30",
+                "updated_at": "2025-09-20T23:24:40.793618+05:30"
+              },
+              {
+                "id": 480,
+                "product": 457,
+                "sku": "VAR16003",
+                "price": "1154.47",
+                "additional_price": "0.00",
+                "total_price": 1154.47,
+                "stock": 18,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.159393+05:30",
+                "updated_at": "2025-09-20T23:24:40.805386+05:30"
+              },
+              {
+                "id": 487,
+                "product": 457,
+                "sku": "VAR16301",
+                "price": "887.52",
+                "additional_price": "0.00",
+                "total_price": 887.52,
+                "stock": 121,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.477026+05:30",
+                "updated_at": "2025-09-20T23:24:40.913447+05:30"
+              },
+              {
+                "id": 488,
+                "product": 457,
+                "sku": "VAR16302",
+                "price": "834.87",
+                "additional_price": "0.00",
+                "total_price": 834.87,
+                "stock": 72,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  },
+                  {
+                    "id": 11,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "White"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.522288+05:30",
+                "updated_at": "2025-09-20T23:24:40.925215+05:30"
+              },
+              {
+                "id": 489,
+                "product": 457,
+                "sku": "VAR16303",
+                "price": "911.02",
+                "additional_price": "0.00",
+                "total_price": 911.02,
+                "stock": 62,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 5,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Blue"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.566769+05:30",
+                "updated_at": "2025-09-20T23:24:40.939861+05:30"
+              },
+              {
+                "id": 493,
+                "product": 457,
+                "sku": "VAR16501",
+                "price": "1345.49",
+                "additional_price": "0.00",
+                "total_price": 1345.49,
+                "stock": 45,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.758004+05:30",
+                "updated_at": "2025-09-20T23:24:40.990790+05:30"
+              },
+              {
+                "id": 494,
+                "product": 457,
+                "sku": "VAR16502",
+                "price": "1380.15",
+                "additional_price": "0.00",
+                "total_price": 1380.15,
+                "stock": 58,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.809201+05:30",
+                "updated_at": "2025-09-20T23:24:41.005953+05:30"
+              },
+              {
+                "id": 495,
+                "product": 457,
+                "sku": "VAR16503",
+                "price": "1308.23",
+                "additional_price": "0.00",
+                "total_price": 1308.23,
+                "stock": 60,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 9,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Silver"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.854168+05:30",
+                "updated_at": "2025-09-20T23:24:41.020294+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 11,
+                "product": 457,
+                "image": "https://picsum.photos/400/400?random=4570",
+                "alt_text": "Omega-3 Capsules - Image 1",
+                "order": 0,
+                "variant": null
+              },
+              {
+                "id": 15,
+                "product": 457,
+                "image": "https://picsum.photos/400/400?random=457439",
+                "alt_text": "Omega-3 Capsules - Variant 439",
+                "order": 0,
+                "variant": 439
+              },
+              {
+                "id": 16,
+                "product": 457,
+                "image": "https://picsum.photos/400/400?random=457440",
+                "alt_text": "Omega-3 Capsules - Variant 440",
+                "order": 0,
+                "variant": 440
+              },
+              {
+                "id": 12,
+                "product": 457,
+                "image": "https://picsum.photos/400/400?random=4571",
+                "alt_text": "Omega-3 Capsules - Image 2",
+                "order": 1,
+                "variant": null
+              },
+              {
+                "id": 13,
+                "product": 457,
+                "image": "https://picsum.photos/400/400?random=4572",
+                "alt_text": "Omega-3 Capsules - Image 3",
+                "order": 2,
+                "variant": null
+              },
+              {
+                "id": 14,
+                "product": 457,
+                "image": "https://picsum.photos/400/400?random=4573",
+                "alt_text": "Omega-3 Capsules - Image 4",
+                "order": 3,
+                "variant": null
+              }
+            ],
+            "image": "https://ik.imagekit.io/medixmall/__product____Omega-3_Capsules____type____product_image____product_type____medicine____source____default_product_image___products_product_omega-3_capsules_default_pSzSFRsVdd.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+            "medicine_details": {
+              "composition": "Fish Oil 1000mg",
+              "quantity": "60 capsules",
+              "manufacturer": "PharmaCorp Ltd",
+              "expiry_date": null,
+              "batch_number": "BATCH000165",
+              "prescription_required": false,
+              "form": "capsule",
+              "pack_size": "60 capsules"
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 456,
+            "name": "Iron Tablets",
+            "slug": "iron-tablets-1",
+            "sku": "IRON-TABLETS-BE500823",
+            "description": "High quality Ferrous Sulfate 65mg in tablet form. 100 tablets per pack.",
+            "category": 9,
+            "category_id": 9,
+            "category_name": "Over-The-Counter (OTC) Medicines",
+            "brand": 23,
+            "brand_name": "Fresenius Kabi",
+            "price": "460.17",
+            "stock": 130,
+            "product_type": "medicine",
+            "created_at": "2025-09-11T00:50:17.686280+05:30",
+            "updated_at": "2025-09-11T00:50:17.686354+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {
+              "dosage_form": "tablet",
+              "pack_size": "100 tablets",
+              "storage": "Store in cool, dry place"
+            },
+            "variants": [
+              {
+                "id": 481,
+                "product": 456,
+                "sku": "VAR16101",
+                "price": "471.67",
+                "additional_price": "0.00",
+                "total_price": 471.67,
+                "stock": 124,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  },
+                  {
+                    "id": 9,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Silver"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.204774+05:30",
+                "updated_at": "2025-09-20T23:24:40.817131+05:30"
+              },
+              {
+                "id": 482,
+                "product": 456,
+                "sku": "VAR16102",
+                "price": "1209.85",
+                "additional_price": "0.00",
+                "total_price": 1209.85,
+                "stock": 75,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.258281+05:30",
+                "updated_at": "2025-09-20T23:24:40.827440+05:30"
+              },
+              {
+                "id": 483,
+                "product": 456,
+                "sku": "VAR16103",
+                "price": "2274.08",
+                "additional_price": "0.00",
+                "total_price": 2274.08,
+                "stock": 60,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.303186+05:30",
+                "updated_at": "2025-09-20T23:24:40.836909+05:30"
+              },
+              {
+                "id": 490,
+                "product": 456,
+                "sku": "VAR16401",
+                "price": "871.96",
+                "additional_price": "0.00",
+                "total_price": 871.96,
+                "stock": 145,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.609007+05:30",
+                "updated_at": "2025-09-20T23:24:40.951451+05:30"
+              },
+              {
+                "id": 491,
+                "product": 456,
+                "sku": "VAR16402",
+                "price": "772.19",
+                "additional_price": "0.00",
+                "total_price": 772.19,
+                "stock": 62,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  },
+                  {
+                    "id": 8,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Black"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.653523+05:30",
+                "updated_at": "2025-09-20T23:24:40.959816+05:30"
+              },
+              {
+                "id": 492,
+                "product": 456,
+                "sku": "VAR16403",
+                "price": "1211.32",
+                "additional_price": "0.00",
+                "total_price": 1211.32,
+                "stock": 22,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 5,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Blue"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.696721+05:30",
+                "updated_at": "2025-09-20T23:24:40.973589+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 17,
+                "product": 456,
+                "image": "https://picsum.photos/400/400?random=4560",
+                "alt_text": "Iron Tablets - Image 1",
+                "order": 0,
+                "variant": null
+              },
+              {
+                "id": 21,
+                "product": 456,
+                "image": "https://picsum.photos/400/400?random=456481",
+                "alt_text": "Iron Tablets - Variant 481",
+                "order": 0,
+                "variant": 481
+              },
+              {
+                "id": 22,
+                "product": 456,
+                "image": "https://picsum.photos/400/400?random=456482",
+                "alt_text": "Iron Tablets - Variant 482",
+                "order": 0,
+                "variant": 482
+              },
+              {
+                "id": 18,
+                "product": 456,
+                "image": "https://picsum.photos/400/400?random=4561",
+                "alt_text": "Iron Tablets - Image 2",
+                "order": 1,
+                "variant": null
+              },
+              {
+                "id": 19,
+                "product": 456,
+                "image": "https://picsum.photos/400/400?random=4562",
+                "alt_text": "Iron Tablets - Image 3",
+                "order": 2,
+                "variant": null
+              },
+              {
+                "id": 20,
+                "product": 456,
+                "image": "https://picsum.photos/400/400?random=4563",
+                "alt_text": "Iron Tablets - Image 4",
+                "order": 3,
+                "variant": null
+              }
+            ],
+            "image": "https://ik.imagekit.io/medixmall/__product____Iron_Tablets____type____product_image____product_type____medicine____source____default_product_image___products_product_iron_tablets_default_AsbdI0h9J.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+            "medicine_details": {
+              "composition": "Ferrous Sulfate 65mg",
+              "quantity": "100 tablets",
+              "manufacturer": "Global Meds Inc",
+              "expiry_date": null,
+              "batch_number": "BATCH000164",
+              "prescription_required": false,
+              "form": "tablet",
+              "pack_size": "100 tablets"
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 455,
+            "name": "Omega-3 Capsules",
+            "slug": "omega-3-capsules-3",
+            "sku": "OMEGA-3-CAPSULES-32FB7AF1",
+            "description": "High quality Fish Oil 1000mg in capsule form. 60 capsules per pack.",
+            "category": 10,
+            "category_id": 10,
+            "category_name": "Ayurvedic & Herbal Medicines",
+            "brand": 6,
+            "brand_name": "Johnson & Johnson",
+            "price": "235.47",
+            "stock": 79,
+            "product_type": "medicine",
+            "created_at": "2025-09-11T00:50:13.941486+05:30",
+            "updated_at": "2025-09-11T00:50:13.941557+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {
+              "dosage_form": "capsule",
+              "pack_size": "60 capsules",
+              "storage": "Store in cool, dry place"
+            },
+            "variants": [
+              {
+                "id": 507,
+                "product": 455,
+                "sku": "OMEGA-3-CAPSULES-32FB7AF1-D3C71F84",
+                "price": "539.00",
+                "additional_price": "64.00",
+                "total_price": 539.0,
+                "stock": 12,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 16,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "10mg"
+                  },
+                  {
+                    "id": 25,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "10 tablets"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.461140+05:30",
+                "updated_at": "2025-09-20T23:24:41.461188+05:30"
+              },
+              {
+                "id": 508,
+                "product": 455,
+                "sku": "OMEGA-3-CAPSULES-32FB7AF1-0F96DB69",
+                "price": "738.00",
+                "additional_price": "37.00",
+                "total_price": 738.0,
+                "stock": 20,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 16,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "10mg"
+                  },
+                  {
+                    "id": 27,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "60 tablets"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.512949+05:30",
+                "updated_at": "2025-09-20T23:24:41.513003+05:30"
+              },
+              {
+                "id": 509,
+                "product": 455,
+                "sku": "OMEGA-3-CAPSULES-32FB7AF1-C9A49958",
+                "price": "696.00",
+                "additional_price": "79.00",
+                "total_price": 696.0,
+                "stock": 12,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 15,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "5mg"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.564430+05:30",
+                "updated_at": "2025-09-20T23:24:41.564501+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 23,
+                "product": 455,
+                "image": "https://picsum.photos/400/400?random=4550",
+                "alt_text": "Omega-3 Capsules - Image 1",
+                "order": 0,
+                "variant": null
+              },
+              {
+                "id": 25,
+                "product": 455,
+                "image": "https://picsum.photos/400/400?random=455507",
+                "alt_text": "Omega-3 Capsules - Variant 507",
+                "order": 0,
+                "variant": 507
+              },
+              {
+                "id": 26,
+                "product": 455,
+                "image": "https://picsum.photos/400/400?random=455508",
+                "alt_text": "Omega-3 Capsules - Variant 508",
+                "order": 0,
+                "variant": 508
+              },
+              {
+                "id": 24,
+                "product": 455,
+                "image": "https://picsum.photos/400/400?random=4551",
+                "alt_text": "Omega-3 Capsules - Image 2",
+                "order": 1,
+                "variant": null
+              },
+              {
+                "id": 50,
+                "product": 455,
+                "image": "https://picsum.photos/400/400?random=4552",
+                "alt_text": "Omega-3 Capsules - Image 3",
+                "order": 2,
+                "variant": null
+              }
+            ],
+            "image": "https://ik.imagekit.io/medixmall/__product____Omega-3_Capsules____type____product_image____product_type____medicine____source____default_product_image___products_product_omega-3_capsules_default_dq4CbeD7H.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+            "medicine_details": {
+              "composition": "Fish Oil 1000mg",
+              "quantity": "60 capsules",
+              "manufacturer": "MediLife Industries",
+              "expiry_date": null,
+              "batch_number": "BATCH000163",
+              "prescription_required": false,
+              "form": "capsule",
+              "pack_size": "60 capsules"
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 454,
+            "name": "Probiotics Capsules",
+            "slug": "probiotics-capsules-1",
+            "sku": "PROBIOTICS-CAPSULES-39E621B6",
+            "description": "High quality Lactobacillus Mix 1B CFU in capsule form. 30 capsules per pack.",
+            "category": 10,
+            "category_id": 10,
+            "category_name": "Ayurvedic & Herbal Medicines",
+            "brand": 18,
+            "brand_name": "Mamaearth",
+            "price": "105.63",
+            "stock": 57,
+            "product_type": "medicine",
+            "created_at": "2025-09-11T00:50:10.154508+05:30",
+            "updated_at": "2025-09-11T00:50:10.154539+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {
+              "dosage_form": "capsule",
+              "pack_size": "30 capsules",
+              "storage": "Store in cool, dry place"
+            },
+            "variants": [
+              {
+                "id": 412,
+                "product": 454,
+                "sku": "VAR13801",
+                "price": "1347.88",
+                "additional_price": "0.00",
+                "total_price": 1347.88,
+                "stock": 52,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:54.270661+05:30",
+                "updated_at": "2025-09-20T23:24:39.525011+05:30"
+              },
+              {
+                "id": 413,
+                "product": 454,
+                "sku": "VAR13802",
+                "price": "1872.35",
+                "additional_price": "0.00",
+                "total_price": 1872.35,
+                "stock": 90,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  },
+                  {
+                    "id": 11,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "White"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:54.315301+05:30",
+                "updated_at": "2025-09-20T23:24:39.535032+05:30"
+              },
+              {
+                "id": 414,
+                "product": 454,
+                "sku": "VAR13803",
+                "price": "1659.43",
+                "additional_price": "0.00",
+                "total_price": 1659.43,
+                "stock": 60,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 9,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Silver"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:54.359653+05:30",
+                "updated_at": "2025-09-20T23:24:39.542751+05:30"
+              },
+              {
+                "id": 484,
+                "product": 454,
+                "sku": "VAR16201",
+                "price": "1360.74",
+                "additional_price": "0.00",
+                "total_price": 1360.74,
+                "stock": 94,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 1,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Small"
+                  },
+                  {
+                    "id": 6,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Standard"
+                  },
+                  {
+                    "id": 9,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Silver"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.344447+05:30",
+                "updated_at": "2025-09-20T23:24:40.845835+05:30"
+              },
+              {
+                "id": 485,
+                "product": 454,
+                "sku": "VAR16202",
+                "price": "189.95",
+                "additional_price": "0.00",
+                "total_price": 189.95,
+                "stock": 77,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 10,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Premium"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.388758+05:30",
+                "updated_at": "2025-09-20T23:24:40.867162+05:30"
+              },
+              {
+                "id": 486,
+                "product": 454,
+                "sku": "VAR16203",
+                "price": "2485.86",
+                "additional_price": "0.00",
+                "total_price": 2485.86,
+                "stock": 28,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 2,
+                    "attribute": 2,
+                    "attribute_name": "Color",
+                    "value": "Grey"
+                  },
+                  {
+                    "id": 3,
+                    "attribute": 3,
+                    "attribute_name": "Type",
+                    "value": "Deluxe"
+                  },
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  }
+                ],
+                "created_at": "2025-09-11T00:50:58.435894+05:30",
+                "updated_at": "2025-09-20T23:24:40.900379+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 27,
+                "product": 454,
+                "image": "https://picsum.photos/400/400?random=4540",
+                "alt_text": "Probiotics Capsules - Image 1",
+                "order": 0,
+                "variant": null
+              },
+              {
+                "id": 30,
+                "product": 454,
+                "image": "https://picsum.photos/400/400?random=454412",
+                "alt_text": "Probiotics Capsules - Variant 412",
+                "order": 0,
+                "variant": 412
+              },
+              {
+                "id": 31,
+                "product": 454,
+                "image": "https://picsum.photos/400/400?random=454413",
+                "alt_text": "Probiotics Capsules - Variant 413",
+                "order": 0,
+                "variant": 413
+              },
+              {
+                "id": 28,
+                "product": 454,
+                "image": "https://picsum.photos/400/400?random=4541",
+                "alt_text": "Probiotics Capsules - Image 2",
+                "order": 1,
+                "variant": null
+              },
+              {
+                "id": 29,
+                "product": 454,
+                "image": "https://picsum.photos/400/400?random=4542",
+                "alt_text": "Probiotics Capsules - Image 3",
+                "order": 2,
+                "variant": null
+              }
+            ],
+            "image": "https://ik.imagekit.io/medixmall/__product____Probiotics_Capsules____type____product_image____product_type____medicine____source____default_product_image___products_product_probiotics_capsules_default_18BKNDc_bt.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+            "medicine_details": {
+              "composition": "Lactobacillus Mix 1B CFU",
+              "quantity": "30 capsules",
+              "manufacturer": "MediLife Industries",
+              "expiry_date": null,
+              "batch_number": "BATCH000162",
+              "prescription_required": false,
+              "form": "capsule",
+              "pack_size": "30 capsules"
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 453,
+            "name": "Iron Tablets",
+            "slug": "iron-tablets",
+            "sku": "IRON-TABLETS-33E03084",
+            "description": "High quality Ferrous Sulfate 65mg in tablet form. 100 tablets per pack.",
+            "category": 11,
+            "category_id": 11,
+            "category_name": "Homeopathic Medicines",
+            "brand": 18,
+            "brand_name": "Mamaearth",
+            "price": "331.60",
+            "stock": 83,
+            "product_type": "medicine",
+            "created_at": "2025-09-11T00:50:06.488074+05:30",
+            "updated_at": "2025-09-11T00:50:06.488126+05:30",
+            "status": "published",
+            "is_publish": true,
+            "specifications": {
+              "dosage_form": "tablet",
+              "pack_size": "100 tablets",
+              "storage": "Store in cool, dry place"
+            },
+            "variants": [
+              {
+                "id": 510,
+                "product": 453,
+                "sku": "IRON-TABLETS-33E03084-D27082F6",
+                "price": "458.00",
+                "additional_price": "8.00",
+                "total_price": 458.0,
+                "stock": 28,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 24,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "50mg"
+                  },
+                  {
+                    "id": 26,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "30 tablets"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.619875+05:30",
+                "updated_at": "2025-09-20T23:24:41.619923+05:30"
+              },
+              {
+                "id": 511,
+                "product": 453,
+                "sku": "IRON-TABLETS-33E03084-4C655695",
+                "price": "737.00",
+                "additional_price": "46.00",
+                "total_price": 737.0,
+                "stock": 39,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 7,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Large"
+                  },
+                  {
+                    "id": 24,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "50mg"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.688054+05:30",
+                "updated_at": "2025-09-20T23:24:41.688100+05:30"
+              },
+              {
+                "id": 512,
+                "product": 453,
+                "sku": "IRON-TABLETS-33E03084-6F5AA991",
+                "price": "340.00",
+                "additional_price": "4.00",
+                "total_price": 340.0,
+                "stock": 98,
+                "is_active": true,
+                "attributes": [
+                  {
+                    "id": 4,
+                    "attribute": 1,
+                    "attribute_name": "Pack Size",
+                    "value": "Medium"
+                  },
+                  {
+                    "id": 15,
+                    "attribute": 5,
+                    "attribute_name": "Dosage",
+                    "value": "5mg"
+                  }
+                ],
+                "created_at": "2025-09-20T23:24:41.742149+05:30",
+                "updated_at": "2025-09-20T23:24:41.742200+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 32,
+                "product": 453,
+                "image": "https://picsum.photos/400/400?random=4530",
+                "alt_text": "Iron Tablets - Image 1",
+                "order": 0,
+                "variant": null
+              },
+              {
+                "id": 35,
+                "product": 453,
+                "image": "https://picsum.photos/400/400?random=453510",
+                "alt_text": "Iron Tablets - Variant 510",
+                "order": 0,
+                "variant": 510
+              },
+              {
+                "id": 36,
+                "product": 453,
+                "image": "https://picsum.photos/400/400?random=453511",
+                "alt_text": "Iron Tablets - Variant 511",
+                "order": 0,
+                "variant": 511
+              },
+              {
+                "id": 33,
+                "product": 453,
+                "image": "https://picsum.photos/400/400?random=4531",
+                "alt_text": "Iron Tablets - Image 2",
+                "order": 1,
+                "variant": null
+              },
+              {
+                "id": 34,
+                "product": 453,
+                "image": "https://picsum.photos/400/400?random=4532",
+                "alt_text": "Iron Tablets - Image 3",
+                "order": 2,
+                "variant": null
+              }
+            ],
+            "image": "https://ik.imagekit.io/medixmall/__product____Iron_Tablets____type____product_image____product_type____medicine____source____default_product_image___products_product_iron_tablets_default_DAU9n3Ysj.png?tr=w-800,h-800,q-85,f-auto,pr-true,lo-true",
+            "medicine_details": {
+              "composition": "Ferrous Sulfate 65mg",
+              "quantity": "100 tablets",
+              "manufacturer": "MediLife Industries",
+              "expiry_date": null,
+              "batch_number": "BATCH000161",
+              "prescription_required": false,
+              "form": "tablet",
+              "pack_size": "100 tablets"
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:53.230268",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/?product_type=medicine",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 103,
+        "next": "http://testserver/api/products/products/?page=2&product_type=medicine",
+        "previous": null,
+        "results": [
+          {
+            "id": 505,
+            "name": "Test Medicine Product 20250926175934",
+            "slug": "test-medicine-product-20250926175934",
+            "sku": "TEST-MEDICINE-PRODUC-07B7CD26",
+            "description": "A comprehensive test medicine for API documentation",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:59:34.502672+05:30",
+            "updated_at": "2025-09-26T17:59:34.502704+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 502,
+            "name": "Detailed Medicine 20250926175825",
+            "slug": "detailed-medicine-20250926175825",
+            "sku": "DETAILED-MEDICINE-20-5CB8CA66",
+            "description": "A detailed test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.093990+05:30",
+            "updated_at": "2025-09-26T17:58:25.892763+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 501,
+            "name": "Simple Medicine 20250926175825",
+            "slug": "simple-medicine-20250926175825",
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D",
+            "description": "A simple test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.056535+05:30",
+            "updated_at": "2025-09-26T17:58:25.842446+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 542,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.390434+05:30",
+                "updated_at": "2025-09-26T17:58:26.390496+05:30"
+              },
+              {
+                "id": 543,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.440474+05:30",
+                "updated_at": "2025-09-26T17:58:26.440520+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 498,
+            "name": "Detailed Medicine 20250926175700",
+            "slug": "detailed-medicine-20250926175700",
+            "sku": "DETAILED-MEDICINE-20-B174BE58",
+            "description": "A detailed test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.416536+05:30",
+            "updated_at": "2025-09-26T17:57:01.414103+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 497,
+            "name": "Simple Medicine 20250926175700",
+            "slug": "simple-medicine-20250926175700",
+            "sku": "SIMPLE-MEDICINE-2025-CE5B61DE",
+            "description": "A simple test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.376552+05:30",
+            "updated_at": "2025-09-26T17:57:01.361386+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 540,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-6E6ED3F7",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.548790+05:30",
+                "updated_at": "2025-09-26T17:57:01.548845+05:30"
+              },
+              {
+                "id": 541,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-1CDB8714",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.601867+05:30",
+                "updated_at": "2025-09-26T17:57:01.601913+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 496,
+            "name": "Debug Medicine 174705",
+            "slug": "debug-medicine-174705",
+            "sku": "DEBUG-MEDICINE-17470-3B2CBED4",
+            "description": "Medicine with details",
+            "category": 113,
+            "category_id": 113,
+            "category_name": "Test Equipment Category Supplier",
+            "brand": 44,
+            "brand_name": "Johnson & Johnson BRAND 1758653380_668",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:47:05.924827+05:30",
+            "updated_at": "2025-09-26T17:47:05.924862+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 495,
+            "name": "Supplier Medicine SUP 1758654519_717",
+            "slug": "supplier-medicine-sup-1758654519_717",
+            "sku": "SUPPLIER-MEDICINE-SU-40BBB9BB",
+            "description": "Updated description for Supplier Medicine SUP 1758654519_717 at 2025-09-24 00:41:43.317067",
+            "category": 106,
+            "category_id": 106,
+            "category_name": "Medicines CAT 1758654519_905",
+            "brand": 51,
+            "brand_name": "Pfizer BRAND 1758654519_594",
+            "price": "99.99",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:38:42.824348+05:30",
+            "updated_at": "2025-09-26T17:38:25.935742+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 539,
+                "product": 495,
+                "sku": "SUPPLIER-MEDICINE-SU-40BBB9BB-0FA9F89C",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": false,
+                "attributes": [],
+                "created_at": "2025-09-26T17:47:05.840718+05:30",
+                "updated_at": "2025-09-26T17:47:05.840764+05:30"
+              }
+            ],
+            "images": [],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Supplier Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 492,
+            "name": "Ibuprofen MED 1758654519_799",
+            "slug": "ibuprofen-med-1758654519_799",
+            "sku": "IBUPROFEN-MED-175865-73BD978A",
+            "description": "Anti-inflammatory medicine",
+            "category": 106,
+            "category_id": 106,
+            "category_name": "Medicines CAT 1758654519_905",
+            "brand": 51,
+            "brand_name": "Pfizer BRAND 1758654519_594",
+            "price": "30.00",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:38:42.670521+05:30",
+            "updated_at": "2025-09-24T00:38:42.670572+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 535,
+                "product": 492,
+                "sku": "IBUPROFEN-MED-175865-73BD978A-4471990E",
+                "price": "30.31",
+                "additional_price": "0.00",
+                "total_price": 30.31,
+                "stock": 21,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.963550+05:30",
+                "updated_at": "2025-09-24T00:38:42.963596+05:30"
+              },
+              {
+                "id": 536,
+                "product": 492,
+                "sku": "IBUPROFEN-MED-175865-73BD978A-614AAEF8",
+                "price": "22.65",
+                "additional_price": "0.00",
+                "total_price": 22.65,
+                "stock": 14,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.991096+05:30",
+                "updated_at": "2025-09-24T00:38:42.991126+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 63,
+                "product": 492,
+                "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+                "alt_text": "Additional image for Ibuprofen MED 1758654519_799",
+                "order": 0,
+                "variant": null
+              }
+            ],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Test Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 491,
+            "name": "Paracetamol MED 1758654519_701",
+            "slug": "paracetamol-med-1758654519_701",
+            "sku": "PARACETAMOL-MED-1758-8B550FEB",
+            "description": "Pain relief medicine for headaches and fever",
+            "category": 106,
+            "category_id": 106,
+            "category_name": "Medicines CAT 1758654519_905",
+            "brand": 51,
+            "brand_name": "Pfizer BRAND 1758654519_594",
+            "price": "25.50",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:38:42.610853+05:30",
+            "updated_at": "2025-09-24T00:38:42.610907+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 533,
+                "product": 491,
+                "sku": "PARACETAMOL-MED-1758-8B550FEB-2F84DBEE",
+                "price": "45.58",
+                "additional_price": "0.00",
+                "total_price": 45.58,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.883809+05:30",
+                "updated_at": "2025-09-24T00:38:42.883903+05:30"
+              },
+              {
+                "id": 534,
+                "product": 491,
+                "sku": "PARACETAMOL-MED-1758-8B550FEB-E5016D02",
+                "price": "86.19",
+                "additional_price": "0.00",
+                "total_price": 86.19,
+                "stock": 74,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:38:42.925344+05:30",
+                "updated_at": "2025-09-24T00:38:42.925388+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 62,
+                "product": 491,
+                "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+                "alt_text": "Additional image for Paracetamol MED 1758654519_701",
+                "order": 0,
+                "variant": null
+              }
+            ],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Test Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 490,
+            "name": "Supplier Medicine SUP 1758653558_302",
+            "slug": "supplier-medicine-sup-1758653558_302",
+            "sku": "SUPPLIER-MEDICINE-SU-14780F92",
+            "description": "Medicine created by supplier",
+            "category": 102,
+            "category_id": 102,
+            "category_name": "Medicines CAT 1758653558_477",
+            "brand": 47,
+            "brand_name": "Pfizer BRAND 1758653558_867",
+            "price": "45.00",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:22:41.089434+05:30",
+            "updated_at": "2025-09-24T00:22:41.089466+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Supplier Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 487,
+            "name": "Ibuprofen MED 1758653558_572",
+            "slug": "ibuprofen-med-1758653558_572",
+            "sku": "IBUPROFEN-MED-175865-53A8E9F5",
+            "description": "Anti-inflammatory medicine",
+            "category": 102,
+            "category_id": 102,
+            "category_name": "Medicines CAT 1758653558_477",
+            "brand": 47,
+            "brand_name": "Pfizer BRAND 1758653558_867",
+            "price": "30.00",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:22:40.952233+05:30",
+            "updated_at": "2025-09-24T00:22:40.952263+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 529,
+                "product": 487,
+                "sku": "IBUPROFEN-MED-175865-53A8E9F5-5D1FBC1C",
+                "price": "42.73",
+                "additional_price": "0.00",
+                "total_price": 42.73,
+                "stock": 57,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:22:41.216223+05:30",
+                "updated_at": "2025-09-24T00:22:41.216255+05:30"
+              },
+              {
+                "id": 530,
+                "product": 487,
+                "sku": "IBUPROFEN-MED-175865-53A8E9F5-D7BC8875",
+                "price": "12.12",
+                "additional_price": "0.00",
+                "total_price": 12.12,
+                "stock": 65,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:22:41.238643+05:30",
+                "updated_at": "2025-09-24T00:22:41.238673+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 61,
+                "product": 487,
+                "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+                "alt_text": "Additional image for Ibuprofen MED 1758653558_572",
+                "order": 0,
+                "variant": null
+              }
+            ],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Test Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": false,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 486,
+            "name": "Paracetamol MED 1758653558_185",
+            "slug": "paracetamol-med-1758653558_185",
+            "sku": "PARACETAMOL-MED-1758-3897115B",
+            "description": "Pain relief medicine for headaches and fever",
+            "category": 102,
+            "category_id": 102,
+            "category_name": "Medicines CAT 1758653558_477",
+            "brand": 47,
+            "brand_name": "Pfizer BRAND 1758653558_867",
+            "price": "25.50",
+            "stock": 0,
+            "product_type": "medicine",
+            "created_at": "2025-09-24T00:22:40.912780+05:30",
+            "updated_at": "2025-09-24T00:22:40.912811+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 527,
+                "product": 486,
+                "sku": "PARACETAMOL-MED-1758-3897115B-A8D1A797",
+                "price": "94.16",
+                "additional_price": "0.00",
+                "total_price": 94.16,
+                "stock": 65,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:22:41.152393+05:30",
+                "updated_at": "2025-09-24T00:22:41.152422+05:30"
+              },
+              {
+                "id": 528,
+                "product": 486,
+                "sku": "PARACETAMOL-MED-1758-3897115B-769805CD",
+                "price": "37.19",
+                "additional_price": "0.00",
+                "total_price": 37.19,
+                "stock": 68,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-24T00:22:41.185941+05:30",
+                "updated_at": "2025-09-24T00:22:41.185983+05:30"
+              }
+            ],
+            "images": [
+              {
+                "id": 60,
+                "product": 486,
+                "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+                "alt_text": "Additional image for Paracetamol MED 1758653558_185",
+                "order": 0,
+                "variant": null
+              }
+            ],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": {
+              "composition": "",
+              "quantity": "",
+              "manufacturer": "Test Pharmaceutical",
+              "expiry_date": null,
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:54.221335",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/?search=test",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 54,
+        "next": "http://testserver/api/products/products/?page=2&search=test",
+        "previous": null,
+        "results": [
+          {
+            "id": 507,
+            "name": "Test Pathology Kit 20250926175934",
+            "slug": "test-pathology-kit-20250926175934",
+            "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB",
+            "description": "A comprehensive test pathology testing kit",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:59:34.579851+05:30",
+            "updated_at": "2025-09-26T17:59:36.614148+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months",
+              "accuracy": "99.5%"
+            },
+            "variants": [
+              {
+                "id": 544,
+                "product": 507,
+                "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-C53006ED",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:59:36.545163+05:30",
+                "updated_at": "2025-09-26T17:59:36.545195+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 506,
+            "name": "Test Equipment 20250926175934",
+            "slug": "test-equipment-20250926175934",
+            "sku": "TEST-EQUIPMENT-20250-FC26F5FB",
+            "description": "A comprehensive test medical equipment",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:59:34.543912+05:30",
+            "updated_at": "2025-09-26T17:59:34.543947+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg",
+              "material": "Medical grade plastic"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 505,
+            "name": "Test Medicine Product 20250926175934",
+            "slug": "test-medicine-product-20250926175934",
+            "sku": "TEST-MEDICINE-PRODUC-07B7CD26",
+            "description": "A comprehensive test medicine for API documentation",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:59:34.502672+05:30",
+            "updated_at": "2025-09-26T17:59:34.502704+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 504,
+            "name": "Test Pathology 20250926175825",
+            "slug": "test-pathology-20250926175825",
+            "sku": "TEST-PATHOLOGY-20250-E9A4670D",
+            "description": "A test pathology kit",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:58:25.183812+05:30",
+            "updated_at": "2025-09-26T17:58:26.280906+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 503,
+            "name": "Test Equipment 20250926175825",
+            "slug": "test-equipment-20250926175825",
+            "sku": "TEST-EQUIPMENT-20250-52516480",
+            "description": "A test medical equipment",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:58:25.140537+05:30",
+            "updated_at": "2025-09-26T17:58:26.061429+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 502,
+            "name": "Detailed Medicine 20250926175825",
+            "slug": "detailed-medicine-20250926175825",
+            "sku": "DETAILED-MEDICINE-20-5CB8CA66",
+            "description": "A detailed test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.093990+05:30",
+            "updated_at": "2025-09-26T17:58:25.892763+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 501,
+            "name": "Simple Medicine 20250926175825",
+            "slug": "simple-medicine-20250926175825",
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D",
+            "description": "A simple test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.056535+05:30",
+            "updated_at": "2025-09-26T17:58:25.842446+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 542,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.390434+05:30",
+                "updated_at": "2025-09-26T17:58:26.390496+05:30"
+              },
+              {
+                "id": 543,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.440474+05:30",
+                "updated_at": "2025-09-26T17:58:26.440520+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 500,
+            "name": "Test Pathology 20250926175700",
+            "slug": "test-pathology-20250926175700",
+            "sku": "TEST-PATHOLOGY-20250-A6205B79",
+            "description": "A test pathology kit",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:57:00.504872+05:30",
+            "updated_at": "2025-09-26T17:57:01.506672+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 499,
+            "name": "Test Equipment 20250926175700",
+            "slug": "test-equipment-20250926175700",
+            "sku": "TEST-EQUIPMENT-20250-EB5D4D7A",
+            "description": "A test medical equipment",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:57:00.463074+05:30",
+            "updated_at": "2025-09-26T17:57:01.461536+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 498,
+            "name": "Detailed Medicine 20250926175700",
+            "slug": "detailed-medicine-20250926175700",
+            "sku": "DETAILED-MEDICINE-20-B174BE58",
+            "description": "A detailed test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.416536+05:30",
+            "updated_at": "2025-09-26T17:57:01.414103+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 497,
+            "name": "Simple Medicine 20250926175700",
+            "slug": "simple-medicine-20250926175700",
+            "sku": "SIMPLE-MEDICINE-2025-CE5B61DE",
+            "description": "A simple test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.376552+05:30",
+            "updated_at": "2025-09-26T17:57:01.361386+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 540,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-6E6ED3F7",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.548790+05:30",
+                "updated_at": "2025-09-26T17:57:01.548845+05:30"
+              },
+              {
+                "id": 541,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-1CDB8714",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.601867+05:30",
+                "updated_at": "2025-09-26T17:57:01.601913+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 494,
+            "name": "Blood Test Kit PATH 1758654519_615",
+            "slug": "blood-test-kit-path-1758654519_615",
+            "sku": "BLOOD-TEST-KIT-PATH--A470EC0E",
+            "description": "Complete blood count test kit",
+            "category": 108,
+            "category_id": 108,
+            "category_name": "Pathology CAT 1758654519_261",
+            "brand": 51,
+            "brand_name": "Pfizer BRAND 1758654519_594",
+            "price": "200.00",
+            "stock": 0,
+            "product_type": "pathology",
+            "created_at": "2025-09-24T00:38:42.778567+05:30",
+            "updated_at": "2025-09-26T17:40:46.251927+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [],
+            "images": [],
+            "image": "http://127.0.0.1:8000/media/images/medical-pattern.svg",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:54.356329",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/products/?page=1&page_size=5",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 215,
+        "next": "http://testserver/api/products/products/?page=2&page_size=5",
+        "previous": null,
+        "results": [
+          {
+            "id": 507,
+            "name": "Test Pathology Kit 20250926175934",
+            "slug": "test-pathology-kit-20250926175934",
+            "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB",
+            "description": "A comprehensive test pathology testing kit",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:59:34.579851+05:30",
+            "updated_at": "2025-09-26T17:59:36.614148+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months",
+              "accuracy": "99.5%"
+            },
+            "variants": [
+              {
+                "id": 544,
+                "product": 507,
+                "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-C53006ED",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:59:36.545163+05:30",
+                "updated_at": "2025-09-26T17:59:36.545195+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 506,
+            "name": "Test Equipment 20250926175934",
+            "slug": "test-equipment-20250926175934",
+            "sku": "TEST-EQUIPMENT-20250-FC26F5FB",
+            "description": "A comprehensive test medical equipment",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:59:34.543912+05:30",
+            "updated_at": "2025-09-26T17:59:34.543947+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg",
+              "material": "Medical grade plastic"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 505,
+            "name": "Test Medicine Product 20250926175934",
+            "slug": "test-medicine-product-20250926175934",
+            "sku": "TEST-MEDICINE-PRODUC-07B7CD26",
+            "description": "A comprehensive test medicine for API documentation",
+            "category": 122,
+            "category_id": 122,
+            "category_name": "Test Category 20250926175934",
+            "brand": 12,
+            "brand_name": "Abbott",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:59:34.502672+05:30",
+            "updated_at": "2025-09-26T17:59:34.502704+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 504,
+            "name": "Test Pathology 20250926175825",
+            "slug": "test-pathology-20250926175825",
+            "sku": "TEST-PATHOLOGY-20250-E9A4670D",
+            "description": "A test pathology kit",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:58:25.183812+05:30",
+            "updated_at": "2025-09-26T17:58:26.280906+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 503,
+            "name": "Test Equipment 20250926175825",
+            "slug": "test-equipment-20250926175825",
+            "sku": "TEST-EQUIPMENT-20250-52516480",
+            "description": "A test medical equipment",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:58:25.140537+05:30",
+            "updated_at": "2025-09-26T17:58:26.061429+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 502,
+            "name": "Detailed Medicine 20250926175825",
+            "slug": "detailed-medicine-20250926175825",
+            "sku": "DETAILED-MEDICINE-20-5CB8CA66",
+            "description": "A detailed test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.093990+05:30",
+            "updated_at": "2025-09-26T17:58:25.892763+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 501,
+            "name": "Simple Medicine 20250926175825",
+            "slug": "simple-medicine-20250926175825",
+            "sku": "SIMPLE-MEDICINE-2025-CD18929D",
+            "description": "A simple test medicine",
+            "category": 120,
+            "category_id": 120,
+            "category_name": "Admin Category 20250926175823",
+            "brand": 64,
+            "brand_name": "Admin Brand 20250926175824",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:58:25.056535+05:30",
+            "updated_at": "2025-09-26T17:58:25.842446+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 542,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-C41FAABB",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.390434+05:30",
+                "updated_at": "2025-09-26T17:58:26.390496+05:30"
+              },
+              {
+                "id": 543,
+                "product": 501,
+                "sku": "SIMPLE-MEDICINE-2025-CD18929D-3B76CF0B",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:58:26.440474+05:30",
+                "updated_at": "2025-09-26T17:58:26.440520+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 500,
+            "name": "Test Pathology 20250926175700",
+            "slug": "test-pathology-20250926175700",
+            "sku": "TEST-PATHOLOGY-20250-A6205B79",
+            "description": "A test pathology kit",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "199.99",
+            "stock": 25,
+            "product_type": "pathology",
+            "created_at": "2025-09-26T17:57:00.504872+05:30",
+            "updated_at": "2025-09-26T17:57:01.506672+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "test_count": "50 tests",
+              "shelf_life": "24 months"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": {
+              "compatible_tests": "Blood glucose, Cholesterol",
+              "chemical_composition": "Test reagents",
+              "storage_condition": "Store at 2-8\u00b0C"
+            }
+          },
+          {
+            "id": 499,
+            "name": "Test Equipment 20250926175700",
+            "slug": "test-equipment-20250926175700",
+            "sku": "TEST-EQUIPMENT-20250-EB5D4D7A",
+            "description": "A test medical equipment",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "999.99",
+            "stock": 10,
+            "product_type": "equipment",
+            "created_at": "2025-09-26T17:57:00.463074+05:30",
+            "updated_at": "2025-09-26T17:57:01.461536+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "dimensions": "10x10x5 cm",
+              "weight": "2kg"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": {
+              "model_number": "EQ001",
+              "warranty_period": "2 years",
+              "usage_type": "Diagnostic",
+              "technical_specifications": "Advanced display",
+              "power_requirement": "220V AC",
+              "equipment_type": "Monitor"
+            },
+            "pathology_details": null
+          },
+          {
+            "id": 498,
+            "name": "Detailed Medicine 20250926175700",
+            "slug": "detailed-medicine-20250926175700",
+            "sku": "DETAILED-MEDICINE-20-B174BE58",
+            "description": "A detailed test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.416536+05:30",
+            "updated_at": "2025-09-26T17:57:01.414103+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma Corp",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 497,
+            "name": "Simple Medicine 20250926175700",
+            "slug": "simple-medicine-20250926175700",
+            "sku": "SIMPLE-MEDICINE-2025-CE5B61DE",
+            "description": "A simple test medicine",
+            "category": 118,
+            "category_id": 118,
+            "category_name": "Admin Category 20250926175659",
+            "brand": 62,
+            "brand_name": "Admin Brand 20250926175700",
+            "price": "99.99",
+            "stock": 50,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:57:00.376552+05:30",
+            "updated_at": "2025-09-26T17:57:01.361386+05:30",
+            "status": "approved",
+            "is_publish": true,
+            "specifications": {},
+            "variants": [
+              {
+                "id": 540,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-6E6ED3F7",
+                "price": "119.99",
+                "additional_price": "20.00",
+                "total_price": 119.99,
+                "stock": 30,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.548790+05:30",
+                "updated_at": "2025-09-26T17:57:01.548845+05:30"
+              },
+              {
+                "id": 541,
+                "product": 497,
+                "sku": "SIMPLE-MEDICINE-2025-CE5B61DE-1CDB8714",
+                "price": "129.99",
+                "additional_price": "0.00",
+                "total_price": 129.99,
+                "stock": 25,
+                "is_active": true,
+                "attributes": [],
+                "created_at": "2025-09-26T17:57:01.601867+05:30",
+                "updated_at": "2025-09-26T17:57:01.601913+05:30"
+              }
+            ],
+            "images": [],
+            "image": "",
+            "medicine_details": null,
+            "equipment_details": null,
+            "pathology_details": null
+          },
+          {
+            "id": 496,
+            "name": "Debug Medicine 174705",
+            "slug": "debug-medicine-174705",
+            "sku": "DEBUG-MEDICINE-17470-3B2CBED4",
+            "description": "Medicine with details",
+            "category": 113,
+            "category_id": 113,
+            "category_name": "Test Equipment Category Supplier",
+            "brand": 44,
+            "brand_name": "Johnson & Johnson BRAND 1758653380_668",
+            "price": "149.99",
+            "stock": 30,
+            "product_type": "medicine",
+            "created_at": "2025-09-26T17:47:05.924827+05:30",
+            "updated_at": "2025-09-26T17:47:05.924862+05:30",
+            "status": "pending",
+            "is_publish": false,
+            "specifications": {
+              "weight": "100mg",
+              "storage": "Room temperature"
+            },
+            "variants": [],
+            "images": [],
+            "image": "",
+            "medicine_details": {
+              "composition": "Active ingredient 100mg",
+              "quantity": "30 tablets",
+              "manufacturer": "Test Pharma",
+              "expiry_date": "2025-12-31",
+              "batch_number": null,
+              "prescription_required": true,
+              "form": "Tablet",
+              "pack_size": ""
+            },
+            "equipment_details": null,
+            "pathology_details": null
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:54.476360",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/variants/",
+      "payload": {
+        "product": 507,
+        "price": "119.99",
+        "additional_price": "20.00",
+        "stock": 30
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 545,
+        "product": 507,
+        "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-EBCB22E3",
+        "price": "119.99",
+        "additional_price": "20.00",
+        "total_price": 119.99,
+        "stock": 30,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-26T18:05:53.251259+05:30",
+        "updated_at": "2025-09-26T18:05:53.251290+05:30"
+      },
+      "timestamp": "2025-09-26T18:05:53.263482",
+      "success": true,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/variants/545/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 545,
+        "product": 507,
+        "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-EBCB22E3",
+        "price": "119.99",
+        "additional_price": "20.00",
+        "total_price": 119.99,
+        "stock": 30,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-26T18:05:53.251259+05:30",
+        "updated_at": "2025-09-26T18:05:53.251290+05:30"
+      },
+      "timestamp": "2025-09-26T18:05:53.278360",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/variants/545/",
+      "payload": {
+        "product": 507,
+        "price": "139.99",
+        "additional_price": "30.00",
+        "stock": 40
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 545,
+        "product": 507,
+        "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-EBCB22E3",
+        "price": "139.99",
+        "additional_price": "30.00",
+        "total_price": 139.99,
+        "stock": 40,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-26T18:05:53.251259+05:30",
+        "updated_at": "2025-09-26T18:05:53.292678+05:30"
+      },
+      "timestamp": "2025-09-26T18:05:53.318797",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/variants/545/",
+      "payload": {
+        "price": "159.99",
+        "stock": 50
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 545,
+        "product": 507,
+        "sku": "TEST-PATHOLOGY-KIT-2-6232E0BB-EBCB22E3",
+        "price": "159.99",
+        "additional_price": "30.00",
+        "total_price": 159.99,
+        "stock": 50,
+        "is_active": true,
+        "attributes": [],
+        "created_at": "2025-09-26T18:05:53.251259+05:30",
+        "updated_at": "2025-09-26T18:05:53.333727+05:30"
+      },
+      "timestamp": "2025-09-26T18:05:53.472924",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/variants/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 545,
+        "next": "http://testserver/api/products/variants/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 1,
+            "product": 411,
+            "sku": "VAR00101",
+            "price": "57.53",
+            "additional_price": "0.00",
+            "total_price": 57.53,
+            "stock": 67,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 1,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Small"
+              },
+              {
+                "id": 2,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Grey"
+              },
+              {
+                "id": 3,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Deluxe"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:30.702202+05:30",
+            "updated_at": "2025-09-24T00:41:43.374758+05:30"
+          },
+          {
+            "id": 2,
+            "product": 411,
+            "sku": "VAR00102",
+            "price": "1183.07",
+            "additional_price": "0.00",
+            "total_price": 1183.07,
+            "stock": 21,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 4,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Medium"
+              },
+              {
+                "id": 5,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Blue"
+              },
+              {
+                "id": 6,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Standard"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:30.792446+05:30",
+            "updated_at": "2025-09-20T23:24:34.751996+05:30"
+          },
+          {
+            "id": 3,
+            "product": 411,
+            "sku": "VAR00103",
+            "price": "2504.85",
+            "additional_price": "0.00",
+            "total_price": 2504.85,
+            "stock": 49,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 6,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Standard"
+              },
+              {
+                "id": 7,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Large"
+              },
+              {
+                "id": 8,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Black"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:30.862388+05:30",
+            "updated_at": "2025-09-20T23:24:34.762911+05:30"
+          },
+          {
+            "id": 4,
+            "product": 408,
+            "sku": "VAR00201",
+            "price": "966.86",
+            "additional_price": "0.00",
+            "total_price": 966.86,
+            "stock": 40,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 1,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Small"
+              },
+              {
+                "id": 9,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Silver"
+              },
+              {
+                "id": 10,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Premium"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:30.917943+05:30",
+            "updated_at": "2025-09-20T23:24:34.789640+05:30"
+          },
+          {
+            "id": 5,
+            "product": 408,
+            "sku": "VAR00202",
+            "price": "1816.36",
+            "additional_price": "0.00",
+            "total_price": 1816.36,
+            "stock": 30,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 2,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Grey"
+              },
+              {
+                "id": 4,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Medium"
+              },
+              {
+                "id": 6,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Standard"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:30.974087+05:30",
+            "updated_at": "2025-09-20T23:24:34.800983+05:30"
+          },
+          {
+            "id": 6,
+            "product": 408,
+            "sku": "VAR00203",
+            "price": "1409.62",
+            "additional_price": "0.00",
+            "total_price": 1409.62,
+            "stock": 51,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 6,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Standard"
+              },
+              {
+                "id": 7,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Large"
+              },
+              {
+                "id": 8,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Black"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:31.018863+05:30",
+            "updated_at": "2025-09-20T23:24:34.817991+05:30"
+          },
+          {
+            "id": 7,
+            "product": 424,
+            "sku": "VAR00301",
+            "price": "409.31",
+            "additional_price": "0.00",
+            "total_price": 409.31,
+            "stock": 63,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 1,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Small"
+              },
+              {
+                "id": 9,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Silver"
+              },
+              {
+                "id": 10,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Premium"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:31.064277+05:30",
+            "updated_at": "2025-09-20T23:24:34.829187+05:30"
+          },
+          {
+            "id": 8,
+            "product": 424,
+            "sku": "VAR00302",
+            "price": "1180.89",
+            "additional_price": "0.00",
+            "total_price": 1180.89,
+            "stock": 81,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 4,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Medium"
+              },
+              {
+                "id": 6,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Standard"
+              },
+              {
+                "id": 9,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Silver"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:31.110938+05:30",
+            "updated_at": "2025-09-20T23:24:34.842476+05:30"
+          },
+          {
+            "id": 9,
+            "product": 424,
+            "sku": "VAR00303",
+            "price": "2012.63",
+            "additional_price": "0.00",
+            "total_price": 2012.63,
+            "stock": 31,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 5,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Blue"
+              },
+              {
+                "id": 7,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Large"
+              },
+              {
+                "id": 10,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Premium"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:31.159324+05:30",
+            "updated_at": "2025-09-20T23:24:34.854765+05:30"
+          },
+          {
+            "id": 10,
+            "product": 411,
+            "sku": "VAR00401",
+            "price": "1556.72",
+            "additional_price": "0.00",
+            "total_price": 1556.72,
+            "stock": 78,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 1,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Small"
+              },
+              {
+                "id": 3,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Deluxe"
+              },
+              {
+                "id": 11,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "White"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:31.207843+05:30",
+            "updated_at": "2025-09-20T23:24:34.866451+05:30"
+          },
+          {
+            "id": 11,
+            "product": 411,
+            "sku": "VAR00402",
+            "price": "972.95",
+            "additional_price": "0.00",
+            "total_price": 972.95,
+            "stock": 38,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 3,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Deluxe"
+              },
+              {
+                "id": 4,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Medium"
+              },
+              {
+                "id": 9,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Silver"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:31.265292+05:30",
+            "updated_at": "2025-09-20T23:24:34.876666+05:30"
+          },
+          {
+            "id": 12,
+            "product": 411,
+            "sku": "VAR00403",
+            "price": "1419.36",
+            "additional_price": "0.00",
+            "total_price": 1419.36,
+            "stock": 53,
+            "is_active": true,
+            "attributes": [
+              {
+                "id": 3,
+                "attribute": 3,
+                "attribute_name": "Type",
+                "value": "Deluxe"
+              },
+              {
+                "id": 7,
+                "attribute": 1,
+                "attribute_name": "Pack Size",
+                "value": "Large"
+              },
+              {
+                "id": 8,
+                "attribute": 2,
+                "attribute_name": "Color",
+                "value": "Black"
+              }
+            ],
+            "created_at": "2025-09-11T00:50:31.316973+05:30",
+            "updated_at": "2025-09-20T23:24:34.890222+05:30"
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:53.788172",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/products/variants/545/",
+      "payload": {},
+      "response_status": 204,
+      "response_data": "None",
+      "timestamp": "2025-09-26T18:05:53.836932",
+      "success": true,
+      "expected_codes": [
+        204,
+        404
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "method": "POST",
+      "endpoint": "/api/products/reviews/",
+      "payload": {
+        "product": 507,
+        "rating": 5,
+        "comment": "Excellent product! Review created at 2025-09-26 18:05:53"
+      },
+      "response_status": 201,
+      "response_data": {
+        "id": 46,
+        "user": "user@medixmall.com",
+        "rating": 5,
+        "comment": "Excellent product! Review created at 2025-09-26 18:05:53",
+        "created_at": "2025-09-26T18:05:53.859077+05:30",
+        "updated_at": "2025-09-26T18:05:53.859127+05:30",
+        "is_published": true,
+        "product": 507
+      },
+      "timestamp": "2025-09-26T18:05:53.870180",
+      "success": true,
+      "expected_codes": [
+        201
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/reviews/46/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "id": 46,
+        "user": "user@medixmall.com",
+        "rating": 5,
+        "comment": "Excellent product! Review created at 2025-09-26 18:05:53",
+        "created_at": "2025-09-26T18:05:53.859077+05:30",
+        "updated_at": "2025-09-26T18:05:53.859127+05:30",
+        "is_published": true,
+        "product": 507
+      },
+      "timestamp": "2025-09-26T18:05:53.884069",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/products/reviews/46/",
+      "payload": {
+        "product": 507,
+        "rating": 4,
+        "comment": "Updated review at 2025-09-26 18:05:53"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 46,
+        "user": "user@medixmall.com",
+        "rating": 4,
+        "comment": "Updated review at 2025-09-26 18:05:53",
+        "created_at": "2025-09-26T18:05:53.859077+05:30",
+        "updated_at": "2025-09-26T18:05:53.893425+05:30",
+        "is_published": true,
+        "product": 507
+      },
+      "timestamp": "2025-09-26T18:05:53.903642",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "PATCH",
+      "endpoint": "/api/products/reviews/46/",
+      "payload": {
+        "rating": 3,
+        "comment": "Patched review comment at 2025-09-26 18:05:53"
+      },
+      "response_status": 200,
+      "response_data": {
+        "id": 46,
+        "user": "user@medixmall.com",
+        "rating": 3,
+        "comment": "Patched review comment at 2025-09-26 18:05:53",
+        "created_at": "2025-09-26T18:05:53.859077+05:30",
+        "updated_at": "2025-09-26T18:05:53.911436+05:30",
+        "is_published": true,
+        "product": 507
+      },
+      "timestamp": "2025-09-26T18:05:53.923795",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/products/reviews/",
+      "payload": {},
+      "response_status": 200,
+      "response_data": {
+        "count": 30,
+        "next": "http://testserver/api/products/reviews/?page=2",
+        "previous": null,
+        "results": [
+          {
+            "id": 1,
+            "user": "user@medixmall.com",
+            "rating": 4,
+            "comment": "Updated review comment at 2025-09-19 00:00:04",
+            "created_at": "2025-09-18T23:49:55.853144+05:30",
+            "updated_at": "2025-09-19T00:00:04.839812+05:30",
+            "is_published": true,
+            "product": 460
+          },
+          {
+            "id": 2,
+            "user": "buyer2@test.com",
+            "rating": 4,
+            "comment": "Perfect for my needs. Will buy again.",
+            "created_at": "2025-09-20T23:26:40.555338+05:30",
+            "updated_at": "2025-09-20T23:26:40.555391+05:30",
+            "is_published": true,
+            "product": 459
+          },
+          {
+            "id": 3,
+            "user": "buyer1@test.com",
+            "rating": 3,
+            "comment": "Amazing product! Highly recommended.",
+            "created_at": "2025-09-20T23:26:40.568516+05:30",
+            "updated_at": "2025-09-20T23:26:40.568618+05:30",
+            "is_published": true,
+            "product": 459
+          },
+          {
+            "id": 4,
+            "user": "buyer0@test.com",
+            "rating": 3,
+            "comment": "Not bad, but expected better quality.",
+            "created_at": "2025-09-20T23:26:40.578107+05:30",
+            "updated_at": "2025-09-20T23:26:40.578152+05:30",
+            "is_published": true,
+            "product": 459
+          },
+          {
+            "id": 5,
+            "user": "buyer2@test.com",
+            "rating": 5,
+            "comment": "Great product! Very satisfied with the quality.",
+            "created_at": "2025-09-20T23:26:40.590859+05:30",
+            "updated_at": "2025-09-20T23:26:40.590889+05:30",
+            "is_published": true,
+            "product": 458
+          },
+          {
+            "id": 6,
+            "user": "buyer1@test.com",
+            "rating": 3,
+            "comment": "Good value for money. Fast delivery.",
+            "created_at": "2025-09-20T23:26:40.608399+05:30",
+            "updated_at": "2025-09-20T23:26:40.608456+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 7,
+            "user": "buyer2@test.com",
+            "rating": 3,
+            "comment": "Good product but delivery was slow.",
+            "created_at": "2025-09-20T23:26:40.628249+05:30",
+            "updated_at": "2025-09-20T23:26:40.628303+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 8,
+            "user": "buyer0@test.com",
+            "rating": 3,
+            "comment": "Excellent quality and packaging.",
+            "created_at": "2025-09-20T23:26:40.644234+05:30",
+            "updated_at": "2025-09-20T23:26:40.644279+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 9,
+            "user": "buyer4@test.com",
+            "rating": 3,
+            "comment": "Excellent quality and packaging.",
+            "created_at": "2025-09-20T23:26:40.660466+05:30",
+            "updated_at": "2025-09-20T23:26:40.660504+05:30",
+            "is_published": true,
+            "product": 457
+          },
+          {
+            "id": 10,
+            "user": "buyer4@test.com",
+            "rating": 4,
+            "comment": "Average product. Could be better.",
+            "created_at": "2025-09-20T23:26:40.674484+05:30",
+            "updated_at": "2025-09-20T23:26:40.674530+05:30",
+            "is_published": true,
+            "product": 456
+          },
+          {
+            "id": 11,
+            "user": "buyer2@test.com",
+            "rating": 3,
+            "comment": "Good product but delivery was slow.",
+            "created_at": "2025-09-20T23:26:40.689001+05:30",
+            "updated_at": "2025-09-20T23:26:40.689031+05:30",
+            "is_published": true,
+            "product": 456
+          },
+          {
+            "id": 12,
+            "user": "buyer1@test.com",
+            "rating": 3,
+            "comment": "Great product! Very satisfied with the quality.",
+            "created_at": "2025-09-20T23:26:40.700229+05:30",
+            "updated_at": "2025-09-20T23:26:40.700304+05:30",
+            "is_published": true,
+            "product": 456
+          }
+        ]
+      },
+      "timestamp": "2025-09-26T18:05:53.950572",
+      "success": true,
+      "expected_codes": [
+        200
+      ]
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/products/reviews/46/",
+      "payload": {},
+      "response_status": 204,
+      "response_data": "None",
+      "timestamp": "2025-09-26T18:05:53.974649",
+      "success": true,
+      "expected_codes": [
+        204,
+        404
+      ]
+    }
+  ],
+  "admin": []
+}

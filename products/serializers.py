@@ -558,7 +558,7 @@ class PublicProductListSerializer(serializers.ModelSerializer):
 
 # Medicine Product Serializer
 class MedicineBaseProductSerializer(BaseProductSerializer):
-    medicine_details = MedicineDetailsSerializer()
+    medicine_details = MedicineDetailsSerializer(required=False)
 
     class Meta(BaseProductSerializer.Meta):
         pass
@@ -587,7 +587,7 @@ class MedicineBaseProductSerializer(BaseProductSerializer):
 
 # Equipment Product Serializer
 class EquipmentBaseProductSerializer(BaseProductSerializer):
-    equipment_details = EquipmentDetailsSerializer()
+    equipment_details = EquipmentDetailsSerializer(required=False)
 
     class Meta(BaseProductSerializer.Meta):
         pass
@@ -616,7 +616,7 @@ class EquipmentBaseProductSerializer(BaseProductSerializer):
 
 # Pathology Product Serializer
 class PathologyBaseProductSerializer(BaseProductSerializer):
-    pathology_details = PathologyDetailsSerializer()
+    pathology_details = PathologyDetailsSerializer(required=False)
 
     class Meta(BaseProductSerializer.Meta):
         pass
