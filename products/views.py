@@ -101,6 +101,17 @@ class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BrandSerializer
     permission_classes = [IsSupplierOrAdminForUpdates]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
+    
+    def get_permissions(self):
+        """
+        Override permissions based on request method.
+        GET requests require authentication, other methods require supplier/admin permissions.
+        """
+        if self.request.method == 'GET':
+            self.permission_classes = [permissions.IsAuthenticated]
+        else:
+            self.permission_classes = [IsSupplierOrAdminForUpdates]
+        return [permission() for permission in self.permission_classes]
 
     def get_queryset(self):
         """
@@ -132,10 +143,10 @@ class BrandListCreateView(generics.ListCreateAPIView):
     def get_permissions(self):
         """
         Override permissions based on request method.
-        GET requests are allowed for everyone, POST requires supplier or admin.
+        All requests require authentication. POST requires supplier or admin.
         """
         if self.request.method == 'GET':
-            self.permission_classes = [permissions.AllowAny]
+            self.permission_classes = [permissions.IsAuthenticated]
         else:
             self.permission_classes = [IsSupplierOrAdmin]
         return [permission() for permission in self.permission_classes]
