@@ -105,10 +105,11 @@ class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_permissions(self):
         """
         Override permissions based on request method.
-        GET requests require authentication, other methods require supplier/admin permissions.
+        All operations require supplier or admin role.
+        Regular users should use public endpoints.
         """
         if self.request.method == 'GET':
-            self.permission_classes = [permissions.IsAuthenticated]
+            self.permission_classes = [IsSupplierOrAdmin]
         else:
             self.permission_classes = [IsSupplierOrAdminForUpdates]
         return [permission() for permission in self.permission_classes]
@@ -116,21 +117,23 @@ class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         """
         Override queryset based on user permissions.
-        - Anonymous users see only published brands
+        Only suppliers and admins can access this endpoint.
         - Admins see all brands  
         - Suppliers see their own brands (any status) and published brands from others
         """
-        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+        user = self.request.user
+        
+        if user.role == 'admin':
             return Brand.objects.all()
-        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+        elif user.role == 'supplier':
             # Suppliers can see their own brands (any status) and published brands
             from django.db.models import Q
             return Brand.objects.filter(
-                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+                Q(created_by=user) | Q(status__in=['approved', 'published'], is_publish=True)
             )
         else:
-            # For anonymous users, show only published brands
-            return Brand.objects.filter(status__in=['approved', 'published'], is_publish=True)
+            # This should not happen due to permission checks, but fallback to empty queryset
+            return Brand.objects.none()
 
 
 class BrandListCreateView(generics.ListCreateAPIView):
@@ -143,32 +146,32 @@ class BrandListCreateView(generics.ListCreateAPIView):
     def get_permissions(self):
         """
         Override permissions based on request method.
-        All requests require authentication. POST requires supplier or admin.
+        Both GET and POST require supplier or admin role.
+        Regular users should use public endpoints.
         """
-        if self.request.method == 'GET':
-            self.permission_classes = [permissions.IsAuthenticated]
-        else:
-            self.permission_classes = [IsSupplierOrAdmin]
+        self.permission_classes = [IsSupplierOrAdmin]
         return [permission() for permission in self.permission_classes]
 
     def get_queryset(self):
         """
         Override queryset based on user permissions.
-        - Anonymous users see only published brands
+        Only suppliers and admins can access this endpoint.
         - Admins see all brands
         - Suppliers see their own brands (any status) and published brands from others
         """
-        if self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'admin':
+        user = self.request.user
+        
+        if user.role == 'admin':
             return Brand.objects.all()
-        elif self.request.user.is_authenticated and getattr(self.request.user, 'role', None) == 'supplier':
+        elif user.role == 'supplier':
             # Suppliers can see their own brands (any status) and published brands
             from django.db.models import Q
             return Brand.objects.filter(
-                Q(created_by=self.request.user) | Q(status__in=['approved', 'published'], is_publish=True)
+                Q(created_by=user) | Q(status__in=['approved', 'published'], is_publish=True)
             )
         else:
-            # For anonymous users, show only published brands
-            return Brand.objects.filter(status__in=['approved', 'published'], is_publish=True)
+            # This should not happen due to permission checks, but fallback to empty queryset
+            return Brand.objects.none()
 
     def perform_create(self, serializer):
         # Set defaults based on user role

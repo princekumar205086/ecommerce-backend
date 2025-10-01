@@ -73,9 +73,9 @@ class PublicProductCategoryListView(generics.ListAPIView):
 
 class PublicBrandListView(generics.ListAPIView):
     """
-    Public endpoint to list all brands
+    Public endpoint to list all published brands
     """
-    queryset = Brand.objects.all()
+    queryset = Brand.objects.filter(status__in=['approved', 'published'], is_publish=True)
     serializer_class = BrandSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [filters.SearchFilter]
