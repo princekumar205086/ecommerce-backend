@@ -3,6 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters, permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.response import Response
 
 from ecommerce.permissions import IsSupplierOrAdmin, IsAdminOrReadOnly, IsReviewOwnerOrAdminOrReadOnly, IsCreatedByUserOrAdmin, IsSupplierOrAdminForUpdates
 from .models import (
@@ -63,6 +64,23 @@ class ProductCategoryListCreateView(generics.ListCreateAPIView):
         else:
             # For anonymous users, show only published categories
             return ProductCategory.objects.filter(status__in=['approved', 'published'], is_publish=True)
+
+    def list(self, request, *args, **kwargs):
+        """
+        Return all results when 'page' query param is absent.
+        Preserve normal DRF pagination when the client explicitly requests a page.
+        """
+        if 'page' in request.query_params:
+            return super().list(request, *args, **kwargs)
+
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({
+            'count': queryset.count(),
+            'next': None,
+            'previous': None,
+            'results': serializer.data,
+        })
 
     def perform_create(self, serializer):
         # Set defaults based on user role
@@ -172,6 +190,23 @@ class BrandListCreateView(generics.ListCreateAPIView):
         else:
             # This should not happen due to permission checks, but fallback to empty queryset
             return Brand.objects.none()
+
+    def list(self, request, *args, **kwargs):
+        """
+        Return all results when 'page' query param is absent.
+        Preserve normal DRF pagination when the client explicitly requests a page.
+        """
+        if 'page' in request.query_params:
+            return super().list(request, *args, **kwargs)
+
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({
+            'count': queryset.count(),
+            'next': None,
+            'previous': None,
+            'results': serializer.data,
+        })
 
     def perform_create(self, serializer):
         # Set defaults based on user role
