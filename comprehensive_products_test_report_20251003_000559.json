@@ -1,0 +1,489 @@
+{
+  "summary": {
+    "total_tests": 16,
+    "passed": 16,
+    "failed": 0,
+    "success_rate": 100.0,
+    "timestamp": "2025-10-03T00:05:59.122564"
+  },
+  "created_items": {
+    "brands": [
+      109,
+      110
+    ],
+    "categories": [
+      129,
+      130,
+      131
+    ],
+    "products": [
+      514,
+      515,
+      516,
+      517,
+      518,
+      519
+    ],
+    "variants": [
+      550,
+      551
+    ],
+    "attributes": [
+      4,
+      2,
+      24
+    ],
+    "attribute_values": [
+      12,
+      13,
+      14,
+      21,
+      22,
+      5,
+      23,
+      8,
+      11,
+      103,
+      104,
+      105,
+      106
+    ]
+  },
+  "test_results": [
+    {
+      "test": "Admin Brand Creation",
+      "success": true,
+      "details": "Admin brand created and published immediately (ID: 109)",
+      "timestamp": "2025-10-03T00:05:27.610933",
+      "response_data": {
+        "id": 109,
+        "name": "Admin Test Brand 2025",
+        "image": "https://example.com/admin-brand.jpg",
+        "created_at": "2025-10-03T00:05:27.599880+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      }
+    },
+    {
+      "test": "Supplier Brand Creation",
+      "success": true,
+      "details": "Supplier brand created and pending approval (ID: 110)",
+      "timestamp": "2025-10-03T00:05:29.708006",
+      "response_data": {
+        "id": 110,
+        "name": "Supplier Test Brand 2025",
+        "image": "https://example.com/supplier-brand.jpg",
+        "created_at": "2025-10-03T00:05:29.692633+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      }
+    },
+    {
+      "test": "Admin Brand Update",
+      "success": true,
+      "details": "Admin successfully updated brand (ID: 109)",
+      "timestamp": "2025-10-03T00:05:31.776984",
+      "response_data": {
+        "id": 109,
+        "name": "Updated Admin Brand Name 2025",
+        "image": "https://example.com/updated-admin-brand.jpg",
+        "created_at": "2025-10-03T00:05:27.599880+05:30",
+        "status": "published",
+        "is_publish": true,
+        "approved_at": null,
+        "rejection_reason": null,
+        "approved_by": null
+      }
+    },
+    {
+      "test": "Admin Parent Category Creation",
+      "success": true,
+      "details": "Admin parent category created and published (ID: 129)",
+      "timestamp": "2025-10-03T00:05:33.979010",
+      "response_data": {
+        "id": 129,
+        "name": "Admin Parent Category 2025",
+        "parent": null,
+        "created_at": "2025-10-03T00:05:33.947395+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": "https://example.com/admin-category.jpg"
+      }
+    },
+    {
+      "test": "Admin Child Category Creation",
+      "success": true,
+      "details": "Admin child category created with parent 129 (ID: 130)",
+      "timestamp": "2025-10-03T00:05:36.072207",
+      "response_data": {
+        "id": 130,
+        "name": "Admin Child Category 2025",
+        "parent": 129,
+        "created_at": "2025-10-03T00:05:36.059930+05:30",
+        "status": "published",
+        "is_publish": true,
+        "icon": "https://example.com/admin-child-category.jpg"
+      }
+    },
+    {
+      "test": "Supplier Category Creation",
+      "success": true,
+      "details": "Supplier category created and pending approval (ID: 131)",
+      "timestamp": "2025-10-03T00:05:38.175407",
+      "response_data": {
+        "id": 131,
+        "name": "Supplier Test Category 2025",
+        "parent": null,
+        "created_at": "2025-10-03T00:05:38.155194+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "icon": "https://example.com/supplier-category.jpg"
+      }
+    },
+    {
+      "test": "Admin Medicine Product Creation",
+      "success": true,
+      "details": "Admin medicine product created with details (ID: 514)",
+      "timestamp": "2025-10-03T00:05:40.265878",
+      "response_data": {
+        "id": 514,
+        "name": "Admin Medicine Product 2025",
+        "slug": "admin-medicine-product-2025",
+        "sku": "ADMIN-MEDICINE-PRODU-B9B96454",
+        "description": "Test medicine product created by admin",
+        "category": 129,
+        "category_id": 129,
+        "category_name": "Admin Parent Category 2025",
+        "brand": 109,
+        "brand_name": "Updated Admin Brand Name 2025",
+        "price": "99.99",
+        "stock": 100,
+        "product_type": "medicine",
+        "created_at": "2025-10-03T00:05:40.233818+05:30",
+        "updated_at": "2025-10-03T00:05:40.233849+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {
+          "storage": "Store in cool, dry place",
+          "dosage": "As directed by physician"
+        },
+        "variants": [],
+        "images": [],
+        "image": "https://example.com/medicine.jpg",
+        "medicine_details": {
+          "composition": "Paracetamol 500mg, Caffeine 30mg",
+          "quantity": "10 tablets",
+          "manufacturer": "Test Pharma Ltd",
+          "expiry_date": "2025-12-31",
+          "batch_number": "MED001",
+          "prescription_required": true,
+          "form": "Tablet",
+          "pack_size": "1x10 tablets"
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      }
+    },
+    {
+      "test": "Supplier Medicine Product Creation",
+      "success": true,
+      "details": "Supplier medicine product created and pending (ID: 515)",
+      "timestamp": "2025-10-03T00:05:42.365263",
+      "response_data": {
+        "id": 515,
+        "name": "Supplier Medicine Product 2025",
+        "slug": "supplier-medicine-product-2025",
+        "sku": "SUPPLIER-MEDICINE-PR-B3CDD592",
+        "description": "Test medicine product created by supplier",
+        "category": 129,
+        "category_id": 129,
+        "category_name": "Admin Parent Category 2025",
+        "brand": 109,
+        "brand_name": "Updated Admin Brand Name 2025",
+        "price": "79.99",
+        "stock": 50,
+        "product_type": "medicine",
+        "created_at": "2025-10-03T00:05:42.333496+05:30",
+        "updated_at": "2025-10-03T00:05:42.333533+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "https://example.com/supplier-medicine.jpg",
+        "medicine_details": {
+          "composition": "Ibuprofen 400mg",
+          "quantity": "20 tablets",
+          "manufacturer": "Supplier Pharma",
+          "expiry_date": "2025-06-30",
+          "batch_number": "SUP001",
+          "prescription_required": false,
+          "form": "Tablet",
+          "pack_size": "2x10 tablets"
+        },
+        "equipment_details": null,
+        "pathology_details": null
+      }
+    },
+    {
+      "test": "Admin Equipment Product Creation",
+      "success": true,
+      "details": "Admin equipment product created with details (ID: 516)",
+      "timestamp": "2025-10-03T00:05:44.480364",
+      "response_data": {
+        "id": 516,
+        "name": "Medical Stethoscope 2025",
+        "slug": "medical-stethoscope-2025",
+        "sku": "MEDICAL-STETHOSCOPE--DAFFED1E",
+        "description": "Professional grade stethoscope for medical diagnosis",
+        "category": 129,
+        "category_id": 129,
+        "category_name": "Admin Parent Category 2025",
+        "brand": 109,
+        "brand_name": "Updated Admin Brand Name 2025",
+        "price": "299.99",
+        "stock": 25,
+        "product_type": "equipment",
+        "created_at": "2025-10-03T00:05:44.449615+05:30",
+        "updated_at": "2025-10-03T00:05:44.449678+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {
+          "material": "Stainless Steel",
+          "weight": "200g"
+        },
+        "variants": [],
+        "images": [],
+        "image": "https://example.com/stethoscope.jpg",
+        "medicine_details": null,
+        "equipment_details": {
+          "model_number": "STET-PRO-2025",
+          "warranty_period": "2 years",
+          "usage_type": "Professional Medical",
+          "technical_specifications": "Frequency range: 20Hz-2000Hz, Tube length: 28 inches",
+          "power_requirement": "N/A - Manual device",
+          "equipment_type": "Diagnostic Tool"
+        },
+        "pathology_details": null
+      }
+    },
+    {
+      "test": "Supplier Equipment Product Creation",
+      "success": true,
+      "details": "Supplier equipment product created and pending (ID: 517)",
+      "timestamp": "2025-10-03T00:05:46.564741",
+      "response_data": {
+        "id": 517,
+        "name": "Digital Thermometer 2025",
+        "slug": "digital-thermometer-2025",
+        "sku": "DIGITAL-THERMOMETER--A24644B2",
+        "description": "Accurate digital thermometer for temperature measurement",
+        "category": 129,
+        "category_id": 129,
+        "category_name": "Admin Parent Category 2025",
+        "brand": 109,
+        "brand_name": "Updated Admin Brand Name 2025",
+        "price": "49.99",
+        "stock": 100,
+        "product_type": "equipment",
+        "created_at": "2025-10-03T00:05:46.537641+05:30",
+        "updated_at": "2025-10-03T00:05:46.537674+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "",
+        "medicine_details": null,
+        "equipment_details": {
+          "model_number": "THERM-DIG-2025",
+          "warranty_period": "1 year",
+          "usage_type": "Home/Clinical use",
+          "technical_specifications": "Range: 32-42\u00b0C, Accuracy: \u00b10.1\u00b0C",
+          "power_requirement": "1.5V LR44 battery",
+          "equipment_type": "Temperature Measurement"
+        },
+        "pathology_details": null
+      }
+    },
+    {
+      "test": "Admin Pathology Product Creation",
+      "success": true,
+      "details": "Admin pathology product created with details (ID: 518)",
+      "timestamp": "2025-10-03T00:05:48.653730",
+      "response_data": {
+        "id": 518,
+        "name": "Blood Glucose Test Strips 2025",
+        "slug": "blood-glucose-test-strips-2025",
+        "sku": "BLOOD-GLUCOSE-TEST-S-A2C5CCB1",
+        "description": "High accuracy glucose test strips for diabetes monitoring",
+        "category": 129,
+        "category_id": 129,
+        "category_name": "Admin Parent Category 2025",
+        "brand": 109,
+        "brand_name": "Updated Admin Brand Name 2025",
+        "price": "45.99",
+        "stock": 200,
+        "product_type": "pathology",
+        "created_at": "2025-10-03T00:05:48.621671+05:30",
+        "updated_at": "2025-10-03T00:05:48.621713+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {
+          "pack_size": "50 strips",
+          "shelf_life": "24 months"
+        },
+        "variants": [],
+        "images": [],
+        "image": "https://example.com/glucose-strips.jpg",
+        "medicine_details": null,
+        "equipment_details": null,
+        "pathology_details": {
+          "compatible_tests": "Blood Glucose Level, HbA1c estimation",
+          "chemical_composition": "Glucose oxidase enzyme, Potassium ferricyanide",
+          "storage_condition": "Store at 2-30\u00b0C in dry place, avoid direct sunlight"
+        }
+      }
+    },
+    {
+      "test": "Supplier Pathology Product Creation",
+      "success": true,
+      "details": "Supplier pathology product created and pending (ID: 519)",
+      "timestamp": "2025-10-03T00:05:50.772276",
+      "response_data": {
+        "id": 519,
+        "name": "Urine Test Strips 2025",
+        "slug": "urine-test-strips-2025",
+        "sku": "URINE-TEST-STRIPS-20-095C832E",
+        "description": "Multi-parameter urine analysis strips",
+        "category": 129,
+        "category_id": 129,
+        "category_name": "Admin Parent Category 2025",
+        "brand": 109,
+        "brand_name": "Updated Admin Brand Name 2025",
+        "price": "29.99",
+        "stock": 150,
+        "product_type": "pathology",
+        "created_at": "2025-10-03T00:05:50.737507+05:30",
+        "updated_at": "2025-10-03T00:05:50.737551+05:30",
+        "status": "pending",
+        "is_publish": false,
+        "specifications": {},
+        "variants": [],
+        "images": [],
+        "image": "",
+        "medicine_details": null,
+        "equipment_details": null,
+        "pathology_details": {
+          "compatible_tests": "Protein, Glucose, Ketones, pH, Specific Gravity",
+          "chemical_composition": "Chromogenic reagents, pH indicators",
+          "storage_condition": "Store below 30\u00b0C, keep container tightly closed"
+        }
+      }
+    },
+    {
+      "test": "Admin Variant Creation",
+      "success": true,
+      "details": "Admin variant created with attributes (ID: 550, SKU: ADMIN-MEDICINE-PRODU-B9B96454-F2CA52B1)",
+      "timestamp": "2025-10-03T00:05:52.870091",
+      "response_data": {
+        "id": 550,
+        "product": 514,
+        "sku": "ADMIN-MEDICINE-PRODU-B9B96454-F2CA52B1",
+        "price": "109.99",
+        "additional_price": "10.00",
+        "total_price": 109.99,
+        "stock": 30,
+        "is_active": true,
+        "attributes": [
+          {
+            "id": 12,
+            "attribute": 4,
+            "attribute_name": "Size",
+            "value": "Small"
+          },
+          {
+            "id": 13,
+            "attribute": 4,
+            "attribute_name": "Size",
+            "value": "Medium"
+          },
+          {
+            "id": 14,
+            "attribute": 4,
+            "attribute_name": "Size",
+            "value": "Large"
+          }
+        ],
+        "created_at": "2025-10-03T00:05:52.835033+05:30",
+        "updated_at": "2025-10-03T00:05:52.835099+05:30"
+      }
+    },
+    {
+      "test": "Supplier Variant Creation",
+      "success": true,
+      "details": "Supplier variant created (ID: 551, SKU: URINE-TEST-STRIPS-20-095C832E-89087AE3)",
+      "timestamp": "2025-10-03T00:05:54.936383",
+      "response_data": {
+        "id": 551,
+        "product": 519,
+        "sku": "URINE-TEST-STRIPS-20-095C832E-89087AE3",
+        "price": "89.99",
+        "additional_price": "0.00",
+        "total_price": 89.99,
+        "stock": 20,
+        "is_active": true,
+        "attributes": [
+          {
+            "id": 5,
+            "attribute": 2,
+            "attribute_name": "Color",
+            "value": "Blue"
+          },
+          {
+            "id": 21,
+            "attribute": 4,
+            "attribute_name": "Size",
+            "value": "XL"
+          },
+          {
+            "id": 22,
+            "attribute": 2,
+            "attribute_name": "Color",
+            "value": "Red"
+          }
+        ],
+        "created_at": "2025-10-03T00:05:54.909002+05:30",
+        "updated_at": "2025-10-03T00:05:54.909066+05:30"
+      }
+    },
+    {
+      "test": "Admin Brand Approval",
+      "success": true,
+      "details": "Admin successfully approved brand 110",
+      "timestamp": "2025-10-03T00:05:57.022969",
+      "response_data": {
+        "message": "Brand \"Supplier Test Brand 2025\" approved successfully",
+        "brand_id": 110,
+        "status": "approved"
+      }
+    },
+    {
+      "test": "Admin Product Approval",
+      "success": true,
+      "details": "Admin successfully approved product 519",
+      "timestamp": "2025-10-03T00:05:59.109413",
+      "response_data": {
+        "message": "Product \"Urine Test Strips 2025\" approved successfully",
+        "product_id": 519,
+        "status": "approved"
+      }
+    }
+  ]
+}

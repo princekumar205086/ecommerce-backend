@@ -1,0 +1,121 @@
+{
+  "summary": {
+    "total_tests": 12,
+    "passed": 0,
+    "failed": 12,
+    "success_rate": 0.0,
+    "timestamp": "2025-10-02T23:53:05.074350"
+  },
+  "created_items": {
+    "brands": [],
+    "categories": [],
+    "products": [],
+    "variants": [],
+    "attributes": [
+      4,
+      2,
+      24
+    ],
+    "attribute_values": [
+      12,
+      13,
+      14,
+      21,
+      22,
+      5,
+      23,
+      8,
+      11,
+      103,
+      104,
+      105,
+      106
+    ]
+  },
+  "test_results": [
+    {
+      "test": "Admin Brand Creation",
+      "success": false,
+      "details": "Failed to create admin brand. Status: No response",
+      "timestamp": "2025-10-02T23:52:58.912793",
+      "response_data": {}
+    },
+    {
+      "test": "Supplier Brand Creation",
+      "success": false,
+      "details": "Failed to create supplier brand. Status: No response",
+      "timestamp": "2025-10-02T23:53:00.947836",
+      "response_data": {}
+    },
+    {
+      "test": "Brand Updates",
+      "success": false,
+      "details": "No brands available for testing updates",
+      "timestamp": "2025-10-02T23:53:00.949149",
+      "response_data": null
+    },
+    {
+      "test": "Admin Parent Category Creation",
+      "success": false,
+      "details": "Failed to create admin parent category. Status: No response",
+      "timestamp": "2025-10-02T23:53:03.001435",
+      "response_data": {}
+    },
+    {
+      "test": "Supplier Category Creation",
+      "success": false,
+      "details": "Failed to create supplier category. Status: No response",
+      "timestamp": "2025-10-02T23:53:05.042496",
+      "response_data": {}
+    },
+    {
+      "test": "Category Updates",
+      "success": false,
+      "details": "No categories available for testing updates",
+      "timestamp": "2025-10-02T23:53:05.043364",
+      "response_data": null
+    },
+    {
+      "test": "Medicine Product Creation",
+      "success": false,
+      "details": "Missing categories or brands for testing",
+      "timestamp": "2025-10-02T23:53:05.044136",
+      "response_data": null
+    },
+    {
+      "test": "Equipment Product Creation",
+      "success": false,
+      "details": "Missing categories or brands for testing",
+      "timestamp": "2025-10-02T23:53:05.044804",
+      "response_data": null
+    },
+    {
+      "test": "Pathology Product Creation",
+      "success": false,
+      "details": "Missing categories or brands for testing",
+      "timestamp": "2025-10-02T23:53:05.045533",
+      "response_data": null
+    },
+    {
+      "test": "Product Updates",
+      "success": false,
+      "details": "No products available for testing updates",
+      "timestamp": "2025-10-02T23:53:05.046745",
+      "response_data": null
+    },
+    {
+      "test": "Variant Creation",
+      "success": false,
+      "details": "Missing products or attribute values for testing",
+      "timestamp": "2025-10-02T23:53:05.047536",
+      "response_data": null
+    },
+    {
+      "test": "Variant Updates",
+      "success": false,
+      "details": "No variants available for testing updates",
+      "timestamp": "2025-10-02T23:53:05.052913",
+      "response_data": null
+    }
+  ]
+}
