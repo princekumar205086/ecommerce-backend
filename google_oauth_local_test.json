@@ -1,0 +1,17 @@
+{
+  "test_timestamp": "2025-10-04T02:41:34.529325",
+  "base_url": "http://127.0.0.1:8000",
+  "total_tests": 1,
+  "results": [
+    {
+      "test": "Google OAuth Login",
+      "status": "EXPECTED_FAILURE",
+      "timestamp": "2025-10-04T02:41:34.527349",
+      "details": "Expected validation error: Invalid Google token",
+      "response_data": {
+        "error": "Invalid Google token",
+        "details": "Token has wrong audience 618104708054-9r9s1c4alg36erliucho9t52n32n6dgq.apps.googleusercontent.com, expected one of ['503326319438-eejn7gtbgl0ko2lgdn5cf6lqfpgpnl2p.apps.googleusercontent.com']"
+      }
+    }
+  ]
+}

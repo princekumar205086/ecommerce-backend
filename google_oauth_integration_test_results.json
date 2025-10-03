@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-10-04T02:49:03.621558",
+  "endpoint": "https://backend.okpuja.in/api/accounts/login/google/",
+  "summary": {
+    "total": 5,
+    "passed": 2,
+    "failed": 1,
+    "errors": 0,
+    "skipped": 2
+  },
+  "results": [
+    {
+      "test": "Valid User Login",
+      "status": "SKIPPED",
+      "reason": "Needs real Google ID token"
+    },
+    {
+      "test": "Valid Supplier Login",
+      "status": "SKIPPED",
+      "reason": "Needs real Google ID token"
+    },
+    {
+      "test": "Missing Token",
+      "status": "PASS",
+      "status_code": 400,
+      "response": {
+        "error": "Google ID token is required"
+      }
+    },
+    {
+      "test": "Invalid Role",
+      "status": "PASS",
+      "status_code": 400,
+      "response": {
+        "error": "Invalid role. Only \"user\" and \"supplier\" are allowed."
+      }
+    },
+    {
+      "test": "Invalid Token Format",
+      "status": "FAIL",
+      "status_code": 500,
+      "response": {
+        "error": "Google OAuth not configured properly"
+      }
+    }
+  ]
+}

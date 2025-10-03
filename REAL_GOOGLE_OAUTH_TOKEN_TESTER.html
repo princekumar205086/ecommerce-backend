@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Google OAuth Token Tester</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #4285f4;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .success { border-left: 4px solid #28a745; background: #d4edda; }
+        .error { border-left: 4px solid #dc3545; background: #f8d7da; }
+        .warning { border-left: 4px solid #ffc107; background: #fff3cd; }
+        .info { border-left: 4px solid #17a2b8; background: #d1ecf1; }
+        
+        .google-btn {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .token-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .btn {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .btn:hover { background: #3367d6; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .test-results {
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            background: #e3f2fd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Real Google OAuth Token Tester</h1>
+        
+        <div class="status-card info">
+            <h3>📋 Current Status</h3>
+            <p><strong>Origin:</strong> <span id="current-origin"></span></p>
+            <p><strong>Client ID:</strong> 503326319438-eejn7gtbgl0ko2lgdn5cf6lqfpgpnl2p.apps.googleusercontent.com</p>
+            <p><strong>Backend:</strong> https://backend.okpuja.in/api/accounts/login/google/</p>
+        </div>
+        
+        <div class="step">
+            <h3>Step 1: Check Origin Configuration</h3>
+            <p>Make sure your current origin is added to Google Console authorized origins.</p>
+            <button class="btn" onclick="checkOriginConfig()">Check Configuration</button>
+            <div id="origin-check-result"></div>
+        </div>
+        
+        <div class="step">
+            <h3>Step 2: Initialize Google Sign-In</h3>
+            <div id="g_id_onload"
+                 data-client_id="503326319438-eejn7gtbgl0ko2lgdn5cf6lqfpgpnl2p.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            
+            <div class="google-btn">
+                <div class="g_id_signin" 
+                     data-type="standard"
+                     data-size="large"
+                     data-theme="outline"
+                     data-text="sign_in_with"
+                     data-shape="rectangular"
+                     data-logo_alignment="left">
+                </div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>Step 3: Token Information</h3>
+            <div id="token-info" style="display: none;">
+                <h4>🎫 Generated Token:</h4>
+                <div class="token-display" id="token-display"></div>
+                <button class="btn" onclick="copyToken()">📋 Copy Token</button>
+                <button class="btn" onclick="decodeToken()">🔍 Decode Token</button>
+                <button class="btn" onclick="testWithBackend()">🧪 Test with Backend</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>Step 4: Test Results</h3>
+            <div id="test-results"></div>
+        </div>
+        
+        <div class="status-card warning">
+            <h3>⚠️ Troubleshooting</h3>
+            <ul>
+                <li><strong>Error 401:</strong> Add your origin to Google Console</li>
+                <li><strong>Network Error:</strong> Check internet connection</li>
+                <li><strong>Invalid Client:</strong> Verify client ID configuration</li>
+                <li><strong>CORS Error:</strong> Ensure backend allows your origin</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let currentToken = '';
+        
+        // Display current origin
+        document.getElementById('current-origin').textContent = window.location.origin;
+        
+        function handleCredentialResponse(response) {
+            currentToken = response.credential;
+            
+            document.getElementById('token-display').textContent = currentToken;
+            document.getElementById('token-info').style.display = 'block';
+            
+            showResult('success', 'Token Generated Successfully!', 'You can now test this token with the backend.');
+            
+            // Auto-decode and test
+            decodeToken();
+            setTimeout(() => testWithBackend(), 1000);
+        }
+        
+        function checkOriginConfig() {
+            const origin = window.location.origin;
+            const resultDiv = document.getElementById('origin-check-result');
+            
+            const allowedOrigins = [
+                'http://localhost:3000',
+                'http://127.0.0.1:3000',
+                'http://localhost:3001',
+                'http://localhost:8080',
+                'https://yourdomain.com'
+            ];
+            
+            if (allowedOrigins.some(allowed => origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+                resultDiv.innerHTML = `
+                    <div class="status-card success">
+                        <strong>✅ Local Development Detected</strong><br>
+                        Add this origin to Google Console: <code>${origin}</code>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="status-card warning">
+                        <strong>⚠️ Production Domain Detected</strong><br>
+                        Make sure <code>${origin}</code> is added to Google Console authorized origins.
+                    </div>
+                `;
+            }
+        }
+        
+        function copyToken() {
+            navigator.clipboard.writeText(currentToken).then(() => {
+                showResult('success', 'Token Copied!', 'Token has been copied to clipboard.');
+            });
+        }
+        
+        function decodeToken() {
+            if (!currentToken) {
+                showResult('error', 'No Token', 'Please sign in first to generate a token.');
+                return;
+            }
+            
+            try {
+                const parts = currentToken.split('.');
+                const payload = JSON.parse(atob(parts[1]));
+                
+                const decoded = `
+<h4>📊 Decoded Token Information:</h4>
+<pre>${JSON.stringify(payload, null, 2)}</pre>
+<div class="status-card info">
+    <strong>Key Information:</strong><br>
+    • Email: ${payload.email}<br>
+    • Audience: ${payload.aud}<br>
+    • Issuer: ${payload.iss}<br>
+    • Expires: ${new Date(payload.exp * 1000).toLocaleString()}<br>
+    • Subject: ${payload.sub}
+</div>
+                `;
+                
+                document.getElementById('test-results').innerHTML = decoded;
+                
+            } catch (error) {
+                showResult('error', 'Decode Error', `Failed to decode token: ${error.message}`);
+            }
+        }
+        
+        async function testWithBackend() {
+            if (!currentToken) {
+                showResult('error', 'No Token', 'Please sign in first to generate a token.');
+                return;
+            }
+            
+            showResult('info', 'Testing...', 'Sending token to backend for verification...');
+            
+            try {
+                const response = await fetch('https://backend.okpuja.in/api/accounts/login/google/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id_token: currentToken,
+                        role: 'user'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult('success', '🎉 Backend Test Successful!', `
+                        <strong>User Login Successful!</strong><br>
+                        • User ID: ${data.user.id}<br>
+                        • Email: ${data.user.email}<br>
+                        • Role: ${data.user.role}<br>
+                        • New User: ${data.is_new_user}<br>
+                        • Message: ${data.message}<br><br>
+                        <strong>Tokens Received:</strong><br>
+                        • Access Token: ${data.access.substring(0, 50)}...<br>
+                        • Refresh Token: ${data.refresh.substring(0, 50)}...
+                    `);
+                } else {
+                    showResult('error', 'Backend Test Failed', `
+                        <strong>Status:</strong> ${response.status}<br>
+                        <strong>Error:</strong> ${data.error}<br>
+                        <strong>Details:</strong> ${data.details || 'No additional details'}
+                    `);
+                }
+                
+            } catch (error) {
+                showResult('error', 'Network Error', `Failed to connect to backend: ${error.message}`);
+            }
+        }
+        
+        function showResult(type, title, message) {
+            const resultDiv = document.getElementById('test-results');
+            resultDiv.innerHTML = `
+                <div class="status-card ${type}">
+                    <h4>${title}</h4>
+                    <div>${message}</div>
+                </div>
+            `;
+        }
+        
+        // Auto-check origin on load
+        window.onload = () => {
+            checkOriginConfig();
+        };
+    </script>
+</body>
+</html>

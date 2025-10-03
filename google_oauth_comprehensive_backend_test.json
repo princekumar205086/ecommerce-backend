@@ -1,0 +1,82 @@
+{
+  "test_timestamp": "2025-10-04T03:19:14.705003",
+  "endpoint": "https://backend.okpuja.in/api/accounts/login/google/",
+  "summary": {
+    "total": 8,
+    "passed": 5,
+    "failed": 2,
+    "warnings": 1,
+    "success_rate": 62.5
+  },
+  "results": [
+    {
+      "timestamp": "2025-10-04T03:19:13.451541",
+      "test": "Endpoint Availability",
+      "status": "PASS",
+      "details": "Endpoint accessible (OPTIONS: 200)",
+      "response_data": null
+    },
+    {
+      "timestamp": "2025-10-04T03:19:13.452426",
+      "test": "CORS Configuration",
+      "status": "WARN",
+      "details": "CORS headers: Not Set",
+      "response_data": null
+    },
+    {
+      "timestamp": "2025-10-04T03:19:13.647220",
+      "test": "Missing Token",
+      "status": "PASS",
+      "details": "Status: 400, Error: Google ID token is required",
+      "response_data": {
+        "error": "Google ID token is required"
+      }
+    },
+    {
+      "timestamp": "2025-10-04T03:19:13.856147",
+      "test": "Empty Token",
+      "status": "PASS",
+      "details": "Status: 400, Error: Google ID token is required",
+      "response_data": {
+        "error": "Google ID token is required"
+      }
+    },
+    {
+      "timestamp": "2025-10-04T03:19:14.051196",
+      "test": "Invalid Role",
+      "status": "PASS",
+      "details": "Status: 400, Error: Invalid role. Only \"user\" and \"supplier\" are allowed.",
+      "response_data": {
+        "error": "Invalid role. Only \"user\" and \"supplier\" are allowed."
+      }
+    },
+    {
+      "timestamp": "2025-10-04T03:19:14.250584",
+      "test": "Malformed Token",
+      "status": "PASS",
+      "details": "Status: 500, Error: Google OAuth not configured properly",
+      "response_data": {
+        "error": "Google OAuth not configured properly"
+      }
+    },
+    {
+      "timestamp": "2025-10-04T03:19:14.463749",
+      "test": "Expired/Wrong Client Token",
+      "status": "FAIL",
+      "details": "Unexpected status: 500",
+      "response_data": {
+        "error": "Google OAuth not configured properly"
+      }
+    },
+    {
+      "timestamp": "2025-10-04T03:19:14.684115",
+      "test": "Server Environment Check",
+      "status": "FAIL",
+      "details": "Environment variables not properly loaded on production server",
+      "response_data": {
+        "error": "Google OAuth not configured properly"
+      }
+    }
+  ],
+  "assessment": "MOSTLY_FUNCTIONAL"
+}

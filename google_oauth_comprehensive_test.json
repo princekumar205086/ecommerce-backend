@@ -1,0 +1,43 @@
+{
+  "test_timestamp": "2025-10-04T02:41:33.623919",
+  "base_url": "https://backend.okpuja.in",
+  "total_tests": 4,
+  "results": [
+    {
+      "test": "Google OAuth Login",
+      "status": "FAILURE",
+      "timestamp": "2025-10-04T02:41:32.994995",
+      "details": "Unexpected error: Google OAuth not configured properly",
+      "response_data": {
+        "error": "Google OAuth not configured properly"
+      }
+    },
+    {
+      "test": "Google OAuth Login",
+      "status": "FAILURE",
+      "timestamp": "2025-10-04T02:41:33.195853",
+      "details": "Unexpected error: Google OAuth not configured properly",
+      "response_data": {
+        "error": "Google OAuth not configured properly"
+      }
+    },
+    {
+      "test": "Google OAuth Login",
+      "status": "FAILURE",
+      "timestamp": "2025-10-04T02:41:33.431399",
+      "details": "Unexpected error: Google OAuth not configured properly",
+      "response_data": {
+        "error": "Google OAuth not configured properly"
+      }
+    },
+    {
+      "test": "Google OAuth Login",
+      "status": "FAILURE",
+      "timestamp": "2025-10-04T02:41:33.620606",
+      "details": "Unexpected error: Google OAuth not configured properly",
+      "response_data": {
+        "error": "Google OAuth not configured properly"
+      }
+    }
+  ]
+}
