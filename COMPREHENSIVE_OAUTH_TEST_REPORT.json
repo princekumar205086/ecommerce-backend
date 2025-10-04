@@ -1,0 +1,28 @@
+{
+  "test_timestamp": "2025-10-05T01:52:10.909645",
+  "total_tests": 5,
+  "passed_tests": 5,
+  "success_rate": 100.0,
+  "endpoints_tested": {
+    "oauth_endpoint": "https://backend.okpuja.in/api/accounts/login/google/",
+    "login_endpoint": "https://backend.okpuja.in/api/accounts/login/",
+    "base_url": "https://backend.okpuja.in/api"
+  },
+  "oauth_response_sample": {
+    "user": {
+      "id": 28,
+      "email": "princekumar205086@gmail.com",
+      "full_name": "PRINCE KUMAR",
+      "contact": null,
+      "role": "user",
+      "has_address": false,
+      "medixmall_mode": false,
+      "email_verified": true
+    },
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5NjEwMjI5LCJpYXQiOjE3NTk2MDkzMjksImp0aSI6ImUxZGMzNmUxNDFmMDQ1Njc4NTgwN2FiMDZiNWRhZTkyIiwidXNlcl9pZCI6Mjh9.JoIJNNs5kl-1KPq7vYLfqRjZL1vFW9jZdtOpyL14M7U",
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2MDIxNDEyOSwiaWF0IjoxNzU5NjA5MzI5LCJqdGkiOiI4NTRiOWM0YWZhOTM0OTcyYTZhZWY1NGE0ZGE0YjZlYyIsInVzZXJfaWQiOjI4fQ.txG-C2oRWcp4Mm-ZvIGukIs9WJyzthfwv9JSkR2hdSM",
+    "is_new_user": false,
+    "message": "Welcome back!"
+  },
+  "status": "EXCELLENT"
+}
