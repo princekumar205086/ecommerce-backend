@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-10-06T01:48:17.547751",
+  "issue": "Missing rate-limit/status endpoint causing frontend session issues",
+  "solution": "Added RateLimitStatusView with JWT authentication",
+  "endpoint": "https://backend.okpuja.in/api/accounts/rate-limit/status/",
+  "status": "FIXED",
+  "test_results": "All tests passing",
+  "frontend_integration": "Ready for immediate use"
+}
