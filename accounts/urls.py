@@ -8,7 +8,7 @@ from .views import (
     OTPLoginRequestView, OTPLoginVerifyView, LoginChoiceView, ResendOTPView,
     SupplierDutyStatusView, SupplierDutyToggleView,
     SupplierRequestView, SupplierRequestStatusView, AdminSupplierRequestListView, AdminSupplierRequestActionView,
-    GoogleAuthView
+    GoogleAuthView, RateLimitStatusView
 )
 
 urlpatterns = [
@@ -27,6 +27,9 @@ urlpatterns = [
     path('address/', UserAddressView.as_view(), name='user_address'),
     path('address/save-from-checkout/', SaveAddressFromCheckoutView.as_view(), name='save_address_from_checkout'),
     path('medixmall-mode/', MedixMallModeToggleView.as_view(), name='medixmall_mode_toggle'),
+    
+    # Session Management & Rate Limiting
+    path('rate-limit/status/', RateLimitStatusView.as_view(), name='rate_limit_status'),
     
     # Email Verification (OTP-based)
     path('verify-email/', EmailVerificationView.as_view(), name='verify_email_otp'),

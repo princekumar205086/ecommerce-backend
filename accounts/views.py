@@ -1916,3 +1916,85 @@ class GoogleAuthView(APIView):
                 'error': 'Authentication failed',
                 'details': str(e)
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class RateLimitStatusView(APIView):
+    """
+    Rate Limit Status View - Frontend Session Management
+    Returns user authentication status and session information
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    @swagger_auto_schema(
+        operation_description="Get user session and rate limit status",
+        responses={
+            200: openapi.Response(
+                description="Session status retrieved successfully",
+                examples={
+                    "application/json": {
+                        "authenticated": True,
+                        "user": {
+                            "id": 28,
+                            "email": "user@example.com",
+                            "full_name": "User Name",
+                            "role": "user",
+                            "email_verified": True
+                        },
+                        "rate_limit": {
+                            "remaining": 1000,
+                            "reset_time": "2025-10-06T02:00:00Z"
+                        },
+                        "session_valid": True
+                    }
+                }
+            ),
+            401: openapi.Response(
+                description="Authentication required",
+                examples={
+                    "application/json": {
+                        "authenticated": False,
+                        "error": "Authentication credentials not provided"
+                    }
+                }
+            )
+        },
+        manual_parameters=[AUTH_HEADER_PARAMETER]
+    )
+    def get(self, request):
+        """Get current session status and rate limit information"""
+        try:
+            user = request.user
+            
+            # Calculate rate limit info (mock implementation)
+            from django.utils import timezone
+            import datetime
+            
+            reset_time = timezone.now() + datetime.timedelta(hours=1)
+            
+            return Response({
+                'authenticated': True,
+                'user': {
+                    'id': user.id,
+                    'email': user.email,
+                    'full_name': user.full_name,
+                    'contact': user.contact,
+                    'role': user.role,
+                    'has_address': user.has_address,
+                    'medixmall_mode': user.medixmall_mode,
+                    'email_verified': user.email_verified
+                },
+                'rate_limit': {
+                    'remaining': 1000,  # Mock remaining requests
+                    'reset_time': reset_time.isoformat()
+                },
+                'session_valid': True,
+                'timestamp': timezone.now().isoformat()
+            })
+            
+        except Exception as e:
+            return Response({
+                'authenticated': False,
+                'error': str(e),
+                'session_valid': False
+            }, status=status.HTTP_401_UNAUTHORIZED)
