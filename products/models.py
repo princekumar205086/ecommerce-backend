@@ -47,6 +47,11 @@ class Brand(models.Model):
 
     class Meta:
         ordering = ['name']
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['status', 'is_publish']),
+            models.Index(fields=['created_at']),
+        ]
 
     def __str__(self):
         return self.name
@@ -92,6 +97,13 @@ class ProductCategory(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['slug']),
+            models.Index(fields=['status', 'is_publish']),
+            models.Index(fields=['parent']),
+            models.Index(fields=['created_at']),
+        ]
 
     def __str__(self):
         return self.name
@@ -157,6 +169,14 @@ class Product(models.Model):
             models.Index(fields=['slug']),
             models.Index(fields=['status', 'is_publish']),
             models.Index(fields=['product_type']),
+            models.Index(fields=['price']),
+            models.Index(fields=['stock']),
+            models.Index(fields=['created_at']),
+            models.Index(fields=['name']),
+            models.Index(fields=['category', 'is_publish']),
+            models.Index(fields=['brand', 'is_publish']),
+            models.Index(fields=['product_type', 'status', 'is_publish']),
+            models.Index(fields=['price', 'stock', 'is_publish']),
         ]
 
     def __str__(self):

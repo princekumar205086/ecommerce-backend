@@ -17,6 +17,8 @@ from .serializers import (
     ProductReviewSerializer, BrandSerializer, ProductVariantSerializer
 )
 from .mixins import MedixMallFilterMixin, MedixMallDetailMixin, MedixMallContextMixin, EnterpriseSearchMixin
+from .enterprise_filters import EnterpriseProductFilter
+from .enterprise_views import EnterpriseProductListView, EnterpriseProductSearchView
 
 
 class PublicProductCategoryListView(generics.ListAPIView):
@@ -27,11 +29,11 @@ class PublicProductCategoryListView(generics.ListAPIView):
     return all matching categories (no pagination). If `page` is provided,
     regular DRF pagination is used.
     """
-    queryset = ProductCategory.objects.filter(status='published', is_publish=True)
+    queryset = ProductCategory.objects.filter(status__in=['approved', 'published'], is_publish=True)
     serializer_class = ProductCategorySerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ['name', 'description']
+    search_fields = ['name']
     ordering = ['name']
 
     def list(self, request, *args, **kwargs):
@@ -61,7 +63,7 @@ class PublicProductCategoryListView(generics.ListAPIView):
         operation_summary="List Product Categories (Public)",
         tags=['Public - Products'],
         manual_parameters=[
-            openapi.Parameter('search', openapi.IN_QUERY, description="Search categories by name or description", type=openapi.TYPE_STRING),
+            openapi.Parameter('search', openapi.IN_QUERY, description="Search categories by name", type=openapi.TYPE_STRING),
         ],
         responses={
             200: openapi.Response('Success', ProductCategorySerializer(many=True)),
@@ -115,19 +117,12 @@ class PublicBrandListView(generics.ListAPIView):
         })
 
 
-class PublicProductListView(MedixMallFilterMixin, MedixMallContextMixin, generics.ListAPIView):
+class PublicProductListView(EnterpriseProductListView):
     """
     Public endpoint to list all published products with filtering and search
-    Respects user's MedixMall mode preference
-    Uses lightweight serializer for better performance (no variants, images, reviews)
+    Inherits from Enterprise view for optimized performance
     """
-    serializer_class = PublicProductListSerializer
-    permission_classes = [permissions.AllowAny]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['category', 'brand', 'product_type']
-    search_fields = ['name', 'description']
-    ordering_fields = ['price', 'created_at', 'name']
-    ordering = ['-created_at']
+    pass  # All functionality inherited from EnterpriseProductListView
 
     @swagger_auto_schema(
         operation_description="Get list of all published products in stock. Respects user's MedixMall mode preference - if enabled, only shows medicine products.",
@@ -276,169 +271,12 @@ class PublicProductReviewListView(generics.ListAPIView):
         ).select_related('user', 'product')
 
 
-class PublicProductSearchView(MedixMallFilterMixin, MedixMallContextMixin, EnterpriseSearchMixin, APIView):
+class PublicProductSearchView(EnterpriseProductSearchView):
     """
     Enterprise-level product search with advanced features
-    Similar to Amazon/Flipkart search capabilities
-    Respects user's MedixMall mode preference
+    Inherits from Enterprise search view for maximum performance
     """
-    permission_classes = [permissions.AllowAny]
-
-    @swagger_auto_schema(
-        operation_description="Enterprise-level product search with multiple filters, intelligent sorting, and fuzzy matching. Respects user's MedixMall mode preference - if enabled, only searches medicine products.",
-        operation_summary="Enterprise Product Search (Public)",
-        tags=['Public - Products'],
-        manual_parameters=[
-            openapi.Parameter('q', openapi.IN_QUERY, description="Search query (supports multiple terms, fuzzy matching)", type=openapi.TYPE_STRING),
-            openapi.Parameter('category', openapi.IN_QUERY, description="Category ID or name", type=openapi.TYPE_STRING),
-            openapi.Parameter('brand', openapi.IN_QUERY, description="Brand ID or name", type=openapi.TYPE_STRING),
-            openapi.Parameter('product_type', openapi.IN_QUERY, description="Product type", type=openapi.TYPE_STRING, enum=['medicine', 'equipment', 'pathology']),
-            openapi.Parameter('min_price', openapi.IN_QUERY, description="Minimum price", type=openapi.TYPE_NUMBER),
-            openapi.Parameter('max_price', openapi.IN_QUERY, description="Maximum price", type=openapi.TYPE_NUMBER),
-            openapi.Parameter('sort_by', openapi.IN_QUERY, description="Sort by field", type=openapi.TYPE_STRING, 
-                            enum=['relevance', 'price_low', 'price_high', 'name_asc', 'name_desc', 'newest', 'oldest', 'popularity', 'rating'], default='relevance'),
-            openapi.Parameter('page', openapi.IN_QUERY, description="Page number", type=openapi.TYPE_INTEGER, default=1),
-            openapi.Parameter('page_size', openapi.IN_QUERY, description="Items per page (max 50)", type=openapi.TYPE_INTEGER, default=12),
-            openapi.Parameter('in_stock_only', openapi.IN_QUERY, description="Show only products in stock", type=openapi.TYPE_BOOLEAN, default=True),
-            openapi.Parameter('prescription_required', openapi.IN_QUERY, description="Filter by prescription requirement (medicines only)", type=openapi.TYPE_BOOLEAN),
-            openapi.Parameter('form', openapi.IN_QUERY, description="Medicine form (tablet, syrup, etc.)", type=openapi.TYPE_STRING),
-            openapi.Parameter('Authorization', openapi.IN_HEADER, description="Bearer <access_token> (optional for MedixMall mode)", type=openapi.TYPE_STRING, required=False),
-        ],
-        responses={
-            200: openapi.Response(
-                'Success',
-                openapi.Schema(
-                    type=openapi.TYPE_OBJECT,
-                    properties={
-                        'results': openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Schema(type=openapi.TYPE_OBJECT)),
-                        'pagination': openapi.Schema(type=openapi.TYPE_OBJECT),
-                        'filters': openapi.Schema(type=openapi.TYPE_OBJECT),
-                        'search_suggestions': openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Schema(type=openapi.TYPE_STRING)),
-                        'medixmall_mode': openapi.Schema(type=openapi.TYPE_BOOLEAN),
-                    }
-                ),
-                headers={
-                    'X-MedixMall-Mode': openapi.Schema(type=openapi.TYPE_STRING, description="true if user is in MedixMall mode, false otherwise")
-                }
-            ),
-        }
-    )
-
-    def get(self, request):
-        # Get query parameters
-        query = request.GET.get('q', '').strip()
-        page = max(int(request.GET.get('page', 1)), 1)
-        page_size = min(max(int(request.GET.get('page_size', 12)), 1), 50)  # Max 50 items per page, default 12
-        sort_by = request.GET.get('sort_by', 'relevance')
-
-        # Collect all filter parameters
-        filters = {
-            'category': request.GET.get('category'),
-            'brand': request.GET.get('brand'),
-            'product_type': request.GET.get('product_type'),
-            'min_price': request.GET.get('min_price'),
-            'max_price': request.GET.get('max_price'),
-            'in_stock_only': request.GET.get('in_stock_only', 'true').lower() == 'true',
-            'prescription_required': request.GET.get('prescription_required'),
-            'form': request.GET.get('form'),
-        }
-
-        # Get base queryset with MedixMall filtering
-        products = self.get_queryset().prefetch_related('variants', 'images').select_related('category', 'brand')
-
-        # Apply enterprise search
-        if query:
-            products = self.apply_enterprise_search(products, query)
-
-        # Apply smart filters
-        products = self.apply_smart_filters(products, filters)
-
-        # Apply intelligent sorting
-        products = self.apply_intelligent_sorting(products, sort_by, query)
-
-        # Pagination
-        paginator = Paginator(products, page_size)
-        page_obj = paginator.get_page(page)
-
-        # Serialize data
-        serializer = PublicProductListSerializer(page_obj.object_list, many=True)
-
-        # Generate search suggestions
-        search_suggestions = self.generate_search_suggestions(query, products)
-
-        # Check if user is in MedixMall mode
-        medixmall_mode = (
-            hasattr(request, 'user') and 
-            request.user.is_authenticated and 
-            getattr(request.user, 'medixmall_mode', False)
-        )
-
-        # Prepare response
-        response_data = {
-            'results': serializer.data,
-            'pagination': {
-                'page': page,
-                'page_size': page_size,
-                'total_pages': paginator.num_pages,
-                'total_count': paginator.count,
-                'has_next': page_obj.has_next(),
-                'has_previous': page_obj.has_previous(),
-            },
-            'filters': self.get_available_filters(products),
-            'search_suggestions': search_suggestions,
-            'medixmall_mode': medixmall_mode,
-            'search_query': query,
-            'applied_filters': {k: v for k, v in filters.items() if v is not None},
-        }
-
-        response = Response(response_data)
-        
-        # Add MedixMall mode to response headers
-        response['X-MedixMall-Mode'] = 'true' if medixmall_mode else 'false'
-        response['X-Search-Results-Count'] = str(paginator.count)
-        
-        return response
-
-    def generate_search_suggestions(self, query, products):
-        """Generate intelligent search suggestions"""
-        if not query or len(query) < 2:
-            return []
-
-        suggestions = set()
-        
-        # Get unique product names that contain the query
-        for product in products[:20]:  # Limit for performance
-            name_words = product.name.lower().split()
-            for word in name_words:
-                if len(word) > 2 and query.lower() in word.lower():
-                    suggestions.add(word.title())
-        
-        # Add category suggestions
-        categories = products.values_list('category__name', flat=True).distinct()[:10]
-        for category in categories:
-            if category and query.lower() in category.lower():
-                suggestions.add(category)
-        
-        # Add brand suggestions
-        brands = products.values_list('brand__name', flat=True).distinct()[:10]
-        for brand in brands:
-            if brand and query.lower() in brand.lower():
-                suggestions.add(brand)
-
-        return list(suggestions)[:10]  # Return max 10 suggestions
-
-    def get_available_filters(self, products):
-        """Get available filter options based on current results"""
-        return {
-            'categories': list(products.values_list('category__id', 'category__name').distinct()),
-            'brands': list(products.values_list('brand__id', 'brand__name').distinct()),
-            'product_types': list(products.values_list('product_type', flat=True).distinct()),
-            'price_range': {
-                'min': products.aggregate(min_price=Min('price'))['min_price'] or 0,
-                'max': products.aggregate(max_price=Max('price'))['max_price'] or 0,
-            },
-            'forms': list(products.exclude(medicine_details__form='').values_list('medicine_details__form', flat=True).distinct()) if products.filter(product_type='medicine').exists() else [],
-        }
+    pass  # All functionality inherited from EnterpriseProductSearchView
 
 
 class PublicFeaturedProductsView(MedixMallFilterMixin, MedixMallContextMixin, generics.ListAPIView):

@@ -19,10 +19,9 @@ class MedixMallFilterMixin:
         # Define base queryset for Product model (lightweight for list views)
         from .models import Product
         queryset = Product.objects.filter(
-            status='published',
+            status__in=['approved', 'published'],
             is_publish=True,
-            stock__gt=0,
-            created_by__is_on_duty=True  # Only show products from suppliers who are on duty
+            stock__gt=0
         ).select_related('category', 'brand', 'created_by')
         
         # Apply MedixMall filtering for both authenticated and anonymous users
@@ -57,10 +56,9 @@ class MedixMallDetailMixin:
         # Define base queryset for Product model (with heavy prefetching for detail views)
         from .models import Product
         queryset = Product.objects.filter(
-            status='published',
+            status__in=['approved', 'published'],
             is_publish=True,
-            stock__gt=0,
-            created_by__is_on_duty=True  # Only show products from suppliers who are on duty
+            stock__gt=0
         ).prefetch_related(
             'variants__attributes__attribute',
             'images', 

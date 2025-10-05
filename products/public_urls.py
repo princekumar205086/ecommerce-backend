@@ -12,6 +12,7 @@ from .public_views import (
     PublicProductsByBrand,
     PublicProductsByType,
 )
+from .enterprise_views import search_autocomplete
 
 app_name = 'products_public'
 
@@ -25,6 +26,7 @@ urlpatterns = [
     
     # Advanced search and filtering
     path('search/', PublicProductSearchView.as_view(), name='public-product-search'),
+    path('search/autocomplete/', search_autocomplete, name='public-search-autocomplete'),
     path('featured/', PublicFeaturedProductsView.as_view(), name='public-featured-products'),
     
     # Products by category, brand, and type

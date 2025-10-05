@@ -12,6 +12,7 @@ from .models import (
     MedicineDetails, EquipmentDetails, PathologyDetails,
     ProductAttribute, ProductAttributeValue, ProductImage
 )
+from .enterprise_filters import EnterpriseProductFilter
 from .serializers import (
     ProductCategorySerializer, BaseProductSerializer, ProductReviewSerializer,
     BrandSerializer, ProductVariantSerializer, SupplierProductPriceSerializer,
@@ -220,7 +221,7 @@ class ProductListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsSupplierOrAdmin]  # Custom permission that allows read for all, create for supplier/admin
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['category', 'brand', 'status', 'is_publish', 'product_type']
+    filterset_class = EnterpriseProductFilter
     search_fields = ['name', 'description']
     ordering_fields = ['price', 'created_at']
 
