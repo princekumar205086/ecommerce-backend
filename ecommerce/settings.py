@@ -235,8 +235,8 @@ REDOC_SETTINGS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Razorpay Configuration
-RAZORPAY_API_KEY = os.environ.get('RAZORPAY_API_KEY', 'rzp_test_hZpYcGhumUM4Z2')
-RAZORPAY_API_SECRET = os.environ.get('RAZORPAY_API_SECRET', '9ge230isKnELfyR3QN2o5SXF')
+RAZORPAY_API_KEY = os.environ.get('RAZORPAY_API_KEY', 'rzp_test_your_key_here')
+RAZORPAY_API_SECRET = os.environ.get('RAZORPAY_API_SECRET', 'your_razorpay_secret_here')
 RAZORPAY_WEBHOOK_SECRET = os.environ.get('RAZORPAY_WEBHOOK_SECRET', 'your_webhook_secret_here')
 APP_NAME = os.environ.get('APP_NAME', 'Ecommerce')
 

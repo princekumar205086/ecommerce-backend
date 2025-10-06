@@ -1,33 +1,33 @@
 # ShipRocket API Integration Settings
+import os
 
-# ShipRocket UAT/Test Environment Configuration
-SHIPROCKET_UAT = True  # Set to False for production
+# ShipRocket Production Environment Configuration
+SHIPROCKET_UAT = False  # Set to False for production
 SHIPROCKET_BASE_URL = "https://apiv2.shiprocket.in/v1/external/"
 
-# UAT Test Credentials (Update these with your actual UAT credentials)
-# For testing, you need to register at https://app.shiprocket.in/ and get UAT access
-SHIPROCKET_EMAIL = "test@example.com"  # Replace with your actual UAT email
-SHIPROCKET_PASSWORD = "testpass123"  # Replace with your actual UAT password
+# Production Credentials (from .env file)
+SHIPROCKET_EMAIL = os.environ.get('SHIPROCKET_EMAIL', 'your-email@example.com')
+SHIPROCKET_PASSWORD = os.environ.get('SHIPROCKET_PASSWORD', 'your-password')
 
 # API Configuration
 SHIPROCKET_TIMEOUT = 30  # API request timeout in seconds
 SHIPROCKET_RETRY_ATTEMPTS = 3
 
 # Webhook Configuration
-SHIPROCKET_WEBHOOK_URL = "https://your-domain.com/api/shiprocket/webhook/"
+SHIPROCKET_WEBHOOK_URL = "https://backend.okpuja.in/api/shiprocket/webhook/"
 
-# Default Shipping Configuration
+# Default Shipping Configuration (from .env file)
 DEFAULT_PICKUP_LOCATION = {
     "pickup_location": "Primary",
-    "name": "Test Ecommerce Company",
-    "email": "pickup@testecommerce.com",
+    "name": "MedixMall",
+    "email": "pickup@medixmall.com",
     "phone": "9876543210",
     "address": "123 Test Street, Business Park",
     "address_2": "Near Test Mall",
-    "city": "New Delhi",
-    "state": "Delhi",
+    "city": "Purnia",
+    "state": "Bihar",
     "country": "India",
-    "pin_code": "110001"
+    "pin_code": "854301"
 }
 
 # COD Settings
