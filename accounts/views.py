@@ -21,7 +21,7 @@ from .serializers import (
     OTPVerificationSerializer, OTPRequestSerializer, PasswordResetRequestSerializer,
     PasswordResetConfirmSerializer, EmailVerificationSerializer, ResendVerificationSerializer,
     ChangePasswordSerializer, OTPLoginRequestSerializer, OTPLoginVerifySerializer, 
-    LoginChoiceSerializer
+    LoginChoiceSerializer, EmailCheckSerializer
 )
 
 # Common Swagger components
@@ -114,6 +114,47 @@ class RegisterView(APIView):
                     'user': UserSerializer(user).data,
                     'message': 'Registration successful! Please check your email for verification OTP.',
                 }, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmailCheckView(APIView):
+    """
+    Check if an email address is already registered
+    """
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        request_body=EmailCheckSerializer,
+        responses={
+            200: openapi.Response(
+                description="Email check result",
+                examples={
+                    "application/json": {
+                        "email": "user@example.com",
+                        "is_registered": True,
+                        "message": "Email is already registered"
+                    }
+                },
+            ),
+            400: "Invalid input",
+        },
+        operation_description="Check if an email address is already registered in the system. Returns true if email exists, false otherwise."
+    )
+    def post(self, request):
+        serializer = EmailCheckSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+            
+            # Check if user exists with this email (case insensitive)
+            user_exists = User.objects.filter(email__iexact=email).exists()
+            
+            return Response({
+                'email': email,
+                'is_registered': user_exists,
+                'message': 'Email is already registered' if user_exists else 'Email is available'
+            }, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

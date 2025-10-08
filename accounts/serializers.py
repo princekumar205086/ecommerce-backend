@@ -424,3 +424,12 @@ class SupplierRequestStatusSerializer(serializers.ModelSerializer):
         model = SupplierRequest
         fields = ['id', 'email', 'company_name', 'status', 'requested_at', 'reviewed_at', 'rejection_reason']
         read_only_fields = ['id', 'status', 'requested_at', 'reviewed_at', 'rejection_reason']
+
+
+class EmailCheckSerializer(serializers.Serializer):
+    """Serializer for checking if email is already registered"""
+    email = serializers.EmailField(required=True)
+
+    def validate_email(self, value):
+        """Basic email validation is already handled by EmailField"""
+        return value

@@ -1,7 +1,7 @@
 # accounts/urls.py
 from django.urls import path
 from .views import (
-    RegisterView, LoginView, LogoutView, ProfileView, UserListView, UserAddressView, 
+    RegisterView, EmailCheckView, LoginView, LogoutView, ProfileView, UserListView, UserAddressView, 
     SaveAddressFromCheckoutView, MedixMallModeToggleView, CustomTokenRefreshView,
     EmailVerificationView, ResendVerificationView, OTPRequestView, OTPVerificationView,
     PasswordResetRequestView, PasswordResetConfirmView, ChangePasswordView,
@@ -15,6 +15,7 @@ urlpatterns = [
     # Authentication
     path('register/', RegisterView.as_view(), name='register'),
     path('register/<str:role>/', RegisterView.as_view(), name='register-with-role'),
+    path('check-email/', EmailCheckView.as_view(), name='check_email'),
     path('login/', LoginView.as_view(), name='login'),
     path('login/choice/', LoginChoiceView.as_view(), name='login_choice'),  # New unified login
     path('login/google/', GoogleAuthView.as_view(), name='google_auth'),  # Google Social Login
