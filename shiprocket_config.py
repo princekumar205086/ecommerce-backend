@@ -17,17 +17,21 @@ SHIPROCKET_RETRY_ATTEMPTS = 3
 SHIPROCKET_WEBHOOK_URL = "https://backend.okpuja.in/api/shiprocket/webhook/"
 
 # Default Shipping Configuration (from .env file)
-DEFAULT_PICKUP_LOCATION = {
-    "pickup_location": "Primary",
+# Using the verified working pickup location from testing
+DEFAULT_PICKUP_LOCATION = os.environ.get('SHIPROCKET_PICKUP_LOCATION', 'work')
+
+# Backup pickup location configuration
+PICKUP_LOCATION_CONFIG = {
+    "pickup_location": "work",  # Verified working location
     "name": "MedixMall",
-    "email": "pickup@medixmall.com",
+    "email": "pickup@medixmall.com", 
     "phone": "9876543210",
-    "address": "123 Test Street, Business Park",
-    "address_2": "Near Test Mall",
-    "city": "Purnia",
-    "state": "Bihar",
+    "address": "123 Main Street, Business District",
+    "address_2": "Central Delhi",
+    "city": "Delhi",
+    "state": "Delhi", 
     "country": "India",
-    "pin_code": "854301"
+    "pin_code": "110001"
 }
 
 # COD Settings
