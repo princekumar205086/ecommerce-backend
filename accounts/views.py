@@ -306,6 +306,51 @@ class UserAddressView(APIView):
         manual_parameters=[AUTH_HEADER_PARAMETER],
         request_body=UpdateAddressSerializer,
         responses={
+            201: openapi.Response(
+                description="Address created successfully",
+                examples={
+                    "application/json": {
+                        "message": "Address created successfully",
+                        "address": {
+                            "address_line_1": "123 Main Street",
+                            "address_line_2": "Apt 4B",
+                            "city": "Mumbai",
+                            "state": "Maharashtra",
+                            "postal_code": "400001",
+                            "country": "India",
+                            "has_address": True,
+                            "full_address": "123 Main Street, Apt 4B, Mumbai, Maharashtra 400001, India"
+                        }
+                    }
+                },
+            ),
+            400: "Invalid input",
+            401: "Unauthorized",
+        },
+        operation_description="Create/Save a new address for the user"
+    )
+    def post(self, request):
+        serializer = UpdateAddressSerializer(data=request.data)
+        if serializer.is_valid():
+            # Update user address
+            user = request.user
+            for field, value in serializer.validated_data.items():
+                setattr(user, field, value)
+            user.save()
+            
+            # Return updated address
+            address_serializer = UserAddressSerializer(user)
+            return Response({
+                'message': 'Address created successfully',
+                'address': address_serializer.data
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=UpdateAddressSerializer,
+        responses={
             200: openapi.Response(
                 description="Address updated successfully",
                 examples={
