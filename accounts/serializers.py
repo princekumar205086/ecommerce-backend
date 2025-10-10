@@ -312,6 +312,37 @@ class UserAddressSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id', 'email']
 
+    def to_representation(self, instance):
+        """Return address fields only when a full address exists.
+
+        If the user doesn't have a saved address (has_address == False),
+        omit address fields so the frontend won't treat nulls as valid values.
+        """
+        data = super().to_representation(instance)
+
+        # Build nested 'address' object. If there's no address, return empty object `{}`
+        address_keys = ['address_line_1', 'address_line_2', 'city', 'state', 'postal_code', 'country', 'full_address']
+        address = {}
+        try:
+            has_addr = instance.has_address
+        except Exception:
+            has_addr = data.get('has_address')
+
+        if has_addr:
+            for key in address_keys:
+                # include only keys that exist in data and are truthy
+                if key in data:
+                    address[key] = data.pop(key)
+        else:
+            # remove any address fields from top-level and keep address as empty dict
+            for key in address_keys:
+                data.pop(key, None)
+
+        # attach nested address key
+        data['address'] = address
+
+        return data
+
 
 class UpdateAddressSerializer(serializers.ModelSerializer):
     """Serializer for updating user address"""
