@@ -204,4 +204,116 @@ await axios.patch('http://127.0.0.1:8000/api/accounts/me/', form, {
 
 ---
 
+
+## Address response shape (important for frontend)
+
+- Endpoint: `GET /api/accounts/address/` (authenticated)
+- For frontend stability we return a single nested object named `address` instead of multiple top-level address fields that may be null. This avoids the client receiving top-level nulls which can be misinterpreted as intentionally empty fields.
+
+Behavior:
+- When the user has no saved address, the server returns `address: {}` (an empty object).
+- When the user has an address, the server returns `address` populated with the usual keys (for example: `address_line_1`, `address_line_2`, `city`, `state`, `pincode`, `country`, `has_address: true`).
+
+Example (no address):
+
+```json
+{
+  "address": {}
+}
+```
+
+Example (with address):
+
+```json
+{
+  "address": {
+    "address_line_1": "12 Baker Street",
+    "address_line_2": "Near Central Park",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "pincode": "400001",
+    "country": "India",
+    "has_address": true
+  }
+}
+```
+
+This shape is backward-compatible for most clients (they can still read individual address fields inside `address`) and safer for form-driven frontends.
+
+---
+
+## PowerShell — full flow example (login -> patch profile -> get address)
+
+This script demonstrates logging in with the test credentials, patching the profile (contact update), and then retrieving the address object. It uses the same server base URL used in earlier examples.
+
+```powershell
+```powershell
+# login and get token
+$loginBody = '{"email":"user@example.com","password":"User@123"}'
+$loginRes = Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/accounts/login/" -Method POST -ContentType "application/json" -Body $loginBody
+$token = $loginRes.access
+Write-Host "Access token acquired"
+
+# PATCH the profile to update contact
+$patchBody = '{"contact":"9123456789"}'
+$patchRes = Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/accounts/me/" -Method PATCH -ContentType "application/json" -Headers @{ Authorization = "Bearer $token" } -Body $patchBody
+Write-Host "Profile updated: " ($patchRes | ConvertTo-Json -Depth 5)
+
+# GET address
+$getAddr = Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/accounts/address/" -Method GET -Headers @{ Authorization = "Bearer $token" }
+Write-Host "Address response: " ($getAddr | ConvertTo-Json -Depth 5)
+```
+
 Last updated: October 10, 2025
+
+---
+
+## Next.js / frontend image notes
+
+If your frontend uses Next.js Image Optimization (`next/image`) you'll need to ensure the image source provided by the API is usable by Next.js.
+
+1. The API now returns an absolute URL for `profile_pic` (for example: `http://127.0.0.1:8000/media/profile_pics/gk.jpg`) when a request is made with the HTTP request included in the serializer context. Use this URL directly as the `src` for an `<img>` or `next/image`.
+
+2. For Next.js to optimize external images, add the API host to `next.config.js` `images.domains` or `images.remotePatterns`. Example (next.config.js):
+
+```js
+// next.config.js
+module.exports = {
+  images: {
+    domains: ['127.0.0.1', 'localhost'],
+    // or use remotePatterns for more control:
+    // remotePatterns: [
+    //   { protocol: 'http', hostname: '127.0.0.1' },
+    // ],
+  },
+}
+```
+
+3. Alternatively, you can proxy media files through your Next.js server (or serve them from the same origin as the frontend) to avoid adding remote domains.
+
+4. If you still see "The requested resource isn't a valid image" when Next.js requests the URL, check the following:
+   - Visit the absolute URL in the browser to confirm it returns the image bytes (not HTML or an auth redirect).
+   - Ensure Django's MEDIA_URL and MEDIA_ROOT are correctly served in development (e.g., via `django.views.static.serve` when DEBUG=True, or via your production static/media server).
+   - Confirm there is no authentication gate (redirect to login) for media files; media files should be publicly accessible or proxied by the frontend.
+
+Example usage in React/Next.js (functional component):
+
+```jsx
+import Image from 'next/image'
+
+export default function Avatar({ user }) {
+  // user.profile_pic should be an absolute URL or null
+  if (!user?.profile_pic) return <div className="avatar-placeholder" />
+
+  return (
+    <Image
+      src={user.profile_pic}
+      alt={user.full_name || 'Profile picture'}
+      width={150}
+      height={150}
+      // optional: unoptimized if you want to skip Next.js optimization
+      // unoptimized
+    />
+  )
+}
+```

@@ -129,10 +129,30 @@ class UserLoginSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
     has_address = serializers.ReadOnlyField()
-    
+    # Return absolute URL for profile_pic so frontends (including Next.js) can fetch it directly.
+    profile_pic = serializers.SerializerMethodField()
+
     class Meta:
         model = get_user_model()
         fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address', 'medixmall_mode', 'email_verified', 'profile_pic']
+
+    def get_profile_pic(self, obj):
+        """Return an absolute URL for the user's profile picture or None.
+
+        Uses the request in serializer context when available to build a full URL
+        (e.g., http://127.0.0.1:8000/media/...). If no request is available, the
+        storage URL is returned as-is.
+        """
+        if not getattr(obj, 'profile_pic', None):
+            return None
+        try:
+            url = obj.profile_pic.url
+        except Exception:
+            return None
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(url)
+        return url
 
 
 class OTPVerificationSerializer(serializers.Serializer):
