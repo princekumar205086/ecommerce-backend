@@ -8,6 +8,19 @@ from .models import OTP, PasswordResetToken, SupplierRequest
 
 User = get_user_model()
 
+
+def validate_indian_contact(value):
+    """Validate contact number: exactly 10 digits, starts with 6/7/8/9, no country code."""
+    if not value:
+        return value
+    # Normalize to digits
+    normalized = ''.join(filter(str.isdigit, str(value)))
+    if len(normalized) != 10:
+        raise serializers.ValidationError('Contact number must be exactly 10 digits (no country code).')
+    if normalized[0] not in ['6', '7', '8', '9']:
+        raise serializers.ValidationError('Contact number must start with 6,7,8 or 9.')
+    return normalized
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
@@ -19,6 +32,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if data['password'] != data['password2']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
+        # Normalize and validate contact if provided
+        contact = data.get('contact')
+        if contact:
+            data['contact'] = validate_indian_contact(contact)
         return data
 
     def create(self, validated_data):
@@ -115,7 +132,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = get_user_model()
-        fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address', 'medixmall_mode', 'email_verified']
+        fields = ['id', 'email', 'full_name', 'contact', 'role', 'has_address', 'medixmall_mode', 'email_verified', 'profile_pic']
 
 
 class OTPVerificationSerializer(serializers.Serializer):
@@ -230,6 +247,45 @@ class ChangePasswordSerializer(serializers.Serializer):
         return value
 
 
+class ProfileUpdateSerializer(serializers.ModelSerializer):
+    """Serializer for PATCH updates to user's profile (partial updates allowed)"""
+    profile_pic = serializers.ImageField(required=False, allow_null=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ['full_name', 'contact', 'profile_pic']
+
+    def validate_contact(self, value):
+        """Ensure contact is unique across users when updating."""
+        User = get_user_model()
+        user = self.context['request'].user
+        if value:
+            normalized = validate_indian_contact(value)
+            qs = User.objects.filter(contact=normalized).exclude(id=user.id)
+            if qs.exists():
+                raise serializers.ValidationError('This contact number is already in use.')
+            return normalized
+        return value
+
+    def validate_profile_pic(self, value):
+        """Validate uploaded image size: must be <= 200KB"""
+        if value is None:
+            return value
+        max_kb = 200
+        # value.size is in bytes
+        size_kb = value.size / 1024
+        if size_kb > max_kb:
+            raise serializers.ValidationError(f'Profile picture must be <= {max_kb} KB')
+        return value
+
+    def update(self, instance, validated_data):
+        # Partial update of allowed fields
+        for attr, val in validated_data.items():
+            setattr(instance, attr, val)
+        instance.save()
+        return instance
+
+
 class MedixMallModeSerializer(serializers.Serializer):
     """Serializer for toggling MedixMall mode"""
     medixmall_mode = serializers.BooleanField(
@@ -313,6 +369,9 @@ class OTPLoginRequestSerializer(serializers.Serializer):
         
         return data
 
+    def validate_contact(self, value):
+        return validate_indian_contact(value)
+
 
 class OTPLoginVerifySerializer(serializers.Serializer):
     """Serializer for verifying OTP login"""
@@ -327,6 +386,9 @@ class OTPLoginVerifySerializer(serializers.Serializer):
             )
         
         return data
+
+    def validate_contact(self, value):
+        return validate_indian_contact(value)
 
 
 class LoginChoiceSerializer(serializers.Serializer):

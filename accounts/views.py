@@ -12,6 +12,7 @@ from rest_framework.generics import ListAPIView
 from django.contrib.auth import get_user_model, authenticate
 from django.utils import timezone
 from django.db import transaction
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 from cart.models import Cart, CartItem
 from .models import User, OTP, PasswordResetToken, SupplierRequest
@@ -22,6 +23,7 @@ from .serializers import (
     PasswordResetConfirmSerializer, EmailVerificationSerializer, ResendVerificationSerializer,
     ChangePasswordSerializer, OTPLoginRequestSerializer, OTPLoginVerifySerializer, 
     LoginChoiceSerializer, EmailCheckSerializer
+    , ProfileUpdateSerializer
 )
 
 # Common Swagger components
@@ -250,6 +252,7 @@ def sync_guest_cart_to_user(request, user):
 class ProfileView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     @swagger_auto_schema(
         manual_parameters=[AUTH_HEADER_PARAMETER],
@@ -265,6 +268,27 @@ class ProfileView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+    @swagger_auto_schema(
+        manual_parameters=[AUTH_HEADER_PARAMETER],
+        request_body=UserSerializer,
+        responses={
+            200: openapi.Response(
+                description="Profile updated successfully",
+                examples={"application/json": USER_RESPONSE_EXAMPLE},
+            ),
+            400: "Invalid input",
+            401: "Unauthorized",
+        },
+        operation_description="Partially update current user's profile (supports contact and profile_pic)."
+    )
+    def patch(self, request):
+        """Allow partial updates to user's profile. Enforces unique contact and profile_pic size <= 200KB."""
+        serializer = ProfileUpdateSerializer(instance=request.user, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(UserSerializer(request.user).data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserAddressView(APIView):

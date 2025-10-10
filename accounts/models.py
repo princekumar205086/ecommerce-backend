@@ -143,6 +143,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     state = models.CharField(max_length=100, blank=True, null=True)
     postal_code = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=100, default='India')
+    # Optional profile picture (nullable). Stored using Django's media storage.
+    # Frontend should enforce size < 200KB; server-side validation also applied in serializer.
+    profile_pic = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     
     # MedixMall mode preference
     medixmall_mode = models.BooleanField(
