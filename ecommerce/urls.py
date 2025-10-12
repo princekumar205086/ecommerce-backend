@@ -39,6 +39,7 @@ urlpatterns = [
     path('api/adminpanel/', include('adminpanel.urls')),
     path('api/analytics/', include('analytics.urls')),
     path('api/cart/', include('cart.urls')),
+    # Checkout functionality integrated into existing orders app
     path('api/cms/', include('cms.urls')),
     path('api/coupons/', include('coupon.urls')),
     path('api/inventory/', include('inventory.urls')),
