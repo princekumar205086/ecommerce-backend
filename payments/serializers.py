@@ -140,10 +140,28 @@ class ConfirmCODSerializer(serializers.Serializer):
         
         try:
             payment = Payment.objects.get(id=value, user=request.user)
-            if payment.payment_method != 'cod':
-                raise serializers.ValidationError("Payment is not COD")
+            
+            # More flexible COD validation - check multiple indicators
+            is_cod_payment = (
+                payment.payment_method == 'cod' or  # Explicit COD method
+                (payment.payment_method is None and payment.razorpay_order_id is None) or  # No online payment ID
+                (hasattr(payment, 'cart_data') and payment.cart_data and not payment.razorpay_order_id)  # Cart-based without Razorpay
+            )
+            
+            if not is_cod_payment:
+                # For debugging - log the actual payment details
+                raise serializers.ValidationError(
+                    f"Payment is not COD (method: {payment.payment_method}, razorpay_id: {payment.razorpay_order_id})"
+                )
+            
             if payment.status == 'cod_confirmed':
                 raise serializers.ValidationError("COD payment already confirmed")
+            
+            # Ensure payment method is set to COD for consistency
+            if payment.payment_method != 'cod':
+                payment.payment_method = 'cod'
+                payment.save()
+            
             return value
         except Payment.DoesNotExist:
             raise serializers.ValidationError("Payment not found or doesn't belong to you")
