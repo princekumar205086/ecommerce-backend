@@ -48,7 +48,7 @@ class CreatePaymentFromCartSerializer(serializers.Serializer):
                 raise serializers.ValidationError("Cart is empty")
             return value
         except Cart.DoesNotExist:
-            raise serializers.ValidationError("Cart not found or doesn't belong to you")
+            raise serializers.ValidationError(f"Cart not found or doesn't belong to you. Your user ID: {request.user.id}")
     
     def validate(self, data):
         """Validate and auto-fill address data"""

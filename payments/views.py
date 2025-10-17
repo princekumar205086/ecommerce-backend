@@ -83,11 +83,22 @@ class CreatePaymentFromCartView(APIView):
         if cart_id:
             cart = get_object_or_404(Cart, id=cart_id, user=request.user)
         else:
-            # Get user's active cart
-            try:
-                cart = Cart.objects.get(user=request.user)
-            except Cart.DoesNotExist:
-                return Response({'error': 'No active cart found'}, status=status.HTTP_400_BAD_REQUEST)
+            # Get user's active cart (create if doesn't exist)
+            cart, created = Cart.objects.get_or_create(user=request.user)
+            if created:
+                # New cart created but it's empty
+                return Response({
+                    'error': 'Cart is empty. Please add items to cart before checkout.',
+                    'cart_created': True,
+                    'cart_id': cart.id
+                }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Check if cart has items
+        if not cart.items.exists():
+            return Response({
+                'error': 'Cart is empty. Please add items to cart before checkout.',
+                'cart_id': cart.id
+            }, status=status.HTTP_400_BAD_REQUEST)
         
         # Calculate order totals (same logic as Order.create_from_cart)
         subtotal = Decimal(str(sum(item.total_price for item in cart.items.all())))

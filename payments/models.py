@@ -251,8 +251,22 @@ class Payment(models.Model):
             
         except Exception as e:
             import traceback
-            print(f"Error creating order from cart data: {e}")
-            print(f"Traceback: {traceback.format_exc()}")
+            import logging
+            logger = logging.getLogger(__name__)
+            
+            error_msg = f"Error creating order from cart data: {e}"
+            traceback_msg = traceback.format_exc()
+            
+            print(error_msg)
+            print(f"Traceback: {traceback_msg}")
+            logger.error(f"{error_msg}\nTraceback: {traceback_msg}")
+            
+            # Try to identify specific issues
+            if 'Cart.DoesNotExist' in str(e):
+                logger.error(f"Cart not found: cart_id={self.cart_data.get('cart_id')}, user={self.user.id}")
+            elif 'ValidationError' in str(e):
+                logger.error(f"Stock validation failed: {e}")
+            
             return None
 
     def process_webhook(self, event, payload):
