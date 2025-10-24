@@ -10,6 +10,13 @@ from .views import (
     SupplierRequestView, SupplierRequestStatusView, AdminSupplierRequestListView, AdminSupplierRequestActionView,
     GoogleAuthView, RateLimitStatusView
 )
+from .admin_views import (
+    AdminUserListView, AdminUserDetailView, AdminUserCreateView,
+    AdminUserUpdateView, AdminUserDeleteView, AdminUserRoleChangeView,
+    AdminUserStatusChangeView, AdminBulkUserActionView, AdminUserStatisticsView,
+    AdminAuditLogListView, AdminUserExportView, AdminRXVerifierCreateView,
+    AdminUserSearchView
+)
 
 urlpatterns = [
     # Authentication
@@ -61,4 +68,23 @@ urlpatterns = [
     # Admin - Supplier Request Management
     path('admin/supplier/requests/', AdminSupplierRequestListView.as_view(), name='admin_supplier_requests'),
     path('admin/supplier/requests/<int:request_id>/action/', AdminSupplierRequestActionView.as_view(), name='admin_supplier_request_action'),
+    
+    # Admin - User Management
+    path('admin/users/', AdminUserListView.as_view(), name='admin_user_list'),
+    path('admin/users/search/', AdminUserSearchView.as_view(), name='admin_user_search'),
+    path('admin/users/export/', AdminUserExportView.as_view(), name='admin_user_export'),
+    path('admin/users/bulk-action/', AdminBulkUserActionView.as_view(), name='admin_bulk_user_action'),
+    path('admin/users/create/', AdminUserCreateView.as_view(), name='admin_user_create'),
+    path('admin/users/<int:id>/', AdminUserDetailView.as_view(), name='admin_user_detail'),
+    path('admin/users/<int:id>/update/', AdminUserUpdateView.as_view(), name='admin_user_update'),
+    path('admin/users/<int:id>/delete/', AdminUserDeleteView.as_view(), name='admin_user_delete'),
+    path('admin/users/<int:user_id>/change-role/', AdminUserRoleChangeView.as_view(), name='admin_user_change_role'),
+    path('admin/users/<int:user_id>/change-status/', AdminUserStatusChangeView.as_view(), name='admin_user_change_status'),
+    
+    # Admin - RX Verifier Management
+    path('admin/rx-verifiers/create/', AdminRXVerifierCreateView.as_view(), name='admin_rx_verifier_create'),
+    
+    # Admin - Analytics & Audit
+    path('admin/statistics/', AdminUserStatisticsView.as_view(), name='admin_user_statistics'),
+    path('admin/audit-logs/', AdminAuditLogListView.as_view(), name='admin_audit_logs'),
 ]

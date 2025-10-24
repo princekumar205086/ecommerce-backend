@@ -1,0 +1,3 @@
+"""
+Admin user management tests
+"""
