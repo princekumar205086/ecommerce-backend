@@ -20,11 +20,17 @@ class Command(BaseCommand):
             action='store_true',
             help='Only publish brands that are already approved status',
         )
+        parser.add_argument(
+            '--approve-pending',
+            action='store_true',
+            help='Approve and publish all pending brands',
+        )
 
     def handle(self, *args, **options):
         dry_run = options['dry_run']
         publish_all = options['all']
         approved_only = options['approved_only']
+        approve_pending = options['approve_pending']
         
         self.stdout.write("=== Brand Publish Status Fix ===")
         
@@ -40,9 +46,25 @@ class Command(BaseCommand):
         
         # Current status
         public_brands = Brand.objects.filter(status__in=['approved', 'published'], is_publish=True)
+        pending_brands = Brand.objects.filter(status='pending')
         self.stdout.write(f"Currently published brands: {public_brands.count()}")
+        self.stdout.write(f"Pending brands: {pending_brands.count()}")
         
-        if publish_all:
+        if approve_pending:
+            # Approve and publish all pending brands
+            brands_to_update = Brand.objects.filter(status='pending')
+            self.stdout.write(f"Pending brands to approve and publish: {brands_to_update.count()}")
+            
+            if not dry_run:
+                updated_count = 0
+                for brand in brands_to_update:
+                    brand.status = 'published'
+                    brand.is_publish = True
+                    brand.save()
+                    updated_count += 1
+                self.stdout.write(self.style.SUCCESS(f"Approved and published {updated_count} pending brands"))
+            
+        elif publish_all:
             # Publish all brands 
             brands_to_update = Brand.objects.filter(is_publish=False)
             self.stdout.write(f"Brands to publish (ALL): {brands_to_update.count()}")
@@ -85,4 +107,5 @@ class Command(BaseCommand):
         self.stdout.write("\nUsage examples:")
         self.stdout.write("  python manage.py fix_brand_status --dry-run")
         self.stdout.write("  python manage.py fix_brand_status --approved-only")
+        self.stdout.write("  python manage.py fix_brand_status --approve-pending  # For pending brands")
         self.stdout.write("  python manage.py fix_brand_status --all  # Use with caution")

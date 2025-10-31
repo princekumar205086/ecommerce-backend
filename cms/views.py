@@ -18,6 +18,8 @@ from .serializers import (
     BlogCategorySerializer, BlogTagSerializer, FAQSerializer,
     TestimonialSerializer
 )
+from .models import CarouselBanner
+from .serializers import CarouselBannerSerializer
 
 
 class PageListView(generics.ListAPIView):
@@ -277,6 +279,16 @@ class TestimonialListView(generics.ListAPIView):
         return Testimonial.objects.filter(is_active=True).order_by('-is_featured', '-created_at')
 
 
+# Public Carousel endpoints
+class CarouselBannerListView(generics.ListAPIView):
+    serializer_class = CarouselBannerSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        # Only active and not-deleted (no end date logic for carousel) items
+        return CarouselBanner.objects.filter(is_active=True).order_by('order')
+
+
 # Admin Views
 class PageAdminView(generics.ListCreateAPIView):
     serializer_class = PageSerializer
@@ -384,3 +396,24 @@ class TestimonialAdminView(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['is_featured', 'is_active']
     queryset = Testimonial.objects.all().order_by('-is_featured', '-created_at')
+
+
+# Admin Carousel endpoints
+class CarouselBannerAdminView(generics.ListCreateAPIView):
+    serializer_class = CarouselBannerSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    def get_queryset(self):
+        return CarouselBanner.objects.all().order_by('order')
+
+    def perform_create(self, serializer):
+        # No created_by field on CarouselBanner; just save
+        serializer.save()
+
+
+class CarouselBannerAdminDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CarouselBannerSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    def get_queryset(self):
+        return CarouselBanner.objects.all()

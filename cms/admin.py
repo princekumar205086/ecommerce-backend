@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from .models import (
     Page, Banner, BlogPost, BlogCategory,
-    BlogTag, FAQ, Testimonial
+    BlogTag, FAQ, Testimonial, CarouselBanner
 )
 
 @admin.register(Page)
@@ -225,3 +225,11 @@ class TestimonialAdmin(admin.ModelAdmin):
             f"{updated} testimonials were successfully marked as featured."
         )
     make_featured.short_description = "Mark selected testimonials as featured"
+
+
+@admin.register(CarouselBanner)
+class CarouselBannerAdmin(admin.ModelAdmin):
+    list_display = ['title', 'is_active', 'order', 'created_at']
+    list_filter = ['is_active']
+    search_fields = ['title', 'caption']
+    readonly_fields = ['created_at', 'updated_at']

@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from .models import (
     Page, Banner, BlogPost, BlogCategory,
-    BlogTag, FAQ, Testimonial
+    BlogTag, FAQ, Testimonial, CarouselBanner
 )
 from accounts.serializers import UserSerializer
 
@@ -212,6 +212,23 @@ class TestimonialSerializer(serializers.ModelSerializer):
             'rating',
             'rating_display',
             'is_featured',
+            'is_active',
+            'created_at',
+            'updated_at'
+        ]
+        read_only_fields = ['created_at', 'updated_at']
+
+
+class CarouselBannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarouselBanner
+        fields = [
+            'id',
+            'title',
+            'image',
+            'link',
+            'caption',
+            'order',
             'is_active',
             'created_at',
             'updated_at'

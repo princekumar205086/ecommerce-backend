@@ -322,3 +322,21 @@ def generate_slug(sender, instance, *args, **kwargs):
         while sender.objects.filter(slug=instance.slug).exists():
             instance.slug = f"{base_slug}-{counter}"
             counter += 1
+            
+class CarouselBanner(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='carousel_banners/')
+    link = models.URLField(max_length=500, blank=True)
+    caption = models.CharField(max_length=255, blank=True)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = _('Carousel Banner')
+        verbose_name_plural = _('Carousel Banners')
+
+    def __str__(self):
+        return self.title
