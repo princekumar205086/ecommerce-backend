@@ -325,7 +325,10 @@ def generate_slug(sender, instance, *args, **kwargs):
             
 class CarouselBanner(models.Model):
     title = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='carousel_banners/')
+    image = models.CharField(
+        max_length=500,
+        help_text="ImageKit URL for carousel banner image (stored as URL, not file)"
+    )
     link = models.URLField(max_length=500, blank=True)
     caption = models.CharField(max_length=255, blank=True)
     order = models.PositiveIntegerField(default=0)

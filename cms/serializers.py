@@ -1,10 +1,16 @@
 # cms/serializers.py
 from rest_framework import serializers
+from PIL import Image
+from io import BytesIO
+import os
+import uuid
+
 from .models import (
     Page, Banner, BlogPost, BlogCategory,
     BlogTag, FAQ, Testimonial, CarouselBanner
 )
 from accounts.serializers import UserSerializer
+from accounts.models import upload_to_imagekit
 
 class PageSerializer(serializers.ModelSerializer):
     status_display = serializers.CharField(
@@ -220,12 +226,19 @@ class TestimonialSerializer(serializers.ModelSerializer):
 
 
 class CarouselBannerSerializer(serializers.ModelSerializer):
+    # Maximum allowed upload size for carousel images (bytes)
+    MAX_IMAGE_SIZE = 2 * 1024 * 1024  # 2 MB
+    ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
+    
+    image_file = serializers.ImageField(write_only=True, required=False, allow_null=True)
+
     class Meta:
         model = CarouselBanner
         fields = [
             'id',
             'title',
             'image',
+            'image_file',
             'link',
             'caption',
             'order',
@@ -234,3 +247,103 @@ class CarouselBannerSerializer(serializers.ModelSerializer):
             'updated_at'
         ]
         read_only_fields = ['created_at', 'updated_at']
+        extra_kwargs = {
+            'image': {'required': False}
+        }
+
+    def validate_image_file(self, value):
+        """Validate uploaded image file size and type."""
+        if not value:
+            return value
+
+        # Check file size
+        try:
+            size = value.size
+        except Exception:
+            size = 0
+
+        if size > self.MAX_IMAGE_SIZE:
+            raise serializers.ValidationError('Image file too large. Maximum size allowed is 2 MB.')
+
+        # Check extension
+        filename = getattr(value, 'name', '')
+        ext = os.path.splitext(filename)[1].lower()
+        if ext not in self.ALLOWED_EXTENSIONS:
+            raise serializers.ValidationError('Unsupported image format. Allowed types: JPG, PNG, GIF, WEBP.')
+
+        # Validate image using PIL
+        try:
+            image_file_copy = BytesIO(value.read())
+            value.seek(0)  # Reset for later reading
+            img = Image.open(image_file_copy)
+            img.verify()
+        except Exception as e:
+            raise serializers.ValidationError(f'Invalid image file: {str(e)}')
+
+        return value
+
+    def create(self, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        
+        if image_file:
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'carousel.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in self.ALLOWED_EXTENSIONS:
+                    ext = '.jpg'
+                
+                filename = f"carousel_{uuid.uuid4()}{ext}"
+                
+                # Upload to ImageKit
+                image_url = upload_to_imagekit(file_bytes, filename, folder="carousel_banners")
+                
+                if image_url and isinstance(image_url, str):
+                    validated_data['image'] = image_url
+                
+            except Exception as e:
+                # If upload fails, don't crash - just continue
+                pass
+        
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        image_file = validated_data.pop('image_file', None)
+        
+        if image_file:
+            try:
+                # Read file content into bytes
+                if hasattr(image_file, 'read'):
+                    image_file.seek(0)
+                    file_bytes = image_file.read()
+                else:
+                    with open(image_file, 'rb') as f:
+                        file_bytes = f.read()
+                
+                # Generate unique filename
+                original_filename = getattr(image_file, 'name', 'carousel.jpg')
+                ext = os.path.splitext(original_filename)[1].lower()
+                if ext not in self.ALLOWED_EXTENSIONS:
+                    ext = '.jpg'
+                
+                filename = f"carousel_{uuid.uuid4()}{ext}"
+                
+                # Upload to ImageKit
+                image_url = upload_to_imagekit(file_bytes, filename, folder="carousel_banners")
+                
+                if image_url and isinstance(image_url, str):
+                    validated_data['image'] = image_url
+                
+            except Exception as e:
+                # If upload fails, don't crash - just continue
+                pass
+        
+        return super().update(instance, validated_data)

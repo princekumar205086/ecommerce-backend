@@ -161,6 +161,11 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
+# Allow larger request body in Django so that Django can validate file sizes
+# (Nginx/proxy may still reject requests if their limits are smaller)
+# Set to 10 MB so app can accept files up to this and then enforce 2 MB at app level
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10 MB
+
 # JWT Settings
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Short-lived access tokens
