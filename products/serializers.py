@@ -338,6 +338,7 @@ class ProductVariantSerializer(serializers.ModelSerializer):
         model = ProductVariant
         fields = [
             'id', 'product', 'sku', 'price', 'additional_price', 'total_price',
+            'mrp',
             'stock', 'is_active', 'attributes', 'attribute_ids',
             'created_at', 'updated_at'
         ]
@@ -348,6 +349,11 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         attribute_ids = validated_data.pop('attribute_ids', [])
+        # Validate mrp vs price if provided
+        mrp_val = validated_data.get('mrp')
+        price_val = validated_data.get('price')
+        if mrp_val is not None and price_val is not None and mrp_val < price_val:
+            raise serializers.ValidationError({'mrp': 'MRP must be greater than or equal to price.'})
         variant = super().create(validated_data)
         
         if attribute_ids:
@@ -358,6 +364,11 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         attribute_ids = validated_data.pop('attribute_ids', None)
+        # Validate mrp vs price on update
+        mrp_val = validated_data.get('mrp', getattr(instance, 'mrp', None))
+        price_val = validated_data.get('price', getattr(instance, 'price', None))
+        if mrp_val is not None and price_val is not None and mrp_val < price_val:
+            raise serializers.ValidationError({'mrp': 'MRP must be greater than or equal to price.'})
         variant = super().update(instance, validated_data)
         
         if attribute_ids is not None:
@@ -416,6 +427,7 @@ class BaseProductSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'name', 'slug', 'sku', 'description', 'category', 'category_id', 'category_name',
             'brand', 'brand_name', 'price', 'stock', 'product_type', 'created_by',
+            'mrp',
             'created_at', 'updated_at', 'status', 'is_publish', 'specifications',
             'variants', 'images', 'image', 'image_file',
             'medicine_details', 'equipment_details', 'pathology_details'
@@ -441,6 +453,7 @@ class PublicProductSerializer(serializers.ModelSerializer):
             'id', 'name', 'slug', 'sku', 'description', 'category', 'brand', 
             'price', 'stock', 'product_type', 'created_at', 'updated_at', 
             'status', 'is_publish', 'specifications', 'variants', 'images', 'image',
+            'mrp',
             'medicine_details', 'equipment_details', 'pathology_details'
         ]
 
@@ -552,6 +565,7 @@ class PublicProductListSerializer(serializers.ModelSerializer):
             'id', 'name', 'slug', 'sku', 'description', 'category', 'brand', 
             'price', 'stock', 'product_type', 'created_at', 'updated_at', 
             'status', 'is_publish', 'specifications', 'image',
+            'mrp',
             'medicine_details', 'equipment_details', 'pathology_details'
         ]
 
@@ -669,6 +683,34 @@ class SupplierProductPriceSerializer(serializers.ModelSerializer):
                 
             if query.exists():
                 raise serializers.ValidationError("Price already exists for this product variant in the specified region.")
+        return data
+    
+    def validate_price(self, value):
+        if value is None:
+            return value
+        return value
+
+    def validate(self, data):
+        # call prior uniqueness validation logic
+        user = self.context['request'].user
+        if 'product_variant' in data:
+            query = SupplierProductPrice.objects.filter(
+                supplier=user,
+                product_variant=data['product_variant'],
+                pincode=data.get('pincode'),
+                district=data.get('district')
+            )
+            if self.instance:
+                query = query.exclude(pk=self.instance.pk)
+            if query.exists():
+                raise serializers.ValidationError("Price already exists for this product variant in the specified region.")
+
+        # Ensure mrp >= price when both provided
+        price_val = data.get('price')
+        mrp_val = data.get('mrp')
+        if mrp_val is not None and price_val is not None and mrp_val < price_val:
+            raise serializers.ValidationError({'mrp': 'MRP must be greater than or equal to price.'})
+
         return data
 
 

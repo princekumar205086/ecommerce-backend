@@ -151,6 +151,8 @@ class Product(models.Model):
 
     # base price and stock (used if no variant selected)
     price = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    # Manufacturer's Recommended Price (MRP) for display and regulatory purposes
+    mrp = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     stock = models.PositiveIntegerField(default=0)
 
     # generic JSON specifications
@@ -268,6 +270,8 @@ class ProductVariant(models.Model):
     attributes = models.ManyToManyField(ProductAttributeValue, related_name='variants', blank=True)
     sku = models.CharField(max_length=100, unique=True, blank=True, null=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    # Variant-level MRP (falls back to product.mrp when not set)
+    mrp = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     additional_price = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     stock = models.PositiveIntegerField(default=0)
     # Variant-specific image field for better variant representation
@@ -299,6 +303,13 @@ class ProductVariant(models.Model):
         if self.price and self.price != Decimal('0.00'):
             return self.price
         return (self.product.price or Decimal('0.00')) + (self.additional_price or Decimal('0.00'))
+
+    @property
+    def effective_mrp(self):
+        """Return the MRP applicable to this variant: variant.mrp if set, else product.mrp."""
+        if self.mrp and self.mrp != Decimal('0.00'):
+            return self.mrp
+        return self.product.mrp or Decimal('0.00')
         
     @property
     def needs_approval(self):
@@ -349,6 +360,8 @@ class SupplierProductPrice(models.Model):
     supplier = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='supplier_prices')
     product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='supplier_prices')
     price = models.DecimalField(max_digits=12, decimal_places=2)
+    # Supplier's listed MRP for the variant (used for display/verification)
+    mrp = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     pincode = models.CharField(max_length=10, blank=True, null=True, db_index=True)
     district = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -473,3 +486,22 @@ def track_product_changes(sender, instance, **kwargs):
             changed_by=getattr(instance, '_changed_by', None),
             changes=diffs
         )
+
+
+@receiver(pre_save, sender=Product)
+@receiver(pre_save, sender=ProductVariant)
+@receiver(pre_save, sender=SupplierProductPrice)
+def validate_mrp_vs_price(sender, instance, **kwargs):
+    """Ensure MRP is not set below the selling price. If it is, raise ValueError to block save.
+    This keeps data consistent and prevents accidental incorrect MRP listings.
+    """
+    # Only enforce the rule when MRP is explicitly set (> 0)
+    price = getattr(instance, 'price', None)
+    mrp = getattr(instance, 'mrp', None)
+    try:
+        if mrp is not None and price is not None:
+            # treat zero as unset
+            if mrp > Decimal('0.00') and mrp < price:
+                raise ValueError('MRP must be greater than or equal to the price.')
+    except Exception:
+        raise

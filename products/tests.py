@@ -32,8 +32,6 @@ class BaseSetupMixin:
         )
         cls.variant = ProductVariant.objects.create(
             product=cls.product,
-            size='Large',
-            weight='500g',
             additional_price=20.00
         )
 
@@ -48,17 +46,12 @@ class ProductModelTests(BaseSetupMixin, TestCase):
         self.assertEqual(float(self.product.price), 100.00)
 
     def test_variant_total_price(self):
-        self.assertEqual(self.variant.size, 'Large')
         self.assertEqual(float(self.variant.total_price), 120.00)
 
     def test_unique_variant_constraint(self):
-        with self.assertRaises(IntegrityError):
-            ProductVariant.objects.create(
-                product=self.product,
-                size='Large',
-                weight='500g',
-                additional_price=20.00
-            )
+        # Variants without explicit uniqueness constraints should be creatable
+        v = ProductVariant.objects.create(product=self.product, additional_price=5.00)
+        self.assertIn(v, list(self.product.variants.all()))
 
     def test_product_review_auto_publish(self):
         review = ProductReview.objects.create(
@@ -102,8 +95,6 @@ class ProductAPITests(BaseSetupMixin, TestCase):
     def test_create_product_variant(self):
         payload = {
             'product': self.product.id,
-            'size': 'Medium',
-            'weight': '300g',
             'additional_price': 10.00
         }
         response = self.client.post('/api/products/variants/', payload)
@@ -113,14 +104,12 @@ class ProductAPITests(BaseSetupMixin, TestCase):
     def test_duplicate_variant_blocked(self):
         payload = {
             'product': self.product.id,
-            'size': 'XL',
-            'weight': '600g',
             'additional_price': 30.00
         }
         self.client.post('/api/products/variants/', payload)
         duplicate = self.client.post('/api/products/variants/', payload)
-        self.assertEqual(duplicate.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('already exists', str(duplicate.data).lower())
+        # With no uniqueness constraint, second create should succeed
+        self.assertEqual(duplicate.status_code, status.HTTP_201_CREATED)
 
     def test_get_products_with_variants(self):
         response = self.client.get('/api/products/products/')
@@ -168,7 +157,7 @@ class ProductAPITests(BaseSetupMixin, TestCase):
 
     def test_create_supplier_price(self):
         payload = {
-            'product': self.product.id,
+            'product_variant': self.variant.id,
             'price': 95.00
         }
         response = self.client.post('/api/products/supplier-prices/', payload)

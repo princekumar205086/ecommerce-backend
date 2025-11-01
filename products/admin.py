@@ -49,7 +49,7 @@ class PathologyDetailsInline(admin.StackedInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'sku', 'category', 'brand', 'product_type', 'price', 'stock', 'status', 'is_publish']
+    list_display = ['name', 'sku', 'category', 'brand', 'product_type', 'price', 'mrp', 'stock', 'status', 'is_publish']
     list_filter = ['product_type', 'status', 'is_publish', 'category', 'brand', 'created_at']
     search_fields = ['name', 'sku', 'description']
     prepopulated_fields = {'slug': ('name',)}
@@ -82,14 +82,14 @@ class ProductAttributeValueAdmin(admin.ModelAdmin):
 
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
-    list_display = ['product', 'sku', 'price', 'stock', 'is_active']
+    list_display = ['product', 'sku', 'price', 'mrp', 'stock', 'is_active']
     list_filter = ['is_active', 'created_at']
     search_fields = ['product__name', 'sku']
 
 
 @admin.register(SupplierProductPrice)
 class SupplierProductPriceAdmin(admin.ModelAdmin):
-    list_display = ['supplier', 'product_variant', 'price', 'pincode', 'district']
+    list_display = ['supplier', 'product_variant', 'price', 'mrp', 'pincode', 'district']
     list_filter = ['created_at']
     search_fields = ['supplier__username', 'product_variant__product__name']
 
