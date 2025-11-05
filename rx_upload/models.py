@@ -36,7 +36,7 @@ class PrescriptionUpload(models.Model):
     doctor_name = models.CharField(max_length=200, blank=True, null=True)
     doctor_license = models.CharField(max_length=100, blank=True, null=True)
     hospital_clinic = models.CharField(max_length=200, blank=True, null=True)
-    patient_name = models.CharField(max_length=200)
+    patient_name = models.CharField(max_length=200, blank=True, null=True)
     patient_age = models.PositiveIntegerField(blank=True, null=True)
     patient_gender = models.CharField(
         max_length=10,

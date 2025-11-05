@@ -7,11 +7,21 @@ from .verifier_account_views import (
     SendCredentialReminderView, VerifierAccountDetailView,
     VerifierAccountStatsView, test_verifier_email_notification
 )
+from . import customer_views
 
 app_name = 'rx_upload'
 
 urlpatterns = [
-    # Authentication endpoints
+    # Customer prescription order flow endpoints
+    path('customer/upload/', customer_views.upload_prescription, name='customer_upload_prescription'),
+    path('customer/<uuid:prescription_id>/patient-info/', customer_views.add_patient_information, name='customer_add_patient_info'),
+    path('customer/addresses/', customer_views.get_delivery_addresses, name='customer_get_addresses'),
+    path('customer/delivery-options/', customer_views.get_delivery_options, name='customer_delivery_options'),
+    path('customer/<uuid:prescription_id>/submit/', customer_views.submit_prescription_order, name='customer_submit_order'),
+    path('customer/<uuid:prescription_id>/summary/', customer_views.get_prescription_order_summary, name='customer_order_summary'),
+    path('customer/my-prescriptions/', customer_views.get_my_prescriptions, name='customer_my_prescriptions'),
+    
+    # Authentication endpoints (for RX verifiers)
     path('auth/login/', views.rx_verifier_login, name='rx_verifier_login'),
     path('auth/logout/', views.rx_verifier_logout, name='rx_verifier_logout'),
     path('auth/profile/', views.rx_verifier_profile, name='rx_verifier_profile'),
