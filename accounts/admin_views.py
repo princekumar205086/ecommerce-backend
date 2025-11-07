@@ -624,6 +624,99 @@ class AdminUserExportView(APIView):
         return response
 
 
+class AdminCheckEmailAvailabilityView(APIView):
+    """
+    Check if email is available for RX Verifier account creation (Admin only)
+    """
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAdmin]
+    
+    @swagger_auto_schema(
+        operation_description="Check if an email address is available for creating a new RX Verifier account (Admin only)",
+        operation_summary="Check Email Availability (Admin)",
+        tags=['Admin - User Management'],
+        manual_parameters=[
+            AUTH_HEADER,
+            openapi.Parameter(
+                'email',
+                openapi.IN_QUERY,
+                description="Email address to check",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        responses={
+            200: openapi.Response(
+                'Email availability status',
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'available': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                        'email': openapi.Schema(type=openapi.TYPE_STRING),
+                        'message': openapi.Schema(type=openapi.TYPE_STRING),
+                        'existing_user': openapi.Schema(
+                            type=openapi.TYPE_OBJECT,
+                            properties={
+                                'id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                                'email': openapi.Schema(type=openapi.TYPE_STRING),
+                                'full_name': openapi.Schema(type=openapi.TYPE_STRING),
+                                'role': openapi.Schema(type=openapi.TYPE_STRING),
+                                'is_active': openapi.Schema(type=openapi.TYPE_BOOLEAN)
+                            }
+                        )
+                    }
+                )
+            ),
+            400: 'Bad Request - Email parameter missing',
+            401: 'Unauthorized',
+            403: 'Forbidden'
+        }
+    )
+    def get(self, request):
+        """Check if email is available"""
+        email = request.query_params.get('email')
+        
+        if not email:
+            return Response({
+                'error': 'Email parameter is required'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Validate email format
+        import re
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_pattern, email):
+            return Response({
+                'available': False,
+                'email': email,
+                'message': 'Invalid email format'
+            }, status=status.HTTP_200_OK)
+        
+        # Check if email exists
+        try:
+            existing_user = User.objects.get(email__iexact=email)
+            
+            return Response({
+                'available': False,
+                'email': email,
+                'message': 'Email already exists in system',
+                'existing_user': {
+                    'id': existing_user.id,
+                    'email': existing_user.email,
+                    'full_name': existing_user.full_name,
+                    'role': existing_user.role,
+                    'is_active': existing_user.is_active,
+                    'date_joined': existing_user.date_joined.isoformat()
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except User.DoesNotExist:
+            return Response({
+                'available': True,
+                'email': email,
+                'message': 'Email is available for registration'
+            }, status=status.HTTP_200_OK)
+
+
 class AdminRXVerifierCreateView(APIView):
     """
     Create RX Verifier account (Admin only)

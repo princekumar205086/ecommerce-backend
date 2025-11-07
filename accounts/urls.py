@@ -15,6 +15,7 @@ from .admin_views import (
     AdminUserUpdateView, AdminUserDeleteView, AdminUserRoleChangeView,
     AdminUserStatusChangeView, AdminBulkUserActionView, AdminUserStatisticsView,
     AdminAuditLogListView, AdminUserExportView, AdminRXVerifierCreateView,
+    AdminCheckEmailAvailabilityView,
     AdminUserSearchView
 )
 
@@ -82,6 +83,7 @@ urlpatterns = [
     path('admin/users/<int:user_id>/change-status/', AdminUserStatusChangeView.as_view(), name='admin_user_change_status'),
     
     # Admin - RX Verifier Management
+    path('admin/rx-verifiers/check-email/', AdminCheckEmailAvailabilityView.as_view(), name='admin_check_email_availability'),
     path('admin/rx-verifiers/create/', AdminRXVerifierCreateView.as_view(), name='admin_rx_verifier_create'),
     
     # Admin - Analytics & Audit

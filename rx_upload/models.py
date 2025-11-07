@@ -499,3 +499,36 @@ class PrescriptionMedication(models.Model):
     
     def __str__(self):
         return f"{self.medication_name} - {self.prescription.prescription_number}"
+
+
+# ==========================================
+# SIGNALS - Auto-create VerifierWorkload
+# ==========================================
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+@receiver(post_save, sender=User)
+def create_verifier_workload(sender, instance, created, **kwargs):
+    """
+    Automatically create VerifierWorkload when a new RX Verifier user is created
+    This ensures all RX verifiers have a workload tracking record
+    """
+    if created and instance.role == 'rx_verifier':
+        try:
+            workload, workload_created = VerifierWorkload.objects.get_or_create(
+                verifier=instance,
+                defaults={
+                    'is_available': True,
+                    'max_daily_capacity': 50  # Default capacity
+                }
+            )
+            if workload_created:
+                logger.info(f"✓ Auto-created VerifierWorkload for {instance.email}")
+            else:
+                logger.info(f"ℹ VerifierWorkload already exists for {instance.email}")
+        except Exception as e:
+            logger.error(f"✗ Failed to create VerifierWorkload for {instance.email}: {str(e)}")
