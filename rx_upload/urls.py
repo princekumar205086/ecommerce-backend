@@ -8,6 +8,7 @@ from .verifier_account_views import (
     VerifierAccountStatsView, test_verifier_email_notification
 )
 from . import customer_views
+from . import admin_views
 
 app_name = 'rx_upload'
 
@@ -50,6 +51,20 @@ urlpatterns = [
     path('admin/verifiers/<int:verifier_id>/', VerifierAccountDetailView.as_view(), name='verifier_account_detail'),
     path('admin/verifiers/send-reminder/', SendCredentialReminderView.as_view(), name='send_credential_reminder'),
     path('admin/verifiers/statistics/', VerifierAccountStatsView.as_view(), name='verifier_account_stats'),
+    path('admin/verifiers/<int:verifier_id>/update-status/', admin_views.admin_update_verifier_status, name='admin_update_verifier_status'),
+    
+    # Admin - Dashboard & Analytics
+    path('admin/dashboard/', admin_views.admin_dashboard, name='admin_dashboard'),
+    path('admin/reports/performance/', admin_views.admin_performance_report, name='admin_performance_report'),
+    
+    # Admin - Prescription Management
+    path('admin/prescriptions/', admin_views.admin_list_prescriptions, name='admin_list_prescriptions'),
+    path('admin/prescriptions/<uuid:prescription_id>/assign/', admin_views.admin_assign_prescription, name='admin_assign_prescription'),
+    path('admin/prescriptions/<uuid:prescription_id>/reassign/', admin_views.admin_reassign_prescription, name='admin_reassign_prescription'),
+    path('admin/prescriptions/bulk-assign/', admin_views.admin_bulk_assign, name='admin_bulk_assign'),
+    
+    # Admin - Verifier List (workload view)
+    path('admin/verifiers/list/', admin_views.admin_list_verifiers, name='admin_list_verifiers'),
     
     # Testing endpoints
     path('admin/test/email-notification/', test_verifier_email_notification, name='test_verifier_email'),
