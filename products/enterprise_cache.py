@@ -88,8 +88,38 @@ class EnterpriseCacheManager:
         Invalidate cache keys matching a pattern
         """
         try:
-            cache.delete_pattern(pattern)
-            return True
+            # Prefer backend-native delete_pattern when available
+            if hasattr(cache, 'delete_pattern'):
+                cache.delete_pattern(pattern)
+                return True
+
+            # Fallback for LocMemCache or other backends without delete_pattern
+            # Try to inspect internal cache storage (best-effort)
+            try:
+                internal = getattr(cache, '_cache', None)
+                if internal is None:
+                    # Nothing we can do
+                    return False
+
+                import re
+                # Convert simple glob-style pattern to regex
+                regex = re.escape(pattern).replace(r"\*", ".*")
+                prog = re.compile(r"^" + regex + r"$")
+
+                keys = list(internal.keys())
+                for key in keys:
+                    try:
+                        if prog.match(str(key)):
+                            cache.delete(key)
+                    except Exception:
+                        # ignore per-key errors
+                        continue
+
+                return True
+            except Exception as e:
+                print(f"Cache invalidation fallback error: {e}")
+                return False
+
         except Exception as e:
             print(f"Cache invalidation error: {e}")
             return False

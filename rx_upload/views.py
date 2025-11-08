@@ -15,6 +15,7 @@ from datetime import datetime, timedelta
 
 from .models import PrescriptionUpload, VerificationActivity, VerifierWorkload, PrescriptionMedication
 from .optimizations import RXSystemOptimizer, RXDatabaseOptimizer
+from .order_integration import PrescriptionOrderManager
 from .serializers import (
     PrescriptionUploadSerializer, 
     PrescriptionVerificationSerializer,
@@ -534,4 +535,77 @@ def update_availability(request):
         'success': True,
         'message': f'Availability updated to {"available" if workload.is_available else "unavailable"}',
         'data': VerifierWorkloadSerializer(workload).data
+    }, status=status.HTTP_200_OK)
+
+
+# ========================
+# ORDER INTEGRATION VIEWS
+# ========================
+
+@api_view(['POST'])
+@permission_classes([IsRXVerifierOrAdmin])
+def create_order_from_prescription(request, prescription_id):
+    """
+    Create order from approved prescription
+    POST /api/rx-upload/prescriptions/{id}/create-order/
+    Body: {
+        "medications": [
+            {"medication_name": "Medicine Name", "product_id": 123, "quantity": 2},
+            ...
+        ],
+        "notes": "Additional notes"
+    }
+    """
+    medications_data = request.data.get('medications', [])
+    notes = request.data.get('notes', '')
+    
+    success, message, order = PrescriptionOrderManager.create_order_from_prescription(
+        prescription_id=prescription_id,
+        medications_data=medications_data,
+        notes=notes
+    )
+    
+    if success:
+        from orders.serializers import OrderSerializer
+        return Response({
+            'success': True,
+            'message': message,
+            'data': {
+                'order': OrderSerializer(order).data,
+                'order_id': order.id,
+                'order_number': order.order_number
+            }
+        }, status=status.HTTP_201_CREATED)
+    else:
+        return Response({
+            'success': False,
+            'message': message
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_prescription_orders(request, prescription_id):
+    """
+    Get all orders related to a prescription
+    GET /api/rx-upload/prescriptions/{id}/orders/
+    """
+    # Check permissions
+    prescription = get_object_or_404(PrescriptionUpload, id=prescription_id)
+    
+    if request.user.role not in ['admin', 'rx_verifier'] and prescription.customer != request.user:
+        return Response({
+            'success': False,
+            'message': 'Permission denied'
+        }, status=status.HTTP_403_FORBIDDEN)
+    
+    orders = PrescriptionOrderManager.get_prescription_orders(prescription_id)
+    
+    from orders.serializers import OrderSerializer
+    return Response({
+        'success': True,
+        'data': {
+            'prescription_number': prescription.prescription_number,
+            'orders': OrderSerializer(orders, many=True).data
+        }
     }, status=status.HTTP_200_OK)

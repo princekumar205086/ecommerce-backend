@@ -37,6 +37,10 @@ urlpatterns = [
     path('prescriptions/<uuid:prescription_id>/reject/', views.reject_prescription, name='reject_prescription'),
     path('prescriptions/<uuid:prescription_id>/clarification/', views.request_clarification, name='request_clarification'),
     
+    # Order integration
+    path('prescriptions/<uuid:prescription_id>/create-order/', views.create_order_from_prescription, name='create_order_from_prescription'),
+    path('prescriptions/<uuid:prescription_id>/orders/', views.get_prescription_orders, name='get_prescription_orders'),
+    
     # Dashboard and analytics
     path('dashboard/', views.verification_dashboard, name='verification_dashboard'),
     path('pending/', views.pending_prescriptions, name='pending_prescriptions'),

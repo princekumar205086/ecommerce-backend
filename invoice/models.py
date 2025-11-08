@@ -1,12 +1,11 @@
-# invoice/models.py
 import os
+from io import BytesIO
+from decimal import Decimal
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.utils import timezone
-from django.db.models import Sum, F, DecimalField
-from django.db import transaction
-from decimal import Decimal
 from django.core.exceptions import ValidationError
+from django.core.files.base import ContentFile
 from accounts.models import User
 from orders.models import Order
 
@@ -39,7 +38,7 @@ class Invoice(models.Model):
         related_name='invoice'
     )
     invoice_number = models.CharField(
-        max_length=20,
+        max_length=40,
         unique=True,
         editable=False
     )
@@ -49,7 +48,7 @@ class Invoice(models.Model):
         default='draft'
     )
     issued_date = models.DateField(default=timezone.now)
-    due_date = models.DateField()
+    due_date = models.DateField(null=True, blank=True)
     payment_terms = models.CharField(
         max_length=20,
         choices=PAYMENT_TERMS,
@@ -58,37 +57,37 @@ class Invoice(models.Model):
     subtotal = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.00
+        default=Decimal('0.00')
     )
     tax_amount = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.00
+        default=Decimal('0.00')
     )
     shipping_charge = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.00
+        default=Decimal('0.00')
     )
     discount_amount = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.00
+        default=Decimal('0.00')
     )
     total_amount = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.00
+        default=Decimal('0.00')
     )
     amount_paid = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.00
+        default=Decimal('0.00')
     )
     balance_due = models.DecimalField(
         max_digits=12,
         decimal_places=2,
-        default=0.00
+        default=Decimal('0.00')
     )
     notes = models.TextField(blank=True)
     terms_conditions = models.TextField(
@@ -133,7 +132,10 @@ class Invoice(models.Model):
         ).order_by('invoice_number').last()
 
         if last_invoice:
-            seq = int(last_invoice.invoice_number[-4:]) + 1
+            try:
+                seq = int(last_invoice.invoice_number.split('-')[-1]) + 1
+            except Exception:
+                seq = 1
         else:
             seq = 1
 
@@ -152,14 +154,18 @@ class Invoice(models.Model):
 
     def calculate_totals(self):
         """Calculate all financial fields from the order"""
-        self.subtotal = self.order.subtotal
-        self.tax_amount = self.order.tax
-        self.shipping_charge = self.order.shipping_charge
-        self.discount_amount = Decimal(str(self.order.discount)) + Decimal(str(self.order.coupon_discount))
-        self.total_amount = self.order.total
+        try:
+            self.subtotal = Decimal(self.order.subtotal)
+            self.tax_amount = Decimal(self.order.tax)
+            self.shipping_charge = Decimal(self.order.shipping_charge)
+            self.discount_amount = Decimal(str(self.order.discount)) + Decimal(str(self.order.coupon_discount))
+            self.total_amount = Decimal(self.order.total)
+        except Exception:
+            # Keep defaults if order doesn't provide these
+            pass
 
         # Calculate balance due
-        self.balance_due = self.total_amount - Decimal(str(self.amount_paid))
+        self.balance_due = (self.total_amount - Decimal(str(self.amount_paid)))
 
     def is_overdue(self):
         """Check if invoice is overdue"""
@@ -170,7 +176,7 @@ class Invoice(models.Model):
         if amount <= 0:
             raise ValidationError("Payment amount must be positive")
 
-        self.amount_paid += amount
+        self.amount_paid += Decimal(amount)
         if self.amount_paid >= self.total_amount:
             self.status = 'paid'
             self.amount_paid = self.total_amount  # Prevent overpayment
@@ -181,9 +187,153 @@ class Invoice(models.Model):
             self.save()
 
     def generate_pdf(self):
-        """Generate PDF invoice (to be implemented with reportlab/weasyprint)"""
-        # This would be implemented in a separate service
-        pass
+        """Generate a professional PDF invoice using ReportLab Platypus.
+
+        Returns PDF bytes or None on failure. Also attempts to save to `pdf_file`.
+        """
+        try:
+            # Import inside function to avoid import-time failures
+            from reportlab.lib.pagesizes import A4
+            from reportlab.lib import colors
+            from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+            from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
+            from reportlab.lib.units import mm
+            from django.conf import settings
+
+            buffer = BytesIO()
+            doc = SimpleDocTemplate(buffer, pagesize=A4,
+                                    rightMargin=20*mm, leftMargin=20*mm,
+                                    topMargin=20*mm, bottomMargin=20*mm)
+
+            styles = getSampleStyleSheet()
+            normal = styles['Normal']
+            heading = ParagraphStyle('heading', parent=styles['Heading1'], alignment=0, fontSize=16)
+            small = ParagraphStyle('small', parent=styles['Normal'], fontSize=9)
+
+            elements = []
+
+            # Header: logo + company info
+            company_name = getattr(settings, 'APP_NAME', 'MedixMall')
+            company_contact = getattr(settings, 'DEFAULT_FROM_EMAIL', '')
+            logo_path = getattr(settings, 'INVOICE_LOGO_PATH', None)
+
+            header_data = []
+            if logo_path and os.path.exists(logo_path):
+                try:
+                    img = Image(logo_path, width=40*mm, height=20*mm)
+                    header_data.append([img, Paragraph(f"<b>{company_name}</b><br/>{company_contact}", normal)])
+                except Exception:
+                    header_data.append([Paragraph(f"<b>{company_name}</b>", heading), Paragraph(company_contact, small)])
+            else:
+                header_data.append([Paragraph(f"<b>{company_name}</b>", heading), Paragraph(company_contact, small)])
+
+            header_table = Table(header_data, colWidths=[60*mm, 100*mm])
+            header_table.setStyle(TableStyle([
+                ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+                ('LEFTPADDING', (0,0), (-1,-1), 0),
+                ('RIGHTPADDING', (0,0), (-1,-1), 0),
+            ]))
+            elements.append(header_table)
+            elements.append(Spacer(1, 8))
+
+            # Invoice metadata
+            meta = [[Paragraph(f"<b>Invoice:</b> {self.invoice_number}", normal), Paragraph(f"<b>Date:</b> {self.issued_date.strftime('%Y-%m-%d')}", normal)],
+                    [Paragraph(f"<b>Order:</b> {self.order.order_number}", normal), Paragraph(f"<b>Due:</b> {self.due_date.strftime('%Y-%m-%d')}", normal)]]
+            meta_table = Table(meta, colWidths=[95*mm, 65*mm])
+            meta_table.setStyle(TableStyle([
+                ('VALIGN', (0,0), (-1,-1), 'TOP'),
+                ('LEFTPADDING', (0,0), (-1,-1), 0),
+                ('RIGHTPADDING', (0,0), (-1,-1), 0),
+            ]))
+            elements.append(meta_table)
+            elements.append(Spacer(1, 12))
+
+            # Billing and shipping addresses
+            billing = self.order.billing_address or {}
+            shipping = self.order.shipping_address or {}
+            addr_data = [[Paragraph('<b>Bill To</b>', normal), Paragraph('<b>Ship To</b>', normal)],
+                         [Paragraph(billing.get('full_name',''), small), Paragraph(shipping.get('full_name',''), small)],
+                         [Paragraph(billing.get('address_line_1',''), small), Paragraph(shipping.get('address_line_1',''), small)],
+                         [Paragraph(f"{billing.get('city','')} {billing.get('postal_code','')}", small), Paragraph(f"{shipping.get('city','')} {shipping.get('postal_code','')}", small)]]
+            addr_table = Table(addr_data, colWidths=[80*mm, 80*mm])
+            addr_table.setStyle(TableStyle([
+                ('VALIGN', (0,0), (-1,-1), 'TOP'),
+                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.white),
+                ('BOX', (0,0), (-1,-1), 0.25, colors.white),
+            ]))
+            elements.append(addr_table)
+            elements.append(Spacer(1, 12))
+
+            # Line items table
+            data = [[Paragraph('<b>Item</b>', normal), Paragraph('<b>Qty</b>', normal), Paragraph('<b>Unit</b>', normal), Paragraph('<b>Total</b>', normal)]]
+            for item in self.order.items.select_related('product').all():
+                name = item.product.name
+                qty = str(item.quantity)
+                unit = f"₹{float(item.price):.2f}"
+                total = f"₹{float(item.total_price):.2f}"
+                data.append([Paragraph(name, small), Paragraph(qty, small), Paragraph(unit, small), Paragraph(total, small)])
+
+            table = Table(data, colWidths=[90*mm, 25*mm, 30*mm, 30*mm])
+            table.setStyle(TableStyle([
+                ('GRID', (0,0), (-1,-1), 0.5, colors.grey),
+                ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#f2f4f7')),
+                ('ALIGN', (1,1), (-1,-1), 'RIGHT'),
+                ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+                ('LEFTPADDING', (0,0), (-1,-1), 6),
+                ('RIGHTPADDING', (0,0), (-1,-1), 6),
+            ]))
+            elements.append(table)
+            elements.append(Spacer(1, 12))
+
+            # Totals box
+            totals_data = []
+            totals_data.append(['Subtotal', f"₹{float(self.subtotal):.2f}"])
+            totals_data.append(['Tax', f"₹{float(self.tax_amount):.2f}"])
+            totals_data.append(['Shipping', f"₹{float(self.shipping_charge):.2f}"])
+            totals_data.append(['Discount', f"- ₹{float(self.discount_amount):.2f}"])
+            totals_data.append(['Total', f"₹{float(self.total_amount):.2f}"])
+
+            totals_table = Table(totals_data, colWidths=[100*mm, 75*mm], hAlign='RIGHT')
+            totals_table.setStyle(TableStyle([
+                ('ALIGN', (1,0), (-1,-1), 'RIGHT'),
+                ('FONTNAME', (0,-1), (-1,-1), 'Helvetica-Bold'),
+                ('LINEABOVE', (0,-1), (-1,-1), 1, colors.black),
+            ]))
+            elements.append(totals_table)
+            elements.append(Spacer(1, 18))
+
+            # Notes & footer
+            if self.notes:
+                elements.append(Paragraph('<b>Notes</b>', normal))
+                elements.append(Paragraph(self.notes, small))
+                elements.append(Spacer(1, 12))
+
+            footer_text = f"{company_name} • {company_contact}"
+            elements.append(Spacer(1, 30))
+            elements.append(Paragraph(footer_text, small))
+
+            doc.build(elements)
+
+            pdf = buffer.getvalue()
+            buffer.close()
+
+            # save to filefield if possible
+            try:
+                filename = f'INV-{self.issued_date.strftime("%Y%m%d")}-{self.invoice_number}.pdf'
+                self.pdf_file.save(filename, ContentFile(pdf), save=True)
+            except Exception:
+                # swallow save errors in generate
+                pass
+
+            return pdf
+
+        except Exception as e:
+            try:
+                import logging
+                logging.getLogger(__name__).exception(f"Invoice PDF generation failed: {e}")
+            except Exception:
+                pass
+            return None
 
     @classmethod
     def create_from_order(cls, order):
@@ -296,4 +446,7 @@ class InvoicePayment(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         # Update invoice payment status
-        self.invoice.mark_as_paid(self.amount)
+        try:
+            self.invoice.mark_as_paid(self.amount)
+        except Exception:
+            pass
